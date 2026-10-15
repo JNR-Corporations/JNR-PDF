@@ -197,7 +197,16 @@
   <!-- Keep your existing inline CSS and JavaScript below.
        No external CSS/JS paths are assumed. -->
 
-
+<link rel="manifest" href="manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((reg) => console.log('Service Worker registered successfully:', reg.scope))
+        .catch((err) => console.error('Service Worker registration failed:', err));
+    });
+  }
+</script>
 <style>
 :root{--red:#c82032;--red-dark:#9f1727;--red-soft:#fff0f1;--ink:#201b1c;--muted:#746b6d;--line:#eee2e3;--paper:#fff;--bg:#fffafa;--green:#16855b;--shadow:0 16px 46px rgba(76,22,31,.075);--shadow-sm:0 7px 22px rgba(76,22,31,.055);--radius:24px;--max:1220px}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 8% 5%,rgba(255,225,228,.48),transparent 33rem),radial-gradient(ellipse at 95% 35%,rgba(255,238,232,.4),transparent 27rem),var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid rgba(200,32,50,.28);outline-offset:3px}.wrap{width:min(var(--max),calc(100% - 44px));margin-inline:auto}.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(238,226,227,.85)}.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;min-width:max-content}.brand-mark{width:43px;height:43px;border-radius:15px;background:linear-gradient(145deg,#e84352,#b8182b);display:grid;place-items:center;color:#fff;box-shadow:0 7px 15px rgba(200,32,50,.22);position:relative;overflow:hidden}.brand-mark:after{content:"";position:absolute;width:34px;height:34px;border:1px solid rgba(255,255,255,.35);border-radius:50%;right:-16px;top:-13px}.brand-mark svg{width:23px;height:23px}.brand-name{font-size:19px;font-weight:850;letter-spacing:-.7px;line-height:1.1}.brand-name span{color:var(--red)}.brand-sub{color:#8d7f81;font-size:10px;letter-spacing:2px;font-weight:800;text-transform:uppercase;margin-top:4px}.navlinks{display:flex;align-items:center;gap:26px;color:#665c5e;font-size:13px;font-weight:700}.navlinks a{transition:color .2s}.navlinks a:hover{color:var(--red)}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:14px;padding:12px 17px;background:var(--red);color:white;font-weight:800;font-size:13px;box-shadow:0 7px 16px rgba(200,32,50,.15);cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}.nav-cta:hover,.btn:hover{transform:translateY(-2px);background:var(--red-dark);box-shadow:0 10px 20px rgba(200,32,50,.22)}.btn svg,.nav-cta svg{width:16px;height:16px}.btn-light{color:var(--red);background:#fff;border:1px solid rgba(255,255,255,.8);box-shadow:none}.btn-light:hover{background:#fff5f5;color:var(--red-dark);box-shadow:none}.btn-outline{background:#fff;color:var(--red);border:1px solid #f0cdd1;box-shadow:none}.btn-outline:hover{background:var(--red-soft);box-shadow:none}
@@ -437,5 +446,694 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <script src="./block.js" ></script>
+
+<!-- JNR PDF Studio — Custom PWA Installer -->
+<style>
+  #jnr-install-launcher {
+    position: fixed;
+    right: 20px;
+    bottom: 22px;
+    z-index: 9000;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 17px 12px 12px;
+    border: 1px solid #f1cbd0;
+    border-radius: 18px;
+    background: rgba(255,255,255,.96);
+    color: #201b1c;
+    box-shadow: 0 12px 35px rgba(100,20,33,.17);
+    font: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    animation: jnr-launch-in .45s ease both;
+  }
+
+  #jnr-install-launcher.jnr-visible {
+    display: flex;
+  }
+
+  .jnr-launch-icon {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #fff0f1;
+  }
+
+  .jnr-launch-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .jnr-launch-copy {
+    display: grid;
+    gap: 2px;
+    text-align: left;
+  }
+
+  .jnr-launch-copy strong {
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  .jnr-launch-copy small {
+    color: #817477;
+    font-size: 10px;
+  }
+
+  .jnr-launch-arrow {
+    margin-left: 3px;
+    color: #c82032;
+    font-size: 21px;
+  }
+
+  #jnr-install-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(39, 20, 23, .44);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .25s ease, visibility .25s ease;
+  }
+
+  #jnr-install-layer.jnr-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  #jnr-install-dialog {
+    position: relative;
+    width: min(100%, 430px);
+    max-height: min(90dvh, 720px);
+    overflow-y: auto;
+    padding: 27px;
+    border: 1px solid rgba(255,255,255,.85);
+    border-radius: 29px;
+    background:
+      radial-gradient(circle at 100% 0%, #fff0f1 0, transparent 37%),
+      #fff;
+    box-shadow: 0 28px 90px rgba(54, 13, 21, .25);
+    transform: translateY(18px) scale(.97);
+    transition: transform .3s cubic-bezier(.2,.8,.2,1);
+    text-align: center;
+  }
+
+  #jnr-install-layer.jnr-open #jnr-install-dialog {
+    transform: translateY(0) scale(1);
+  }
+
+  .jnr-install-close {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #f0e2e4;
+    border-radius: 12px;
+    background: #fff;
+    color: #76696c;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .jnr-install-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 164px;
+    margin: 0 auto 19px;
+    overflow: hidden;
+    border: 1px solid #f5d9dc;
+    border-radius: 22px;
+    background: linear-gradient(140deg, #fff5f5, #fff 58%, #ffe9ec);
+  }
+
+  .jnr-install-art:before,
+  .jnr-install-art:after {
+    content: "";
+    position: absolute;
+    border: 1px solid #efc3ca;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .jnr-install-art:before {
+    width: 190px;
+    height: 190px;
+    right: -65px;
+    top: -105px;
+  }
+
+  .jnr-install-art:after {
+    width: 120px;
+    height: 120px;
+    left: -55px;
+    bottom: -75px;
+  }
+
+  .jnr-install-logo {
+    position: relative;
+    z-index: 1;
+    width: 83px;
+    height: 83px;
+    padding: 9px;
+    border: 1px solid #ffffff;
+    border-radius: 24px;
+    background: #fff;
+    object-fit: contain;
+    box-shadow: 0 12px 30px rgba(200,32,50,.17);
+    animation: jnr-logo-float 3s ease-in-out infinite;
+  }
+
+  .jnr-install-kicker {
+    margin: 0 0 8px;
+    color: #c82032;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+  }
+
+  #jnr-install-title {
+    margin: 0 auto 10px;
+    max-width: 330px;
+    color: #201b1c;
+    font-size: clamp(24px, 5vw, 31px);
+    font-weight: 900;
+    line-height: 1.13;
+    letter-spacing: -1.1px;
+  }
+
+  #jnr-install-description {
+    max-width: 335px;
+    margin: 0 auto 19px;
+    color: #776b6e;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .jnr-install-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0 0 21px;
+  }
+
+  .jnr-install-benefit {
+    padding: 11px 5px;
+    border: 1px solid #f1e5e6;
+    border-radius: 14px;
+    background: rgba(255,255,255,.82);
+    color: #74686a;
+    font-size: 10px;
+    font-weight: 750;
+    line-height: 1.45;
+  }
+
+  .jnr-install-benefit span {
+    display: block;
+    margin-bottom: 5px;
+    color: #c82032;
+    font-size: 19px;
+  }
+
+  .jnr-install-primary {
+    display: flex;
+    width: 100%;
+    min-height: 51px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #d72c40, #b8182b);
+    color: #fff;
+    box-shadow: 0 9px 22px rgba(200,32,50,.22);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 850;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .jnr-install-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 13px 28px rgba(200,32,50,.29);
+  }
+
+  .jnr-install-primary:disabled {
+    opacity: .7;
+    cursor: wait;
+    transform: none;
+  }
+
+  .jnr-install-primary svg {
+    width: 19px;
+    height: 19px;
+    flex: 0 0 auto;
+  }
+
+  .jnr-install-secondary {
+    display: block;
+    margin: 13px auto 0;
+    padding: 8px 12px;
+    border: 0;
+    background: transparent;
+    color: #817477;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+
+  #jnr-install-status {
+    min-height: 18px;
+    margin: 11px 0 0;
+    color: #746b6d;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  #jnr-install-status:empty {
+    display: none;
+  }
+
+  .jnr-install-ios-note {
+    display: none;
+    margin-top: 15px;
+    padding: 13px;
+    border: 1px solid #f2d6da;
+    border-radius: 14px;
+    background: #fff7f8;
+    color: #69595d;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .jnr-install-ios-note strong {
+    color: #c82032;
+  }
+
+  #jnr-install-layer.jnr-ios-help .jnr-install-ios-note {
+    display: block;
+  }
+
+  @keyframes jnr-launch-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes jnr-logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @media (max-width: 600px) {
+    #jnr-install-layer {
+      align-items: end;
+      padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+    }
+
+    #jnr-install-dialog {
+      width: 100%;
+      max-height: 88dvh;
+      padding: 21px 19px 20px;
+      border-radius: 27px 27px 22px 22px;
+      transform: translateY(35px);
+    }
+
+    #jnr-install-layer.jnr-open #jnr-install-dialog {
+      transform: translateY(0);
+    }
+
+    .jnr-install-art {
+      min-height: 125px;
+      margin-bottom: 15px;
+    }
+
+    .jnr-install-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+    }
+
+    #jnr-install-title {
+      font-size: 27px;
+    }
+
+    #jnr-install-description {
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    .jnr-install-benefits {
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .jnr-install-benefit {
+      font-size: 9px;
+      padding: 9px 3px;
+    }
+
+    #jnr-install-launcher {
+      right: 12px;
+      bottom: calc(75px + env(safe-area-inset-bottom));
+      max-width: calc(100vw - 24px);
+      padding: 9px 13px 9px 9px;
+      border-radius: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #jnr-install-layer,
+    #jnr-install-dialog,
+    #jnr-install-launcher,
+    .jnr-install-logo {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<button id="jnr-install-launcher" type="button"
+        aria-label="Install JNR PDF Studio">
+  <span class="jnr-launch-icon">
+    <img src="logo.png" alt="" onerror="this.style.display='none'">
+  </span>
+  <span class="jnr-launch-copy">
+    <strong>Install JNR PDF Studio</strong>
+    <small>Your PDF tools, one tap away</small>
+  </span>
+  <span class="jnr-launch-arrow" aria-hidden="true">›</span>
+</button>
+
+<div id="jnr-install-layer" aria-hidden="true">
+  <section id="jnr-install-dialog"
+           role="dialog"
+           aria-modal="true"
+           aria-labelledby="jnr-install-title"
+           aria-describedby="jnr-install-description"
+           tabindex="-1">
+
+    <button class="jnr-install-close" type="button"
+            aria-label="Close install window">×</button>
+
+    <div class="jnr-install-art">
+      <img class="jnr-install-logo" src="logo.png"
+           alt="JNR PDF Studio logo">
+    </div>
+
+    <p class="jnr-install-kicker">YOUR WORKSPACE, UPGRADED</p>
+    <h2 id="jnr-install-title">JNR PDF Studio. One tap away.</h2>
+    <p id="jnr-install-description">
+      Add your PDF workspace to your device for a convenient,
+      app-like experience right from your home screen.
+    </p>
+
+    <div class="jnr-install-benefits">
+      <div class="jnr-install-benefit">
+        <span aria-hidden="true">↗</span>
+        Quick access
+      </div>
+      <div class="jnr-install-benefit">
+        <span aria-hidden="true">▣</span>
+        App-like view
+      </div>
+      <div class="jnr-install-benefit">
+        <span aria-hidden="true">⌁</span>
+        Easy to launch
+      </div>
+    </div>
+
+    <button id="jnr-install-action" class="jnr-install-primary"
+            type="button">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M5 16.5v3A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-3"
+          stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Install app</span>
+    </button>
+
+    <div id="jnr-install-status" role="status" aria-live="polite"></div>
+
+    <div class="jnr-install-ios-note">
+      <strong>Install on iPhone or iPad</strong><br>
+      1. Open this website in Safari.<br>
+      2. Tap the Share button.<br>
+      3. Choose <strong>Add to Home Screen</strong>, then tap Add.
+    </div>
+
+    <button id="jnr-install-dismiss" class="jnr-install-secondary"
+            type="button">Not now</button>
+  </section>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const layer = document.getElementById("jnr-install-layer");
+  const dialog = document.getElementById("jnr-install-dialog");
+  const launcher = document.getElementById("jnr-install-launcher");
+  const installButton = document.getElementById("jnr-install-action");
+  const dismissButton = document.getElementById("jnr-install-dismiss");
+  const closeButton = layer.querySelector(".jnr-install-close");
+  const status = document.getElementById("jnr-install-status");
+
+  if (!layer || !launcher || !installButton) return;
+
+  let installPromptEvent = null;
+  let lastFocusedElement = null;
+  let autoPromptChecked = false;
+
+  const isStandalone = () =>
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.matchMedia("(display-mode: fullscreen)").matches ||
+    window.navigator.standalone === true;
+
+  const isIOS = () =>
+    /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  const safeGet = key => {
+    try { return localStorage.getItem(key); }
+    catch (_) { return null; }
+  };
+
+  const safeSet = (key, value) => {
+    try { localStorage.setItem(key, value); }
+    catch (_) {}
+  };
+
+  function openInstaller(source = "manual") {
+    if (isStandalone()) return;
+
+    lastFocusedElement = document.activeElement;
+    layer.classList.add("jnr-open");
+    layer.setAttribute("aria-hidden", "false");
+    status.textContent = "";
+
+    const ios = isIOS() && !installPromptEvent;
+    layer.classList.toggle("jnr-ios-help", ios);
+
+    if (ios) {
+      installButton.querySelector("span").textContent = "How to install";
+      status.textContent = "Follow the steps below to add the website to your Home Screen.";
+    } else {
+      installButton.querySelector("span").textContent =
+        installPromptEvent ? "Install app" : "Check install options";
+    }
+
+    document.body.style.overflow = "hidden";
+    window.setTimeout(() => dialog.focus(), 80);
+
+    if (source === "auto") {
+      safeSet("jnr_pwa_last_prompt", String(Date.now()));
+    }
+  }
+
+  function closeInstaller() {
+    layer.classList.remove("jnr-open");
+    layer.setAttribute("aria-hidden", "true");
+    layer.classList.remove("jnr-ios-help");
+    document.body.style.overflow = "";
+
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    }
+  }
+
+  function showLauncher() {
+    if (!isStandalone()) launcher.classList.add("jnr-visible");
+  }
+
+  function hideLauncher() {
+    launcher.classList.remove("jnr-visible");
+  }
+
+  launcher.addEventListener("click", () => openInstaller("manual"));
+  closeButton.addEventListener("click", closeInstaller);
+  dismissButton.addEventListener("click", closeInstaller);
+
+  layer.addEventListener("click", event => {
+    if (event.target === layer) closeInstaller();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && layer.classList.contains("jnr-open")) {
+      closeInstaller();
+    }
+
+    if (event.key === "Tab" && layer.classList.contains("jnr-open")) {
+      const focusable = [...dialog.querySelectorAll(
+        'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+      )].filter(el => el.offsetParent !== null);
+
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  window.addEventListener("beforeinstallprompt", event => {
+    // Keep the browser's real prompt; do not call preventDefault anywhere else.
+    event.preventDefault();
+    installPromptEvent = event;
+    showLauncher();
+
+    // Show once per browser/device unless the user has dismissed it recently.
+    if (autoPromptChecked || isStandalone()) return;
+    autoPromptChecked = true;
+
+    const dismissedAt = Number(safeGet("jnr_pwa_dismissed_at") || 0);
+    const lastPromptAt = Number(safeGet("jnr_pwa_last_prompt") || 0);
+    const cooldown = 7 * 24 * 60 * 60 * 1000;
+
+    if (Date.now() - dismissedAt < cooldown) return;
+    if (Date.now() - lastPromptAt < cooldown) return;
+
+    const tryAutoOpen = () => {
+      if (isStandalone() || layer.classList.contains("jnr-open")) return;
+      if (document.visibilityState !== "visible") return;
+      openInstaller("auto");
+    };
+
+    // Wait for the existing splash screen to finish, if present.
+    const splash = document.getElementById("splash-overlay");
+    if (splash) {
+      const started = Date.now();
+      const waitForSplash = window.setInterval(() => {
+        const currentSplash = document.getElementById("splash-overlay");
+        if (!currentSplash || Date.now() - started > 15000) {
+          window.clearInterval(waitForSplash);
+          window.setTimeout(tryAutoOpen, 500);
+        }
+      }, 300);
+    } else {
+      window.setTimeout(tryAutoOpen, 1800);
+    }
+  });
+
+  installButton.addEventListener("click", async () => {
+    if (isStandalone()) {
+      status.textContent = "JNR PDF Studio is already installed on this device.";
+      hideLauncher();
+      return;
+    }
+
+    if (installPromptEvent) {
+      const promptEvent = installPromptEvent;
+      installPromptEvent = null;
+      installButton.disabled = true;
+      installButton.querySelector("span").textContent = "Opening install prompt…";
+
+      try {
+        await promptEvent.prompt();
+        const choice = await promptEvent.userChoice;
+
+        if (choice && choice.outcome === "accepted") {
+          status.textContent = "Installation accepted. Follow your browser's instructions.";
+        } else {
+          status.textContent = "No problem — you can install it whenever you're ready.";
+        }
+      } catch (error) {
+        status.textContent = "The browser couldn't open its install prompt. Try the browser menu.";
+      } finally {
+        installButton.disabled = false;
+        installButton.querySelector("span").textContent = "Install app";
+      }
+      return;
+    }
+
+    if (isIOS()) {
+      layer.classList.add("jnr-ios-help");
+      status.textContent = "Use Safari's Share menu, then choose Add to Home Screen.";
+      return;
+    }
+
+    status.textContent =
+      "Automatic installation isn't available right now. Open your browser menu and look for Install app or Add to Home Screen.";
+  });
+
+  window.addEventListener("appinstalled", () => {
+    installPromptEvent = null;
+    safeSet("jnr_pwa_installed", "1");
+    hideLauncher();
+    closeInstaller();
+  });
+
+  // Don't show the installer while running as an installed app.
+  if (isStandalone() || safeGet("jnr_pwa_installed") === "1") {
+    hideLauncher();
+  } else {
+    // A manual entry point remains available even when automatic install
+    // isn't supported by the current browser.
+    showLauncher();
+  }
+
+  // Store dismissals so the automatic popup doesn't repeatedly interrupt.
+  dismissButton.addEventListener("click", () => {
+    safeSet("jnr_pwa_dismissed_at", String(Date.now()));
+  });
+
+  // Refresh launcher state if display mode changes.
+  window.matchMedia("(display-mode: standalone)").addEventListener?.("change", event => {
+    if (event.matches) {
+      hideLauncher();
+      closeInstaller();
+    }
+  });
+})();
+</script>
+</body>
+</html>
+
 </body>
 </html>
