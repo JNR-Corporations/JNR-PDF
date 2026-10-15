@@ -1,0 +1,40 @@
+/* Remove browser tap/click highlights */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Remove default focus outlines */
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove selection highlight */
+* {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Prevent unwanted touch behavior */
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Buttons/links: no browser touch highlight */
+button,
+a {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keep inputs usable */
+input,
+textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}

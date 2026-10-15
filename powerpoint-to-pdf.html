@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#c92032">
+<meta name="description" content="Convert PowerPoint and OpenDocument presentations to PDF with JNR PDF Studio. Preview slides and export a high-quality PDF in your browser.">
+<title>PowerPoint to PDF — JNR PDF Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c92032;--red-dark:#a91627;--red-soft:#fff0f2;--ink:#202126;--muted:#777982;--line:#e9e9ed;--paper:#fff;--canvas:#f5f5f7;--green:#25875a;--shadow:0 10px 32px rgba(35,23,27,.07);--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:'DM Sans',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--canvas)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #c9203233;outline-offset:2px}button:disabled{opacity:.52;cursor:not-allowed;transform:none!important;box-shadow:none!important}.topbar{min-height:74px;padding:12px clamp(14px,3vw,36px);display:flex;align-items:center;justify-content:space-between;gap:18px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand-mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#df3345,#b81429);color:#fff;box-shadow:0 7px 15px #c920322e;flex:0 0 auto}.brand-mark svg{width:23px;height:23px}.brand-name{font-size:20px;font-weight:800;letter-spacing:-.8px;line-height:1}.brand-name span{color:var(--red)}.brand-sub{font-size:10px;color:#91929a;letter-spacing:1.55px;font-weight:800;margin-top:5px}.top-status{display:flex;align-items:center;gap:8px;font-size:11px;color:#71737c;white-space:nowrap}.live-dot{width:7px;height:7px;border-radius:50%;background:#39aa73;box-shadow:0 0 0 4px #e8f7ef;display:inline-block;flex:0 0 auto}.top-actions{display:flex;align-items:center;gap:8px}.btn{border:1px solid var(--line);border-radius:11px;background:#fff;color:#3b3d44;padding:10px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:800;transition:transform .16s,box-shadow .16s,border-color .16s;white-space:nowrap}.btn:hover{transform:translateY(-1px);border-color:#d6d6dc;box-shadow:0 5px 14px #14141e0f}.btn svg{width:16px;height:16px;flex:0 0 auto}.btn.primary{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 6px 15px #c920322e}.btn.primary:hover{background:var(--red-dark)}.btn.soft{background:var(--red-soft);border-color:#f5d7dc;color:var(--red)}.btn.small{padding:8px 10px;font-size:11px;border-radius:9px}.page-shell{max-width:1540px;margin:0 auto;padding:28px clamp(13px,3vw,38px) 25px}.hero{display:flex;align-items:center;justify-content:space-between;gap:26px;padding:4px 4px 24px}.hero-copy{max-width:890px}.eyebrow{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:1.65px;font-weight:800;color:#898b94}.eyebrow .slash{color:#d2a0a7}.hero h1{font-size:clamp(31px,4vw,50px);line-height:1.08;letter-spacing:-2px;margin:16px 0 11px;font-weight:800}.hero h1 span{color:var(--red)}.hero p{font-size:14px;line-height:1.75;color:#787a83;max-width:760px;margin:0}.format-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:17px}.format-pills span{padding:7px 9px;border-radius:8px;background:#fff;border:1px solid #e8e8ed;color:#777984;font:10px 'DM Mono',monospace}.hero-art{position:relative;width:195px;height:158px;flex:0 0 195px;margin-right:18px}.art-slide{position:absolute;width:122px;height:94px;border:1px solid #e5e5ec;border-radius:10px;background:#fff;left:24px;top:16px;box-shadow:0 13px 26px #24182113;transform:rotate(-8deg);padding:12px;overflow:hidden}.art-slide.back{left:57px;top:29px;background:#fff1f3;transform:rotate(9deg)}.art-slide .line{height:5px;background:#e6e6ed;border-radius:4px;margin-bottom:6px;width:80%}.art-slide .line.wide{width:100%;background:#d9d9e0}.art-slide .shape{height:27px;width:45px;margin-top:8px;border-radius:5px;background:linear-gradient(135deg,#f3c6ce,#b6d6ec)}.art-badge{position:absolute;right:0;bottom:9px;background:#fff;border:1px solid #efcbd1;border-radius:12px;padding:10px 11px;box-shadow:0 8px 20px #38101a12;font-size:11px;font-weight:800;color:var(--red);display:flex;align-items:center;gap:7px}.art-badge svg{width:17px;height:17px}.main-grid{display:grid;grid-template-columns:minmax(330px,.79fr) minmax(0,1.21fr);gap:17px;align-items:start}.column{display:flex;flex-direction:column;gap:16px;min-width:0}.card{background:#fff;border:1px solid #e7e7ec;border-radius:var(--radius);overflow:hidden;min-width:0;box-shadow:0 4px 18px #1e141a06}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid #f0f0f3}.head-main{display:flex;align-items:center;gap:10px;min-width:0}.icon-box{width:36px;height:36px;border-radius:11px;background:var(--red-soft);display:grid;place-items:center;color:var(--red);flex:0 0 auto}.icon-box svg{width:18px;height:18px}.card-title{font-size:13px;font-weight:800;letter-spacing:-.2px}.card-subtitle{font-size:10px;color:#92939b;line-height:1.5;margin-top:4px}.micro-badge{border-radius:7px;padding:6px 8px;background:#f7f7f9;border:1px solid #eeeef2;color:#92939b;font-size:9px;font-weight:800;white-space:nowrap;letter-spacing:.7px}.upload-area{margin:17px;border:1.5px dashed #dedee7;background:linear-gradient(140deg,#fffdfd,#fff8f9);min-height:195px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;padding:24px 16px;transition:border-color .16s,background .16s,transform .16s}.upload-area:hover,.upload-area.drag-over{border-color:#dc8490;background:#fff1f3}.upload-area.drag-over{transform:scale(.997)}.upload-icon{width:47px;height:47px;border-radius:15px;display:grid;place-items:center;background:#fff;border:1px solid #f0dadd;color:var(--red);box-shadow:0 5px 14px #6d182015;margin-bottom:3px}.upload-icon svg{width:23px;height:23px}.upload-area strong{font-size:13px;color:#34353d}.upload-area>span{font-size:11px;color:#8d8e97;line-height:1.6}.upload-area small{font-size:10px;color:#a2a3ab;margin-top:3px}.text-link{border:0;padding:0;background:none;color:var(--red);font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}.hidden{display:none!important}.notice{margin:0 17px 16px;border:1px solid #e8e8ed;background:#fbfbfc;color:#777984;border-radius:10px;padding:11px 12px;font-size:10px;line-height:1.65}.notice strong{color:#4b4d55}.notice.warn{border-color:#f0d9dd;background:#fff6f7;color:#9c303d}.notice.ok{border-color:#d8f0e2;background:#f0fbf5;color:#22764e}.notice.info{border-color:#dae6fb;background:#f5f8ff;color:#4f6182}.notice:empty{display:none}.file-card{margin:0 17px 17px;padding:13px;border:1px solid #eaeaf0;border-radius:12px;display:flex;align-items:center;gap:11px;min-width:0}.file-mark{width:42px;height:45px;flex:0 0 42px;display:grid;place-items:center;background:#fff0f2;border-radius:9px;color:var(--red)}.file-mark svg{width:22px;height:22px}.file-details{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}.file-details strong{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-details span{color:#9697a0;font-size:10px;line-height:1.5}.settings{padding:17px 18px 18px}.setting-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field label,.field-label{font-size:10px;font-weight:800;color:#585a63}.field select,.field input[type=text],.field input[type=number]{width:100%;min-width:0;min-height:40px;padding:8px 11px;border:1px solid #e3e3ea;background:#fff;border-radius:9px;color:#3e4048;font-size:11px;outline:none}.field select:focus,.field input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212}.field small{font-size:9px;color:#999aa3;line-height:1.5}.toggle-list{display:flex;flex-direction:column;gap:11px;margin-top:17px;padding:14px;border-radius:11px;background:#fbfbfc;border:1px solid #efeff3}.toggle-row{display:flex;align-items:flex-start;gap:9px;font-size:10px;color:#676973;line-height:1.5}.toggle-row input{accent-color:var(--red);margin:2px 0 0;flex:0 0 auto}.toggle-row strong{color:#454750;display:block;font-size:10px}.toggle-row small{display:block;font-size:9px;color:#999aa3;margin-top:2px}.security-note{display:flex;gap:9px;align-items:flex-start;margin:14px 0 0;padding:11px;background:#f0fbf5;border:1px solid #d8f0e2;color:#377757;border-radius:10px;font-size:10px;line-height:1.6}.security-note svg{width:16px;height:16px;flex:0 0 auto;margin-top:1px}.security-note strong{color:#286a49}.settings-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.settings-actions .btn{flex:1}.progress-wrap{height:4px;border-radius:5px;background:#f7e3e6;overflow:hidden;margin-top:15px;display:none}.progress-wrap.show{display:block}.progress-wrap span{display:block;height:100%;width:34%;background:var(--red);animation:progress 1.1s infinite ease-in-out}@keyframes progress{0%{transform:translateX(-110%)}100%{transform:translateX(330%)}}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #f0f0f3}.stat{padding:14px 8px;text-align:center;border-right:1px solid #f0f0f3}.stat:last-child{border-right:0}.stat strong{display:block;font-size:18px;letter-spacing:-.7px}.stat span{font-size:9px;color:#92939b;display:block;margin-top:4px}.preview-card{min-height:500px}.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 15px;border-bottom:1px solid #f0f0f3;background:#fff}.preview-toolbar-left{display:flex;align-items:center;gap:8px;min-width:0}.preview-meta{font-size:10px;color:#9697a0;line-height:1.5}.preview-scroll{background:#f3f3f7;background-image:radial-gradient(#dedee6 .8px,transparent .8px);background-size:15px 15px;padding:20px 15px;overflow:auto;min-height:420px;max-height:calc(100vh - 265px);overscroll-behavior:contain}.preview-placeholder{min-height:365px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#9a9ba3;font-size:11px;line-height:1.7;padding:24px}.preview-placeholder svg{width:42px;height:42px;color:#d4a0a8;margin-bottom:10px}.preview-placeholder strong{font-size:14px;color:#666873;margin-bottom:5px}.preview-placeholder .btn{margin-top:14px}.render-host{width:100%;max-width:960px;margin:0 auto;overflow:visible;display:flex;flex-direction:column;align-items:center;gap:17px}.slide-frame{position:relative;width:min(100%,960px);aspect-ratio:16/9;background:#fff;box-shadow:0 8px 25px #17121e17;border:1px solid #e4e4ea;overflow:hidden;flex:0 0 auto}.slide-frame .demo-slide{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}.slide-tag{position:absolute;right:9px;bottom:7px;z-index:5;font:9px 'DM Mono',monospace;color:#a8a8b1;background:#ffffffd9;padding:4px 6px;border-radius:5px;pointer-events:none}.demo-kicker{font-size:clamp(7px,1.15vw,13px);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#c92032}.demo-title{font-size:clamp(24px,4.2vw,54px);line-height:1.04;font-weight:800;letter-spacing:-.04em;color:#202126}.demo-sub{font-size:clamp(10px,1.45vw,17px);line-height:1.55;color:#72737d}.demo-pill{display:inline-block;border-radius:999px;padding:.7em 1.05em;background:#fff0f2;color:#b51c2d;font-size:clamp(8px,1vw,12px);font-weight:800}.actual-render-host{width:100%;max-width:960px;margin:0 auto}.actual-render-host>div{margin-left:auto!important;margin-right:auto!important}.slide-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #f0f0f3;background:#fff;padding:12px 15px;color:#9899a2;font-size:10px}.support{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;padding:16px}.support-item{border:1px solid #ececf1;border-radius:12px;padding:13px;min-width:0}.support-item .support-icon{width:29px;height:29px;display:grid;place-items:center;background:#fff0f2;border-radius:9px;color:var(--red);margin-bottom:9px}.support-icon svg{width:16px;height:16px}.support-item strong{font-size:11px;display:block}.support-item p{font-size:10px;line-height:1.6;color:#8b8c95;margin:5px 0 0}.format-table{width:100%;border-collapse:collapse;font-size:10px}.format-table th,.format-table td{text-align:left;border-bottom:1px solid #f0f0f3;padding:10px 14px;vertical-align:top}.format-table th{font-weight:800;background:#fbfbfc;color:#777984}.format-table td:first-child{font:10px 'DM Mono',monospace;color:#aa2030;white-space:nowrap}.format-table td:last-child{color:#7a7b84;line-height:1.55}.status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;background:#2c9a65}.status-dot.limited{background:#d89535}.status-dot.no{background:#b5b5bd}.footer{display:flex;justify-content:space-between;gap:12px;padding:22px 3px 2px;color:#999aa3;font-size:9px}.footer b{color:#767780;letter-spacing:.8px}.toast-region{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;display:flex;flex-direction:column;gap:8px;width:min(440px,calc(100% - 28px));pointer-events:none}.toast{background:#25252b;color:#fff;border-radius:11px;padding:12px 15px;font-size:12px;line-height:1.5;box-shadow:0 8px 28px #1a101733;animation:toastin .2s ease}.toast.warn{background:#8b2d39}.toast.success{background:#176746}@keyframes toastin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}.tiny-note{font-size:9px;color:#9a9ba3;line-height:1.65;margin-top:13px}.divider{height:1px;background:#f0f0f3;margin:14px 0}.fit-note{display:flex;align-items:flex-start;gap:8px;margin-top:12px;color:#8b8c95;font-size:9px;line-height:1.6}.fit-note svg{width:15px;height:15px;flex:0 0 auto;color:#319568}
+/* PPTX preview-library normalization. */
+.pptx-wrapper{max-width:100%!important;margin-left:auto!important;margin-right:auto!important}.pptx-slide{max-width:100%!important}.actual-render-host img{max-width:100%}.actual-render-host canvas{max-width:100%}
+@media(max-width:1080px){.hero-art{transform:scale(.9);transform-origin:right center;margin-right:0}.main-grid{grid-template-columns:minmax(300px,.84fr) minmax(0,1.16fr);gap:13px}.page-shell{padding-top:22px}.preview-scroll{padding:15px 10px}.support{gap:8px;padding:12px}.support-item{padding:10px}}
+@media(max-width:760px){.topbar{padding:10px 12px;gap:8px;min-height:64px}.brand-mark{width:37px;height:37px;border-radius:12px}.brand-name{font-size:18px}.brand-sub{font-size:8px;letter-spacing:1px}.top-status{display:none}.top-actions{gap:5px}.top-actions .btn{padding:9px 10px;font-size:10px}.top-actions .btn .btn-label{display:none}.page-shell{padding:18px 10px 19px}.hero{padding:2px 3px 18px}.hero-art{display:none}.hero h1{font-size:clamp(30px,8vw,42px);letter-spacing:-1.45px;margin:13px 0 9px}.hero p{font-size:12px}.eyebrow{font-size:8px;letter-spacing:1.25px}.format-pills{gap:5px;margin-top:12px}.format-pills span{font-size:9px;padding:6px 7px}.main-grid{grid-template-columns:minmax(0,1fr);gap:12px}.column{gap:12px}.preview-card{min-height:0}.preview-scroll{min-height:310px;max-height:none;padding:12px 7px}.preview-placeholder{min-height:280px}.setting-grid{gap:10px}.settings{padding:14px}.card-head{padding:13px}.upload-area{margin:12px;min-height:170px}.file-card{margin:0 12px 12px}.notice{margin:0 12px 12px}.support{grid-template-columns:1fr;padding:12px}.support-item{display:grid;grid-template-columns:30px 1fr;column-gap:9px;padding:11px}.support-item .support-icon{grid-row:span 2;margin:0}.support-item strong{align-self:center}.support-item p{grid-column:2}.format-table th,.format-table td{padding:9px 10px}.footer{font-size:8px;padding-top:18px}.stats .stat strong{font-size:16px}}
+@media(max-width:380px){.brand-sub{display:none}.top-actions .btn{padding:8px}.setting-grid{grid-template-columns:1fr}.settings-actions .btn{flex-basis:100%}.format-table{font-size:9px}.format-table td:first-child{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/pptx-preview@1.0.7/dist/pptx-preview.umd.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand" aria-label="JNR PDF Studio">
+    <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+    <div><div class="brand-name">JNR <span>PDF</span></div><div class="brand-sub">PRESENTATION STUDIO</div></div>
+  </div>
+  <div class="top-status"><span class="live-dot"></span><span id="headerStatus">Local preview ready</span></div>
+  <div class="top-actions">
+    <button class="btn" id="newFileBtn" type="button" title="Choose another presentation"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="btn-label">New file</span></button>
+    <button class="btn primary" id="headerExportBtn" type="button" disabled title="Export every detected slide to PDF"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-label">Export PDF</span></button>
+  </div>
+</header>
+<main class="page-shell">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="live-dot"></span> JNR PDF TOOLS <span class="slash">/</span> PRESENTATION CONVERTER</div>
+      <h1>PowerPoint to PDF, <span>beautifully.</span></h1>
+      <p>Turn slide decks into a clean, share-ready PDF. Preview the deck first, choose export quality and page size, and keep each detected slide on its own PDF page. Processing happens in your browser.</p>
+      <div class="format-pills"><span>.pptx</span><span>.pptm</span><span>.ppsx</span><span>.ppsm</span><span>.potx</span><span>.potm</span><span>.odp</span><span>.otp</span><span>.fodp</span></div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="art-slide back"><div class="line wide"></div><div class="line"></div><div class="shape"></div></div><div class="art-slide"><div class="line wide"></div><div class="line"></div><div class="shape"></div></div><div class="art-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> PDF · READY</div></div>
+  </section>
+
+  <div class="main-grid">
+    <div class="column">
+      <section class="card" aria-labelledby="uploadTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 3v4.3h4M8.5 12h7M8.5 15.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><div id="uploadTitle" class="card-title">1. Add your presentation</div><div class="card-subtitle">Choose a deck or drop it in the upload area.</div></div></div><span class="micro-badge">LOCAL FILE</span></div>
+        <input id="presentationFile" class="hidden" type="file" accept=".pptx,.pptm,.ppsx,.ppsm,.potx,.potm,.sldx,.sldm,.odp,.otp,.fodp,.ppt,.pps,.pot,.key,.ppam,.ppa,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-powerpoint,application/vnd.oasis.opendocument.presentation">
+        <div class="upload-area" id="dropzone" role="button" tabindex="0" aria-label="Choose or drop a presentation file">
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 15.5v3A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <strong>Drag and drop your presentation</strong><span>or <button class="text-link" id="browseBtn" type="button">browse files</button> to get started</span><small>One presentation at a time · files stay in this browser session</small>
+        </div>
+        <div id="message" class="notice" role="status" aria-live="polite"></div>
+        <div id="fileCard" class="file-card hidden"><div class="file-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div><div class="file-details"><strong id="fileName">presentation.pptx</strong><span id="fileMeta">Waiting to read presentation…</span></div><button class="btn small" id="removeFileBtn" type="button">Remove</button></div>
+        <div id="uploadTip" class="notice info">Modern PowerPoint Open XML files and OpenDocument presentations are supported in-browser. Legacy binary <b>.ppt/.pps/.pot</b> files must first be saved as <b>.pptx</b> or exported to PDF in PowerPoint/LibreOffice.</div>
+      </section>
+
+      <section class="card" aria-labelledby="settingsTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 4v6M4 17h16m-5-3v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="7" cy="7" r="2" fill="#fff" stroke="currentColor" stroke-width="1.6"/><circle cx="15" cy="17" r="2" fill="#fff" stroke="currentColor" stroke-width="1.6"/></svg></div><div><div id="settingsTitle" class="card-title">2. Configure your PDF</div><div class="card-subtitle">Choose how the rendered slides fit the page.</div></div></div><span class="micro-badge">HD EXPORT</span></div>
+        <div class="settings">
+          <div class="setting-grid">
+            <div class="field"><label for="pageSize">PDF page size</label><select id="pageSize"><option value="slide" selected>Match slide proportions</option><option value="a4">A4</option><option value="letter">US Letter</option><option value="a3">A3</option><option value="legal">Legal</option></select><small>Match source ratio or use standard paper.</small></div>
+            <div class="field"><label for="orientation">Orientation</label><select id="orientation"><option value="auto" selected>Auto (per slide)</option><option value="landscape">Landscape</option><option value="portrait">Portrait</option></select><small>Source content is fit without cropping.</small></div>
+            <div class="field"><label for="quality">Render quality</label><select id="quality"><option value="balanced">Balanced · faster</option><option value="high" selected>High · recommended</option><option value="ultra">Ultra · larger file</option></select><small>Higher quality uses more browser memory.</small></div>
+            <div class="field"><label for="margin">Page margin</label><select id="margin"><option value="0">None</option><option value="5" selected>5 mm</option><option value="10">10 mm</option></select><small>White margin around each slide if needed.</small></div>
+            <div class="field"><label for="slideRange">Slide range (optional)</label><input id="slideRange" type="text" placeholder="e.g. 1-5, 8, 10-12" autocomplete="off"><small>Leave empty to export every detected slide.</small></div>
+            <div class="field"><label for="filename">Output filename</label><input id="filename" type="text" maxlength="100" value="JNR-Presentation" autocomplete="off"><small>.pdf is added automatically.</small></div>
+          </div>
+          <div class="toggle-list">
+            <label class="toggle-row"><input id="includeSlideLabels" type="checkbox"><span><strong>Add small page labels outside slide artwork</strong><small>Useful when a standard paper size adds margins; disabled by default to preserve the source appearance.</small></span></label>
+            <label class="toggle-row"><input id="strictCount" type="checkbox" checked><span><strong>Strict slide-count validation</strong><small>Stop conversion if the renderer cannot reliably identify all slides instead of silently exporting a partial deck.</small></span></label>
+          </div>
+          <div class="security-note"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5.5c0 4.2-2.8 7.5-7 9.5-4.2-2-7-5.3-7-9.5V6l7-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Designed for local processing.</strong> The presentation is parsed in the browser. Required renderer/PDF libraries load from CDNs, but your file is not uploaded to a conversion server.</span></div>
+          <div id="exportMessage" class="notice" role="status" aria-live="polite" style="margin:13px 0 0"></div>
+          <div class="settings-actions"><button class="btn" id="sampleBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 8h9M7.5 12h9M7.5 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Load demo deck</button><button class="btn primary" id="convertBtn" type="button" disabled><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Convert to PDF</button></div>
+          <div id="progressWrap" class="progress-wrap" aria-hidden="true"><span></span></div>
+          <p class="tiny-note">This is a browser renderer, not Microsoft PowerPoint itself. Some advanced transitions, animations, embedded media, SmartArt, fonts, or unusual effects may render differently. PDF export captures the static slide view; animations are not preserved. Password-encrypted files must be unlocked before processing.</p>
+        </div>
+        <div class="stats"><div class="stat"><strong id="slideStat">0</strong><span>Slides detected</span></div><div class="stat"><strong id="selectedStat">0</strong><span>Slides selected</span></div><div class="stat"><strong id="sizeStat">—</strong><span>File size</span></div></div>
+      </section>
+    </div>
+
+    <div class="column">
+      <section class="card preview-card" aria-labelledby="previewTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4" width="17" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><div><div id="previewTitle" class="card-title">Live slide preview</div><div class="card-subtitle">Check rendered content before you create the PDF.</div></div></div><span class="micro-badge" id="previewBadge">NO FILE</span></div>
+        <div class="preview-toolbar"><div class="preview-toolbar-left"><span class="live-dot"></span><span id="previewStatus" class="preview-meta">Waiting for a presentation</span></div><span id="previewCount" class="preview-meta">0 slides</span></div>
+        <div class="preview-scroll" id="previewScroll"><div class="preview-placeholder" id="previewPlaceholder"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4" width="17" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><strong>Your slides will appear here</strong>Upload a deck to inspect all detected slides, or load a demo to test the PDF export flow.<button class="btn soft" id="emptySampleBtn" type="button">Load demo deck</button></div><div id="renderHost" class="render-host hidden"></div></div>
+        <div class="slide-footer"><span id="previewFootText">Nothing rendered yet.</span><span id="renderEngine">Browser renderer</span></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.7"/><path d="m4.5 7.8 7.5 4.4 7.5-4.4M12 12.2V21" stroke="currentColor" stroke-width="1.5"/></svg></div><div><div class="card-title">Built for presentation workflows</div><div class="card-subtitle">A polished front end with safety checks before exporting.</div></div></div></div>
+        <div class="support">
+          <div class="support-item"><div class="support-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><strong>Slide-by-slide PDF</strong><p>Each detected slide becomes its own PDF page. Aspect ratio is preserved with fit-to-page placement.</p></div>
+          <div class="support-item"><div class="support-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/></svg></div><strong>Mixed formats</strong><p>OOXML presentation families and OpenDocument presentation files use format-aware paths where possible.</p></div>
+          <div class="support-item"><div class="support-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5.5c0 4.2-2.8 7.5-7 9.5-4.2-2-7-5.3-7-9.5V6l7-3Z" stroke="currentColor" stroke-width="1.6"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><strong>No silent skips</strong><p>File package and slide counts are checked. Conversion warns or stops if it cannot reliably identify the complete deck.</p></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="card" style="margin-top:16px" aria-labelledby="formatsTitle">
+    <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z" stroke="currentColor" stroke-width="1.7"/><path d="M4 5.5v16M8 7h8M8 10.5h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><div><div id="formatsTitle" class="card-title">Format compatibility</div><div class="card-subtitle">Know what can be rendered in this browser tool before converting.</div></div></div></div>
+    <table class="format-table"><thead><tr><th>Format family</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+      <tr><td>.pptx · .pptm</td><td><span class="status-dot"></span>Supported path</td><td>OOXML presentation packages; macro content is not executed.</td></tr>
+      <tr><td>.ppsx · .ppsm</td><td><span class="status-dot"></span>Supported path</td><td>OOXML slide-show variants with presentation parts; rendering quality depends on deck features.</td></tr>
+      <tr><td>.potx · .potm</td><td><span class="status-dot"></span>Supported path</td><td>OOXML template variants if they contain standard presentation parts.</td></tr>
+      <tr><td>.odp · .otp · .fodp</td><td><span class="status-dot"></span>Supported path</td><td>OpenDocument presentations; renderer preserves positioned text, basic fills, frames and embedded images. Complex effects may simplify.</td></tr>
+      <tr><td>.ppt · .pps · .pot</td><td><span class="status-dot limited"></span>Needs conversion first</td><td>Legacy binary formats are not safely parsed by this browser renderer. Open in PowerPoint/LibreOffice and save as PPTX or export directly to PDF.</td></tr>
+      <tr><td>.sldx · .sldm</td><td><span class="status-dot limited"></span>May not be a full deck</td><td>Slide-library items do not necessarily contain a complete presentation. The tool validates for a standard presentation root before processing.</td></tr>
+      <tr><td>.key · .ppa · .ppam</td><td><span class="status-dot no"></span>Unsupported here</td><td>Keynote files and PowerPoint add-ins are proprietary/add-in containers rather than standard, fully renderable presentation decks.</td></tr>
+    </tbody></table>
+  </section>
+  <footer class="footer"><span>Made with care by <b>JNR Corporation</b></span><span>JNR PDF · Presentation to PDF · Designed for clear slides.</span></footer>
+</main>
+<div class="toast-region" id="toastRegion" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const OOXML_EXTS = new Set(['pptx','pptm','ppsx','ppsm','potx','potm']);
+  const LEGACY_EXTS = new Set(['ppt','pps','pot']);
+  const UNSUPPORTED_EXTS = new Set(['key','ppam','ppa','sldx','sldm']);
+  const MAX_FILE_BYTES = 250 * 1024 * 1024;
+  let currentFile = null;
+  let deckSlides = [];
+  let deckKind = '';
+  let expectedSlideCount = 0;
+  let converting = false;
+  let previewLibrary = null;
+  let previewInstance = null;
+  let renderGeneration = 0;
+
+  function toast(message, kind='') {
+    const n = document.createElement('div'); n.className = `toast ${kind}`; n.textContent = message; $('toastRegion').appendChild(n);
+    setTimeout(() => n.remove(), 4600);
+  }
+  function notice(id, message, kind='') { const n=$(id); n.textContent=message; n.className=`notice${kind?' '+kind:''}`; }
+  function extOf(name) { const i=String(name||'').lastIndexOf('.'); return i<0?'':name.slice(i+1).toLowerCase(); }
+  function humanBytes(n) { if(!Number.isFinite(n)||n<=0)return '—'; const units=['B','KB','MB','GB']; const i=Math.min(Math.floor(Math.log(n)/Math.log(1024)),3); return `${(n/Math.pow(1024,i)).toFixed(i?1:0)} ${units[i]}`; }
+  function cleanName(s) { return String(s||'JNR-Presentation').replace(/\.[^.]+$/,'').replace(/[\\/:*?"<>|\u0000-\u001f]/g,'-').replace(/\s+/g,' ').trim().slice(0,90)||'JNR-Presentation'; }
+  function updateStats() { $('slideStat').textContent=String(deckSlides.length); $('selectedStat').textContent=String(getSelectedSlideIndices().length); $('sizeStat').textContent=currentFile?humanBytes(currentFile.size):'—'; $('previewCount').textContent=`${deckSlides.length} slide${deckSlides.length===1?'':'s'}`; $('headerExportBtn').disabled=converting||deckSlides.length===0; $('convertBtn').disabled=converting||deckSlides.length===0; }
+  function getSelectedSlideIndices() {
+    const text=$('slideRange').value.trim();
+    if(!text) return deckSlides.map((_,i)=>i);
+    const set=new Set();
+    for(const part of text.split(',')) {
+      const p=part.trim(); if(!p)continue;
+      const m=p.match(/^(\d+)\s*-\s*(\d+)$/);
+      if(m){let a=Number(m[1]),b=Number(m[2]); if(a<1||b<1||a>deckSlides.length||b>deckSlides.length)throw new Error(`Slide range “${p}” is outside 1–${deckSlides.length}.`); if(a>b)[a,b]=[b,a]; for(let n=a;n<=b;n++)set.add(n-1);}
+      else if(/^\d+$/.test(p)){const n=Number(p);if(n<1||n>deckSlides.length)throw new Error(`Slide ${n} is outside 1–${deckSlides.length}.`);set.add(n-1);}
+      else throw new Error(`Invalid slide range “${p}”. Use values like 1-5, 8, 10-12.`);
+    }
+    return [...set].sort((a,b)=>a-b);
+  }
+  function clearRender() {
+    renderGeneration++;
+    try { if(previewInstance && typeof previewInstance.destroy==='function') previewInstance.destroy(); } catch(e) {}
+    previewInstance=null; previewLibrary=null; deckSlides=[]; expectedSlideCount=0; deckKind='';
+    $('renderHost').replaceChildren(); $('renderHost').classList.add('hidden'); $('previewPlaceholder').classList.remove('hidden');
+    $('previewBadge').textContent='NO FILE'; $('previewStatus').textContent='Waiting for a presentation'; $('previewFootText').textContent='Nothing rendered yet.'; $('renderEngine').textContent='Browser renderer';
+    updateStats();
+  }
+  function removeCurrent() { currentFile=null; clearRender(); $('fileCard').classList.add('hidden'); $('message').textContent=''; $('exportMessage').textContent=''; $('presentationFile').value=''; $('headerStatus').textContent='Local preview ready'; }
+  function setBusy(value, label='') {
+    converting=value; $('dropzone').style.pointerEvents=value?'none':''; $('dropzone').style.opacity=value?'.65':'';
+    $('convertBtn').disabled=value||deckSlides.length===0; $('headerExportBtn').disabled=value||deckSlides.length===0;
+    $('newFileBtn').disabled=value; $('sampleBtn').disabled=value; $('emptySampleBtn').disabled=value;
+    $('progressWrap').classList.toggle('show',value); if(label)notice('exportMessage',label,'info'); updateStats();
+  }
+  function findPreviewApi() {
+    const names=['pptxPreview','PPTXPreview','pptxpreview','PptxPreview','PPTXPreviewer','pptx'];
+    for(const name of names){const v=window[name];if(v&&typeof v.init==='function')return v;}
+    for(const name of Object.keys(window)){try{const v=window[name];if(v&&typeof v==='object'&&typeof v.init==='function'&&/pptx/i.test(name))return v;}catch(e){}}
+    return null;
+  }
+  async function getPreviewApi() {
+    if(previewLibrary&&typeof previewLibrary.init==='function')return previewLibrary;
+    let globalApi=findPreviewApi(); if(globalApi){previewLibrary=globalApi;return globalApi;}
+    // Retry the renderer on a second CDN before falling back to native ESM import.
+    for(const src of ['https://unpkg.com/pptx-preview@1.0.7/dist/pptx-preview.umd.js']) {
+      try { await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.async=true;script.onload=resolve;script.onerror=()=>reject(new Error('CDN script failed'));document.head.appendChild(script);}); } catch(e) { console.warn('PowerPoint renderer CDN fallback failed',e); }
+      globalApi=findPreviewApi(); if(globalApi){previewLibrary=globalApi;return globalApi;}
+    }
+    try { const mod=await import('https://cdn.jsdelivr.net/npm/pptx-preview@1.0.7/dist/pptx-preview.es.js'); const api=(mod&&typeof mod.init==='function')?mod:(mod.default&&typeof mod.default.init==='function'?mod.default:null); if(api){previewLibrary=api;return api;} } catch(e) { console.warn('Dynamic PPTX renderer import failed',e); }
+    throw new Error('The PowerPoint renderer did not load. Check your internet connection/CDN access, then reload this page.');
+  }
+  async function waitPaint() { if(document.fonts&&document.fonts.ready)try{await document.fonts.ready;}catch(e){} await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))); }
+  function measureSlideElement(el) { const r=el.getBoundingClientRect(); if(!r.width||!r.height||r.width<260||r.height<130)return null; const ratio=r.width/r.height; if(ratio<.42||ratio>3.1)return null; return {el,rect:r,ratio,top:r.top,depth:depthOf(el),cls:String(el.className&&el.className.baseVal||el.className||'')}; }
+  function depthOf(el) { let n=0; while(el&&el.parentElement){n++;el=el.parentElement;}return n; }
+  function findSlideElements(root, expected) {
+    const explicit=[...root.querySelectorAll('.pptx-slide,.pptx-page,.pptx-slide-container,[data-slide-index],[data-slide-number]')].map(el=>measureSlideElement(el)).filter(Boolean);
+    const explicitNodes=dedupeByPosition(explicit);
+    if(explicitNodes.length>=Math.max(1,expected))return explicitNodes;
+    const rootWidth=Math.max(1,root.getBoundingClientRect().width);
+    const all=[...root.querySelectorAll('div,section,article,canvas,svg')].map(el=>measureSlideElement(el)).filter(Boolean)
+      .filter(x=>x.el!==root&&x.rect.width>=Math.max(320,rootWidth*.70)&&x.rect.height>=150&&x.ratio>=.55&&x.ratio<=2.35);
+    const grouped=[];
+    all.sort((a,b)=>a.top-b.top||b.rect.width*b.rect.height-a.rect.width*a.rect.height);
+    for(const cand of all){
+      let group=grouped.find(g=>Math.abs(g.top-cand.top)<5);
+      if(!group){group={top:cand.top,items:[cand]};grouped.push(group);}else group.items.push(cand);
+    }
+    // For each vertical slide position, choose the largest slide-like surface. This avoids
+    // mistaking smaller text boxes or pictures for entire slides.
+    const chosen=grouped.map(g=>g.items.sort((a,b)=>{
+      const namedA=/slide|page/i.test(a.cls)?1:0,namedB=/slide|page/i.test(b.cls)?1:0;
+      if(namedA!==namedB)return namedB-namedA;
+      return (b.rect.width*b.rect.height)-(a.rect.width*a.rect.height);
+    })[0]).filter(Boolean).sort((a,b)=>a.top-b.top).map(x=>x.el);
+    return dedupeByPosition(chosen.map(el=>measureSlideElement(el)).filter(Boolean));
+  }
+  function dedupeByPosition(items) {
+    const out=[];
+    for(const item of items){const m=item.el?item:measureSlideElement(item);if(!m)continue;const match=out.find(existing=>{const r1=existing.getBoundingClientRect(),r2=m.el.getBoundingClientRect();return Math.abs(r1.top-r2.top)<4&&Math.abs(r1.left-r2.left)<4&&Math.abs(r1.width-r2.width)<4&&Math.abs(r1.height-r2.height)<4;}); if(!match)out.push(m.el); else { const old=measureSlideElement(match); if(/slide/i.test(m.cls)&&old&&!/slide/i.test(old.cls))out[out.indexOf(match)]=m.el; }}
+    return out;
+  }
+  function makeSlideEntry(el, label, ratio) { return {el,label:label||`Slide ${deckSlides.length+1}`,ratio:ratio||(el.getBoundingClientRect().width/(el.getBoundingClientRect().height||1))}; }
+  function drawPptxPreviewNodes(nodes, expected) {
+    // The renderer owns its slide DOM; leave it intact and capture each slide node directly.
+    deckSlides=nodes.map((el,i)=>makeSlideEntry(el,`Slide ${i+1}`));
+    for(const entry of deckSlides){entry.el.classList.add('slide-export-target'); if(!entry.el.hasAttribute('data-jnr-export-slide'))entry.el.setAttribute('data-jnr-export-slide','true');}
+    if(expected&&deckSlides.length!==expected){
+      const message=`The package contains ${expected} slide(s), but the browser renderer exposed ${deckSlides.length}. Strict validation is on, so PDF export will stop instead of silently skipping slides.`;
+      notice('message',message,'warn'); notice('exportMessage',message,'warn');
+    } else notice('message',`Presentation rendered successfully. ${deckSlides.length} slide(s) detected. Review the preview, then export.`,'ok');
+    $('previewPlaceholder').classList.add('hidden'); $('renderHost').classList.remove('hidden'); $('previewBadge').textContent='PREVIEW READY'; $('previewStatus').textContent='Rendered slide deck'; $('previewFootText').textContent='All detected slides are shown above in source order.'; $('renderEngine').textContent='PPTX renderer'; updateStats();
+  }
+  async function loadOOXML(file, generation) {
+    if(typeof JSZip==='undefined')throw new Error('ZIP reader did not load. Check internet/CDN access and reload the page.');
+    const api=await getPreviewApi(); if(generation!==renderGeneration)return;
+    const zip=await JSZip.loadAsync(file,{checkCRC32:false,createFolders:false});
+    const pres=zip.file('ppt/presentation.xml');
+    if(!pres)throw new Error('This file does not contain a standard ppt/presentation.xml file. It may be a legacy format, slide-library item, or unsupported PowerPoint container. Save it as .pptx or export to PDF using PowerPoint/LibreOffice.');
+    const xmlText=await pres.async('text');const xml=new DOMParser().parseFromString(xmlText,'application/xml');if(xml.querySelector('parsererror'))throw new Error('The presentation XML is invalid or damaged. Try opening and resaving the file in PowerPoint or LibreOffice.');
+    const nsNodes=xml.getElementsByTagNameNS('*','sldId'); expectedSlideCount=nsNodes.length;
+    if(!expectedSlideCount)expectedSlideCount=(xml.getElementsByTagName('p:sldId').length||0);
+    if(!expectedSlideCount)throw new Error('No slides were found inside this presentation package.');
+    $('previewStatus').textContent=`Preparing ${expectedSlideCount} slides…`;
+    $('renderHost').replaceChildren();$('renderHost').classList.remove('hidden');$('previewPlaceholder').classList.add('hidden');
+    const instance=api.init($('renderHost'),{width:960,height:540,showHidden:true,useBase64URL:true,renderNotes:false});previewInstance=instance;
+    await instance.preview(await file.arrayBuffer()); if(generation!==renderGeneration)return;
+    await waitPaint();
+    const nodes=findSlideElements($('renderHost'),expectedSlideCount);
+    if(nodes.length===0 || (nodes.length!==expectedSlideCount && $('strictCount').checked)) {
+      throw new Error(`The slide renderer reported ${expectedSlideCount} slide(s), but ${nodes.length} slide surface(s) could be identified. To avoid a partial or mismatched PDF, export was stopped. Try a current PPTX saved by PowerPoint/LibreOffice, or use that app's native PDF export.`);
+    }
+    drawPptxPreviewNodes(nodes,expectedSlideCount);
+    // Record size and aspect for the PDF layout calculations.
+    deckSlides.forEach((entry,i)=>{const r=entry.el.getBoundingClientRect();entry.ratio=r.height?r.width/r.height:16/9;entry.label=`Slide ${i+1}`;});
+    deckKind='pptx';
+  }
+  function parseMeasure(value, fallback=0) {
+    const m=String(value||'').trim().match(/^(-?[\d.]+)\s*(cm|mm|in|pt|pc|px)?$/i);if(!m)return fallback;const n=Number(m[1]);switch((m[2]||'cm').toLowerCase()){case'cm':return n*37.79527559;case'mm':return n*3.779527559;case'in':return n*96;case'pt':return n*96/72;case'pc':return n*16;case'px':return n;default:return fallback;}
+  }
+  function xmlAttr(el, local, fallback='') { if(!el)return fallback;for(const a of [...el.attributes])if(a.localName===local)return a.value;return fallback; }
+  function elementByLocal(parent, local) { return [...parent.getElementsByTagName('*')].filter(el=>el.localName===local); }
+  function parseODFStyleMaps(xmlDocs) {
+    const maps=new Map();
+    for(const doc of xmlDocs.filter(Boolean))for(const el of [...doc.getElementsByTagName('*')]){
+      const name=xmlAttr(el,'name',''); if(!name)continue;
+      const props={};
+      for(const child of [...el.children])for(const attr of [...child.attributes])props[attr.name]=attr.value;
+      if(Object.keys(props).length)maps.set(name,{...(maps.get(name)||{}),...props});
+    }
+    return maps;
+  }
+  function cssUnit(value, fallback='') { const n=parseMeasure(value,NaN);return Number.isFinite(n)?`${n}px`:fallback; }
+  async function odpImageData(zip, href) {
+    if(!zip||!href||href.startsWith('http:')||href.startsWith('https:')||href.startsWith('#')||href.startsWith('data:'))return '';
+    const path=href.replace(/^\.\//,'');const entry=zip.file(path);if(!entry)return '';
+    const ext=path.split('.').pop().toLowerCase();const mime=({png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',svg:'image/svg+xml',webp:'image/webp'})[ext]||'application/octet-stream';
+    const base64=await entry.async('base64');return `data:${mime};base64,${base64}`;
+  }
+  function renderOdpRun(node, target, styles) {
+    if(node.nodeType===Node.TEXT_NODE){target.appendChild(document.createTextNode(node.nodeValue||''));return;}
+    if(node.nodeType!==Node.ELEMENT_NODE)return;
+    const local=node.localName;
+    if(local==='line-break'){target.appendChild(document.createElement('br'));return;}
+    const span=document.createElement(local==='p'||local==='h'?'div':'span');
+    if(local==='p'||local==='h'){span.style.display='block';span.style.whiteSpace='pre-wrap';span.style.margin='0 0 3px';}
+    const styleName=xmlAttr(node,'style-name','');const p=styles.get(styleName)||{};
+    const color=p['fo:color']||p['draw:fill-color'];if(color)span.style.color=color;
+    const weight=p['fo:font-weight'];if(weight)span.style.fontWeight=weight;
+    const fs=p['fo:font-size'];if(fs)span.style.fontSize=cssUnit(fs,'');
+    if(p['fo:font-style'])span.style.fontStyle=p['fo:font-style'];
+    if(p['style:text-underline-style']&&p['style:text-underline-style']!=='none')span.style.textDecoration='underline';
+    for(const child of [...node.childNodes])renderOdpRun(child,span,styles);
+    target.appendChild(span);
+  }
+  async function renderOdpSlide(page, index, styles, zip, wPx, hPx) {
+    const frame=document.createElement('div');frame.className='slide-frame odp-slide';frame.style.aspectRatio=`${wPx}/${hPx}`;frame.style.width='100%';frame.style.maxWidth='960px';frame.style.height='auto';frame.style.position='relative';
+    const surface=document.createElement('div');surface.className='odp-surface';surface.style.cssText=`position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:#fff;`;
+    const sx=960/wPx, sy=(960*hPx/wPx)/hPx;
+    const backgrounds=elementByLocal(page,'background');if(backgrounds.length){const bg=backgrounds[0];const style=styles.get(xmlAttr(bg,'style-name',''))||{};const col=style['draw:fill-color']||style['fo:background-color'];if(col)surface.style.background=col;}
+    const shapeNames=new Set(['frame','custom-shape','rect','ellipse','line','connector','caption','circle','polygon','path']);
+    const children=[...page.children].filter(el=>shapeNames.has(el.localName));
+    for(const item of children){
+      const x=parseMeasure(xmlAttr(item,'x','0')),y=parseMeasure(xmlAttr(item,'y','0')),w=parseMeasure(xmlAttr(item,'width','0')),h=parseMeasure(xmlAttr(item,'height','0'));
+      if(!(w>0&&h>0))continue;
+      const box=document.createElement('div');box.style.position='absolute';box.style.left=`${x*sx}px`;box.style.top=`${y*sy}px`;box.style.width=`${w*sx}px`;box.style.height=`${h*sy}px`;box.style.overflow='hidden';box.style.boxSizing='border-box';
+      const style=styles.get(xmlAttr(item,'style-name',''))||{};
+      const fill=style['draw:fill-color']||style['fo:background-color'];if(fill&&fill!=='transparent'&&fill!=='none')box.style.backgroundColor=fill;
+      const stroke=style['svg:stroke-color']||style['draw:stroke-color'];const strokeStyle=style['draw:stroke']||style['draw:stroke-style'];if(stroke&&stroke!=='none'&&strokeStyle!=='none')box.style.border=`1px solid ${stroke}`;
+      const opacity=style['draw:opacity'];if(opacity&&/%$/.test(opacity))box.style.opacity=String(Math.max(0,Math.min(1,parseFloat(opacity)/100)));
+      const textNodes=elementByLocal(item,'p').concat(elementByLocal(item,'h'));
+      const imageNodes=elementByLocal(item,'image');
+      for(const imageNode of imageNodes){const href=xmlAttr(imageNode,'href','');const data=await odpImageData(zip,href);if(data){const img=document.createElement('img');img.alt='';img.src=data;img.style.width='100%';img.style.height='100%';img.style.objectFit='contain';box.appendChild(img);}}
+      if(textNodes.length){const tx=document.createElement('div');tx.style.cssText='position:relative;z-index:2;width:100%;height:100%;padding:5px 7px;overflow:hidden;white-space:normal;overflow-wrap:anywhere;line-height:1.2;font-family:Arial,sans-serif;font-size:15px;color:#222;';const font=style['fo:font-family'];if(font)tx.style.fontFamily=font.replace(/^['"]|['"]$/g,'');const fs=style['fo:font-size'];if(fs)tx.style.fontSize=cssUnit(fs,'');const color=style['fo:color'];if(color)tx.style.color=color;const align=style['fo:text-align'];if(align)tx.style.textAlign=align;for(const p of textNodes)renderOdpRun(p,tx,styles);box.appendChild(tx);}
+      if(item.localName==='line'||item.localName==='connector'){box.style.borderTop=`${Math.max(1,parseFloat(style['svg:stroke-width'])||1)}px solid ${stroke||'#555'}`;box.style.height='1px';}
+      surface.appendChild(box);
+    }
+    frame.appendChild(surface);const label=document.createElement('div');label.className='slide-tag';label.textContent=`Slide ${index+1}`;frame.appendChild(label);return frame;
+  }
+  async function loadODF(file, generation) {
+    if(typeof JSZip==='undefined')throw new Error('ZIP reader did not load. Check internet/CDN access and reload the page.');
+    let zip=null, contentText='', stylesText='';
+    if(extOf(file.name)==='fodp')contentText=await file.text();
+    else {zip=await JSZip.loadAsync(file,{checkCRC32:false,createFolders:false});const content=zip.file('content.xml');if(!content)throw new Error('This ODF package has no content.xml file.');contentText=await content.async('text');const st=zip.file('styles.xml');if(st)stylesText=await st.async('text');}
+    const contentDoc=new DOMParser().parseFromString(contentText,'application/xml');if(contentDoc.querySelector('parsererror'))throw new Error('OpenDocument XML is invalid or corrupted. Try opening and resaving the deck in LibreOffice Impress.');
+    const stylesDoc=stylesText?new DOMParser().parseFromString(stylesText,'application/xml'):null;const styles=parseODFStyleMaps([contentDoc,stylesDoc]);
+    const pages=elementByLocal(contentDoc,'page').filter(el=>el.namespaceURI&&el.namespaceURI.includes('drawing'));
+    const presentation=contentDoc.getElementsByTagNameNS('*','presentation')[0];let presentationPages=[];if(presentation)presentationPages=[...presentation.getElementsByTagName('*')].filter(el=>el.localName==='page');
+    const slides=presentationPages.length?presentationPages:pages;
+    if(!slides.length)throw new Error('No presentation slides were found in this OpenDocument file.');
+    if(slides.length>250)throw new Error('This deck contains more than 250 slides. Split the presentation for safer browser rendering.');
+    let pageWidth=1058,pageHeight=595;
+    const pageLayouts=[...contentDoc.getElementsByTagName('*'),...(stylesDoc?[...stylesDoc.getElementsByTagName('*')]:[])].filter(el=>el.localName==='page-layout-properties');
+    if(pageLayouts.length){const pw=xmlAttr(pageLayouts[0],'page-width',''),ph=xmlAttr(pageLayouts[0],'page-height','');const rw=parseMeasure(pw,0),rh=parseMeasure(ph,0);if(rw>0&&rh>0){pageWidth=rw;pageHeight=rh;}}
+    $('renderHost').replaceChildren();const scale=960/pageWidth;const renderedHeight=pageHeight*scale;
+    for(let i=0;i<slides.length;i++){if(generation!==renderGeneration)return;const slide=await renderOdpSlide(slides[i],i,styles,zip,pageWidth,pageHeight);slide.style.aspectRatio=`${pageWidth}/${pageHeight}`;$('renderHost').appendChild(slide);deckSlides.push(makeSlideEntry(slide,`Slide ${i+1}`,pageWidth/pageHeight));}
+    expectedSlideCount=slides.length;deckKind='odp';$('previewPlaceholder').classList.add('hidden');$('renderHost').classList.remove('hidden');$('previewBadge').textContent='PREVIEW READY';$('previewStatus').textContent='OpenDocument deck rendered';$('previewFootText').textContent='All detected slides are shown in source order. Basic layout, text, fills and embedded images are rendered.';$('renderEngine').textContent='ODF XML renderer';notice('message',`OpenDocument deck rendered. ${deckSlides.length} slide(s) detected. Review the preview, then export.`,'ok');updateStats();
+  }
+  function buildDemoSlide(index) {
+    const wrapper=document.createElement('div');wrapper.className='slide-frame';
+    const slide=document.createElement('div');slide.className='demo-slide';
+    if(index===0){slide.style.cssText='background:linear-gradient(125deg,#fff 0%,#fff 61%,#fff1f3 61%,#ffe5e9 100%);padding:7% 8%;display:flex;flex-direction:column;justify-content:center;';slide.innerHTML='<div class="demo-kicker">JNR PDF · PRESENTATION STUDIO</div><div class="demo-title" style="margin-top:5%;max-width:72%">Ideas become<br><span style="color:#c92032">clearer</span> when shared.</div><div class="demo-sub" style="margin-top:3%;max-width:66%">A beautiful, presentation-ready PDF starts with a slide deck you can trust.</div><div style="display:flex;align-items:center;gap:10px;margin-top:6%"><span class="demo-pill">Slide 01</span><span style="font-size:clamp(8px,1vw,12px);color:#858690">Created with JNR PDF</span></div><div style="position:absolute;right:10%;bottom:15%;width:23%;aspect-ratio:1;border-radius:25%;background:linear-gradient(145deg,#c92032,#f18b97);box-shadow:0 20px 40px #c9203230;transform:rotate(11deg)"></div><div style="position:absolute;right:13%;bottom:19%;width:18%;aspect-ratio:1;border:1px solid #fff9;border-radius:22%;transform:rotate(-12deg)"></div>';
+    } else if(index===1){slide.style.cssText='background:#f8f9fc;padding:6% 7%';slide.innerHTML='<div class="demo-kicker">THE WORKFLOW</div><div class="demo-title" style="font-size:clamp(22px,3.2vw,42px);margin-top:2%">Three steps. One polished PDF.</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;margin-top:7%;height:48%"><div style="background:#fff;border:1px solid #e8e8ef;border-radius:12px;padding:8%;box-shadow:0 7px 16px #27202a08"><div style="font-size:clamp(17px,2.6vw,33px);font-weight:800;color:#c92032">01</div><div style="font-size:clamp(10px,1.4vw,17px);font-weight:800;margin-top:8%">Upload</div><div class="demo-sub" style="font-size:clamp(8px,1vw,12px);margin-top:6%">Select the deck you want to share.</div></div><div style="background:#fff;border:1px solid #e8e8ef;border-radius:12px;padding:8%;box-shadow:0 7px 16px #27202a08"><div style="font-size:clamp(17px,2.6vw,33px);font-weight:800;color:#c92032">02</div><div style="font-size:clamp(10px,1.4vw,17px);font-weight:800;margin-top:8%">Review</div><div class="demo-sub" style="font-size:clamp(8px,1vw,12px);margin-top:6%">Check every detected slide.</div></div><div style="background:#fff;border:1px solid #e8e8ef;border-radius:12px;padding:8%;box-shadow:0 7px 16px #27202a08"><div style="font-size:clamp(17px,2.6vw,33px);font-weight:800;color:#c92032">03</div><div style="font-size:clamp(10px,1.4vw,17px);font-weight:800;margin-top:8%">Export</div><div class="demo-sub" style="font-size:clamp(8px,1vw,12px);margin-top:6%">Download a share-ready PDF.</div></div></div><div class="demo-sub" style="font-size:clamp(8px,1vw,12px);margin-top:4%">Preview quality may vary with embedded fonts, media and advanced slide effects.</div>';
+    } else {slide.style.cssText='background:#22242d;color:#fff;padding:7% 8%;display:flex;flex-direction:column;justify-content:center;';slide.innerHTML='<div class="demo-kicker" style="color:#ffadb7">BUILT AROUND YOUR CONTENT</div><div class="demo-title" style="color:#fff;margin-top:3%;max-width:83%">Keep the focus<br>on the <span style="color:#ff8795">message.</span></div><div class="demo-sub" style="color:#d0d1d8;max-width:70%;margin-top:4%">Your static slide view becomes a PDF page, with the original proportions preserved and no added watermark.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:7%"><span style="border:1px solid #ffffff30;border-radius:99px;padding:6px 10px;font-size:clamp(8px,1vw,12px);color:#fff">A4 or slide size</span><span style="border:1px solid #ffffff30;border-radius:99px;padding:6px 10px;font-size:clamp(8px,1vw,12px);color:#fff">High-quality rendering</span><span style="border:1px solid #ffffff30;border-radius:99px;padding:6px 10px;font-size:clamp(8px,1vw,12px);color:#fff">Local processing</span></div><div style="position:absolute;right:8%;top:14%;width:14%;height:72%;border:1px solid #ffffff20;border-radius:12px;transform:rotate(7deg)"></div><div style="position:absolute;right:11%;top:12%;width:14%;height:72%;border:1px solid #ff879570;border-radius:12px;transform:rotate(-5deg)"></div>'}
+    wrapper.appendChild(slide);const tag=document.createElement('div');tag.className='slide-tag';tag.textContent=`Slide ${index+1}`;wrapper.appendChild(tag);return wrapper;
+  }
+  function loadDemo() {
+    clearRender();currentFile={name:'JNR-Demo-Deck.pptx',size:0,synthetic:true};deckKind='demo';expectedSlideCount=3;
+    $('fileCard').classList.remove('hidden');$('fileName').textContent=currentFile.name;$('fileMeta').textContent='Demo deck · 3 locally generated slides · no uploaded file';
+    $('filename').value='JNR-Demo-Presentation';$('renderHost').replaceChildren();for(let i=0;i<3;i++){const slide=buildDemoSlide(i);$('renderHost').appendChild(slide);deckSlides.push(makeSlideEntry(slide,`Slide ${i+1}`,16/9));}
+    $('previewPlaceholder').classList.add('hidden');$('renderHost').classList.remove('hidden');$('previewBadge').textContent='DEMO READY';$('previewStatus').textContent='Three demo slides';$('previewFootText').textContent='This sample is generated locally and lets you test PDF layout without uploading a presentation.';$('renderEngine').textContent='Built-in demo renderer';notice('message','Demo deck loaded. The three sample slides are ready to export; upload a presentation whenever you are ready.','ok');notice('exportMessage','Demo content is generated locally. Export uses the same PDF pipeline as parsed presentation slides.','ok');$('headerStatus').textContent='Demo preview ready';updateStats();toast('Demo deck loaded.','success');
+  }
+  async function loadFile(file) {
+    if(!file)return;
+    if(file.size>MAX_FILE_BYTES){notice('message','This file is larger than 250 MB. Split the deck or use desktop PowerPoint/LibreOffice for safer processing.','warn');return;}
+    const extension=extOf(file.name);
+    if(LEGACY_EXTS.has(extension)){notice('message',`.${extension} is a legacy binary PowerPoint format and cannot be safely rendered by this browser tool. Open it in Microsoft PowerPoint or LibreOffice Impress, then Save As .pptx or export as PDF.`,'warn');toast('Save this legacy deck as .pptx first.','warn');return;}
+    if(UNSUPPORTED_EXTS.has(extension)){notice('message',`.${extension} is not a complete standard presentation format supported for direct rendering here. Use a full .pptx/.odp presentation, or export from the application that created this file.`,'warn');return;}
+    if(!OOXML_EXTS.has(extension)&&!['odp','otp','fodp'].includes(extension)){notice('message',`The .${extension||'unknown'} format is not supported by this converter. Supported browser formats: .pptx, .pptm, .ppsx, .ppsm, .potx, .potm, .odp, .otp and .fodp.`,'warn');return;}
+    if(!['odp','otp','fodp'].includes(extension)&&file.size===0){notice('message','This presentation file is empty.','warn');return;}
+    removeCurrent();currentFile=file;const gen=renderGeneration;$('fileCard').classList.remove('hidden');$('fileName').textContent=file.name;$('fileMeta').textContent=`${extension.toUpperCase()} · ${humanBytes(file.size)} · Reading presentation locally`;$('filename').value=cleanName(file.name);$('headerStatus').textContent='Reading presentation…';$('previewPlaceholder').classList.add('hidden');$('renderHost').classList.remove('hidden');$('renderHost').innerHTML='<div class="preview-placeholder"><strong>Reading your slide deck…</strong>Validating package and preparing the slide preview.</div>';$('previewStatus').textContent='Loading slides…';$('previewBadge').textContent='PROCESSING';setBusy(true,'Validating the presentation and preparing slide preview…');
+    try{
+      if(['odp','otp','fodp'].includes(extension)) await loadODF(file,gen); else await loadOOXML(file,gen);
+      if(gen!==renderGeneration)return;
+      $('fileMeta').textContent=`${extension.toUpperCase()} · ${humanBytes(file.size)} · ${deckSlides.length} slide(s) parsed locally`;$('headerStatus').textContent='Presentation ready';notice('exportMessage',`Ready to export ${deckSlides.length} detected slide(s). Inspect the full preview and choose the slide range if needed.`,'ok');
+    }catch(error){console.error(error);if(gen!==renderGeneration)return;
+      // Reset failed preview state without incrementing renderGeneration, so the finally block
+      // can always re-enable controls for this same load attempt.
+      deckSlides=[];expectedSlideCount=0;deckKind='';previewInstance=null;previewLibrary=null;$('renderHost').replaceChildren();$('renderHost').classList.add('hidden');$('previewPlaceholder').classList.remove('hidden');$('previewBadge').textContent='ERROR';$('previewStatus').textContent='Could not render this deck';$('previewFootText').textContent='No slides were exported.';$('renderEngine').textContent='Browser renderer';
+      $('fileCard').classList.remove('hidden');$('fileName').textContent=file.name;$('fileMeta').textContent=`${extension.toUpperCase()} · ${humanBytes(file.size)} · Could not render`;$('headerStatus').textContent='Needs attention';notice('message',error&&error.message?error.message:'Could not read this presentation. Try resaving it from PowerPoint/LibreOffice and retry.','warn');notice('exportMessage','No PDF was created. The converter will not export a partial deck when slide rendering fails.','warn');updateStats();}
+    finally{if(gen===renderGeneration){converting=false;$('progressWrap').classList.remove('show');$('dropzone').style.pointerEvents='';$('dropzone').style.opacity='';$('newFileBtn').disabled=false;$('sampleBtn').disabled=false;$('emptySampleBtn').disabled=false;updateStats();}}
+  }
+  function getPptxSlideNodes() {
+    if(deckKind==='demo'||deckKind==='odp')return deckSlides.map(s=>s.el);
+    return deckSlides.map(s=>s.el);
+  }
+  function calcPage(ratio, paper, orientation) {
+    let w,h;
+    if(paper==='slide'){
+      const long=297; if(ratio>=1){w=long;h=long/ratio;}else{h=long;w=long*ratio;}
+      return {w,h,orientation:w>=h?'landscape':'portrait'};
+    }
+    const dims={a4:[210,297],a3:[297,420],letter:[215.9,279.4],legal:[215.9,355.6]};[w,h]=dims[paper]||dims.a4;
+    let orient=orientation==='auto'?(ratio>=1?'landscape':'portrait'):orientation;
+    if((orient==='landscape'&&w<h)||(orient==='portrait'&&w>h))[w,h]=[h,w];
+    return {w,h,orientation:orient};
+  }
+  function parseSlideRangeSafe() { try{return getSelectedSlideIndices();}catch(err){notice('exportMessage',err.message,'warn');throw err;} }
+  async function exportPdf() {
+    if(converting)return;
+    if(!deckSlides.length){toast('Load a presentation or demo deck first.','warn');return;}
+    if(typeof html2canvas!=='function'||!window.jspdf||typeof window.jspdf.jsPDF!=='function'){notice('exportMessage','The PDF renderer did not load. Check internet/CDN access and reload this page.','warn');return;}
+    let selected;
+    try{selected=parseSlideRangeSafe();}catch(e){return;}
+    if(!selected.length){notice('exportMessage','No slides are selected for export. Enter a valid range or leave the range field empty.','warn');return;}
+    if(!currentFile?.synthetic&&deckKind==='pptx'&&expectedSlideCount&&$('strictCount').checked&&deckSlides.length!==expectedSlideCount){notice('exportMessage',`Export stopped: ${expectedSlideCount} slides are in the presentation but ${deckSlides.length} were identified by the renderer. This prevents a partial PDF.`,'warn');return;}
+    const nodes=getPptxSlideNodes();
+    if(selected.some(i=>!nodes[i]||!nodes[i].isConnected)){notice('exportMessage','One or more selected slide surfaces are not available. Reload the presentation and try again.','warn');return;}
+    setBusy(true,`Preparing PDF · ${selected.length} slide(s)…`);const oldLabel=$('convertBtn').innerHTML;$('convertBtn').innerHTML='Preparing PDF…';
+    let pdf=null;
+    try{
+      await waitPaint();
+      const quality=$('quality').value;const scale=quality==='ultra'?2.7:quality==='balanced'?1.35:2.0;const paper=$('pageSize').value;const orient=$('orientation').value;const margin=Math.max(0,Math.min(30,Number($('margin').value)||0));
+      for(let outIndex=0;outIndex<selected.length;outIndex++){
+        const slideIndex=selected[outIndex],node=nodes[slideIndex];const rect=node.getBoundingClientRect();
+        if(rect.width<80||rect.height<45)throw new Error(`Slide ${slideIndex+1} has no measurable render surface. PDF export was stopped to avoid adding a blank page.`);
+        $('convertBtn').innerHTML=`Rendering ${outIndex+1}/${selected.length}…`;notice('exportMessage',`Rendering slide ${slideIndex+1} of ${selected.length}…`,'info');
+        const canvas=await html2canvas(node,{scale,useCORS:true,allowTaint:false,backgroundColor:'#ffffff',logging:false,scrollX:0,scrollY:0,width:Math.ceil(rect.width),height:Math.ceil(rect.height),windowWidth:Math.max(document.documentElement.clientWidth,Math.ceil(rect.width)),imageTimeout:15000,foreignObjectRendering:false});
+        try{
+          if(canvas.width<100||canvas.height<50)throw new Error(`Slide ${slideIndex+1} rendered too small. Export was stopped.`);
+          const ratio=canvas.width/canvas.height;const cfg=calcPage(ratio,paper,orient);
+          if(!pdf){pdf=new window.jspdf.jsPDF({unit:'mm',format:[cfg.w,cfg.h],orientation:cfg.orientation,compress:true,putOnlyUsedFonts:true});pdf.setProperties({title:cleanName($('filename').value),subject:'PowerPoint presentation converted to PDF',author:'JNR Corporation',creator:'JNR PDF Studio'});}
+          else pdf.addPage([cfg.w,cfg.h],cfg.orientation);
+          pdf.setFillColor(255,255,255);pdf.rect(0,0,cfg.w,cfg.h,'F');
+          const availW=Math.max(1,cfg.w-margin*2),availH=Math.max(1,cfg.h-margin*2);const k=Math.min(availW/canvas.width,availH/canvas.height);const drawW=canvas.width*k,drawH=canvas.height*k;const x=(cfg.w-drawW)/2,y=(cfg.h-drawH)/2;
+          const format=quality==='balanced'?'JPEG':'PNG';const image=format==='JPEG'?canvas.toDataURL('image/jpeg',.94):canvas.toDataURL('image/png');pdf.addImage(image,format,x,y,drawW,drawH,undefined,quality==='ultra'?'SLOW':'FAST');
+          if($('includeSlideLabels').checked&&margin>=5){pdf.setFont('helvetica','normal');pdf.setFontSize(6);pdf.setTextColor(130,130,140);pdf.text(`Slide ${slideIndex+1}`,cfg.w/2,cfg.h-1.8,{align:'center'});}
+        } finally {canvas.width=0;canvas.height=0;}
+        await new Promise(r=>requestAnimationFrame(r));
+      }
+      const filename=cleanName($('filename').value||currentFile.name)+'.pdf';pdf.save(filename);notice('exportMessage',`PDF exported successfully: ${selected.length} slide(s) · ${filename}. Open the PDF and compare its first, middle and last pages with the source deck.`,'ok');toast(`PDF ready · ${selected.length} slide(s)`,'success');
+    }catch(error){console.error(error);notice('exportMessage',`${error&&error.message?error.message:'PDF export failed.'} No partial download was intentionally saved. Check images/embedded media, lower render quality, or resave the source deck.`,'warn');toast('PDF export stopped; see the conversion note.','warn');}
+    finally{$('convertBtn').innerHTML='<svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Convert to PDF';converting=false;$('progressWrap').classList.remove('show');$('dropzone').style.pointerEvents='';$('dropzone').style.opacity='';$('newFileBtn').disabled=false;$('sampleBtn').disabled=false;$('emptySampleBtn').disabled=false;updateStats();}
+  }
+  // Upload, keyboard, and drag/drop interactions.
+  $('browseBtn').addEventListener('click',ev=>{ev.stopPropagation();$('presentationFile').click();});
+  $('dropzone').addEventListener('click',ev=>{if(ev.target.closest('button'))return;$('presentationFile').click();});
+  $('dropzone').addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();$('presentationFile').click();}});
+  $('presentationFile').addEventListener('change',ev=>{const f=ev.target.files&&ev.target.files[0];if(f)loadFile(f);});
+  ['dragenter','dragover'].forEach(type=>$('dropzone').addEventListener(type,ev=>{ev.preventDefault();ev.dataTransfer.dropEffect='copy';$('dropzone').classList.add('drag-over');}));
+  ['dragleave','dragend'].forEach(type=>$('dropzone').addEventListener(type,ev=>{ev.preventDefault();$('dropzone').classList.remove('drag-over');}));
+  $('dropzone').addEventListener('drop',ev=>{ev.preventDefault();$('dropzone').classList.remove('drag-over');const f=ev.dataTransfer.files&&ev.dataTransfer.files[0];if(f)loadFile(f);});
+  $('newFileBtn').addEventListener('click',()=>{$('presentationFile').click();});
+  $('removeFileBtn').addEventListener('click',()=>{removeCurrent();notice('message','Presentation removed from this session.','');toast('Presentation removed.');});
+  $('sampleBtn').addEventListener('click',loadDemo);$('emptySampleBtn').addEventListener('click',loadDemo);
+  $('convertBtn').addEventListener('click',exportPdf);$('headerExportBtn').addEventListener('click',exportPdf);
+  $('slideRange').addEventListener('input',()=>{try{$('selectedStat').textContent=String(getSelectedSlideIndices().length);$('slideRange').removeAttribute('aria-invalid');}catch(e){$('slideRange').setAttribute('aria-invalid','true');$('selectedStat').textContent='—';}});
+  $('strictCount').addEventListener('change',()=>{if(deckKind==='pptx'&&expectedSlideCount&&deckSlides.length!==expectedSlideCount)notice('exportMessage',`Slide count mismatch: source ${expectedSlideCount}, renderer ${deckSlides.length}. Turning strict validation off permits exporting the detected slides only, not the missing ones.`,'warn');});
+  window.addEventListener('error',ev=>{if(/JSZip|html2canvas|pptx|jsPDF/i.test(String(ev.message||'')))notice('message','A conversion library had trouble loading. Check your connection and reload the tool.','warn');});
+  window.addEventListener('unhandledrejection',ev=>{console.warn('Unhandled conversion rejection:',ev.reason);});
+  updateStats();
+})();
+</script>
+<script src="./block.js" ></script>
+</body>
+</html>

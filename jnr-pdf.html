@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#c92032" />
+<meta name="description" content="JNR PDF — write with commands, preview live, and export polished PDFs." />
+<title>JNR PDF — Live PDF Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="block-tap.css" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Fira+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700;800&family=Lato:wght@400;700;900&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700;900&family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600;700;800&family=Oswald:wght@400;500;600;700&family=Pacifico&family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&family=PT+Serif:wght@400;700&family=Raleway:wght@400;500;600;700;800&family=Roboto:wght@400;500;700;900&family=Roboto+Slab:wght@400;500;700&family=Source+Sans+3:wght@400;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root{--red:#c92032;--red-dark:#a91627;--red-soft:#fff0f2;--ink:#202126;--muted:#777982;--line:#e9e9ed;--paper:#fff;--canvas:#f5f5f7;--green:#25875a;--shadow:0 10px 32px rgba(35,23,27,.07);--radius:18px;}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:'DM Sans',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--canvas)}body{min-height:100vh}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid rgba(201,32,50,.2);outline-offset:2px}.app-shell{height:100dvh;min-height:100dvh;display:flex;flex-direction:column;overflow:hidden}.topbar{height:76px;flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 26px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:12px;min-width:180px}.brand-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#df3345,#b81429);display:grid;place-items:center;box-shadow:0 7px 15px rgba(201,32,50,.23);color:#fff}.brand-mark svg{width:23px;height:23px}.brand-name{font-size:20px;font-weight:800;letter-spacing:-.8px;line-height:1}.brand-name span{color:var(--red)}.brand-sub{font-size:10px;color:#91929a;letter-spacing:1.65px;font-weight:800;margin-top:5px}.top-status{display:flex;align-items:center;gap:10px;color:#6d7079;font-size:12px}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#39aa73;box-shadow:0 0 0 4px #e8f7ef;margin-right:6px}.top-actions{display:flex;align-items:center;gap:9px}.btn{border:1px solid var(--line);border-radius:11px;background:#fff;color:#3b3d44;padding:10px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:700;transition:transform .16s,box-shadow .16s,border-color .16s;white-space:nowrap}.btn:hover{transform:translateY(-1px);border-color:#d6d6dc;box-shadow:0 5px 14px rgba(20,20,30,.06)}.btn svg{width:15px;height:15px;flex:0 0 auto}.btn.primary{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 6px 15px rgba(201,32,50,.18)}.btn.primary:hover{background:var(--red-dark)}.btn.soft{border-color:#f5d7dc;background:var(--red-soft);color:var(--red)}.btn.ghost{border-color:transparent;background:transparent}.btn.small{padding:8px 10px;font-size:11px;border-radius:9px}.btn:disabled{opacity:.55;cursor:wait;transform:none}.workspace{flex:1;height:calc(100dvh - 122px);display:grid;grid-template-columns:minmax(360px, .88fr) minmax(420px,1.12fr);gap:18px;padding:18px 20px 20px;min-height:0}.panel{background:#fff;border:1px solid #e7e7ec;border-radius:var(--radius);overflow:hidden;min-width:0;display:flex;flex-direction:column;box-shadow:0 4px 18px rgba(30,20,25,.025)}.panel-head{min-height:66px;padding:13px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.panel-heading{display:flex;align-items:center;gap:10px;min-width:0}.panel-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:var(--red);background:var(--red-soft);flex:0 0 auto}.panel-icon svg{width:17px;height:17px}.panel-title{font-size:14px;font-weight:800;letter-spacing:-.25px}.panel-subtitle{font-size:11px;color:#93949b;margin-top:3px}.panel-head-actions{display:flex;align-items:center;gap:7px}.counter{font-size:10px;color:#787a83;background:#f5f5f7;border:1px solid #eeeeF1;padding:6px 8px;border-radius:8px;white-space:nowrap}.toolbar{padding:10px 14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;border-bottom:1px solid #f0f0f3}.tool-chip{border:1px solid #eeeef2;background:#fff;border-radius:8px;padding:7px 9px;color:#5f6069;font-size:11px;font-weight:700}.tool-chip:hover{border-color:#efb6bf;background:#fff6f7;color:var(--red)}.tool-separator{height:21px;width:1px;background:#e7e7ec;margin:0 2px}.editor-wrap{flex:1;min-height:0;display:flex;flex-direction:column;background:#fff}.editor-meta{display:flex;align-items:center;justify-content:space-between;padding:11px 17px 0;color:#9a9ba2;font-size:10px;letter-spacing:.25px}.terminal-label{display:flex;align-items:center;gap:7px;font-weight:800;color:#777982}.terminal-leds{display:flex;gap:4px}.terminal-leds i{width:6px;height:6px;border-radius:50%;background:#d8d8dd;display:block}.terminal-leds i:first-child{background:#d83c4b}.terminal-leds i:nth-child(2){background:#efbd56}.terminal-leds i:nth-child(3){background:#70c69a}#terminal{width:100%;flex:1;min-height:280px;resize:none;border:0;outline:none!important;box-shadow:none!important;border-radius:0;padding:18px 20px 22px;background:linear-gradient(#fff 31px, #f7f7f9 32px);background-size:100% 32px;color:#32333b;font-family:'DM Mono',ui-monospace,SFMono-Regular,monospace;font-size:12px;line-height:32px;tab-size:4;white-space:pre;overflow:auto;caret-color:var(--red)}#terminal::placeholder{color:#b4b5bd}.editor-footer{padding:11px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fcfcfd;border-top:1px solid #f0f0f3}.editor-footnote{font-size:10px;color:#9697a0;line-height:1.5}.shortcut{font:10px 'DM Mono',monospace;border:1px solid #e7e7ec;border-bottom-width:2px;border-radius:5px;padding:3px 5px;color:#777982;background:#fff}.preview-panel{background:#f9f9fb}.preview-head{background:#fff}.preview-workarea{flex:1;min-height:0;overflow:auto;padding:22px 16px 32px;scroll-behavior:smooth;background-color:#f5f5f8;background-image:radial-gradient(#e0e0e7 .8px,transparent .8px);background-size:15px 15px}.preview-document{display:flex;flex-direction:column;align-items:center;gap:17px;min-width:0}.preview-document.exporting-pdf{display:block!important;width:794px!important;min-width:794px!important;gap:0!important}.exporting-pdf .pdf-page{width:794px!important;height:1123px!important;aspect-ratio:auto!important;margin:0!important;box-shadow:none!important;break-after:page;page-break-after:always}.exporting-pdf .pdf-page:last-child{break-after:auto;page-break-after:auto}.exporting-pdf .pdf-page-content{font-size:13px}.exporting-pdf .page-edge-label{display:none}.pdf-page{position:relative;width:min(100%,794px);aspect-ratio:210/297;background:#fff;box-shadow:0 8px 28px rgba(25,20,30,.12);overflow:hidden;color:#25252b;flex:0 0 auto;border:1px solid #e8e8ed}.pdf-page-content{position:absolute;inset:0;padding:8.2% 8.4% 9%;overflow:hidden;z-index:2;font-size:13px;line-height:1.7;overflow-wrap:anywhere}.pdf-page-content p{margin:0 0 10px;white-space:pre-wrap;min-height:1px}.pdf-page-content h1,.pdf-page-content h2,.pdf-page-content h3,.pdf-page-content h4,.pdf-page-content h5{font-family:'Playfair Display',Georgia,serif;color:#202027;line-height:1.25;letter-spacing:-.35px;overflow-wrap:anywhere}.pdf-page-content h1{font-size:31px;margin:0 0 20px}.pdf-page-content h2{font-size:24px;margin:17px 0 10px}.pdf-page-content h3{font-size:20px;margin:15px 0 8px}.pdf-page-content h4{font-size:17px;margin:13px 0 7px}.pdf-page-content h5{font-size:15px;margin:11px 0 6px}.pdf-page-content hr{border:0;border-top:1.5px solid #dedee4;margin:18px 0}.preview-vline{height:38px;width:2px;margin:12px auto;background:var(--red);border-radius:3px}.preview-tab{display:inline-block;width:2em}.preview-image{display:block;max-width:100%;max-height:380px;object-fit:contain;margin:12px auto;border-radius:4px}.image-placeholder{border:1px dashed #d9a5ad;color:#aa737b;background:#fff9fa;border-radius:10px;padding:22px;text-align:center;font-size:12px;margin:12px 0}.preview-table-wrap{margin:12px 0 17px;max-width:100%;overflow:auto;border:1px solid #e7d9dc;border-radius:8px}.preview-table{width:100%;border-collapse:collapse;font-size:11px;line-height:1.5}.preview-table th{background:#fff0f2;color:#9f1928;text-align:left;font-weight:800}.preview-table th,.preview-table td{border:1px solid #eee2e4;padding:8px 9px;min-width:54px}.preview-table td[contenteditable="true"],.preview-table th[contenteditable="true"]{outline:none}.preview-table td[contenteditable="true"]:focus,.preview-table th[contenteditable="true"]:focus{background:#fff6d9;box-shadow:inset 0 0 0 2px #edc05a}.preview-sign{margin:25px 0 8px auto;max-width:75%;text-align:center;display:block}.preview-sign .signature-name{font-family:cursive;font-style:italic;font-size:24px;color:#34343a;border-bottom:1px solid #999;padding:0 16px 5px;display:inline-block;min-width:110px}.preview-sign .signature-caption{font-size:10px;color:#85858d;margin-top:4px}.preview-link{color:#b8182b;text-decoration:underline;text-underline-offset:2px}.page-watermark{position:absolute;inset:0;z-index:1;display:grid;place-items:center;pointer-events:none;overflow:hidden}.page-watermark span{transform:rotate(-32deg);font-size:clamp(24px,4.4vw,54px);font-weight:800;letter-spacing:5px;color:rgba(201,32,50,.075);white-space:nowrap;text-transform:uppercase}.page-number{position:absolute;right:8.4%;bottom:4.6%;font-size:10px;color:#888891;z-index:3}.page-edge-label{position:absolute;top:11px;right:12px;color:#c4c4cc;font:9px 'DM Mono',monospace;z-index:4}.empty-state{text-align:center;color:#9a9ba2;padding:70px 20px;font-size:12px}.empty-state strong{display:block;color:#62636c;font-size:14px;margin:10px 0 5px}.preview-bottom{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fff;border-top:1px solid var(--line);gap:8px}.page-nav{display:flex;align-items:center;gap:7px}.page-indicator{font:11px 'DM Mono',monospace;color:#777982;min-width:66px;text-align:center}.status-left{display:flex;align-items:center;gap:9px;min-width:0;font-size:10px;color:#9697a0}.status-icon{width:6px;height:6px;border-radius:50%;background:#35a56d}.app-footer{min-height:33px;padding:0 24px 12px;display:flex;align-items:center;justify-content:space-between;color:#9b9ca4;font-size:10px;gap:10px}.app-footer b{color:#7e7f87}.mobile-tabs{display:none}.modal-backdrop{position:fixed;inset:0;background:rgba(27,21,25,.42);z-index:100;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(5px)}.modal-backdrop.open{display:flex}.modal{width:min(740px,100%);max-height:min(86vh,850px);overflow:hidden;background:#fff;border-radius:20px;box-shadow:0 25px 90px rgba(20,10,18,.24);display:flex;flex-direction:column}.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}.modal-head h2{margin:0;font-size:18px;letter-spacing:-.5px}.modal-head p{margin:5px 0 0;font-size:11px;color:#85868f}.modal-body{padding:20px 22px;overflow:auto}.help-intro{background:linear-gradient(120deg,#fff1f3,#fff);border:1px solid #f4d5da;padding:14px 16px;border-radius:12px;font-size:12px;line-height:1.7;color:#6e4a4f;margin-bottom:17px}.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.help-card{border:1px solid #ececf0;border-radius:12px;padding:12px 13px;min-width:0}.help-card h3{font-size:11px;margin:0 0 9px;color:#9f1a2b;letter-spacing:.5px;text-transform:uppercase}.help-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px solid #f2f2f5;font-size:11px;color:#686972}.help-row:first-of-type{border-top:0}.help-row code{font:10px 'DM Mono',monospace;color:#b51f31;background:#fff2f4;border-radius:5px;padding:3px 5px;white-space:nowrap}.help-row span{line-height:1.45;text-align:right}.modal-foot{padding:13px 20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#999aa2}.toast-region{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:120;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:min(420px,calc(100% - 30px))}.toast{background:#24242b;color:#fff;border-radius:11px;padding:12px 15px;font-size:12px;box-shadow:0 8px 28px #1a101733;animation:toast-in .2s ease}.toast.warn{background:#8a2935}.toast.success{background:#176746}@keyframes toast-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}.export-progress{height:3px;background:#f7dfe3;overflow:hidden;display:none}.export-progress.show{display:block}.export-progress span{display:block;height:100%;width:40%;background:var(--red);animation:progress 1s infinite ease-in-out}@keyframes progress{0%{transform:translateX(-110%)}100%{transform:translateX(270%)}}.hidden-input{display:none!important}
+@media(min-width:1450px){.workspace{padding:22px 26px;gap:20px}.panel-head{padding-left:20px;padding-right:20px}.pdf-page-content{font-size:13.5px}}
+@media(max-width:1020px){.topbar{padding:0 16px}.workspace{grid-template-columns:minmax(300px,.92fr) minmax(330px,1.08fr);padding:14px;gap:12px}.top-status{display:none}.brand{min-width:auto}.brand-sub{letter-spacing:1.1px}.btn{padding:9px 11px}.panel-head{padding:12px}.toolbar{padding:9px 11px;gap:5px}.tool-chip{padding:7px}.preview-workarea{padding:15px 10px 22px}}
+@media(max-width:720px){.topbar{height:64px;padding:0 12px;gap:8px}.brand-mark{width:36px;height:36px;border-radius:12px}.brand-name{font-size:18px}.brand-sub{font-size:8px;letter-spacing:1.1px}.top-actions{gap:6px}.top-actions .btn{padding:9px 10px}.top-actions .btn .btn-text{display:none}.workspace{display:flex;flex-direction:column;padding:9px 9px 12px;gap:10px;height:calc(100dvh - 96px);min-height:430px}.mobile-tabs{display:flex;gap:5px;padding:5px;border-radius:12px;background:#eeeef2;border:1px solid #e4e4e9}.mobile-tab{flex:1;border:0;background:transparent;padding:10px 12px;border-radius:9px;color:#757680;font-size:12px;font-weight:800;display:flex;gap:7px;align-items:center;justify-content:center}.mobile-tab svg{width:15px;height:15px}.mobile-tab.active{background:#fff;color:var(--red);box-shadow:0 2px 7px #1913220e}.panel{min-height:0;flex:1}.panel.editor-panel,.panel.preview-panel{display:none}.panel.editor-panel.mobile-active,.panel.preview-panel.mobile-active{display:flex}.panel-head{min-height:58px}.panel-title{font-size:13px}.panel-subtitle{font-size:10px}.counter{font-size:9px;padding:5px 6px}.toolbar{padding:8px 10px}.tool-chip{font-size:10px;padding:7px 8px}.editor-meta{padding:9px 12px 0}#terminal{font-size:11px;padding:15px 14px;line-height:29px;background-size:100% 29px}.editor-footer{padding:9px 11px}.editor-footnote{font-size:9px}.preview-workarea{padding:12px 7px 19px}.pdf-page-content{font-size:11px}.pdf-page-content h1{font-size:25px}.pdf-page-content h2{font-size:20px}.pdf-page-content h3{font-size:17px}.pdf-page-content h4{font-size:15px}.pdf-page-content h5{font-size:13px}.pdf-page-content p{margin-bottom:8px}.preview-bottom{padding:9px 10px}.status-left{font-size:9px;gap:6px}.app-footer{padding:2px 13px 9px;font-size:9px}.help-grid{grid-template-columns:1fr}.modal{border-radius:16px}.modal-head,.modal-body{padding:16px}.modal-foot{padding:12px 16px}.help-card{padding:11px}.page-number{font-size:8px}}
+@media(max-width:360px){.brand-sub{display:none}.top-actions .btn{padding:8px}.panel-head-actions .btn.small{padding:7px}.preview-bottom .status-left{max-width:65%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}}
+@media print{body{background:#fff}.app-shell{height:auto;min-height:0;overflow:visible}.topbar,.panel-head,.toolbar,.editor-wrap,.preview-bottom,.app-footer,.mobile-tabs,.app-footer,.export-progress{display:none!important}.workspace{display:block;padding:0;margin:0}.panel{border:0;box-shadow:none;border-radius:0}.preview-panel{display:block!important;background:#fff}.preview-workarea{padding:0;background:#fff;overflow:visible}.preview-document{gap:0;display:block}.pdf-page{width:210mm;height:297mm;aspect-ratio:auto;box-shadow:none;border:0;break-after:page;page-break-after:always;margin:0}.pdf-page:last-child{break-after:auto;page-break-after:auto}.pdf-page-content{font-size:12pt}.page-edge-label{display:none}}
+
+/* JNR PDF enhancements: inline editor, palette and configurable tables */
+.tool-select{max-width:150px;border:1px solid #eeeef2;border-radius:8px;background:#fff;color:#4e5058;padding:7px 8px;font-size:11px;font-weight:700;min-height:30px}
+.tool-color{width:31px;height:30px;border:1px solid #eeeef2;border-radius:8px;padding:3px;background:#fff;vertical-align:middle}
+.toolbar-label{display:inline-flex;align-items:center;gap:5px;color:#868792;font-size:10px;font-weight:700;white-space:nowrap}
+.table-tools{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding:8px 9px;background:#fbfbfd;border:1px solid #ececf1;border-bottom:0;border-radius:8px 8px 0 0;color:#666874;font-size:10px}
+.table-tools label{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.table-tools input[type=number]{width:53px;min-width:0;padding:4px;border:1px solid #e2e2e8;border-radius:6px;font-size:10px;color:#41424a;background:#fff}
+.table-tools input[type=color]{width:25px;height:23px;padding:2px;border:1px solid #e2e2e8;border-radius:6px;background:#fff}
+.table-tools .tools-divider{height:19px;width:1px;background:#e5e5eb}
+.preview-table-wrap{border-radius:8px}
+.preview-table-wrap:has(.table-tools){border-top-left-radius:0;border-top-right-radius:0}
+.preview-table{--table-head-bg:#fff0f2;--table-head-text:#9f1928;--table-border:#eee2e4;--table-cell-bg:#fff;--table-alt-bg:#fff}
+.preview-table th{background:var(--table-head-bg);color:var(--table-head-text)}
+.preview-table th,.preview-table td{border-color:var(--table-border)}
+.preview-table td{background:var(--table-cell-bg)}
+.preview-table tr:nth-child(even) td{background:var(--table-alt-bg)}
+.preview-quote{margin:12px 0;padding:10px 14px;border-left:3px solid var(--red);background:#fff6f7;color:#55545c;border-radius:0 8px 8px 0}
+.preview-code{margin:12px 0;padding:11px 13px;background:#24242b;color:#f8f8fb;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.65 'DM Mono',monospace}
+.preview-callout{margin:12px 0;padding:13px 15px;background:#f2f7ff;border:1px solid #d9e7ff;border-radius:10px}
+.exporting-pdf .table-tools{display:none!important}
+.exporting-pdf .preview-table-wrap{border-radius:8px!important;border-top:1px solid var(--table-border,#e7d9dc)!important}
+.palette-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin:14px 0}
+.palette-swatch{display:block;width:100%;aspect-ratio:1;border:2px solid #fff;outline:1px solid #e5e5eb;border-radius:9px;min-width:0}
+.palette-swatch:hover{outline:2px solid #777982}
+.palette-editor{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:center}
+.palette-editor input[type=color]{width:56px;height:48px;border:1px solid #e6e6ec;border-radius:10px;padding:4px;background:#fff}
+.palette-editor input[type=text]{width:100%;border:1px solid #e4e4ea;border-radius:9px;padding:11px 12px;font:12px 'DM Mono',monospace;text-transform:uppercase}
+.palette-preview{height:55px;border:1px solid #ededf1;border-radius:10px;margin-top:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:.5px}
+.palette-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.enhancement-note{font-size:10px;color:#8a8b94;line-height:1.55;margin-top:10px}
+@media(max-width:720px){.tool-select{max-width:120px}.toolbar-label{font-size:9px}.table-tools{gap:5px;padding:7px}.table-tools label{font-size:9px}.table-tools input[type=number]{width:45px}.palette-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.palette-actions .btn{flex:1}}
+@media print{.table-tools{display:none!important}}
+
+
+/* HD studio additions: stable inline styling and expanded palette UI */
+.pdf-page{background-color:#fff;background-clip:border-box}
+.pdf-page-content sup,.pdf-page-content sub{line-height:0;font-size:.72em;position:relative;vertical-align:baseline}
+.pdf-page-content sup{vertical-align:super}.pdf-page-content sub{vertical-align:sub}
+.pdf-page-content del,.pdf-page-content s{text-decoration:line-through}
+.palette-themes{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 10px}
+.palette-theme-btn{border:1px solid #e7e7ed;background:#fff;color:#666873;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:800}
+.palette-theme-btn.active{background:#fff0f2;border-color:#efbdc5;color:#af1e30}
+.palette-grid{max-height:250px;overflow:auto;padding:2px 3px 5px}
+.palette-swatch{cursor:pointer;min-height:25px}
+.tool-color{width:24px;height:24px;padding:2px;border:1px solid #e4e4ea;border-radius:6px;background:#fff;vertical-align:middle}
+.exporting-pdf .pdf-page-content{font-size:13px}
+.exporting-pdf .pdf-page-content img{max-width:100%}
+@media print{.pdf-page{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+
+/* PDF-to-PNG workbench: shares the original JNR PDF design language. */
+.pdf-image-page{display:none;flex:1;min-height:0;overflow:auto;background:#f6f6f8;color:var(--ink);overscroll-behavior:contain}
+.pdf-image-page.active{display:block}
+.pdf-images-mode .workspace,.pdf-images-mode .app-footer,.pdf-images-mode .export-progress{display:none!important}
+.pdf-images-mode .top-status{display:none}
+.pdf-images-mode #paletteBtn,.pdf-images-mode #helpBtn,.pdf-images-mode #encryptBtnOpen,.pdf-images-mode #exportBtn{display:none}
+.pdf-images-mode #pdfImagesBtn{background:var(--red-soft);border-color:#f3d6da;color:var(--red)}
+.pdf-images-shell{max-width:1500px;margin:0 auto;padding:28px clamp(14px,3vw,42px) 22px}
+.pdf-images-hero{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:12px 5px 27px;min-height:200px}
+.pdf-images-hero-copy{max-width:730px}
+.pdf-images-kicker{display:flex;align-items:center;gap:8px;color:#8c8d96;font-size:10px;letter-spacing:1.55px;font-weight:800}
+.pdf-images-kicker .live-dot{margin:0;width:6px;height:6px;box-shadow:0 0 0 4px #e8f7ef}
+.pdf-images-kicker-dot{color:#d1a0a6}
+.pdf-images-hero h1{font-size:clamp(30px,4.2vw,52px);letter-spacing:-2px;line-height:1.06;margin:17px 0 12px;font-weight:800}
+.pdf-images-hero h1 span{color:var(--red)}
+.pdf-images-hero p{max-width:600px;margin:0;color:#7b7d86;font-size:14px;line-height:1.75}
+.pdf-images-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.pdf-images-pills span{border:1px solid #e7e7ed;background:#fff;border-radius:9px;padding:7px 10px;font-size:10px;color:#777984}
+.pdf-images-pills b{color:#33343b;margin-right:4px}
+.pdf-images-hero-art{position:relative;width:220px;height:177px;flex:0 0 220px;margin-right:25px}
+.hero-art-page{position:absolute;width:111px;height:145px;top:13px;left:55px;background:#fff;border:1px solid #e5e5eb;border-radius:9px;box-shadow:0 13px 28px #27212a16}
+.hero-art-back{transform:rotate(10deg) translate(20px,3px);background:#fff5f6}
+.hero-art-front{transform:rotate(-6deg);padding:13px 12px}
+.hero-art-pdf{font-size:11px;font-weight:900;color:var(--red);letter-spacing:1.1px;margin-bottom:12px}
+.hero-art-line{height:4px;width:72%;background:#e8e8ee;border-radius:4px;margin-bottom:6px}
+.hero-art-line.wide{width:100%;background:#d8d8df}
+.hero-art-photo{height:39px;border-radius:5px;background:linear-gradient(135deg,#f8d5da,#f5ebcf 48%,#d7eae1);display:flex;gap:5px;align-items:flex-end;justify-content:center;padding-bottom:5px;margin:9px 0}
+.hero-art-photo i{display:block;width:13px;height:19px;border-radius:8px 8px 3px 3px;background:#fff9}
+.hero-art-photo i:nth-child(2){height:26px;background:#fff}
+.hero-art-lines i{display:block;width:100%;height:3px;border-radius:4px;background:#e7e7ec;margin:5px 0}
+.hero-art-lines i:nth-child(2){width:78%}.hero-art-lines i:nth-child(3){width:61%}
+.hero-art-badge{position:absolute;right:0;bottom:11px;background:#fff;border:1px solid #efcbd1;border-radius:12px;padding:10px 12px;color:var(--red);font-weight:800;font-size:11px;display:flex;align-items:center;gap:7px;box-shadow:0 8px 20px #38101a12}
+.hero-art-badge svg{width:17px;height:17px}
+.pdf-images-grid-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;align-items:start;gap:18px}
+.pdf-images-main{min-width:0;display:flex;flex-direction:column;gap:15px}
+.pdf-image-panel,.pdf-image-results-panel,.pdf-image-progress-panel{background:#fff;border:1px solid #e7e7ec;border-radius:17px;box-shadow:0 4px 18px rgba(30,20,25,.025);min-width:0;overflow:hidden}
+.pdf-image-panel-head{display:flex;align-items:center;gap:11px;padding:17px 19px;border-bottom:1px solid #f0f0f3}
+.pdf-image-panel-icon{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:11px;background:var(--red-soft);color:var(--red)}
+.pdf-image-panel-icon svg{width:18px;height:18px}
+.pdf-image-panel-head h2{font-size:14px;letter-spacing:-.25px;margin:0;font-weight:800}
+.pdf-image-panel-head p{font-size:11px;color:#9697a0;margin:4px 0 0}
+.pdf-image-step{margin-left:auto;font-size:9px;font-weight:800;letter-spacing:1px;color:#b0b1b8;background:#f8f8fa;padding:7px 8px;border-radius:7px;white-space:nowrap}
+.pdf-image-dropzone{margin:17px;border:1.5px dashed #dedee7;background:linear-gradient(140deg,#fffdfd,#fff8f9);min-height:214px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:border-color .16s,background .16s,transform .16s;padding:25px 15px}
+.pdf-image-dropzone:hover,.pdf-image-dropzone.drag-over{border-color:#dc8490;background:#fff1f3}
+.pdf-image-dropzone.drag-over{transform:scale(.996)}
+.pdf-drop-icon{width:47px;height:47px;border-radius:15px;display:grid;place-items:center;background:#fff;border:1px solid #f0dadd;color:var(--red);box-shadow:0 5px 14px #6d182015;margin-bottom:3px}
+.pdf-drop-icon svg{width:23px;height:23px}
+.pdf-image-dropzone strong{font-size:13px;color:#34353d}
+.pdf-image-dropzone>span{font-size:11px;color:#8d8e97}
+.pdf-inline-link{border:0;padding:0;color:var(--red);background:transparent;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.pdf-image-dropzone small{color:#a2a3ab;font-size:10px;margin-top:5px}
+.pdf-image-file-card{margin:0 17px 17px;padding:12px;border:1px solid #eaeaf0;border-radius:12px;display:flex;align-items:center;gap:11px;min-width:0}
+.pdf-image-file-card[hidden],.pdf-image-progress-panel[hidden],.pdf-image-results-panel[hidden],.pdf-image-message[hidden]{display:none!important}
+.pdf-file-mark{width:41px;height:45px;flex:0 0 41px;display:grid;place-items:center;background:#fff0f2;border-radius:9px;color:var(--red)}
+.pdf-file-mark svg{width:23px;height:23px}
+.pdf-file-details{min-width:0;flex:1;display:flex;flex-direction:column;gap:4px}
+.pdf-file-details strong{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdf-file-details span{color:#9697a0;font-size:10px}
+.pdf-image-settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px 19px 14px}
+.pdf-image-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.pdf-image-field>span{font-size:11px;font-weight:800;color:#51535c}
+.pdf-image-field select,.pdf-image-field input{width:100%;min-width:0;height:42px;padding:0 12px;border:1px solid #e3e3ea;background:#fff;border-radius:9px;color:#3e4048;font-size:11px;outline:none}
+.pdf-image-field select:focus,.pdf-image-field input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212}
+.pdf-image-field small{font-size:9px;line-height:1.5;color:#9a9ba3}
+.pdf-image-field code{background:#f6f6f8;padding:2px 4px;border-radius:3px;color:#a82a39}
+.pdf-image-settings-footer{padding:13px 19px 17px;border-top:1px solid #f0f0f3;display:flex;align-items:center;justify-content:space-between;gap:13px;flex-wrap:wrap}
+.pdf-image-setting-note{display:flex;align-items:center;gap:7px;color:#85868f;font-size:10px;line-height:1.5}
+.pdf-image-setting-note svg{width:16px;height:16px;color:#319568;flex:0 0 auto}
+.pdf-image-buttons{display:flex;gap:7px;align-items:center}
+.pdf-image-convert-btn{min-height:39px}
+.pdf-image-spinner{width:13px;height:13px;border:2px solid #ffffff75;border-top-color:#fff;border-radius:50%;display:inline-block;animation:pdf-image-spin .75s linear infinite}
+@keyframes pdf-image-spin{to{transform:rotate(360deg)}}
+.pdf-image-convert-btn svg,.pdf-image-results-actions svg{width:15px;height:15px}
+.pdf-image-progress-panel{padding:18px 19px}
+.pdf-image-progress-head,.pdf-image-progress-foot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pdf-image-progress-head strong{font-size:12px}.pdf-image-progress-head span,.pdf-image-progress-foot{font-size:10px;color:#8c8d96}
+.pdf-image-progress-track{height:7px;background:#f7e7ea;border-radius:10px;overflow:hidden;margin:13px 0 10px}
+.pdf-image-progress-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#c92032,#ea6e7c);border-radius:inherit;transition:width .15s}
+.pdf-image-progress-foot{font-size:10px}
+.pdf-image-results-panel{padding:0}
+.pdf-image-results-head{padding:20px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #efeff3}
+.pdf-image-results-head h2{margin:7px 0 4px;font-size:19px;letter-spacing:-.5px}
+.pdf-image-results-head p{margin:0;color:#92939c;font-size:11px;line-height:1.5}
+.pdf-image-results-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pdf-image-results-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:17px}
+.pdf-image-result-card{min-width:0;border:1px solid #e9e9ef;border-radius:12px;overflow:hidden;background:#fff;transition:border-color .15s,box-shadow .15s}
+.pdf-image-result-card.selected{border-color:#e6a0a9;box-shadow:0 0 0 2px #c920320b}
+.pdf-image-result-preview{height:180px;display:flex;align-items:center;justify-content:center;padding:10px;background-color:#f4f4f7;background-image:linear-gradient(45deg,#e9e9ef 25%,transparent 25%),linear-gradient(-45deg,#e9e9ef 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e9e9ef 75%),linear-gradient(-45deg,transparent 75%,#e9e9ef 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0}
+.pdf-image-result-preview img{display:block;max-width:100%;max-height:100%;object-fit:contain;background:#fff;box-shadow:0 3px 12px #18101a12}
+.pdf-image-result-meta{display:flex;align-items:flex-start;gap:7px;padding:10px 10px 8px}
+.pdf-image-result-meta input{accent-color:var(--red);margin-top:2px}
+.pdf-image-result-info{min-width:0;flex:1}
+.pdf-image-result-info strong{display:block;font-size:10px;overflow-wrap:anywhere;line-height:1.4}
+.pdf-image-result-info span{display:block;font-size:9px;color:#92939d;margin-top:4px;line-height:1.45}
+.pdf-image-result-download{margin:0 9px 10px;width:calc(100% - 18px);font-size:10px;padding:8px 9px}
+.pdf-image-result-download svg{width:13px;height:13px}
+.pdf-image-results-foot{border-top:1px solid #f0f0f3;padding:13px 18px;display:flex;align-items:center;gap:8px;color:#92939b;font-size:10px;line-height:1.5}
+.pdf-image-results-foot svg{width:16px;height:16px;flex:0 0 auto}
+.pdf-image-message{padding:12px 15px;border:1px solid #f0d9dd;border-radius:10px;background:#fff6f7;color:#a32a39;font-size:11px;line-height:1.6}
+.pdf-image-message.success{background:#f0fbf5;color:#22764e;border-color:#d8f0e2}
+.pdf-images-sidebar{display:flex;flex-direction:column;gap:13px;min-width:0}
+.pdf-images-side-card{border:1px solid #e7e7ed;border-radius:16px;background:#fff;padding:20px;overflow:hidden}
+.pdf-images-side-dark{position:relative;background:#292a31;border-color:#292a31;color:#fff;min-height:245px}
+.pdf-side-orb{position:absolute;width:180px;height:180px;border-radius:50%;right:-83px;top:-70px;background:radial-gradient(circle,#c920324a,transparent 68%);pointer-events:none}
+.pdf-images-side-kicker{position:relative;color:#ff9ca8;letter-spacing:1.6px;font-size:9px;font-weight:800}
+.pdf-images-side-dark h3{position:relative;font-size:25px;letter-spacing:-.7px;line-height:1.15;margin:17px 0 11px}
+.pdf-images-side-dark p{position:relative;margin:0;color:#c4c5ce;font-size:11px;line-height:1.7}
+.pdf-side-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;border-top:1px solid #ffffff1c;margin-top:18px;padding-top:14px}
+.pdf-side-metrics div{display:flex;flex-direction:column;gap:4px}.pdf-side-metrics strong{font-size:16px}.pdf-side-metrics span{font-size:9px;color:#bdbec7}
+.pdf-images-help-card h3{display:flex;align-items:center;gap:8px;font-size:13px;margin:0 0 16px}.pdf-images-help-card h3 svg{width:17px;height:17px;color:var(--red)}
+.pdf-side-step{display:flex;align-items:flex-start;gap:10px;margin-top:13px}
+.pdf-side-step>span{width:24px;height:24px;flex:0 0 24px;display:grid;place-items:center;border-radius:8px;background:#fff0f2;color:var(--red);font-size:10px;font-weight:800}
+.pdf-side-step strong{font-size:10px}.pdf-side-step p{font-size:10px;line-height:1.55;color:#90919a;margin:4px 0 0}
+.pdf-images-side-security{display:flex;align-items:flex-start;gap:9px;padding:4px 5px;color:#85868f;font-size:10px;line-height:1.6}
+.pdf-images-side-security svg{width:20px;height:20px;flex:0 0 auto;color:#319568}
+.pdf-images-side-security strong{display:block;color:#4b4d55;font-size:11px;margin-bottom:2px}
+.pdf-images-footer{display:flex;justify-content:space-between;gap:10px;padding:22px 5px 2px;color:#999aa3;font-size:9px}
+.pdf-images-footer b{font-weight:800;color:#767780;letter-spacing:1px;margin-left:5px}
+@media(max-width:1100px){.pdf-images-grid-layout{grid-template-columns:minmax(0,1fr) 245px;gap:13px}.pdf-image-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pdf-images-hero-art{margin-right:5px}}
+@media(max-width:800px){.pdf-images-shell{padding:17px 12px 20px}.pdf-images-hero{min-height:0;padding:6px 3px 21px}.pdf-images-hero-art{display:none}.pdf-images-hero h1{font-size:35px;letter-spacing:-1.4px;margin-top:13px}.pdf-images-hero p{font-size:12px}.pdf-images-grid-layout{grid-template-columns:minmax(0,1fr)}.pdf-images-sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.pdf-images-side-dark{grid-row:span 2}.pdf-images-side-security{grid-column:1/-1}.pdf-image-results-head{align-items:flex-start;flex-direction:column}.pdf-image-results-actions{justify-content:flex-start}.pdf-image-results-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.pdf-image-result-preview{height:160px}}
+@media(max-width:560px){.pdf-images-hero h1{font-size:30px}.pdf-images-kicker{font-size:8px;letter-spacing:1.2px}.pdf-images-pills{gap:5px}.pdf-images-pills span{padding:6px 7px;font-size:9px}.pdf-image-panel-head{padding:13px}.pdf-image-dropzone{margin:12px;min-height:188px}.pdf-image-settings-grid{grid-template-columns:1fr;padding:14px;gap:13px}.pdf-image-settings-footer{padding:12px 14px;align-items:stretch;flex-direction:column}.pdf-image-buttons{justify-content:flex-end}.pdf-image-results-head{padding:15px}.pdf-image-results-grid{padding:10px;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}.pdf-image-result-preview{height:150px}.pdf-image-result-meta{padding:8px 7px 6px;gap:5px}.pdf-image-result-download{margin:0 7px 8px;width:calc(100% - 14px)}.pdf-images-sidebar{grid-template-columns:minmax(0,1fr)}.pdf-images-side-dark{grid-row:auto}.pdf-images-side-security{grid-column:auto}.pdf-images-footer{font-size:8px}.pdf-image-step{font-size:8px;letter-spacing:.5px;padding:6px}.pdf-image-panel-head p{max-width:230px;line-height:1.4}.pdf-image-results-actions{width:100%}.pdf-image-results-actions .btn{flex:1}}
+@media(max-width:360px){.pdf-images-hero h1{font-size:27px}.pdf-images-pills span{font-size:8px}.pdf-image-results-grid{grid-template-columns:1fr}.pdf-image-result-preview{height:210px}}
+
+
+/* Alignment controls and the password-encryption workspace. */
+.align-chip{display:inline-flex;align-items:center;gap:4px;padding:7px 8px}.align-chip span{font-size:10px}.align-chip[data-align="left"]{text-align:left}.align-chip[data-align="center"]{text-align:center}.align-chip[data-align="right"]{text-align:right}.align-chip[data-align="justify"]{text-align:justify}
+.encrypt-modal{width:min(600px,100%)}.encrypt-body{display:grid;gap:14px}.encrypt-dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1.5px dashed #dfc3c8;background:linear-gradient(140deg,#fffdfd,#fff6f7);border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer;transition:background .16s,border-color .16s}.encrypt-dropzone:hover,.encrypt-dropzone.drag-over{background:#fff0f2;border-color:#c92032}.encrypt-dropzone svg{width:28px;height:28px;color:#c92032}.encrypt-dropzone strong{font-size:13px}.encrypt-dropzone small{font-size:10px;color:#8b8d96;line-height:1.5}.encrypt-file-status{font-size:11px;padding:10px 12px;border-radius:9px;background:#f7f7f9;color:#777984;overflow-wrap:anywhere}.encrypt-file-status.ready{background:#effaf4;color:#21784f}.encrypt-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.encrypt-field{display:flex;flex-direction:column;gap:6px;min-width:0}.encrypt-field span{font-size:11px;font-weight:800;color:#4a4b53}.encrypt-field input{width:100%;min-width:0;border:1px solid #e2e2e9;border-radius:9px;padding:11px 12px;color:#2d2e35;background:#fff;font-size:12px}.encrypt-field input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212;outline:none}.encrypt-meter{height:5px;background:#f0e4e6;border-radius:99px;overflow:hidden}.encrypt-meter span{display:block;height:100%;width:0;background:#c92032;transition:width .16s}.encrypt-hint{font-size:10px;color:#8d8e96;line-height:1.55;margin:0}.encrypt-warning{display:flex;gap:9px;align-items:flex-start;background:#fff8e9;border:1px solid #f1dfb8;color:#72561e;border-radius:10px;padding:11px 12px;font-size:10px;line-height:1.55}.encrypt-warning svg{width:16px;height:16px;flex:0 0 auto}.encrypt-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}.encrypt-actions .btn{min-height:40px}.encrypt-status{font-size:11px;color:#797b84;min-height:16px;line-height:1.5}.encrypt-status.error{color:#a72b3a}.encrypt-status.success{color:#20754d}.encrypt-loading{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid #ffffff88;border-top-color:#fff;animation:pdf-image-spin .7s linear infinite}
+@media(max-width:720px){.align-chip{padding:7px}.align-chip span{font-size:9px}.encrypt-fields{grid-template-columns:1fr}.encrypt-body{gap:12px}.encrypt-modal .modal-head{padding:15px}.encrypt-modal .modal-body{padding:14px}.encrypt-actions{display:grid;grid-template-columns:1fr}.encrypt-actions .btn{width:100%}}
+
+</style>
+<link rel="stylesheet" href="block-tap.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand" aria-label="JNR PDF home">
+      <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+      <div><div class="brand-name">JNR <span>PDF</span></div><div class="brand-sub">LIVE DOCUMENT STUDIO</div></div>
+    </div>
+    <div class="top-status"><span><i class="live-dot"></i>Live preview</span><span id="saveStatus">Autosave ready</span></div>
+    <div class="top-actions">
+      <button class="btn" id="pdfImagesBtn" title="Convert PDF pages into 4K PNG images" aria-controls="pdfImagePage" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M7 15.5 10.1 12l2.4 2.4 2.1-2.1 2.4 3.2M8 8.2h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-text">PDF to PNG</span></button>
+      <button class="btn" id="paletteBtn" title="Choose and copy a colour"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 1 0 0 18h1.1a2 2 0 0 0 1.3-3.5 1.7 1.7 0 0 1 1.1-3h1.1A4.4 4.4 0 0 0 21 10.1C21 6.2 17 3 12 3Z" stroke="currentColor" stroke-width="1.6"/><circle cx="7.7" cy="10" r="1" fill="#d83c4b"/><circle cx="11" cy="6.9" r="1" fill="#eab64e"/><circle cx="15.3" cy="8" r="1" fill="#47a77a"/></svg><span class="btn-text">Palette</span></button>
+      <button class="btn" id="helpBtn" title="Open command help (Ctrl+M)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9a2.4 2.4 0 1 1 4.25 1.55c-.8.94-1.95 1.25-1.95 2.7M12 16.8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span class="btn-text">Help</span></button>
+      <button class="btn soft" id="encryptBtnOpen" title="Password-protect a PDF with AES-256"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span class="btn-text">Encrypt PDF</span></button>
+      <button class="btn primary" id="exportBtn" title="Export a high-quality PDF with clickable links"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-text">Export PDF</span></button>
+    </div>
+  </header>
+  <div class="export-progress" id="exportProgress"><span></span></div>
+  <main class="workspace" id="workspace">
+    <nav class="mobile-tabs" aria-label="Workspace sections">
+      <button class="mobile-tab active" id="terminalTab"><svg viewBox="0 0 24 24" fill="none"><path d="m4 6 5 5-5 5m8 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Terminal</button>
+      <button class="mobile-tab" id="previewTab"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Live preview <span id="mobilePageCount">1</span></button>
+    </nav>
+    <section class="panel editor-panel mobile-active" id="editorPanel" aria-label="Document terminal">
+      <div class="panel-head">
+        <div class="panel-heading"><div class="panel-icon"><svg viewBox="0 0 24 24" fill="none"><path d="m4 6 5 5-5 5m8 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="panel-title">Document terminal</div><div class="panel-subtitle">Write commands. Watch your PDF take shape.</div></div></div>
+        <div class="panel-head-actions"><span class="counter" id="wordCount">0 words</span><button class="btn small" id="clearBtn" title="Clear document">Clear</button></div>
+      </div>
+      <div class="toolbar" aria-label="Quick insert commands">
+        <button class="tool-chip" data-insert="/h1 ">H1</button><button class="tool-chip" data-inline="bold" title="Bold selected text" aria-label="Bold selected text"><b>B</b></button><button class="tool-chip" data-inline="italic" title="Italic selected text" aria-label="Italic selected text"><i>I</i></button><button class="tool-chip" data-inline="underline" title="Underline selected text" aria-label="Underline selected text"><u>U</u></button><button class="tool-chip" data-inline="highlight" title="Highlight selected text" aria-label="Highlight selected text">Highlight</button><button class="tool-chip" data-inline="sup" title="Superscript selected text">x²</button><button class="tool-chip" data-inline="sub" title="Subscript selected text">x₂</button><button class="tool-chip" data-inline="strike" title="Strike through selected text"><s>S</s></button><span class="tool-separator"></span><button class="tool-chip align-chip" data-align="left" title="Align selected text left" aria-label="Align left">≡<span>Left</span></button><button class="tool-chip align-chip" data-align="center" title="Centre selected text" aria-label="Align center">≡<span>Center</span></button><button class="tool-chip align-chip" data-align="right" title="Align selected text right" aria-label="Align right">≡<span>Right</span></button><button class="tool-chip align-chip" data-align="justify" title="Justify selected text" aria-label="Justify text">☰<span>Justify</span></button>
+        <label class="toolbar-label" title="Apply a font to selected text">Font <select id="fontSelect" class="tool-select" aria-label="Inline font"><option value="">Choose…</option></select></label>
+        <label class="toolbar-label" title="Apply a text size to selected text">Size <select id="sizeSelect" class="tool-select" aria-label="Inline text size"><option value="">Size…</option><option>10</option><option>12</option><option>14</option><option>16</option><option>18</option><option>20</option><option>24</option><option>28</option><option>32</option><option>36</option></select></label>
+        <label class="toolbar-label" title="Apply text colour to selected text">Text <input type="color" id="inlineColor" class="tool-color" value="#c92032" aria-label="Inline text colour" /></label><label class="toolbar-label" title="Choose highlight colour">Mark <input type="color" id="inlineHighlight" class="tool-color" value="#fff0a8" aria-label="Highlight colour" /></label><label class="toolbar-label" title="Choose inline background colour">BG <input type="color" id="inlineBackground" class="tool-color" value="#e0f2fe" aria-label="Text background colour" /></label><label class="toolbar-label" title="Set the A4 page background">Page <input type="color" id="pageBgColor" class="tool-color" value="#ffffff" aria-label="Page background colour" /></label>
+        <span class="tool-separator"></span><button class="tool-chip" data-insert="/h\n">Divider</button><button class="tool-chip" data-insert="/tbale\n">+ Table</button><button class="tool-chip" data-insert="/pagebreak\n">Page break</button><button class="tool-chip" data-insert="/pagebg #fffdf7\n">Page BG</button><button class="tool-chip" data-insert="/img ">+ Image</button><button class="tool-chip" data-insert="/pgno\n">Page no.</button><button class="tool-chip" id="uploadImageBtn">Upload image</button><input id="imageFile" class="hidden-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+      </div>
+      <div class="editor-wrap">
+        <div class="editor-meta"><div class="terminal-label"><span class="terminal-leds"><i></i><i></i><i></i></span>JNR TERMINAL <span style="color:#c7c7ce;font-weight:500">/ document.jnr</span></div><span>UTF-8 · Plain text</span></div>
+        <textarea id="terminal" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Write document commands" placeholder="Start writing your document…"></textarea>
+        <div class="editor-footer"><div class="editor-footnote">Changes render automatically.<br/>Use <span class="shortcut">Ctrl + M</span> for all commands.</div><div style="display:flex;gap:7px;align-items:center"><button class="btn small soft" id="insertHelpBtn">Command guide</button><button class="btn small" id="sampleBtn">Load sample</button></div></div>
+      </div>
+    </section>
+    <section class="panel preview-panel" id="previewPanel" aria-label="Live PDF preview">
+      <div class="panel-head preview-head">
+        <div class="panel-heading"><div class="panel-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><div class="panel-title">Live PDF preview</div><div class="panel-subtitle">A4 · High-quality export · Click table cells to edit · PDF links stay clickable</div></div></div>
+        <div class="panel-head-actions"><span class="counter" id="pageCount">1 page</span><button class="btn small" id="zoomBtn" title="Fit preview">Fit view</button></div>
+      </div>
+      <div class="preview-workarea" id="previewWorkarea"><div id="pdfDocument" class="preview-document" aria-live="polite"></div></div>
+      <div class="preview-bottom"><div class="status-left"><span class="status-icon"></span><span id="previewMessage">Ready to compose</span></div><div class="page-nav"><button class="btn small" id="prevPage" aria-label="Previous page" title="Shift+P">←</button><span class="page-indicator" id="pageIndicator">PAGE 1 / 1</span><button class="btn small" id="nextPage" aria-label="Next page" title="Shift+N">→</button></div></div>
+    </section>
+  </main>
+  <section class="pdf-image-page" id="pdfImagePage" aria-label="PDF to PNG image converter" aria-hidden="true">
+    <div class="pdf-images-shell">
+      <div class="pdf-images-hero">
+        <div class="pdf-images-hero-copy">
+          <div class="pdf-images-kicker"><span class="live-dot"></span> JNR PDF TOOLS <span class="pdf-images-kicker-dot">/</span> IMAGE CONVERTER</div>
+          <h1>PDF pages, <span>pixel-perfect.</span></h1>
+          <p>Convert every page into crisp, high-resolution PNG images. Built for speed, designed for clarity, and processed locally in your browser.</p>
+          <div class="pdf-images-pills"><span><b>4K</b> UHD output</span><span><b>PNG</b> lossless</span><span><b>Local</b> processing</span></div>
+        </div>
+        <div class="pdf-images-hero-art" aria-hidden="true"><div class="hero-art-page hero-art-back"></div><div class="hero-art-page hero-art-front"><div class="hero-art-pdf">PDF</div><div class="hero-art-line wide"></div><div class="hero-art-line"></div><div class="hero-art-line"></div><div class="hero-art-photo"><i></i><i></i><i></i></div><div class="hero-art-lines"><i></i><i></i><i></i></div></div><div class="hero-art-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2.2A1.8 1.8 0 0 0 6.8 21h10.4a1.8 1.8 0 0 0 1.8-1.8V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> 4K PNG</div></div>
+      </div>
+
+      <div class="pdf-images-grid-layout">
+        <main class="pdf-images-main">
+          <section class="pdf-image-panel upload-panel">
+            <div class="pdf-image-panel-head"><div class="pdf-image-panel-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3.5h7l4 4v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3.8v4h3.8M9 14h6m-6 3h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h2>Start with a PDF</h2><p>Drop your file here or choose it from your device.</p></div><span class="pdf-image-step">STEP 01</span></div>
+            <input type="file" id="pdfImageFile" accept="application/pdf,.pdf" class="hidden-input" />
+            <div class="pdf-image-dropzone" id="pdfImageDropzone" role="button" tabindex="0" aria-label="Choose or drop a PDF file">
+              <div class="pdf-drop-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 15.5v3A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <strong>Drag and drop your PDF</strong><span>or <button type="button" class="pdf-inline-link" id="pdfImageBrowseBtn">browse files</button></span><small>PDF files · Runs on this device · No server upload</small>
+            </div>
+            <div class="pdf-image-file-card" id="pdfImageFileCard" hidden><div class="pdf-file-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.8h7l4 4v14a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.8a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 3v4h4M7.5 14h9M7.5 17h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="pdf-file-details"><strong id="pdfImageFileName">document.pdf</strong><span id="pdfImageFileMeta">Ready to convert</span></div><button class="btn small" id="pdfImageChangeBtn" type="button">Change</button></div>
+          </section>
+
+          <section class="pdf-image-panel settings-panel">
+            <div class="pdf-image-panel-head"><div class="pdf-image-panel-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 4v6m10-6v3M4 17h16m-12-3v6m8-6v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><h2>Image settings</h2><p>Choose your resolution and pages.</p></div><span class="pdf-image-step">STEP 02</span></div>
+            <div class="pdf-image-settings-grid">
+              <label class="pdf-image-field"><span>Output resolution</span><select id="pdfImageResolution"><option value="4k" selected>4K UHD · 3840 px long edge</option><option value="2k">2K QHD · 2560 px long edge</option><option value="1080">Full HD · 1920 px long edge</option><option value="6k">6K · 5760 px long edge</option><option value="300dpi">Print · 300 DPI</option><option value="600dpi">Print · 600 DPI</option></select><small>PNG is lossless at every resolution.</small></label>
+              <label class="pdf-image-field"><span>Pages to convert</span><input id="pdfImageRange" type="text" value="all" placeholder="all or 1-3, 5, 8-10" autocomplete="off"/><small>Examples: <code>all</code>, <code>1-4</code>, <code>1,3,6-8</code></small></label>
+            </div>
+            <div class="pdf-image-settings-footer"><div class="pdf-image-setting-note"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 20 7v5c0 4.5-3.3 7.3-8 9-4.7-1.7-8-4.5-8-9V7l8-3.5Z" stroke="currentColor" stroke-width="1.6"/><path d="m8.5 12 2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your PDF stays on your device. Nothing is uploaded to JNR.</span></div><div class="pdf-image-buttons"><button class="btn" type="button" id="pdfImageCancelBtn" disabled>Cancel</button><button class="btn primary pdf-image-convert-btn" type="button" id="pdfImageConvertBtn" disabled><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Convert to PNG</button></div></div>
+          </section>
+
+          <section class="pdf-image-progress-panel" id="pdfImageProgressPanel" hidden aria-live="polite"><div class="pdf-image-progress-head"><strong id="pdfImageProgressTitle">Preparing your PDF…</strong><span id="pdfImageProgressCount">0 / 0 pages</span></div><div class="pdf-image-progress-track"><span id="pdfImageProgressBar"></span></div><div class="pdf-image-progress-foot"><span id="pdfImageProgressMessage">Reading document safely in your browser.</span><span id="pdfImageProgressPercent">0%</span></div></section>
+
+          <section class="pdf-image-results-panel" id="pdfImageResultsPanel" hidden>
+            <div class="pdf-image-results-head"><div><div class="pdf-images-kicker">STEP 03 <span class="pdf-images-kicker-dot">/</span> YOUR IMAGES</div><h2>Ready to download</h2><p id="pdfImageResultsSummary">Each page is a full-resolution PNG.</p></div><div class="pdf-image-results-actions"><button class="btn small" type="button" id="pdfImageSelectAllBtn">Deselect all</button><button class="btn primary" type="button" id="pdfImageZipBtn" disabled><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="pdfImageZipBtnLabel">Download ZIP</span></button></div></div>
+            <div class="pdf-image-results-grid" id="pdfImageResultsGrid"></div>
+            <div class="pdf-image-results-foot"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Large PDFs may take longer at 6K or 600 DPI. For best speed, use 4K UHD.</span></div>
+          </section>
+          <div class="pdf-image-message" id="pdfImageMessage" role="status" hidden></div>
+        </main>
+
+        <aside class="pdf-images-sidebar">
+          <div class="pdf-images-side-card pdf-images-side-dark"><div class="pdf-side-orb"></div><div class="pdf-images-side-kicker">BUILT FOR CLARITY</div><h3>Small file in.<br/>Big detail out.</h3><p>Perfect for presentations, study notes, diagrams, scans, reports and page-by-page sharing.</p><div class="pdf-side-metrics"><div><strong>4K</strong><span>Ultra HD</span></div><div><strong>PNG</strong><span>Lossless</span></div><div><strong>0</strong><span>Uploads</span></div></div></div>
+          <div class="pdf-images-side-card pdf-images-help-card"><h3><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9a2.4 2.4 0 1 1 4.25 1.55c-.8.94-1.95 1.25-1.95 2.7M12 16.8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>How it works</h3><div class="pdf-side-step"><span>1</span><div><strong>Choose a PDF</strong><p>Upload or drag a file to the drop zone.</p></div></div><div class="pdf-side-step"><span>2</span><div><strong>Pick the quality</strong><p>4K is selected for crisp general use.</p></div></div><div class="pdf-side-step"><span>3</span><div><strong>Download PNGs</strong><p>Save pages individually or together as a ZIP.</p></div></div></div>
+          <div class="pdf-images-side-security"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 20 7v5c0 4.5-3.3 7.3-8 9-4.7-1.7-8-4.5-8-9V7l8-3.5Z" stroke="currentColor" stroke-width="1.6"/><path d="m8.5 12 2.2 2.2 4.8-4.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Private by design</strong>Your PDF is rendered locally in your browser.</span></div>
+        </aside>
+      </div>
+      <div class="pdf-images-footer"><span>JNR PDF <b>IMAGE CONVERTER</b></span><span>Made for clean, high-resolution exports.</span></div>
+    </div>
+  </section>
+  <footer class="app-footer" id="appFooter"><span>Made with care by <b>JNR Corporation</b></span><span>White paper. Red details. Your words.</span></footer>
+</div>
+<div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+  <div class="modal">
+    <div class="modal-head"><div><h2 id="helpTitle">JNR PDF command guide</h2><p>Commands are written on their own line unless a value is needed.</p></div><button class="btn" id="closeHelp" aria-label="Close help">✕</button></div>
+    <div class="modal-body">
+      <div class="help-intro"><b>Quick start:</b> type normal text directly. Use <code>/h1 Your title</code> for a heading. For paired styles, turn them on with the slash command and turn them off with the backslash command. Export at any time to save a high-quality PDF. <br/><b>Tables:</b> put <code>/table</code> on its own line, then add rows separated by <code>|</code>; leave a blank line to end the table. The older typo <code>/tbale</code> remains supported for compatibility. You can also edit table cells directly in the preview.</div>
+      <div class="help-grid">
+        <div class="help-card"><h3>Text & layout</h3>
+          <div class="help-row"><code>/n</code><span>New line / line break</span></div><div class="help-row"><code>/t</code><span>Tab / indent</span></div><div class="help-row"><code>/h</code><span>Horizontal divider</span></div><div class="help-row"><code>/v</code><span>Vertical accent line</span></div><div class="help-row"><code>/h1 … /h5</code><span>Heading levels 1–5 (add text after command or use next line)</span></div><div class="help-row"><code>/p</code><span>Normal paragraph</span></div><div class="help-row"><code>/align center</code><span>Set alignment; also supports left, right and justify. Use <code>/align center text</code> for a one-line aligned paragraph.</span></div><div class="help-row"><code>/indent 20</code><span>Set paragraph left indent in pixels; use /indent 0 to reset.</span></div><div class="help-row"><code>/lineheight 1.6</code><span>Set line-height for subsequent text blocks (1–2.8).</span></div><div class="help-row"><code>/letterspacing 0.5</code><span>Adjust character spacing in pixels; use 0 to reset.</span></div><div class="help-row"><code>/spacer 12</code><span>Insert a controlled vertical gap in pixels.</span></div>
+        </div>
+        <div class="help-card"><h3>Formatting</h3>
+          <div class="help-row"><code>/bold … \bold</code><span>Bold start / end</span></div><div class="help-row"><code>/i … \i</code><span>Italic start / end</span></div><div class="help-row"><code>/u … \u</code><span>Underline start / end</span></div><div class="help-row"><code>/high … \high</code><span>Highlight start / end</span></div><div class="help-row"><code>/highlight #fff59d text\highlightend</code><span>Custom highlight colour</span></div><div class="help-row"><code>/sub H₂O\sub</code><span>Subscript</span></div><div class="help-row"><code>/sup x²\sup</code><span>Superscript</span></div><div class="help-row"><code>/strike old text\strike</code><span>Strikethrough</span></div><div class="help-row"><code>/bgcolor #e0f2fe text\bgcolorend</code><span>Inline background colour</span></div><div class="help-row"><code>/colorcode #c92032</code><span>Start text color</span></div><div class="help-row"><code>\colorend</code><span>End text color</span></div><div class="help-row"><code>/font Georgia</code><span>Change font family</span></div><div class="help-row"><code>/size 18</code><span>Change font size in px</span></div>
+        </div>
+        <div class="help-card"><h3>Insert elements</h3>
+          <div class="help-row"><code>/img URL</code><span>Insert an image URL</span></div><div class="help-row"><code>/img sample</code><span>Insert the built-in sample banner</span></div><div class="help-row"><code>/table</code> <span>Editable table; use cell toolbar to change rows, columns and colours</span></div><div class="help-row"><code>/tbale</code><span>Legacy alias for /table, retained for compatibility.</span></div><div class="help-row"><code>/tablehead #c92032</code><span>Table header background</span></div><div class="help-row"><code>/tableheadtext #ffffff</code><span>Table header text colour</span></div><div class="help-row"><code>/tableborder #dddddd</code><span>Table border colour</span></div><div class="help-row"><code>/tablebg #ffffff</code><span>Table cell background</span></div><div class="help-row"><code>/tablealt #f7f7f7</code><span>Alternate row background</span></div><div class="help-row"><code>/sign Your Name</code><span>Signature block</span></div><div class="help-row"><code>/watermark DRAFT</code><span>Single user watermark setting, applied to pages</span></div><div class="help-row"><code>/border #c92032</code><span>Single page border setting</span></div><div class="help-row"><code>/pgno</code><span>Toggle page numbers on/off</span></div><div class="help-row"><code>/link URL | label</code><span>Insert text with a clickable PDF link</span></div>
+        </div>
+        <div class="help-card"><h3>Document layout & content</h3>
+          <div class="help-row"><code>/pagebreak</code><span>Start the next page</span></div><div class="help-row"><code>/quote text</code><span>Quote block</span></div><div class="help-row"><code>/bullet text</code><span>Bullet item</span></div><div class="help-row"><code>/num text</code><span>Numbered item</span></div><div class="help-row"><code>/code text</code><span>Monospaced code block</span></div><div class="help-row"><code>/callout text</code><span>Highlighted note block</span></div><div class="help-row"><code>/box #eef2ff text</code><span>Custom colour-backed information box.</span></div><div class="help-row"><code>/upper /lower /capitalize</code><span>Apply text transformation to a single display line.</span></div><div class="help-row"><code>/check text</code><span>Checklist item.</span></div><div class="help-row"><code>/date</code><span>Insert today’s date</span></div><div class="help-row"><code>/small text</code><span>Small text paragraph</span></div>
+        </div>
+        <div class="help-card"><h3>Keyboard shortcuts</h3>
+          <div class="help-row"><code>Ctrl + Z</code><span>Undo (editor)</span></div><div class="help-row"><code>Ctrl + Shift + Z</code><span>Redo while typing; Shift + Z works outside the terminal</span></div><div class="help-row"><code>Ctrl + C / X / A</code><span>Copy / cut / select all</span></div><div class="help-row"><code>Ctrl + P</code><span>Paste clipboard into terminal (permission may be required)</span></div><div class="help-row"><code>Ctrl + M</code><span>Open command help</span></div><div class="help-row"><code>Shift + M</code><span>Open preview (when terminal isn't focused)</span></div><div class="help-row"><code>Shift + P / N</code><span>Previous / next page</span></div><div class="help-row"><code>/help</code><span>Open this guide</span></div>
+        </div>
+      </div>
+      <p style="font-size:10px;color:#999aa2;line-height:1.6;margin:15px 2px 0">Limits: up to 50 preview/export pages. Page breaks are added automatically. Export uses an HD canvas renderer; external images need to allow cross-origin access to appear in the PDF.</p>
+    </div>
+    <div class="modal-foot"><span>JNR PDF · Live Document Studio</span><button class="btn primary" id="helpGotIt">Got it</button></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="paletteModal" role="dialog" aria-modal="true" aria-labelledby="paletteTitle">
+  <div class="modal" style="width:min(520px,100%)">
+    <div class="modal-head"><div><h2 id="paletteTitle">Colour palette</h2><p>Pick a colour, copy its HEX code, or apply it to selected text.</p></div><button class="btn" id="closePalette" aria-label="Close colour palette">✕</button></div>
+    <div class="modal-body">
+      <div class="palette-editor"><input type="color" id="paletteColor" value="#c92032" aria-label="Choose a colour"/><div><label for="paletteHex" style="display:block;font-size:10px;font-weight:800;color:#858690;margin:0 0 5px">HEX COLOUR CODE</label><input type="text" id="paletteHex" value="#C92032" maxlength="9" spellcheck="false" autocomplete="off"/></div></div>
+      <div class="palette-preview" id="palettePreview">JNR PDF · SAMPLE</div>
+      <div class="palette-themes" id="paletteThemes" aria-label="Colour palette collections"></div><div class="palette-grid" id="paletteGrid" aria-label="Preset colours">
+        <button class="palette-swatch" data-palette="#C92032" style="background:#C92032" aria-label="JNR red"></button><button class="palette-swatch" data-palette="#2563EB" style="background:#2563EB" aria-label="Blue"></button><button class="palette-swatch" data-palette="#16A34A" style="background:#16A34A" aria-label="Green"></button><button class="palette-swatch" data-palette="#7C3AED" style="background:#7C3AED" aria-label="Purple"></button><button class="palette-swatch" data-palette="#EA580C" style="background:#EA580C" aria-label="Orange"></button><button class="palette-swatch" data-palette="#0891B2" style="background:#0891B2" aria-label="Teal"></button><button class="palette-swatch" data-palette="#111827" style="background:#111827" aria-label="Charcoal"></button><button class="palette-swatch" data-palette="#DB2777" style="background:#DB2777" aria-label="Pink"></button><button class="palette-swatch" data-palette="#F59E0B" style="background:#F59E0B" aria-label="Amber"></button><button class="palette-swatch" data-palette="#64748B" style="background:#64748B" aria-label="Slate"></button><button class="palette-swatch" data-palette="#7F1D1D" style="background:#7F1D1D" aria-label="Maroon"></button><button class="palette-swatch" data-palette="#0F766E" style="background:#0F766E" aria-label="Deep teal"></button><button class="palette-swatch" data-palette="#FFFFFF" style="background:#FFFFFF" aria-label="White"></button><button class="palette-swatch" data-palette="#E5E7EB" style="background:#E5E7EB" aria-label="Light gray"></button><button class="palette-swatch" data-palette="#FDE68A" style="background:#FDE68A" aria-label="Soft yellow"></button><button class="palette-swatch" data-palette="#FCE7F3" style="background:#FCE7F3" aria-label="Soft pink"></button>
+      </div>
+      <div class="palette-actions"><button class="btn primary" id="copyColorBtn">Copy HEX</button><button class="btn soft" id="applyColorBtn">Apply to selected text</button></div>
+      <p class="enhancement-note">Tip: select text in the terminal before pressing “Apply”. The HEX code can also be used in commands such as <code>/border #C92032</code> or <code>/tablehead #C92032</code>.</p>
+    </div>
+    <div class="modal-foot"><span>HEX · RGB colour picker</span><button class="btn" id="paletteDone">Done</button></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="encryptModal" role="dialog" aria-modal="true" aria-labelledby="encryptTitle">
+  <div class="modal encrypt-modal">
+    <div class="modal-head"><div><h2 id="encryptTitle">Encrypt PDF</h2><p>Protect an existing PDF with real password-based AES-256 encryption.</p></div><button class="btn" id="closeEncrypt" aria-label="Close encrypt PDF">✕</button></div>
+    <div class="modal-body encrypt-body">
+      <input type="file" id="encryptFile" class="hidden-input" accept="application/pdf,.pdf" />
+      <label class="encrypt-dropzone" id="encryptDropzone" for="encryptFile" tabindex="0" role="button" aria-label="Choose a PDF to encrypt"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 2.8h7l4.2 4.3v13.1a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1V3.8a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 3v4.5H18M8.5 14.5h7M8.5 18h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><strong>Choose or drop a PDF file</strong><small>PDF only · Up to 100 MB · Original PDF content is preserved by the encryption engine</small></label>
+      <div class="encrypt-file-status" id="encryptFileStatus" aria-live="polite">No PDF selected yet.</div>
+      <div class="encrypt-fields">
+        <label class="encrypt-field"><span>Password to open PDF</span><input type="password" id="encryptPassword" autocomplete="new-password" minlength="8" maxlength="256" placeholder="Use at least 8 characters" required /></label>
+        <label class="encrypt-field"><span>Confirm password</span><input type="password" id="encryptConfirm" autocomplete="new-password" minlength="8" maxlength="256" placeholder="Enter the same password" required /></label>
+      </div>
+      <div class="encrypt-meter" aria-hidden="true"><span id="encryptStrengthBar"></span></div>
+      <p class="encrypt-hint" id="encryptStrengthText">Use a long, unique passphrase. The password is never saved by this tool.</p>
+      <label class="encrypt-field"><span>Owner password <em style="font-weight:500;color:#999aa2">(optional)</em></span><input type="password" id="encryptOwner" autocomplete="new-password" maxlength="256" placeholder="Leave blank to use the open password" /></label>
+      <div class="encrypt-warning"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 2.8 20h18.4L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5m0 2.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Processing runs in your browser, but the encryption engine/WASM must be fetched from its public CDN the first time. Your PDF and passwords are not sent to that CDN. Losing the password can make the encrypted PDF unrecoverable.</span></div>
+      <div class="encrypt-status" id="encryptStatus" role="status" aria-live="polite"></div>
+      <div class="encrypt-actions"><button class="btn" id="cancelEncrypt">Cancel</button><button class="btn primary" id="encryptNowBtn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Encrypt & Download</button></div>
+    </div>
+    <div class="modal-foot"><span>AES-256 · Browser-side processing</span><span>JNR PDF</span></div>
+  </div>
+</div>
+
+<div class="toast-region" id="toastRegion" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const STARTER = `/h1 JNR PDF Studio
+/h2 A complete command showcase
+This expanded sample demonstrates the available document tags, inline styles, tables, images, active links, signatures and page layout tools.
+
+/img sample
+
+/bold Bold text example\\bold
+/i Inline italic example\\i
+/u Underlined words\\u
+/high Highlighted text\\high
+/colorcode #c92032 JNR red text\\colorend
+/bgcolor #fff0a8 Highlighted background\\bgcolorend
+/font Montserrat Display in Montserrat\\fontend
+/size 18 Large 18px text\\sizeend
+
+/h3 Heading level 3
+/h4 Heading level 4
+/h5 Heading level 5
+/align center
+Centered block sample
+/align left
+/p A normal paragraph tag is supported. Type /help on its own line to open the command guide.
+One line/nSecond line with a break; an indent marker looks like this /t→ indented text.
+
+/h
+/v
+/quote “A useful document should be easy to read, easy to share, and consistent from page to page.”
+/callout Tip: select any text in the terminal and use the inline toolbar to apply a style to just that selection.
+
+/h3 Lists and code
+/bullet First bullet list item
+/bullet Second bullet list item
+/num First numbered list item
+/num Second numbered list item
+/code const exportFormat = "PDF";
+/small This paragraph uses a smaller text treatment.
+
+/h3 An editable table
+/tablehead #2563eb
+/tableheadtext #ffffff
+/tableborder #d7e2f5
+/tablebg #ffffff
+/tablealt #f2f7ff
+/tbale
+Feature | Status | Notes
+Live preview | Ready | Updates as you type
+Clickable links | Ready | Links stay active in exported PDF
+Table controls | Ready | Adjust rows, columns and colours
+Inline styles | Ready | Select text and use toolbar
+
+/h3 Links, date and signature
+/date
+/link https://example.com | Visit the JNR PDF demo link
+/sign JNR Document Team
+
+/h3 Layout and page settings
+The page break command deliberately starts a fresh page to demonstrate multi-page export.
+/pagebreak
+/pagebg #fffdf7
+/margin 18
+/h2 Second page · Layout controls
+/align left
+This page demonstrates a single user watermark and page border. Duplicate watermark or border commands are ignored.
+/watermark SAMPLE
+/border #dbeafe
+/pgno
+
+/h3 More formatting
+/quote Use /font followed by a built-in font name, then close an inline range with \\fontend.
+/colorcode #7c3aed Purple text works too.\\colorend
+/bgcolor #dcfce7 A soft green highlight.\\bgcolorend
+/size 14 A standard 14px text size.\\sizeend
+
+/h3 Table editing guide
+Open the table in the preview and set the exact row and column count. Header, header text, cell, alternate row and border colours can all be customised.
+
+/h3 Additional layout and text commands
+/align center
+This entire paragraph is centred by the /align command.
+/align right Right-aligned text can also be supplied on the same command line.
+/align justify
+A justified paragraph uses the full text width to create an even edge on both sides. On narrow phone screens the result remains inside the page margins.
+/align left
+/indent 20
+This paragraph has an extra left indent. Use /indent 0 to restore the standard paragraph position.
+/indent 0
+/letterspacing 0.5
+Letter spacing can be adjusted for a subtle typographic treatment.
+/letterspacing 0
+/lineheight 1.6
+Line-height can be adjusted for easier reading across a longer paragraph.
+/lineheight 1.7
+/spacer 10
+A spacer command adds a controlled gap without filling the page with blank lines.
+/box #eef2ff A colour-backed information box using the /box command.
+/check Review the final document before sharing
+/hr #c92032
+/upper upper-case display example
+/lower LOWER-CASE DISPLAY EXAMPLE
+/capitalize title case display example
+/caption Supporting caption text for a figure or short note.
+
+/h3 Forms and inline format examples
+/high #dbeafe Custom blue highlight uses the selected HEX colour.\\highlightend
+/strike Deprecated wording can be struck through.\\strike
+/sub H2O notation supports subscript.\\sub
+/sup x2 notation supports superscript.\\sup
+/bgcolor #dcfce7 Text can use a custom background.\\bgcolorend
+/colorcode #0f766e Teal text colour.\\colorend
+/font Georgia Serif text uses Georgia.\\fontend
+/size 12 This is a 12px sized text run.\\sizeend
+
+/h3 Table command compatibility
+/table
+Command | Purpose | Example
+Align command | Paragraph alignment | align center
+Indent command | Left indent in px | indent 20
+Letter spacing | Character spacing | letterspacing 0.5
+Page background | Page background | pagebg #fffdf7
+
+/h
+End of JNR PDF sample`;
+  const SAMPLE_IMAGE_DATA = 'data:image/jpeg;base64,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';
+  const el = id => document.getElementById(id);
+  const terminal = el('terminal'), pdfDocument = el('pdfDocument'), previewWorkarea = el('previewWorkarea');
+  const editorPanel = el('editorPanel'), previewPanel = el('previewPanel'), terminalTab = el('terminalTab'), previewTab = el('previewTab');
+  const allowedFonts = ['Arial','Georgia','Times New Roman','Verdana','Tahoma','Trebuchet MS','Courier New','DM Sans','DM Mono','Playfair Display','Roboto','Open Sans','Lato','Montserrat','Poppins','Merriweather','Lora','Nunito','Raleway','Oswald','Source Sans 3','Ubuntu','Inter','Fira Sans','Roboto Slab','PT Serif','Libre Baskerville','Caveat','Pacifico','Bebas Neue','serif','sans-serif','monospace'];
+  let renderTimer = null, renderToken = 0, pages = [], currentPageIndex = 0, userChanged = false, lastHelpTrigger = '';
+  let undoStack=[], redoStack=[], lastKnownValue='';
+  const storageKey = 'jnr_pdf_studio_draft_v1';
+
+  function toast(message, type='') {
+    const node = document.createElement('div'); node.className = 'toast' + (type ? ' ' + type : ''); node.textContent = message; el('toastRegion').appendChild(node);
+    setTimeout(() => { node.style.opacity='0'; node.style.transform='translateY(5px)'; setTimeout(()=>node.remove(),220); }, 3000);
+  }
+  function openHelp(){ el('helpModal').classList.add('open'); }
+  function closeHelp(){ el('helpModal').classList.remove('open'); }
+  function setMobileSection(which){
+    if (window.matchMedia('(max-width: 720px)').matches) {
+      const isPreview = which === 'preview';
+      editorPanel.classList.toggle('mobile-active', !isPreview); previewPanel.classList.toggle('mobile-active', isPreview);
+      terminalTab.classList.toggle('active', !isPreview); previewTab.classList.toggle('active', isPreview);
+      if (isPreview) { previewWorkarea.scrollTop = 0; scheduleRender(); } else terminal.focus({preventScroll:true});
+    } else {
+      (which==='preview' ? previewPanel : editorPanel).scrollIntoView({behavior:'smooth',block:'nearest'});
+      if(which==='terminal') terminal.focus({preventScroll:true});
+    }
+  }
+  function wordCount(text){ const trimmed=text.trim(); return trimmed ? (trimmed.match(/\S+/g)||[]).length : 0; }
+  function updateCounts(){ el('wordCount').textContent = `${wordCount(terminal.value)} words`; }
+  function setEditorValue(nextValue){
+    if(nextValue===terminal.value)return;undoStack.push(terminal.value);if(undoStack.length>150)undoStack.shift();redoStack=[];terminal.value=nextValue;lastKnownValue=nextValue;userChanged=true;updateCounts();scheduleRender();
+  }
+  function restoreHistory(direction){
+    const source=direction==='undo'?undoStack:redoStack;const target=direction==='undo'?redoStack:undoStack;
+    if(!source.length){toast(direction==='undo'?'Nothing to undo.':'Nothing to redo.');return;}
+    const start=terminal.selectionStart,end=terminal.selectionEnd;target.push(terminal.value);if(target.length>150)target.shift();terminal.value=source.pop();lastKnownValue=terminal.value;const a=Math.min(start,terminal.value.length),b=Math.min(end,terminal.value.length);try{terminal.setSelectionRange(a,b);}catch(e){}userChanged=true;updateCounts();scheduleRender();
+  }
+  function safeURL(value){
+    const v=(value||'').trim();
+    if (/^data:image\/(png|jpeg|jpg|webp|gif);base64,/i.test(v)) return v;
+    try { const u=new URL(v, window.location.href); if(['http:','https:','blob:'].includes(u.protocol)) return u.href; } catch(e){}
+    return '';
+  }
+  function makePage(number, opts){
+    const page=document.createElement('article'); page.className='pdf-page'; page.dataset.page=String(number); page.setAttribute('aria-label',`PDF page ${number}`);
+    if(opts.border){ page.style.boxShadow=`inset 0 0 0 2px ${opts.border}`; page.style.borderColor=opts.border; }
+    page.style.backgroundColor=opts.pageBg||'#ffffff';
+    const content=document.createElement('div'); content.className='pdf-page-content'; if(opts.margin){const m=Math.max(10,Math.min(35,Number(opts.margin)||18));const px=(m/210)*794;content.style.padding=`${px}px ${px}px ${Math.min(35,m*1.15)/210*794}px`; } page.appendChild(content);
+    if(opts.watermark){const wm=document.createElement('div');wm.className='page-watermark';const span=document.createElement('span');span.textContent=opts.watermark;wm.appendChild(span);page.appendChild(wm);}
+    if(opts.pageNumbers){const no=document.createElement('div');no.className='page-number';no.textContent=String(number);page.appendChild(no);}
+    const edge=document.createElement('div');edge.className='page-edge-label';edge.textContent='JNR PDF  /  A4';page.appendChild(edge);
+    return {page,content};
+  }
+  function formatSpan(text, state){
+    const span=document.createElement('span'); span.textContent=text;
+    if(state.bold) span.style.fontWeight='800';
+    if(state.italic) span.style.fontStyle='italic';
+    if(state.underline) span.style.textDecoration='underline';
+    if(state.strike) span.style.textDecoration=(span.style.textDecoration?span.style.textDecoration+' ':'')+'line-through';
+    if(state.highlight){const mark=state.highlightColor||'#fff0a8';span.style.backgroundColor=mark;span.style.boxDecorationBreak='clone';span.style.webkitBoxDecorationBreak='clone';span.style.boxShadow=`2px 0 ${mark},-2px 0 ${mark}`;}
+    if(state.color) span.style.color=state.color;
+    if(state.background){span.style.backgroundColor=state.background;span.style.boxDecorationBreak='clone';span.style.webkitBoxDecorationBreak='clone';span.style.boxShadow=`2px 0 ${state.background},-2px 0 ${state.background}`;}
+    if(state.font) span.style.fontFamily=`"${state.font}", ${/serif/i.test(state.font)?'serif':'sans-serif'}`;
+    if(state.size) span.style.fontSize=state.size+'px';
+    if(state.subscript) {span.style.verticalAlign='sub';span.style.fontSize=span.style.fontSize||'.72em';}
+    if(state.superscript){span.style.verticalAlign='super';span.style.fontSize=span.style.fontSize||'.72em';}
+    if(state.lineHeight) span.style.lineHeight=String(state.lineHeight);
+    if(state.letterSpacing) span.style.letterSpacing=state.letterSpacing+'px';
+    return span;
+  }
+  function renderInline(text,state){
+    const frag=document.createDocumentFragment();
+    const escapeRegExp=value=>value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
+    const fontPattern=allowedFonts.slice().sort((a,b)=>b.length-a.length).map(escapeRegExp).join('|');
+    const hex=String.raw`#(?:[0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{3})`;
+    const regex=new RegExp(String.raw`(\\(?:colorend|bold|highlight(?:end)?|high(?:end)?|markend|fontend|sizeend|bgcolorend|strikethrough|strike|sub|sup|i|u|s)(?![a-z])|/(?:strikethrough|strike|bold|sub|sup|i|u|s|n|t)(?=\s|$)|/(?:highlight|high|mark)(?:\s+${hex})?|/colorcode\s+${hex}|/bgcolor\s+${hex}|/font\s+(?:${fontPattern})(?![\\w-])|/size\s+\d{1,2})`,'gi');
+    let last=0,match;
+    while((match=regex.exec(text))!==null){
+      if(match.index>last)frag.appendChild(formatSpan(text.slice(last,match.index),state));
+      const token=match[0],lower=token.toLowerCase();
+      if(lower==='/bold')state.bold=true;
+      else if(lower==='\\bold')state.bold=false;
+      else if(lower==='/i')state.italic=true;
+      else if(lower==='\\i')state.italic=false;
+      else if(lower==='/u')state.underline=true;
+      else if(lower==='\\u')state.underline=false;
+      else if(/^\/(?:high|highlight|mark)/i.test(token)){state.highlight=true;state.highlightColor=(token.match(/#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})/i)||[])[0]||'#fff0a8';}
+      else if(/^\\(?:high|highlight|markend)/i.test(token)){state.highlight=false;state.highlightColor='';}
+      else if(/^\/colorcode/i.test(token))state.color=ensureColor(token.replace(/^\/colorcode\s+/i,''));
+      else if(lower==='\\colorend')state.color='';
+      else if(/^\/bgcolor/i.test(token))state.background=ensureColor(token.replace(/^\/bgcolor\s+/i,''));
+      else if(lower==='\\bgcolorend')state.background='';
+      else if(/^\/font\s+/i.test(token)){const f=token.replace(/^\/font\s+/i,'').trim();state.font=allowedFonts.find(x=>x.toLowerCase()===f.toLowerCase())||'';}
+      else if(lower==='\\fontend')state.font='';
+      else if(/^\/size\s+/i.test(token)){const n=parseInt(token.replace(/^\/size\s+/i,''),10);state.size=Number.isFinite(n)?Math.max(8,Math.min(72,n)):0;}
+      else if(lower==='\\sizeend')state.size=0;
+      else if(lower==='/sub')state.subscript=true;
+      else if(lower==='\\sub')state.subscript=false;
+      else if(lower==='/sup')state.superscript=true;
+      else if(lower==='\\sup')state.superscript=false;
+      else if(/^\/(?:strike|strikethrough|s)$/i.test(token))state.strike=true;
+      else if(/^\\(?:strike|strikethrough|s)$/i.test(token))state.strike=false;
+      else if(lower==='/n')frag.appendChild(document.createElement('br'));
+      else if(lower==='/t'){const tab=document.createElement('span');tab.className='preview-tab';tab.setAttribute('aria-hidden','true');frag.appendChild(tab);}
+      last=regex.lastIndex;
+    }
+    if(last<text.length)frag.appendChild(formatSpan(text.slice(last),state));
+    return frag;
+  }
+  function appendTextBlock(parent,text,state,tag='p'){
+    const node=document.createElement(tag); node.appendChild(renderInline(text,state)); parent.appendChild(node); return node;
+  }
+  function tableFromRows(lines,tableOptions={}){
+    const table=document.createElement('table');table.className='preview-table';
+    const body=document.createElement('tbody');table.appendChild(body);
+    const rows=lines.map(line=>line.split('|').map(v=>v.trim()));
+    if(!rows.length||!rows.some(r=>r.join('').trim()))rows.push(['Column 1','Column 2','Column 3'],['Click to edit','Your content','Add a value']);
+    const cols=Math.max(1,Math.min(20,...[Math.max(...rows.map(r=>r.length))]));
+    rows.slice(0,100).forEach((row,ri)=>{const tr=document.createElement('tr');for(let c=0;c<cols;c++){const cell=document.createElement(ri===0?'th':'td');cell.contentEditable='true';cell.spellcheck=false;cell.textContent=row[c]||((ri===0)?`Column ${c+1}`:'');tr.appendChild(cell);}body.appendChild(tr);});
+    const wrap=document.createElement('div');wrap.className='preview-table-wrap';
+    const tools=document.createElement('div');tools.className='table-tools';
+    tools.innerHTML=`<label>Rows <input type="number" min="1" max="100" value="${Math.min(100,rows.length)}" data-table-control="rows" aria-label="Table row count"></label><label>Columns <input type="number" min="1" max="20" value="${cols}" data-table-control="cols" aria-label="Table column count"></label><span class="tools-divider"></span><label>Header <input type="color" value="${tableOptions.headBg||'#fff0f2'}" data-table-color="head-bg" aria-label="Table header colour"></label><label>Header text <input type="color" value="${tableOptions.headText||'#9f1928'}" data-table-color="head-text" aria-label="Table header text colour"></label><label>Cells <input type="color" value="${tableOptions.cellBg||'#ffffff'}" data-table-color="cell-bg" aria-label="Table cell colour"></label><label>Alternate <input type="color" value="${tableOptions.altBg||'#ffffff'}" data-table-color="alt-bg" aria-label="Table alternate row colour"></label><label>Border <input type="color" value="${tableOptions.border||'#eee2e4'}" data-table-color="border" aria-label="Table border colour"></label>`;
+    wrap.append(tools,table);setTableStyles(table,tableOptions);return wrap;
+  }
+  function setTableStyles(table,options={}){
+    const values={'head-bg':options.headBg||'#fff0f2','head-text':options.headText||'#9f1928','cell-bg':options.cellBg||'#ffffff','alt-bg':options.altBg||'#ffffff','border':options.border||'#eee2e4'};
+    for(const [key,value] of Object.entries(values))table.style.setProperty(`--table-${key}`,ensureColor(value));
+  }
+  function resizeTable(wrap,requestedRows,requestedCols){
+    const table=wrap.querySelector('.preview-table');if(!table)return;
+    const body=table.tBodies[0]||table.createTBody();const rows=Math.max(1,Math.min(100,parseInt(requestedRows,10)||1));const cols=Math.max(1,Math.min(20,parseInt(requestedCols,10)||1));
+    while(body.rows.length<rows){const r=body.insertRow();const ri=body.rows.length-1;for(let c=0;c<cols;c++){const cell=document.createElement(ri===0?'th':'td');cell.contentEditable='true';cell.spellcheck=false;cell.textContent=ri===0?`Column ${c+1}`:'';r.appendChild(cell);}}
+    while(body.rows.length>rows)body.deleteRow(-1);
+    [...body.rows].forEach((row,ri)=>{while(row.cells.length<cols){const cell=document.createElement(ri===0?'th':'td');cell.contentEditable='true';cell.spellcheck=false;cell.textContent=ri===0?`Column ${row.cells.length+1}`:'';row.appendChild(cell);}while(row.cells.length>cols)row.deleteCell(-1);});
+    const rowsControl=wrap.querySelector('[data-table-control="rows"]'),colsControl=wrap.querySelector('[data-table-control="cols"]');if(rowsControl)rowsControl.value=String(rows);if(colsControl)colsControl.value=String(cols);
+  }
+  function createBlock(line,state,headingNext){
+    const trim=line.trim();
+    if(!trim) return {node:Object.assign(document.createElement('div'),{className:'blank-line'}),special:'blank'};
+    if(trim==='/n'){const n=document.createElement('br');return {node:n,special:'br'};}
+    if(/^\/pagebreak$/i.test(trim))return {pageBreak:true};
+    if(/^\/(?:pagebg|background|bgpage)\s+\S+$/i.test(trim)){const raw=trim.replace(/^\/(?:pagebg|background|bgpage)\s*/i,'').trim();return {option:'pageBg',value:ensureColor(raw)};}
+    if(/^\/margin\s+\d+(?:\.\d+)?$/i.test(trim)){return {option:'margin',value:Math.max(10,Math.min(35,Number(trim.replace(/^\/margin\s*/i,''))))};}
+    if(/^\/lineheight\s+\d+(?:\.\d+)?$/i.test(trim)){state.lineHeight=Math.max(1,Math.min(2.8,Number(trim.replace(/^\/lineheight\s*/i,''))));return {skip:true};}
+    const spacer=trim.match(/^\/spacer\s+(\d{1,3})$/i);if(spacer){const n=document.createElement('div');n.style.height=Math.max(0,Math.min(100,Number(spacer[1])))+'px';n.style.minHeight=n.style.height;return {node:n};}
+    const box=trim.match(/^\/box\s+(#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8}))\s+(.+)$/i);if(box){const n=document.createElement('div');n.className='preview-callout';n.style.backgroundColor=ensureColor(box[1]);n.style.borderColor=ensureColor(box[1]);n.appendChild(renderInline(box[2],state));return {node:n};}
+    const transform=trim.match(/^\/(upper|uppercase|lower|lowercase|capitalize)(?:\s+(.*))?$/i);if(transform){const n=appendTextBlock(document.createElement('div'),transform[2]||'',state,'p');n.style.textTransform=/^upper/i.test(transform[1])?'uppercase':/^lower/i.test(transform[1])?'lowercase':'capitalize';return {node:n};}
+    const title=trim.match(/^\/(title|subtitle|caption)(?:\s+(.*))?$/i);if(title){const tag=({title:'h1',subtitle:'h2',caption:'p'})[title[1].toLowerCase()];const n=appendTextBlock(document.createElement('div'),title[2]||'',state,tag);n.className=`preview-${title[1].toLowerCase()}`;return {node:n};}
+    const check=trim.match(/^\/(?:check|checkbox)(?:\s+(.*))?$/i);if(check){const n=document.createElement('p');n.className='preview-check';n.appendChild(document.createTextNode('☐  '));n.appendChild(renderInline(check[1]||'',state));return {node:n};}
+    const rule=trim.match(/^\/(?:hr|line)(?:\s+(#(?:[0-9a-f]{3}|[0-9a-f]{6})))?$/i);if(rule){const n=document.createElement('hr');if(rule[1])n.style.borderTopColor=ensureColor(rule[1]);return {node:n};}
+    if(/^\/date$/i.test(trim)){const d=new Date();return {node:appendTextBlock(document.createElement('div'),d.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}),state,'p')};}
+    const quote=trim.match(/^\/quote(?:\s+(.*))?$/i);if(quote){const n=document.createElement('blockquote');n.className='preview-quote';n.appendChild(renderInline(quote[1]||'',state));return {node:n};}
+    const bullet=trim.match(/^\/bullet(?:\s+(.*))?$/i);if(bullet){const n=document.createElement('p');n.style.paddingLeft='1.4em';n.style.textIndent='-1em';n.appendChild(document.createTextNode('•  '));n.appendChild(renderInline(bullet[1]||'',state));return {node:n};}
+    const numbered=trim.match(/^\/num(?:\s+(.*))?$/i);if(numbered){const n=document.createElement('p');n.style.paddingLeft='1.6em';n.style.textIndent='-1.6em';n.appendChild(document.createTextNode(`${state.numberedCount||1}.  `));n.appendChild(renderInline(numbered[1]||'',state));return {node:n};}
+    const code=trim.match(/^\/code(?:\s+(.*))?$/i);if(code){const n=document.createElement('pre');n.className='preview-code';n.textContent=code[1]||'';return {node:n};}
+    const callout=trim.match(/^\/callout(?:\s+(.*))?$/i);if(callout){const n=document.createElement('div');n.className='preview-callout';n.appendChild(renderInline(callout[1]||'',state));return {node:n};}
+    const small=trim.match(/^\/small(?:\s+(.*))?$/i);if(small){const n=appendTextBlock(document.createElement('div'),small[1]||'',state,'p');n.style.fontSize='.85em';return {node:n};}
+    if(trim==='/t'){const n=document.createElement('div');n.style.paddingLeft='2em';n.style.height='1.1em';return {node:n};}
+    if(trim==='/h'){return {node:document.createElement('hr')};}
+    if(trim==='/v'){const n=document.createElement('div');n.className='preview-vline';return {node:n};}
+    const head=trim.match(/^\/(h[1-5])(?:\s+(.*))?$/i);
+    if(head){const lvl=head[1].toLowerCase();const content=head[2]||'';if(content){const node=document.createElement(lvl);node.appendChild(renderInline(content,state));return {node};}return {pendingHeading:Number(lvl[1])};}
+    if(/^\/p(?:\s|$)/i.test(trim)){const content=trim.replace(/^\/p\s*/, '');if(content)return {node:appendTextBlock(document.createElement('div'),content,state,'p')};return {pendingHeading:0};}
+    if(trim==='/help'){openHelp();return {skip:true};}
+    const tableStyle=trim.match(/^\/(tableheadtext|tablehead|tableborder|tablebg|tablealt)\s+(\S+)$/i);
+    if(tableStyle){const map={tablehead:'tableHeadBg',tableheadtext:'tableHeadText',tableborder:'tableBorder',tablebg:'tableCellBg',tablealt:'tableAltBg'};return {option:map[tableStyle[1].toLowerCase()],value:ensureColor(tableStyle[2])};}
+    if(/^\/watermark(?:\s|$)/i.test(trim)){return {option:'watermark',value:trim.replace(/^\/watermark\s*/i,'').trim()||'DRAFT'};}
+    if(/^\/(?:border|pageborder)(?:\s|$)/i.test(trim)){return {option:'border',value:trim.replace(/^\/(?:border|pageborder)\s*/i,'').trim()||'#c92032'};}
+    if(trim==='/pgno'){return {option:'pageNumbers'};}
+    if(/^\/font\s+.+$/i.test(trim)){const f=trim.replace(/^\/font\s*/i,'').trim();const matched=allowedFonts.find(x=>x.toLowerCase()===f.toLowerCase());if(matched){state.font=matched;return {skip:true};}}
+    if(/^\/size\s+\d{1,2}$/i.test(trim)){const n=parseInt(trim.replace(/^\/size\s*/i,''),10);state.size=Math.max(8,Math.min(48,n));return {skip:true};}
+    if(/^\/img(?:\s|$)/i.test(trim)){
+      const rawSource=trim.replace(/^\/img\s*/i,'').trim();const src=rawSource.toLowerCase()==='sample'?SAMPLE_IMAGE_DATA:safeURL(rawSource);
+      if(!src){const n=document.createElement('div');n.className='image-placeholder';n.textContent='Image not set — add a URL after /img or choose Upload image in the terminal toolbar.';return {node:n};}
+      const img=document.createElement('img');img.className='preview-image';img.src=src;img.alt='Document image';img.crossOrigin=src.startsWith('data:')?'anonymous':'anonymous';img.loading='eager';img.addEventListener('error',()=>{img.replaceWith(Object.assign(document.createElement('div'),{className:'image-placeholder',textContent:'Image could not load. Check the URL or upload a local image.'}));});return {node:img};
+    }
+    if(/^\/sign(?:\s|$)/i.test(trim)){
+      const name=trim.replace(/^\/sign\s*/i,'').trim()||'Your Name';const wrap=document.createElement('div');wrap.className='preview-sign';const sign=document.createElement('div');sign.className='signature-name';sign.textContent=name;sign.contentEditable='true';sign.spellcheck=false;const cap=document.createElement('div');cap.className='signature-caption';cap.textContent='Signature';wrap.append(sign,cap);return {node:wrap};
+    }
+    if(/^\/link(?:\s|$)/i.test(trim)){
+      const args=trim.replace(/^\/link\s*/i,'');const split=args.split('|');const url=safeURL(split[0]);const label=(split.slice(1).join('|').trim()||split[0]||'Open link').trim();const p=document.createElement('p');if(url){const a=document.createElement('a');a.className='preview-link';a.href=url;a.textContent=label;a.target='_blank';a.rel='noopener noreferrer';p.appendChild(a);}else p.textContent=label;return {node:p};
+    }
+    if(trim==='/tbale'||trim==='/table') return {tableStart:true};
+    return {node:appendTextBlock(document.createElement('div'),line,state,'p').firstChild};
+  }
+  function ensureColor(color){
+    if(/^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(color)||/^(red|blue|green|black|white|gray|grey|orange|purple|teal|navy|maroon|crimson|gold|indigo|tomato|coral)$/i.test(color)) return color;
+    return '#c92032';
+  }
+  function renderDocument(){
+    const token=++renderToken; const text=terminal.value; const lines=text.split(/\r?\n/);
+    const options={watermark:'',border:'',pageBg:'#ffffff',margin:0,pageNumbers:false,watermarkSet:false,borderSet:false,tableHeadBg:'#fff0f2',tableHeadText:'#9f1928',tableCellBg:'#ffffff',tableAltBg:'#ffffff',tableBorder:'#eee2e4'};
+    const state={bold:false,italic:false,underline:false,strike:false,subscript:false,superscript:false,highlight:false,highlightColor:'',color:'',background:'',font:'',size:0,align:'left',lineHeight:0,indent:0,letterSpacing:0,numberedCount:0};
+    const blocks=[]; let pendingHeading=0; let tableMode=false, tableRows=[];
+    for(let i=0;i<lines.length;i++){
+      const line=lines[i]; const trim=line.trim();
+      if(tableMode){
+        if(!trim || /^\/(?:h[1-5]|p|img|sign|watermark|border|pgno|font|size|link|tbale|table|n|t|h|v|help|pagebreak|align|tableheadtext|tablehead|tableborder|tablebg|tablealt|date|quote|bullet|num|code|callout|small|pagebg|background|bgpage|margin|lineheight|title|subtitle|caption|check|checkbox|hr|line|pageborder|indent|letterspacing|spacer|box|upper|uppercase|lower|lowercase|capitalize)(?:\s|$)/i.test(trim)){
+          blocks.push({type:'table',rows:tableRows.length?tableRows:[]});tableMode=false;tableRows=[];
+          if(!trim){continue;}
+          // process this command normally below
+        } else if(line.includes('|')){tableRows.push(line);continue;}
+        else {tableRows.push(line);continue;}
+      }
+      if(/^\/num(?:\s|$)/i.test(trim))state.numberedCount=(state.numberedCount||0)+1;else if(trim)state.numberedCount=0;
+      // Format toggles may also be written as a standalone command.
+      if(trim==='/bold'){state.bold=true;continue;} if(trim==='\\bold'){state.bold=false;continue;}
+      if(trim==='/i'){state.italic=true;continue;} if(trim==='\\i'){state.italic=false;continue;}
+      if(trim==='/u'){state.underline=true;continue;} if(trim==='\\u'){state.underline=false;continue;}
+      if(trim==='/high'||trim==='/highlight'||trim==='/mark'){state.highlight=true;state.highlightColor='#fff0a8';continue;} if(trim==='\\high'||trim==='\\highend'||trim==='\\highlightend'||trim==='\\markend'){state.highlight=false;state.highlightColor='';continue;}
+      const highCommand=trim.match(/^\/(?:high|highlight|mark)\s+(#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8}))$/i);if(highCommand){state.highlight=true;state.highlightColor=ensureColor(highCommand[1]);continue;}
+      if(trim==='/sub'){state.subscript=true;continue;} if(trim==='\\sub'){state.subscript=false;continue;}
+      if(trim==='/sup'){state.superscript=true;continue;} if(trim==='\\sup'){state.superscript=false;continue;}
+      if(/^\/(?:strike|strikethrough|s)$/i.test(trim)){state.strike=true;continue;} if(/^\\(?:strike|strikethrough|s)$/i.test(trim)){state.strike=false;continue;}
+      const colorCommand=trim.match(/^\/colorcode\s+(\S+)$/i);if(colorCommand){state.color=ensureColor(colorCommand[1]);continue;} if(trim==='\\colorend'){state.color='';continue;}
+    const bgCommand=trim.match(/^\/bgcolor\s+(\S+)$/i);if(bgCommand){state.background=ensureColor(bgCommand[1]);continue;} if(trim==='\\bgcolorend'){state.background='';continue;}
+    if(trim==='\\fontend'){state.font='';continue;} if(trim==='\\sizeend'){state.size=0;continue;}
+          const alignCommand=trim.match(/^\/align\s+(left|center|right|justify)(?:\s+(.*))?$/i);
+      if(alignCommand){
+        state.align=alignCommand[1].toLowerCase();
+        if(alignCommand[2]!==undefined && alignCommand[2].trim()){
+          const aligned=document.createElement('p');aligned.appendChild(renderInline(alignCommand[2],state));aligned.style.textAlign=state.align;
+          if(state.indent)aligned.style.marginLeft=state.indent+'px';if(state.letterSpacing)aligned.style.letterSpacing=state.letterSpacing+'px';if(state.lineHeight)aligned.style.lineHeight=String(state.lineHeight);
+          blocks.push({type:'node',node:aligned});pendingHeading=0;
+        }
+        continue;
+      }
+      const shorthandAlign=trim.match(/^\/(left|center|right|justify)\s+(.+)$/i);
+      if(shorthandAlign){state.align=shorthandAlign[1].toLowerCase();const aligned=document.createElement('p');aligned.appendChild(renderInline(shorthandAlign[2],state));aligned.style.textAlign=state.align;if(state.indent)aligned.style.marginLeft=state.indent+'px';if(state.letterSpacing)aligned.style.letterSpacing=state.letterSpacing+'px';if(state.lineHeight)aligned.style.lineHeight=String(state.lineHeight);blocks.push({type:'node',node:aligned});pendingHeading=0;continue;}
+      const indentCommand=trim.match(/^\/indent\s+(-?\d+(?:\.\d+)?)$/i);if(indentCommand){state.indent=Math.max(0,Math.min(120,Number(indentCommand[1])||0));continue;}
+      const spacingCommand=trim.match(/^\/letterspacing\s+(-?\d+(?:\.\d+)?)$/i);if(spacingCommand){state.letterSpacing=Math.max(-2,Math.min(8,Number(spacingCommand[1])||0));continue;}
+      const item=createBlock(line,state,pendingHeading);
+      if(item.tableStart){tableMode=true;tableRows=[];continue;}
+      if(item.option){
+        if(item.option==='pageNumbers')options.pageNumbers=!options.pageNumbers;
+        else if(item.option==='watermark'){if(!options.watermarkSet){options.watermark=item.value;options.watermarkSet=true;}}
+        else if(item.option==='border'){if(!options.borderSet){options.border=ensureColor(item.value);options.borderSet=true;}}
+        else if(item.option==='pageBg')options.pageBg=ensureColor(item.value);
+        else if(item.option==='margin')options.margin=Math.max(10,Math.min(35,Number(item.value)||18));
+        else options[item.option]=item.value;
+        continue;
+      }
+      if(item.pendingHeading!==undefined){pendingHeading=item.pendingHeading;continue;}
+      if(item.skip){if(item.notice)toast(item.notice,'warn');continue;}
+      if(item.pageBreak){blocks.push({type:'pagebreak'});pendingHeading=0;continue;}
+      if(item.node){
+        if(pendingHeading>0 && item.special!=='blank'){
+          const h=document.createElement('h'+pendingHeading);h.appendChild(renderInline(line,state));h.style.textAlign=state.align||'left';if(state.indent)h.style.marginLeft=state.indent+'px';if(state.letterSpacing)h.style.letterSpacing=state.letterSpacing+'px';if(state.lineHeight)h.style.lineHeight=String(state.lineHeight);blocks.push({type:'node',node:h});pendingHeading=0;continue;
+        }
+        if(item.special==='blank'){blocks.push({type:'blank'});continue;}
+        if(state.align && item.node.nodeType===1 && !['HR','IMG'].includes(item.node.tagName))item.node.style.textAlign=state.align;
+        if(state.indent && item.node.nodeType===1)item.node.style.marginLeft=state.indent+'px';
+        if(state.letterSpacing && item.node.nodeType===1)item.node.style.letterSpacing=state.letterSpacing+'px';
+        if(state.lineHeight && item.node.nodeType===1)item.node.style.lineHeight=String(state.lineHeight);
+        blocks.push({type:'node',node:item.node});pendingHeading=0;
+      }
+    }
+    if(tableMode) blocks.push({type:'table',rows:tableRows});
+    if(token!==renderToken)return;
+    pdfDocument.replaceChildren();pages=[];currentPageIndex=Math.min(currentPageIndex,49);
+    let pageNo=1, current=makePage(pageNo,options);pdfDocument.appendChild(current.page);pages.push(current.page);
+    const newPage=()=>{pageNo++;current=makePage(pageNo,options);pdfDocument.appendChild(current.page);pages.push(current.page);};
+    for(let blockIndex=0;blockIndex<blocks.length;blockIndex++){
+      const block=blocks[blockIndex];
+      if(block.type==='pagebreak'){
+        const hasFollowing=blocks.slice(blockIndex+1).some(b=>!['pagebreak','blank'].includes(b.type));
+        if(hasFollowing&&current.content.children.length>0&&pages.length<50)newPage();
+        continue;
+      }
+      let node;
+      if(block.type==='table') node=tableFromRows(block.rows,{headBg:options.tableHeadBg,headText:options.tableHeadText,cellBg:options.tableCellBg,altBg:options.tableAltBg,border:options.tableBorder});
+      else if(block.type==='blank'){node=document.createElement('div');node.style.height='12px';node.style.minHeight='12px';}
+      else node=block.node;
+      current.content.appendChild(node);
+      const overflow=current.content.scrollHeight>current.content.clientHeight+1;
+      if(overflow && current.content.children.length>1 && pages.length<50){
+        current.content.removeChild(node);newPage();current.content.appendChild(node);
+      }
+      if(pages.length>=50 && current.content.scrollHeight>current.content.clientHeight+1){
+        node.style.maxHeight='100%';node.style.overflow='hidden';
+      }
+    }
+    // Ensure a friendly placeholder rather than a blank canvas if the document is empty.
+    if(!text.trim()){
+      const ghost=document.createElement('div');ghost.className='empty-state';ghost.innerHTML='<div style="font-size:28px;color:#d54a58">✳</div><strong>Your page starts here</strong>Type into the terminal to build a live PDF.';current.content.appendChild(ghost);
+    }
+    if(el('pageBgColor'))el('pageBgColor').value=/^#[0-9a-f]{6}$/i.test(options.pageBg)?options.pageBg:'#ffffff';
+    const pageCount=Math.max(1,pages.length);el('pageCount').textContent=`${pageCount} ${pageCount===1?'page':'pages'}`;el('pageIndicator').textContent=`PAGE ${Math.min(currentPageIndex+1,pageCount)} / ${pageCount}`;el('mobilePageCount').textContent=String(pageCount);el('previewMessage').textContent=pageCount>=50?'50-page limit reached':text.trim()?'Preview updated live':'Ready to compose';
+    el('nextPage').disabled=currentPageIndex>=pageCount-1;el('prevPage').disabled=currentPageIndex<=0;
+    updateCounts();
+    if(pageCount>=50) el('previewMessage').textContent='Page limit: maximum 50 pages';
+    if(userChanged){el('saveStatus').textContent='Saving draft…';try{if(text.length<1_200_000){localStorage.setItem(storageKey,text);el('saveStatus').textContent='Draft saved locally';}else el('saveStatus').textContent='Draft too large for autosave';}catch(e){el('saveStatus').textContent='Local save unavailable';}}
+  }
+  function scheduleRender(){clearTimeout(renderTimer);renderTimer=setTimeout(renderDocument,120);}
+  function insertAtCursor(text){
+    const start=terminal.selectionStart,end=terminal.selectionEnd,value=terminal.value;
+    const next=value.slice(0,start)+text+value.slice(end);if(next!==value){undoStack.push(value);if(undoStack.length>150)undoStack.shift();redoStack=[];}terminal.value=next;lastKnownValue=next;const pos=start+text.length;terminal.focus();terminal.setSelectionRange(pos,pos);userChanged=true;scheduleRender();updateCounts();
+  }
+  function applyInlineTags(openTag,closeTag){
+    const start=terminal.selectionStart,end=terminal.selectionEnd,value=terminal.value,selected=value.slice(start,end);
+    const insertion=openTag+selected+closeTag;const next=value.slice(0,start)+insertion+value.slice(end);
+    if(next!==value){undoStack.push(value);if(undoStack.length>150)undoStack.shift();redoStack=[];}
+    terminal.value=next;lastKnownValue=next;userChanged=true;updateCounts();scheduleRender();terminal.focus({preventScroll:true});
+    const caret=selected.length?start+openTag.length+selected.length:start+openTag.length;terminal.setSelectionRange(caret,caret);
+  }
+  function normaliseHex(value){let v=(value||'').trim().toUpperCase();if(!v.startsWith('#'))v='#'+v;return /^#[0-9A-F]{3}$/.test(v)||/^#[0-9A-F]{6}$/.test(v)||/^#[0-9A-F]{8}$/.test(v)?v:'';}
+  function syncPalette(value){const hex=normaliseHex(value);if(!hex){el('paletteHex').setAttribute('aria-invalid','true');return false;}el('paletteHex').removeAttribute('aria-invalid');el('paletteColor').value=hex.length===4?'#'+[...hex.slice(1)].map(c=>c+c).join(''):hex.slice(0,7);el('paletteHex').value=hex;el('palettePreview').style.background=hex;el('palettePreview').style.color=(parseInt(hex.slice(1,3),16)*.299+parseInt(hex.slice(3,5),16)*.587+parseInt(hex.slice(5,7),16)*.114)>155?'#25252b':'#ffffff';el('inlineColor').value=el('paletteColor').value;return true;}
+  async function copyPaletteColor(){if(!syncPalette(el('paletteHex').value)){toast('Enter a valid HEX colour such as #C92032.','warn');return;}const hex=el('paletteHex').value;try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(hex);toast(`${hex} copied to clipboard.`,'success');return;}}catch(e){}
+    const temp=document.createElement('textarea');temp.value=hex;temp.style.position='fixed';temp.style.opacity='0';document.body.appendChild(temp);temp.select();let copied=false;try{copied=document.execCommand('copy');}catch(e){}temp.remove();toast(copied?`${hex} copied to clipboard.`:'Clipboard permission unavailable. Select and copy the HEX field.','warn');
+  }
+  function addImageFile(file){
+    if(!file)return;if(!/^image\/(png|jpeg|webp|gif)$/.test(file.type)){toast('Choose a PNG, JPG, WEBP or GIF image.','warn');return;}
+    if(file.size>5*1024*1024){toast('Image must be 5 MB or smaller for a smooth PDF export.','warn');return;}
+    const reader=new FileReader();reader.onload=()=>{const line=`/img ${reader.result}\n`;insertAtCursor((terminal.value && !terminal.value.endsWith('\n')?'\n':'')+line);toast('Image added to your document.','success');};reader.onerror=()=>toast('Could not read that image.','warn');reader.readAsDataURL(file);
+  }
+  async function exportPDF(){
+    const btn=el('exportBtn');if(btn.disabled)return;
+    if(pages.length>50){toast('PDF is limited to 50 pages.','warn');return;}
+    if(renderTimer){clearTimeout(renderTimer);renderTimer=null;renderDocument();}
+    btn.disabled=true;el('exportProgress').classList.add('show');const oldText=btn.innerHTML;btn.innerHTML='<span class="btn-text">Preparing HD PDF…</span>';let exportRoot=null;
+    try{
+      const images=[...pdfDocument.querySelectorAll('img')];
+      await Promise.all(images.map(img=>{if(img.complete&&img.naturalWidth>0)return Promise.resolve();if(typeof img.decode==='function')return img.decode().catch(()=>{});return new Promise(resolve=>{img.onload=resolve;img.onerror=resolve;setTimeout(resolve,8000);});}));
+      if(typeof window.html2canvas!=='function'||!window.jspdf||typeof window.jspdf.jsPDF!=='function'){
+        toast('PDF renderer could not load. The HD renderer did not load; use your browser’s Print → Save as PDF fallback.','warn');window.print();return;
+      }
+      if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+      exportRoot=pdfDocument.cloneNode(true);exportRoot.id='pdfDocumentExport';exportRoot.classList.add('exporting-pdf');exportRoot.style.position='fixed';exportRoot.style.left='0px';exportRoot.style.top='0px';exportRoot.style.zIndex='-1';exportRoot.style.pointerEvents='none';exportRoot.style.contain='layout paint style';document.body.appendChild(exportRoot);
+      const exportPages=[...exportRoot.querySelectorAll('.pdf-page')];
+      const jsPDF=window.jspdf.jsPDF;
+      const pdf=new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true,putOnlyUsedFonts:true});
+      pdf.setProperties({title:'JNR PDF Document',subject:'Document exported with JNR PDF Live Document Studio',author:'JNR Corporation',creator:'JNR PDF'});
+      for(let i=0;i<exportPages.length;i++){
+        btn.innerHTML=`<span class="btn-text">Rendering ${i+1}/${exportPages.length}…</span>`;
+        const canvas=await window.html2canvas(exportPages[i],{scale:4,useCORS:true,allowTaint:false,backgroundColor:'#ffffff',logging:false,scrollX:0,scrollY:0,width:794,height:1123,windowWidth:794,windowHeight:1123,imageTimeout:12000,foreignObjectRendering:false});
+        try{
+          const imageData=canvas.toDataURL('image/png');
+          if(i>0)pdf.addPage('a4','portrait');
+          pdf.addImage(imageData,'PNG',0,0,210,297,undefined,'FAST');
+          // Keep links as real PDF annotations above the rendered page image.
+          const pageRect=exportPages[i].getBoundingClientRect();
+          for(const link of exportPages[i].querySelectorAll('a[href]')){
+            const href=safeURL(link.getAttribute('href')||link.href);if(!/^https?:\/\//i.test(href))continue;
+            const r=link.getBoundingClientRect();const scaleX=210/(pageRect.width||794),scaleY=297/(pageRect.height||1123);
+            const x=Math.max(0,(r.left-pageRect.left)*scaleX),y=Math.max(0,(r.top-pageRect.top)*scaleY),w=Math.min(210-x,r.width*scaleX),h=Math.min(297-y,r.height*scaleY);
+            if(w>0.25&&h>0.25){try{pdf.link(x,y,w,h,{url:href});}catch(linkError){console.debug('Skipping unsupported PDF link annotation',linkError);}}
+          }
+          // Export-only brand mark. The document's own content starts lower on the page.
+          pdf.setFont('helvetica','bold');pdf.setFontSize(6);pdf.setTextColor(156,156,165);pdf.text('JNR PDF',203,5.5,{align:'right'});
+        }finally{canvas.width=0;canvas.height=0;}
+        await new Promise(resolve=>requestAnimationFrame(resolve));
+      }
+      pdf.save(`JNR-PDF-${new Date().toISOString().slice(0,10)}.pdf`);toast('HD PDF exported with lossless page rendering and clickable hyperlinks.','success');
+    }catch(error){console.error(error);toast('Export had a problem. Check image URLs or use Print → Save as PDF.','warn');}
+    finally{if(exportRoot&&exportRoot.parentNode)exportRoot.remove();btn.disabled=false;el('exportProgress').classList.remove('show');btn.innerHTML=oldText;}
+  }
+  function jumpPage(direction){
+    const next=Math.max(0,Math.min(pages.length-1,currentPageIndex+direction));if(next===currentPageIndex)return;currentPageIndex=next;pages[next].scrollIntoView({behavior:'smooth',block:'start'});el('pageIndicator').textContent=`PAGE ${next+1} / ${pages.length}`;el('prevPage').disabled=next===0;el('nextPage').disabled=next===pages.length-1;
+  }
+  function replaceSelectionCommand(command){
+    const start=terminal.selectionStart,end=terminal.selectionEnd;
+    if(start!==end){insertAtCursor(command);return;}
+    const atLineStart=terminal.value.lastIndexOf('\n',start-1)+1;
+    insertAtCursor((start>0 && terminal.value[start-1]!=='\n'?'\n':'')+command+'\n');
+  }
+  // Live input and local draft persistence.
+  terminal.addEventListener('input',()=>{
+    const now=terminal.value;if(now!==lastKnownValue){undoStack.push(lastKnownValue);if(undoStack.length>150)undoStack.shift();redoStack=[];lastKnownValue=now;}userChanged=true;updateCounts();scheduleRender();
+    const tail=terminal.value.slice(0,terminal.selectionStart).split(/\r?\n/).pop().trim();
+    if(tail==='/help' && lastHelpTrigger!=='/help'){openHelp();lastHelpTrigger='/help';}else if(tail!=='/help')lastHelpTrigger='';
+  });
+  el('helpBtn').addEventListener('click',openHelp);el('insertHelpBtn').addEventListener('click',openHelp);el('closeHelp').addEventListener('click',closeHelp);el('helpGotIt').addEventListener('click',closeHelp);
+  const fontSelect=el('fontSelect');allowedFonts.filter(f=>!['serif','sans-serif','monospace'].includes(f)).forEach(font=>{const option=document.createElement('option');option.value=font;option.textContent=font;fontSelect.appendChild(option);});
+  document.querySelectorAll('[data-inline]').forEach(button=>button.addEventListener('click',()=>{const type=button.getAttribute('data-inline');const tags={bold:['/bold','\\bold'],italic:['/i','\\i'],underline:['/u','\\u'],highlight:['/highlight #fff0a8 ','\\highlightend'],sup:['/sup','\\sup'],sub:['/sub','\\sub'],strike:['/strike','\\strike']};if(tags[type])applyInlineTags(...tags[type]);}));
+  function applyAlignment(align){
+    const value=terminal.value,start=terminal.selectionStart,end=terminal.selectionEnd;
+    if(start!==end){
+      const selected=value.slice(start,end);const prefix=start>0&&value[start-1]!=='\n'?'\n':'';const suffix=end<value.length&&value[end]!=='\n'?'\n':'';
+      const replacement=prefix+`/align ${align}\n`+selected+(selected.endsWith('\n')?'':'\n')+'/align left'+suffix;
+      insertAtCursor(replacement);toast(`Selected text aligned ${align}.`,'success');
+    }else{replaceSelectionCommand(`/align ${align}`);toast(`Alignment set to ${align}.`,'success');}
+  }
+  document.querySelectorAll('[data-align]').forEach(button=>button.addEventListener('click',()=>applyAlignment(button.getAttribute('data-align'))));
+  fontSelect.addEventListener('change',()=>{if(fontSelect.value){applyInlineTags(`/font ${fontSelect.value} `,'\\fontend');fontSelect.value='';}});
+  el('sizeSelect').addEventListener('change',()=>{if(el('sizeSelect').value){applyInlineTags(`/size ${el('sizeSelect').value} `,'\\sizeend');el('sizeSelect').value='';}});
+  el('inlineColor').addEventListener('change',()=>applyInlineTags(`/colorcode ${el('inlineColor').value} `,'\\colorend'));
+  el('inlineHighlight').addEventListener('change',()=>applyInlineTags(`/highlight ${el('inlineHighlight').value} `,'\\highlightend'));
+  el('inlineBackground').addEventListener('change',()=>applyInlineTags(`/bgcolor ${el('inlineBackground').value} `,'\\bgcolorend'));
+  el('pageBgColor').addEventListener('change',()=>{const colour=el('pageBgColor').value;const cleaned=terminal.value.replace(/^\/(?:pagebg|background|bgpage)\s+\S+[ \t]*\r?$/gim,'').replace(/^\n+/, '');setEditorValue(`/pagebg ${colour}\n${cleaned}`);currentPageIndex=0;});
+  const palette=el('paletteModal');function openPalette(){palette.classList.add('open');syncPalette(el('paletteHex').value);}
+  function closePalette(){palette.classList.remove('open');}
+  el('paletteBtn').addEventListener('click',openPalette);el('closePalette').addEventListener('click',closePalette);el('paletteDone').addEventListener('click',closePalette);palette.addEventListener('click',e=>{if(e.target===palette)closePalette();});
+  el('paletteColor').addEventListener('input',e=>syncPalette(e.target.value));el('paletteHex').addEventListener('input',e=>{const hex=normaliseHex(e.target.value);if(hex)syncPalette(hex);});
+  const paletteThemes=el('paletteThemes'),paletteGrid=el('paletteGrid');
+  const PALETTES={
+    'JNR & Vivid':['#C92032','#E11D48','#DB2777','#9333EA','#7C3AED','#4F46E5','#2563EB','#0284C7','#0891B2','#0D9488','#16A34A','#65A30D'],
+    'Pastel':['#FDE2E4','#FADADD','#FBCFE8','#E9D5FF','#DDD6FE','#C7D2FE','#BFDBFE','#BAE6FD','#A5F3FC','#A7F3D0','#D9F99D','#FEF3C7'],
+    'Ocean':['#082F49','#0C4A6E','#075985','#0369A1','#0284C7','#0EA5E9','#38BDF8','#67E8F9','#0F766E','#115E59','#164E63','#1D4ED8'],
+    'Nature':['#14532D','#166534','#15803D','#16A34A','#4D7C0F','#65A30D','#84CC16','#A3E635','#365314','#78350F','#92400E','#047857'],
+    'Sunset':['#7F1D1D','#9F1239','#BE123C','#E11D48','#F43F5E','#F97316','#EA580C','#FB923C','#FBBF24','#F59E0B','#C2410C','#9A3412'],
+    'Earth':['#292524','#44403C','#57534E','#78716C','#A8A29E','#D6D3D1','#78350F','#92400E','#A16207','#CA8A04','#3F6212','#4D7C0F'],
+    'Neon':['#FF003C','#FF00A8','#FF00FF','#C026D3','#7C3AED','#4F46E5','#0057FF','#00A6FF','#00E5FF','#00FF95','#B6FF00','#FFF000'],
+    'Neutrals':['#000000','#111827','#1F2937','#374151','#4B5563','#6B7280','#9CA3AF','#D1D5DB','#E5E7EB','#F3F4F6','#F9FAFB','#FFFFFF'],
+    'Jewel':['#5B0A91','#6D28D9','#4C1D95','#1D4ED8','#1E40AF','#0F766E','#047857','#166534','#9F1239','#BE123C','#B45309','#A16207']
+  };
+  function renderPaletteTheme(name){
+    const colours=PALETTES[name]||PALETTES['JNR & Vivid'];
+    paletteGrid.replaceChildren();
+    colours.forEach((colour,index)=>{const b=document.createElement('button');b.type='button';b.className='palette-swatch';b.dataset.palette=colour;b.style.background=colour;b.title=`${name} · ${colour}`;b.setAttribute('aria-label',`${name} ${colour}`);if(colour.toLowerCase()==='#ffffff')b.style.outline='1px solid #d8d8df';paletteGrid.appendChild(b);});
+    paletteThemes.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.theme===name));
+  }
+  paletteThemes.replaceChildren();Object.keys(PALETTES).forEach((name,index)=>{const b=document.createElement('button');b.type='button';b.className='palette-theme-btn'+(index===0?' active':'');b.dataset.theme=name;b.textContent=name; b.addEventListener('click',()=>renderPaletteTheme(name));paletteThemes.appendChild(b);});
+  renderPaletteTheme('JNR & Vivid');
+  paletteGrid.addEventListener('click',e=>{const button=e.target.closest('[data-palette]');if(button)syncPalette(button.getAttribute('data-palette'));});
+  el('copyColorBtn').addEventListener('click',copyPaletteColor);el('applyColorBtn').addEventListener('click',()=>{if(syncPalette(el('paletteHex').value)){applyInlineTags(`/colorcode ${el('paletteHex').value} `,'\\colorend');closePalette();}});
+  el('helpModal').addEventListener('click',e=>{if(e.target===el('helpModal'))closeHelp();});
+  terminalTab.addEventListener('click',()=>setMobileSection('terminal'));previewTab.addEventListener('click',()=>setMobileSection('preview'));
+  el('exportBtn').addEventListener('click',exportPDF);
+  el('clearBtn').addEventListener('click',()=>{if(!terminal.value.trim()||confirm('Clear all document content?')){currentPageIndex=0;setEditorValue('');terminal.focus();toast('Document cleared.');}});
+  el('sampleBtn').addEventListener('click',()=>{currentPageIndex=0;if(terminal.value===STARTER){userChanged=true;renderDocument();}else setEditorValue(STARTER);terminal.focus({preventScroll:true});terminal.setSelectionRange(0,0);setMobileSection('terminal');toast('Full command showcase loaded.','success');});
+  document.querySelectorAll('[data-insert]').forEach(button=>button.addEventListener('click',()=>replaceSelectionCommand(button.getAttribute('data-insert'))));
+  el('uploadImageBtn').addEventListener('click',()=>el('imageFile').click());el('imageFile').addEventListener('change',e=>{addImageFile(e.target.files&&e.target.files[0]);e.target.value='';});
+  el('prevPage').addEventListener('click',()=>jumpPage(-1));el('nextPage').addEventListener('click',()=>jumpPage(1));
+  el('zoomBtn').addEventListener('click',()=>{previewWorkarea.scrollTo({top:0,behavior:'smooth'});toast('Preview fitted to the top of the workspace.');});
+  // Keyboard shortcuts. Native textarea handling retains normal copy/cut/select/undo behavior.
+  document.addEventListener('keydown',async e=>{
+    const key=e.key.toLowerCase();const inEditor=e.target===terminal;
+    if((e.ctrlKey||e.metaKey)&&key==='m'){e.preventDefault();openHelp();return;}
+    if((e.ctrlKey||e.metaKey)&&key==='z'&&inEditor){e.preventDefault();restoreHistory(e.shiftKey?'redo':'undo');return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='z'&&e.target!==terminal&&!['INPUT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();restoreHistory('redo');return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='m'&&e.target!==terminal&&!['INPUT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();setMobileSection('preview');return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='p'&&e.target!==terminal){e.preventDefault();jumpPage(-1);return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='n'&&e.target!==terminal){e.preventDefault();jumpPage(1);return;}
+    if((e.ctrlKey||e.metaKey)&&key==='p'&&inEditor){
+      e.preventDefault();
+      try{if(navigator.clipboard&&navigator.clipboard.readText){const value=await navigator.clipboard.readText();insertAtCursor(value);toast('Clipboard text pasted.','success');}else toast('Clipboard permission unavailable. Use Ctrl+V to paste.','warn');}
+      catch(err){toast('Allow clipboard permission, or use Ctrl+V to paste.','warn');}
+      return;
+    }
+  });
+  // On desktop, keep the preview fully usable when a user clicks directly into a table cell.
+  pdfDocument.addEventListener('focusin',e=>{if(e.target.matches('[contenteditable="true"]'))el('previewMessage').textContent='Editing preview content';});
+  pdfDocument.addEventListener('input',e=>{
+    const target=e.target;if(target.matches('[data-table-color]')){const wrap=target.closest('.preview-table-wrap'),table=wrap&&wrap.querySelector('.preview-table');if(table){const key=target.getAttribute('data-table-color');table.style.setProperty(`--table-${key}`,ensureColor(target.value));}}
+    el('previewMessage').textContent='Preview edited · export to keep these changes';
+  });
+  pdfDocument.addEventListener('change',e=>{const target=e.target;if(target.matches('[data-table-control]')){const wrap=target.closest('.preview-table-wrap');if(wrap){const rows=wrap.querySelector('[data-table-control="rows"]')?.value||1,cols=wrap.querySelector('[data-table-control="cols"]')?.value||1;resizeTable(wrap,rows,cols);el('previewMessage').textContent='Table structure updated · export to keep these changes';}}});
+  window.addEventListener('resize',()=>{if(!window.matchMedia('(max-width: 720px)').matches){editorPanel.classList.add('mobile-active');previewPanel.classList.add('mobile-active');}});
+
+  // Restore a local draft if present; first visit starts with a helpful, styled sample.
+  let initial=STARTER;
+  try{const saved=localStorage.getItem(storageKey);if(saved!==null){initial=saved;el('saveStatus').textContent='Draft restored locally';}}catch(e){}
+  terminal.value=initial;lastKnownValue=initial;renderDocument();
+})();
+</script>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const appShell = document.querySelector('.app-shell');
+  const workspace = $('workspace');
+  const footer = $('appFooter');
+  const converter = $('pdfImagePage');
+  const navButton = $('pdfImagesBtn');
+  const defaultNavMarkup = navButton ? navButton.innerHTML : '';
+  const fileInput = $('pdfImageFile');
+  const dropzone = $('pdfImageDropzone');
+  const convertButton = $('pdfImageConvertBtn');
+  const cancelButton = $('pdfImageCancelBtn');
+  const progressPanel = $('pdfImageProgressPanel');
+  const resultsPanel = $('pdfImageResultsPanel');
+  const resultsGrid = $('pdfImageResultsGrid');
+  const zipButton = $('pdfImageZipBtn');
+  const zipButtonLabel = $('pdfImageZipBtnLabel');
+  const messageBox = $('pdfImageMessage');
+  if (!appShell || !converter || !navButton || !fileInput || !dropzone) return;
+
+  let selectedFile = null;
+  let renderedImages = [];
+  let activePdf = null;
+  let activeRenderTask = null;
+  let isConverting = false;
+  let isZipping = false;
+  let runId = 0;
+  let allSelected = true;
+  const MAX_FILE_BYTES = 250 * 1024 * 1024;
+  const MAX_PIXELS = 120_000_000;
+  const MAX_DIMENSION = 16000;
+
+  const svgDownload = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function openConverter() {
+    appShell.classList.add('pdf-images-mode');
+    converter.classList.add('active');
+    converter.setAttribute('aria-hidden', 'false');
+    navButton.setAttribute('aria-expanded', 'true');
+    navButton.title = 'Return to JNR PDF Studio';
+    navButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="m14.5 5-7 7 7 7M8 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-text">Back to Studio</span>';
+    document.title = 'JNR PDF — PDF to 4K PNG';
+    converter.scrollTop = 0;
+  }
+  function closeConverter() {
+    appShell.classList.remove('pdf-images-mode');
+    converter.classList.remove('active');
+    converter.setAttribute('aria-hidden', 'true');
+    navButton.setAttribute('aria-expanded', 'false');
+    navButton.title = 'Convert PDF pages into 4K PNG images';
+    navButton.innerHTML = defaultNavMarkup;
+    document.title = 'JNR PDF — Live PDF Studio';
+  }
+  navButton.addEventListener('click', () => appShell.classList.contains('pdf-images-mode') ? closeConverter() : openConverter());
+
+  function formatBytes(bytes) {
+    if (!Number.isFinite(bytes) || bytes < 0) return '';
+    if (bytes < 1024) return `${bytes} B`;
+    const units = ['KB', 'MB', 'GB'];
+    let v = bytes / 1024, i = 0;
+    while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }
+    return `${v.toFixed(v >= 100 ? 0 : v >= 10 ? 1 : 2)} ${units[i]}`;
+  }
+  function safeName(name) {
+    return (name || 'document').replace(/\.pdf$/i, '').normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g, '-').replace(/-+/g, '-').replace(/^[.-]+|[.-]+$/g, '').slice(0, 90) || 'document';
+  }
+  function resolutionLabel(value) {
+    const labels = { '4k':'4K UHD', '2k':'2K QHD', '1080':'Full HD', '6k':'6K', '300dpi':'300 DPI', '600dpi':'600 DPI' };
+    return labels[value] || '4K UHD';
+  }
+  function showMessage(message, kind = '') {
+    messageBox.textContent = message;
+    messageBox.className = 'pdf-image-message' + (kind ? ` ${kind}` : '');
+    messageBox.hidden = false;
+  }
+  function hideMessage() { messageBox.hidden = true; messageBox.textContent = ''; messageBox.className = 'pdf-image-message'; }
+  function updateProgress(title, count, total, message, percent) {
+    progressPanel.hidden = false;
+    $('pdfImageProgressTitle').textContent = title;
+    $('pdfImageProgressCount').textContent = `${count} / ${total} pages`;
+    $('pdfImageProgressMessage').textContent = message;
+    $('pdfImageProgressPercent').textContent = `${Math.round(percent)}%`;
+    $('pdfImageProgressBar').style.width = `${Math.max(0, Math.min(100, percent))}%`;
+  }
+  function clearOldResults() {
+    renderedImages.forEach(item => { if (item.url) URL.revokeObjectURL(item.url); });
+    renderedImages = [];
+    resultsGrid.replaceChildren();
+    resultsPanel.hidden = true;
+    $('pdfImageSelectAllBtn').textContent = 'Select all';
+    zipButton.disabled = true;
+    zipButtonLabel.textContent = 'Download ZIP';
+    allSelected = false;
+  }
+  function chooseFile(file) {
+    if (!file) return;
+    hideMessage();
+    const looksLikePdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    if (!looksLikePdf) { showMessage('Please choose a PDF file (.pdf).'); return; }
+    if (file.size > MAX_FILE_BYTES) { showMessage('This PDF is larger than the 250 MB browser-safety limit. Try a smaller file or split the PDF into batches.'); return; }
+    if (!file.size) { showMessage('This PDF file appears to be empty. Choose another file.'); return; }
+    if (isConverting) cancelConversion(false);
+    clearOldResults();
+    selectedFile = file;
+    $('pdfImageFileName').textContent = file.name;
+    $('pdfImageFileMeta').textContent = `${formatBytes(file.size)} · Ready to convert`;
+    $('pdfImageFileCard').hidden = false;
+    dropzone.classList.add('has-file');
+    convertButton.disabled = false;
+    progressPanel.hidden = true;
+    showMessage('PDF selected. Choose a resolution and convert the pages.', 'success');
+  }
+  $('pdfImageBrowseBtn').addEventListener('click', (event) => { event.stopPropagation(); fileInput.click(); });
+  $('pdfImageChangeBtn').addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('click', (event) => { if (!event.target.closest('button')) fileInput.click(); });
+  dropzone.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); fileInput.click(); } });
+  fileInput.addEventListener('change', (event) => { chooseFile(event.target.files && event.target.files[0]); fileInput.value = ''; });
+  ['dragenter','dragover'].forEach(name => dropzone.addEventListener(name, event => { event.preventDefault(); event.stopPropagation(); dropzone.classList.add('drag-over'); if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy'; }));
+  ['dragleave','dragend'].forEach(name => dropzone.addEventListener(name, event => { event.preventDefault(); dropzone.classList.remove('drag-over'); }));
+  dropzone.addEventListener('drop', event => { event.preventDefault(); event.stopPropagation(); dropzone.classList.remove('drag-over'); chooseFile(event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]); });
+  // Prevent the browser from opening the dropped PDF instead of loading it in the app.
+  window.addEventListener('dragover', event => { if (event.dataTransfer && [...event.dataTransfer.types].includes('Files')) event.preventDefault(); });
+  window.addEventListener('drop', event => { if (event.dataTransfer && [...event.dataTransfer.types].includes('Files') && !dropzone.contains(event.target)) event.preventDefault(); });
+
+  function parsePageRange(value, pageCount) {
+    const raw = (value || 'all').trim().toLowerCase();
+    if (!raw || raw === 'all' || raw === '*') return Array.from({length: pageCount}, (_, i) => i + 1);
+    const pages = new Set();
+    for (const partRaw of raw.split(',')) {
+      const part = partRaw.trim();
+      const match = part.match(/^(\d+)\s*(?:-\s*(\d+)\s*)?$/);
+      if (!match) throw new Error(`Invalid page range “${part}”. Use all, 1-4, or 1,3,6-8.`);
+      const start = Number(match[1]);
+      const end = match[2] ? Number(match[2]) : start;
+      if (start < 1 || end < 1 || start > pageCount || end > pageCount) throw new Error(`Page ${start > pageCount ? start : end > pageCount ? end : start} is outside this PDF. It contains ${pageCount} pages.`);
+      if (end < start) throw new Error(`Range “${part}” goes backwards. Use a range like 2-5.`);
+      if (end - start > 10000) throw new Error('That page range is too large.');
+      for (let p = start; p <= end; p++) pages.add(p);
+    }
+    if (!pages.size) throw new Error('Enter at least one page number or use “all”.');
+    return [...pages].sort((a, b) => a - b);
+  }
+  function getScale(viewport, preset) {
+    const maxSide = Math.max(viewport.width, viewport.height);
+    if (preset === '300dpi') return 300 / 72;
+    if (preset === '600dpi') return 600 / 72;
+    const target = ({'1080':1920, '2k':2560, '4k':3840, '6k':5760})[preset] || 3840;
+    return target / maxSide;
+  }
+  function makeBlobFromCanvas(canvas) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('The browser could not create a PNG image for this page.')), 'image/png');
+    });
+  }
+  function makeOutputCard(item, index) {
+    const card = document.createElement('article');
+    card.className = 'pdf-image-result-card selected';
+    const preview = document.createElement('div'); preview.className = 'pdf-image-result-preview';
+    const image = document.createElement('img'); image.src = item.url; image.alt = `PDF page ${item.pageNumber} as a PNG image`; image.loading = 'lazy'; image.decoding = 'async';
+    preview.appendChild(image);
+    const meta = document.createElement('label'); meta.className = 'pdf-image-result-meta';
+    const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.checked = true; checkbox.setAttribute('aria-label', `Select page ${item.pageNumber} for ZIP download`);
+    checkbox.addEventListener('change', () => { item.selected = checkbox.checked; card.classList.toggle('selected', item.selected); updateSelectionUi(); });
+    const info = document.createElement('span'); info.className = 'pdf-image-result-info';
+    const name = document.createElement('strong'); name.textContent = item.fileName;
+    const details = document.createElement('span'); details.textContent = `${item.width.toLocaleString()} × ${item.height.toLocaleString()} px · ${formatBytes(item.blob.size)}`;
+    info.append(name, details); meta.append(checkbox, info);
+    const download = document.createElement('button'); download.type = 'button'; download.className = 'btn pdf-image-result-download'; download.innerHTML = `${svgDownload}<span>Download PNG</span>`;
+    download.addEventListener('click', () => downloadBlob(item.blob, item.fileName));
+    card.append(preview, meta, download);
+    return card;
+  }
+  function updateSelectionUi() {
+    const count = renderedImages.filter(item => item.selected).length;
+    zipButton.disabled = !count || isZipping || isConverting;
+    zipButtonLabel.textContent = isZipping ? 'Creating ZIP…' : count ? `Download ZIP (${count})` : 'Download ZIP';
+    $('pdfImageSelectAllBtn').textContent = count === renderedImages.length && renderedImages.length ? 'Deselect all' : 'Select all';
+    $('pdfImageResultsSummary').textContent = `${renderedImages.length} page${renderedImages.length === 1 ? '' : 's'} converted · ${count} selected · ${resolutionLabel($('pdfImageResolution').value)} PNG`;
+  }
+  function downloadBlob(blob, fileName) {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a'); anchor.href = url; anchor.download = fileName; anchor.style.display = 'none';
+    document.body.appendChild(anchor); anchor.click(); anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+  function renderNewOutput(item) {
+    resultsPanel.hidden = false;
+    resultsGrid.appendChild(makeOutputCard(item, renderedImages.length - 1));
+    updateSelectionUi();
+  }
+
+  async function convertToPng() {
+    if (!selectedFile || isConverting) return;
+    hideMessage(); clearOldResults();
+    isConverting = true;
+    const thisRun = ++runId;
+    convertButton.disabled = true;
+    convertButton.innerHTML = '<span class="pdf-image-spinner"></span> Converting…';
+    cancelButton.disabled = false;
+    $('pdfImageResolution').disabled = true;
+    $('pdfImageRange').disabled = true;
+    const preset = $('pdfImageResolution').value;
+    const base = safeName(selectedFile.name);
+    try {
+      if (!window.pdfjsLib || typeof window.pdfjsLib.getDocument !== 'function') throw new Error('The PDF rendering library could not load. Check your internet connection, then reload this page.');
+      if (window.pdfjsLib.GlobalWorkerOptions) window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      updateProgress('Opening PDF…', 0, 0, 'Reading the file locally in your browser.', 2);
+      const data = new Uint8Array(await selectedFile.arrayBuffer());
+      if (thisRun !== runId) return;
+      activePdf = await window.pdfjsLib.getDocument({data, useWorkerFetch:true, isEvalSupported:false, stopAtErrors:true}).promise;
+      if (thisRun !== runId) return;
+      const pageNumbers = parsePageRange($('pdfImageRange').value, activePdf.numPages);
+      progressPanel.hidden = false;
+      resultsPanel.hidden = false;
+      updateProgress('Rendering 4K PNG images…', 0, pageNumbers.length, `Source PDF has ${activePdf.numPages} pages. Rendering selected pages sequentially to keep memory predictable.`, 0);
+      $('pdfImageResultsSummary').textContent = `Preparing ${pageNumbers.length} page${pageNumbers.length === 1 ? '' : 's'} at ${resolutionLabel(preset)}…`;
+      const outputNames = new Set();
+      for (let i = 0; i < pageNumbers.length; i++) {
+        if (thisRun !== runId) return;
+        const pageNumber = pageNumbers[i];
+        updateProgress('Rendering PNG images…', i, pageNumbers.length, `Rendering page ${pageNumber} of ${activePdf.numPages}.`, (i / pageNumbers.length) * 100);
+        const page = await activePdf.getPage(pageNumber);
+        if (thisRun !== runId) return;
+        const baseViewport = page.getViewport({scale:1});
+        const scale = getScale(baseViewport, preset);
+        const viewport = page.getViewport({scale});
+        const width = Math.max(1, Math.round(viewport.width));
+        const height = Math.max(1, Math.round(viewport.height));
+        const pixelCount = width * height;
+        if (width > MAX_DIMENSION || height > MAX_DIMENSION || pixelCount > MAX_PIXELS) {
+          page.cleanup();
+          throw new Error(`Page ${pageNumber} would render at ${width.toLocaleString()} × ${height.toLocaleString()} px, which is too large for this browser. Choose 4K or a lower resolution.`);
+        }
+        const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+        const context = canvas.getContext('2d', {alpha:false, desynchronized:true});
+        if (!context) { canvas.width = 0; canvas.height = 0; throw new Error('Canvas is not available in this browser.'); }
+        context.fillStyle = '#ffffff'; context.fillRect(0, 0, width, height);
+        activeRenderTask = page.render({canvasContext:context, viewport, background:'#ffffff', intent:'display'});
+        try { await activeRenderTask.promise; }
+        finally { activeRenderTask = null; }
+        if (thisRun !== runId) { canvas.width = 0; canvas.height = 0; page.cleanup(); return; }
+        const blob = await makeBlobFromCanvas(canvas);
+        canvas.width = 0; canvas.height = 0; page.cleanup();
+        const pageNum = String(pageNumber).padStart(3, '0');
+        let fileName = `${base}-page-${pageNum}.png`, collision = 2;
+        while (outputNames.has(fileName)) fileName = `${base}-page-${pageNum}-${collision++}.png`;
+        outputNames.add(fileName);
+        const item = {pageNumber, blob, fileName, width, height, url:URL.createObjectURL(blob), selected:true};
+        renderedImages.push(item);
+        renderNewOutput(item);
+        updateProgress('Rendering PNG images…', i + 1, pageNumbers.length, `Finished page ${pageNumber} · ${width.toLocaleString()} × ${height.toLocaleString()} px · ${formatBytes(blob.size)}.`, ((i + 1) / pageNumbers.length) * 100);
+        // Yield to the UI after each page so the progress indicator remains responsive.
+        await new Promise(resolve => requestAnimationFrame(() => resolve()));
+      }
+      if (thisRun !== runId) return;
+      updateProgress('Conversion complete', pageNumbers.length, pageNumbers.length, 'All selected pages were converted to lossless PNG images.', 100);
+      $('pdfImageResultsSummary').textContent = `${renderedImages.length} page${renderedImages.length === 1 ? '' : 's'} converted · All images are full-resolution PNG files.`;
+      resultsPanel.hidden = false;
+      updateSelectionUi();
+      showMessage(`Done! ${renderedImages.length} PNG image${renderedImages.length === 1 ? '' : 's'} ready to download.`, 'success');
+    } catch (error) {
+      if (thisRun === runId) {
+        console.error('JNR PDF to PNG conversion failed:', error);
+        const detail = error && error.message ? error.message : 'An unknown rendering error occurred.';
+        showMessage(`Could not complete the conversion. ${detail}`);
+        updateProgress('Conversion stopped', renderedImages.length, renderedImages.length || 0, 'Any pages completed before the error remain available below.', renderedImages.length ? 100 * renderedImages.length / Math.max(1, renderedImages.length + 1) : 0);
+        if (renderedImages.length) { resultsPanel.hidden = false; updateSelectionUi(); }
+      }
+    } finally {
+      if (thisRun === runId) {
+        isConverting = false; activeRenderTask = null;
+        convertButton.disabled = !selectedFile;
+        convertButton.innerHTML = `${svgDownload}<span>Convert to PNG</span>`;
+        cancelButton.disabled = true;
+        $('pdfImageResolution').disabled = false;
+        $('pdfImageRange').disabled = false;
+        if (activePdf) { try { await activePdf.destroy(); } catch (_) {} activePdf = null; }
+        updateSelectionUi();
+      }
+    }
+  }
+  function cancelConversion(showNotice = true) {
+    if (!isConverting) return;
+    runId++;
+    try { if (activeRenderTask) activeRenderTask.cancel(); } catch (_) {}
+    isConverting = false;
+    convertButton.disabled = !selectedFile;
+    convertButton.innerHTML = `${svgDownload}<span>Convert to PNG</span>`;
+    cancelButton.disabled = true;
+    $('pdfImageResolution').disabled = false;
+    $('pdfImageRange').disabled = false;
+    if (activePdf) { try { activePdf.destroy(); } catch (_) {} activePdf = null; }
+    updateSelectionUi();
+    updateProgress('Conversion cancelled', renderedImages.length, renderedImages.length, 'Completed images are still available to download.', 0);
+    if (showNotice) showMessage('Conversion cancelled. Any pages already rendered remain available below.');
+  }
+  convertButton.addEventListener('click', convertToPng);
+  cancelButton.addEventListener('click', () => cancelConversion(true));
+
+  $('pdfImageSelectAllBtn').addEventListener('click', () => {
+    const shouldSelectAll = renderedImages.some(item => !item.selected);
+    renderedImages.forEach((item, index) => {
+      item.selected = shouldSelectAll;
+      const card = resultsGrid.children[index];
+      if (card) { card.classList.toggle('selected', shouldSelectAll); const box = card.querySelector('input[type="checkbox"]'); if (box) box.checked = shouldSelectAll; }
+    });
+    updateSelectionUi();
+  });
+  $('pdfImageResolution').addEventListener('change', () => { if (renderedImages.length) showMessage(`Resolution set to ${resolutionLabel($('pdfImageResolution').value)}. Convert again to apply it to the images.`); });
+
+  zipButton.addEventListener('click', async () => {
+    if (isZipping || isConverting) return;
+    const selected = renderedImages.filter(item => item.selected);
+    if (!selected.length) { showMessage('Select at least one page before downloading.'); return; }
+    if (!window.JSZip) { showMessage('The ZIP helper could not load. You can still download each PNG individually.'); return; }
+    isZipping = true; updateSelectionUi(); hideMessage();
+    zipButton.disabled = true;
+    try {
+      const zip = new window.JSZip();
+      const folderName = `${safeName(selectedFile ? selectedFile.name : 'document')}-png`;
+      selected.forEach(item => zip.file(item.fileName, item.blob));
+      const blob = await zip.generateAsync({type:'blob', compression:'STORE'}, metadata => {
+        zipButtonLabel.textContent = `Zipping ${Math.round(metadata.percent)}%…`;
+      });
+      downloadBlob(blob, `${folderName}-${resolutionLabel($('pdfImageResolution').value).toLowerCase().replace(/\s+/g,'-')}.zip`);
+      showMessage(`${selected.length} PNG image${selected.length === 1 ? '' : 's'} packed into a ZIP file.`, 'success');
+    } catch (error) {
+      console.error('JNR PNG ZIP export failed:', error);
+      showMessage(`Could not create the ZIP file. ${error && error.message ? error.message : 'Try downloading PNG images one at a time.'}`);
+    } finally {
+      isZipping = false; updateSelectionUi();
+    }
+  });
+
+  // Clicking the studio navigation button should not interrupt a conversion. Conversion continues if the user switches views.
+  window.addEventListener('beforeunload', () => {
+    renderedImages.forEach(item => { try { URL.revokeObjectURL(item.url); } catch (_) {} });
+    try { if (activeRenderTask) activeRenderTask.cancel(); } catch (_) {}
+  });
+})();
+</script>
+
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const openButton = $('encryptBtnOpen'), modal = $('encryptModal'), fileInput = $('encryptFile');
+  if (!openButton || !modal || !fileInput) return;
+  const dropzone = $('encryptDropzone'), fileStatus = $('encryptFileStatus');
+  const password = $('encryptPassword'), confirmPassword = $('encryptConfirm'), ownerPassword = $('encryptOwner');
+  const runButton = $('encryptNowBtn'), status = $('encryptStatus'), strengthBar = $('encryptStrengthBar'), strengthText = $('encryptStrengthText');
+  let selectedFile = null, toolkitPromise = null, activeBlobUrl = null;
+  const MAX_FILE_BYTES = 100 * 1024 * 1024;
+
+  function setStatus(message, kind='') { status.textContent = message; status.className = 'encrypt-status' + (kind ? ' ' + kind : ''); }
+  function openModal() { modal.classList.add('open'); setStatus(''); }
+  function closeModal() { if (runButton.disabled) return; modal.classList.remove('open'); }
+  function fmt(bytes) { if (bytes < 1024) return `${bytes} B`; if (bytes < 1024*1024) return `${(bytes/1024).toFixed(1)} KB`; return `${(bytes/1024/1024).toFixed(1)} MB`; }
+  function safeFilename(name) { return (name || 'document.pdf').replace(/\.pdf$/i,'').normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g,'-').replace(/-+/g,'-').replace(/^[.-]+|[.-]+$/g,'').slice(0,80) || 'document'; }
+  function chooseFile(file) {
+    if (!file) return;
+    const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name || '');
+    if (!isPdf) { selectedFile = null; fileStatus.className='encrypt-file-status'; fileStatus.textContent='That file does not look like a PDF. Choose a .pdf file.'; setStatus('Please select a valid PDF file.','error'); return; }
+    if (!file.size || file.size > MAX_FILE_BYTES) { selectedFile = null; fileStatus.className='encrypt-file-status'; fileStatus.textContent=file.size ? 'This PDF exceeds the 100 MB browser-safety limit.' : 'The selected file is empty.'; setStatus(fileStatus.textContent,'error'); return; }
+    selectedFile = file; fileStatus.className='encrypt-file-status ready'; fileStatus.textContent=`${file.name} · ${fmt(file.size)} · Ready to encrypt`; setStatus('');
+  }
+  function updateStrength() {
+    const value = password.value || ''; let score = 0;
+    if (value.length >= 8) score++; if (value.length >= 12) score++; if (/[a-z]/.test(value) && /[A-Z]/.test(value)) score++; if (/\d/.test(value)) score++; if (/[^A-Za-z0-9]/.test(value)) score++;
+    const width = [0,20,40,60,80,100][score]; strengthBar.style.width = width + '%';
+    strengthText.textContent = !value ? 'Use a long, unique passphrase. The password is never saved by this tool.' : score <= 2 ? 'Password strength: weak — add length and variety.' : score <= 3 ? 'Password strength: fair — a longer passphrase is safer.' : score === 4 ? 'Password strength: good.' : 'Password strength: strong.';
+    strengthBar.style.background = score <= 2 ? '#c92032' : score <= 3 ? '#d69c22' : '#25875a';
+  }
+  async function getToolkit() {
+    if (!toolkitPromise) toolkitPromise = import('https://esm.sh/pdfstudio@0.4.0').then(async mod => {
+      if (!mod || typeof mod.createPdfToolkit !== 'function') throw new Error('The PDF encryption module did not expose the expected API.');
+      return mod.createPdfToolkit({ wasmUrl: 'https://cdn.jsdelivr.net/npm/pdfstudio@0.4.0/dist/wasm/qpdf.wasm' });
+    }).catch(error => { toolkitPromise = null; throw error; });
+    return toolkitPromise;
+  }
+  openButton.addEventListener('click', openModal);
+  $('closeEncrypt').addEventListener('click', closeModal);
+  $('cancelEncrypt').addEventListener('click', closeModal);
+  modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+  fileInput.addEventListener('change', event => { chooseFile(event.target.files && event.target.files[0]); fileInput.value=''; });
+  dropzone.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); fileInput.click(); } });
+  ['dragenter','dragover'].forEach(type => dropzone.addEventListener(type, event => { event.preventDefault(); dropzone.classList.add('drag-over'); }));
+  ['dragleave','dragend'].forEach(type => dropzone.addEventListener(type, () => dropzone.classList.remove('drag-over')));
+  dropzone.addEventListener('drop', event => { event.preventDefault(); dropzone.classList.remove('drag-over'); chooseFile(event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]); });
+  password.addEventListener('input', updateStrength);
+  confirmPassword.addEventListener('input', () => { if (confirmPassword.value && confirmPassword.value !== password.value) setStatus('The two open passwords do not match.','error'); else if(status.classList.contains('error')) setStatus(''); });
+  runButton.addEventListener('click', async () => {
+    if (runButton.disabled) return;
+    if (!selectedFile) { setStatus('Choose a PDF before encrypting.','error'); return; }
+    if (password.value.length < 8) { setStatus('Use an open password with at least 8 characters.','error'); password.focus(); return; }
+    if (password.value !== confirmPassword.value) { setStatus('The two open passwords do not match.','error'); confirmPassword.focus(); return; }
+    if (ownerPassword.value && ownerPassword.value.length < 8) { setStatus('The optional owner password must also have at least 8 characters.','error'); ownerPassword.focus(); return; }
+    const originalLabel = runButton.innerHTML; runButton.disabled = true; runButton.innerHTML='<span class="encrypt-loading" aria-hidden="true"></span> Loading encryption engine…';
+    try {
+      setStatus('Checking the PDF file locally…');
+      const input = new Uint8Array(await selectedFile.arrayBuffer());
+      const header = new TextDecoder().decode(input.subarray(0, Math.min(1024, input.length)));
+      if (!header.includes('%PDF-')) throw new Error('This file does not contain a valid PDF header. Choose an actual PDF file.');
+      setStatus('Loading the browser-side AES-256 engine. No PDF is uploaded.');
+      const toolkit = await getToolkit();
+      runButton.innerHTML='<span class="encrypt-loading" aria-hidden="true"></span> Encrypting PDF…';
+      const options = { userPassword: password.value, keyLength: 256 };
+      if (ownerPassword.value) options.ownerPassword = ownerPassword.value;
+      const locked = await toolkit.lock(input, options);
+      if (!(locked instanceof Uint8Array) || !locked.length) throw new Error('The encryption engine returned an empty file.');
+      const outBlob = new Blob([locked], {type:'application/pdf'});
+      if (activeBlobUrl) URL.revokeObjectURL(activeBlobUrl);
+      activeBlobUrl = URL.createObjectURL(outBlob);
+      const anchor = document.createElement('a'); anchor.href=activeBlobUrl; anchor.download=`${safeFilename(selectedFile.name)}-encrypted.pdf`; anchor.style.display='none'; document.body.appendChild(anchor); anchor.click(); anchor.remove();
+      setStatus(`Encrypted PDF ready (${fmt(outBlob.size)}). The protected copy has been downloaded. Keep your password safe.`,'success');
+      password.value=''; confirmPassword.value=''; ownerPassword.value=''; updateStrength();
+      setTimeout(() => { if(activeBlobUrl) { URL.revokeObjectURL(activeBlobUrl); activeBlobUrl=null; } }, 60000);
+    } catch (error) {
+      console.error('JNR PDF encryption failed:', error);
+      const detail = String(error && error.message || error);
+      const help = /fetch|network|import|wasm|module|load/i.test(detail) ? 'The encryption module could not load. Open this page over HTTPS or localhost and check your internet connection, then try again.' : detail.slice(0,220);
+      setStatus(`Could not encrypt this PDF. ${help}`,'error');
+    } finally { runButton.disabled=false; runButton.innerHTML=originalLabel; }
+  });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+})();
+</script>
+<script src="./block.js" ></script>
+</body>
+</html>

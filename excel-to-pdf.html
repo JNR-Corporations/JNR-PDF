@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#c92032">
+<meta name="description" content="Convert Excel workbooks and supported spreadsheet formats to a well-formatted PDF in your browser with JNR PDF.">
+<title>Excel to PDF — JNR PDF Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c92032;--red-dark:#a91627;--red-soft:#fff0f2;--ink:#202126;--muted:#777982;--line:#e9e9ed;--paper:#fff;--canvas:#f5f5f7;--green:#25875a;--shadow:0 10px 32px rgba(35,23,27,.07);--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:'DM Sans',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--canvas)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #c9203233;outline-offset:2px}button:disabled{opacity:.52;cursor:not-allowed;transform:none!important;box-shadow:none!important}.topbar{min-height:74px;padding:12px clamp(14px,3vw,36px);display:flex;align-items:center;justify-content:space-between;gap:18px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand-mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#df3345,#b81429);color:#fff;box-shadow:0 7px 15px #c920322e;flex:0 0 auto}.brand-mark svg{width:23px;height:23px}.brand-name{font-size:20px;font-weight:800;letter-spacing:-.8px;line-height:1}.brand-name span{color:var(--red)}.brand-sub{font-size:10px;color:#91929a;letter-spacing:1.55px;font-weight:800;margin-top:5px}.top-status{display:flex;align-items:center;gap:8px;font-size:11px;color:#71737c;white-space:nowrap}.live-dot{width:7px;height:7px;border-radius:50%;background:#39aa73;box-shadow:0 0 0 4px #e8f7ef;display:inline-block}.top-actions{display:flex;align-items:center;gap:8px}.btn{border:1px solid var(--line);border-radius:11px;background:#fff;color:#3b3d44;padding:10px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:800;transition:transform .16s,box-shadow .16s,border-color .16s;white-space:nowrap}.btn:hover{transform:translateY(-1px);border-color:#d6d6dc;box-shadow:0 5px 14px #14141e0f}.btn svg{width:16px;height:16px;flex:0 0 auto}.btn.primary{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 6px 15px #c920322e}.btn.primary:hover{background:var(--red-dark)}.btn.soft{background:var(--red-soft);border-color:#f5d7dc;color:var(--red)}.btn.small{padding:8px 10px;font-size:11px;border-radius:9px}.page-shell{max-width:1500px;margin:0 auto;padding:30px clamp(13px,3vw,40px) 26px}.hero{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:4px 4px 27px}.hero-copy{max-width:800px}.eyebrow{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:1.65px;font-weight:800;color:#898b94}.eyebrow .slash{color:#d2a0a7}.hero h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-2px;margin:16px 0 11px;font-weight:800}.hero h1 span{color:var(--red)}.hero p{font-size:14px;line-height:1.75;color:#787a83;max-width:740px;margin:0}.format-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:17px}.format-pills span{padding:7px 9px;border-radius:8px;background:#fff;border:1px solid #e8e8ed;color:#777984;font:10px 'DM Mono',monospace}.hero-art{position:relative;width:188px;height:155px;flex:0 0 188px;margin-right:20px}.art-sheet{position:absolute;left:32px;top:8px;width:104px;height:137px;border:1px solid #dce9df;border-radius:10px;background:#fff;box-shadow:0 15px 26px #18281c13;padding:12px 9px;transform:rotate(-6deg)}.art-sheet.back{left:69px;top:17px;background:#f0f8f1;transform:rotate(10deg)}.art-label{font-size:10px;color:#18864c;font-weight:900;letter-spacing:1px;margin-bottom:9px}.art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}.art-grid i{height:13px;border-radius:2px;background:#e5f2e9}.art-grid i:nth-child(3n+1){background:#cde8d4}.art-grid i:nth-child(3n+2){background:#edf6ef}.art-badge{position:absolute;right:0;bottom:9px;background:#fff;border:1px solid #efcbd1;border-radius:12px;padding:10px 11px;box-shadow:0 8px 20px #38101a12;font-size:11px;font-weight:800;color:var(--red);display:flex;align-items:center;gap:7px}.art-badge svg{width:17px;height:17px}.main-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:17px;align-items:start}.column{display:flex;flex-direction:column;gap:16px;min-width:0}.card{background:#fff;border:1px solid #e7e7ec;border-radius:var(--radius);overflow:hidden;min-width:0;box-shadow:0 4px 18px #1e141a06}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid #f0f0f3}.head-main{display:flex;align-items:center;gap:10px;min-width:0}.icon-box{width:36px;height:36px;border-radius:11px;background:var(--red-soft);display:grid;place-items:center;color:var(--red);flex:0 0 auto}.icon-box svg{width:18px;height:18px}.card-title{font-size:13px;font-weight:800;letter-spacing:-.2px}.card-subtitle{font-size:10px;color:#92939b;line-height:1.5;margin-top:4px}.micro-badge{border-radius:7px;padding:6px 8px;background:#f7f7f9;border:1px solid #eeeef2;color:#92939b;font-size:9px;font-weight:800;white-space:nowrap;letter-spacing:.7px}.upload-area{margin:17px;border:1.5px dashed #dedee7;background:linear-gradient(140deg,#fffdfd,#fff8f9);min-height:196px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;padding:24px 16px;transition:border-color .16s,background .16s,transform .16s}.upload-area:hover,.upload-area.drag-over{border-color:#dc8490;background:#fff1f3}.upload-area.drag-over{transform:scale(.997)}.upload-icon{width:47px;height:47px;border-radius:15px;display:grid;place-items:center;background:#fff;border:1px solid #f0dadd;color:var(--red);box-shadow:0 5px 14px #6d182015;margin-bottom:3px}.upload-icon svg{width:23px;height:23px}.upload-area strong{font-size:13px;color:#34353d}.upload-area>span{font-size:11px;color:#8d8e97;line-height:1.6}.upload-area small{font-size:10px;color:#a2a3ab;margin-top:3px}.text-link{border:0;padding:0;background:none;color:var(--red);font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}.hidden{display:none!important}.notice{margin:0 17px 16px;border:1px solid #e8e8ed;background:#fbfbfc;color:#777984;border-radius:10px;padding:11px 12px;font-size:10px;line-height:1.65}.notice strong{color:#4b4d55}.notice.warn{border-color:#f0d9dd;background:#fff6f7;color:#9c303d}.notice.ok{border-color:#d8f0e2;background:#f0fbf5;color:#22764e}.notice:empty{display:none}.file-card{margin:0 17px 17px;padding:13px;border:1px solid #eaeaf0;border-radius:12px;display:flex;align-items:center;gap:11px;min-width:0}.file-mark{width:42px;height:45px;flex:0 0 42px;display:grid;place-items:center;background:#fff0f2;border-radius:9px;color:var(--red)}.file-mark svg{width:22px;height:22px}.file-details{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}.file-details strong{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-details span{color:#9697a0;font-size:10px;line-height:1.5}.file-card .btn{flex:0 0 auto}.sheet-list{padding:3px 17px 17px;display:flex;flex-direction:column;gap:7px}.sheet-list-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 0 3px}.sheet-list-top strong{font-size:11px}.sheet-list-actions{display:flex;gap:5px}.sheet-row{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #ececf1;border-radius:10px;min-width:0;background:#fff;transition:background .12s,border-color .12s}.sheet-row.selected{background:#fff9fa;border-color:#f0cbd1}.sheet-row input{accent-color:var(--red);width:15px;height:15px;flex:0 0 auto}.sheet-row-main{min-width:0;flex:1}.sheet-row-main strong{display:block;font-size:11px;overflow-wrap:anywhere}.sheet-row-main span{display:block;font-size:9px;color:#9798a0;margin-top:4px;line-height:1.45}.sheet-hidden{font-size:8px;font-weight:800;color:#9b5b65;background:#fff0f2;border-radius:5px;padding:4px 5px;white-space:nowrap}.empty-workbook{padding:14px 17px;color:#9899a1;font-size:11px;line-height:1.6}.settings{padding:17px 18px 18px}.setting-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field label,.field-label{font-size:10px;font-weight:800;color:#585a63}.field select,.field input[type=text],.field input[type=number]{width:100%;min-width:0;height:40px;padding:0 11px;border:1px solid #e3e3ea;background:#fff;border-radius:9px;color:#3e4048;font-size:11px;outline:none}.field select:focus,.field input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212}.field small{font-size:9px;color:#999aa3;line-height:1.5}.toggle-list{display:flex;flex-direction:column;gap:10px;margin-top:17px;padding:14px;border-radius:11px;background:#fbfbfc;border:1px solid #efeff3}.toggle-row{display:flex;align-items:flex-start;gap:9px;font-size:10px;color:#676973;line-height:1.5}.toggle-row input{accent-color:var(--red);margin:2px 0 0;flex:0 0 auto}.toggle-row strong{color:#454750;display:block;font-size:10px}.toggle-row small{display:block;font-size:9px;color:#999aa3;margin-top:2px}.security-note{display:flex;gap:9px;align-items:flex-start;margin:14px 0 0;padding:11px;background:#f0fbf5;border:1px solid #d8f0e2;color:#377757;border-radius:10px;font-size:10px;line-height:1.6}.security-note svg{width:16px;height:16px;flex:0 0 auto}.settings-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.settings-actions .btn{flex:1;min-height:40px}.progress-wrap{height:4px;background:#f7dfe3;overflow:hidden;display:none;margin-top:13px;border-radius:4px}.progress-wrap.show{display:block}.progress-wrap span{display:block;height:100%;width:40%;background:var(--red);animation:progress 1s infinite ease-in-out}@keyframes progress{0%{transform:translateX(-110%)}100%{transform:translateX(270%)}}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 17px 17px}.stat{border:1px solid #ededf1;border-radius:10px;padding:10px;min-width:0}.stat strong{display:block;font-size:17px;letter-spacing:-.5px;color:#30313a;overflow:hidden;text-overflow:ellipsis}.stat span{display:block;color:#93949d;font-size:9px;margin-top:5px}.preview-card{margin-top:17px}.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 17px;border-bottom:1px solid #f0f0f3;background:#fff}.sheet-tabs{display:flex;gap:6px;flex-wrap:wrap;min-width:0}.sheet-tab{border:1px solid #eeeef2;background:#fff;color:#72747d;padding:7px 10px;border-radius:8px;font-size:10px;font-weight:800;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sheet-tab.active{background:var(--red-soft);border-color:#f3d6da;color:var(--red)}.preview-meta{font-size:10px;color:#9697a0;white-space:nowrap}.table-preview-wrap{width:100%;overflow:auto;max-height:490px;background:#fff}.preview-placeholder{padding:46px 18px;text-align:center;color:#999aa2;font-size:11px;line-height:1.8}.preview-placeholder svg{width:34px;height:34px;color:#d4a0a7;margin-bottom:9px}.preview-table{border-collapse:separate;border-spacing:0;min-width:100%;width:max-content;font-size:10px;color:#383942}.preview-table th,.preview-table td{max-width:260px;min-width:74px;padding:8px 10px;border-right:1px solid #e9e9ed;border-bottom:1px solid #e9e9ed;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:top;text-align:left}.preview-table thead th{background:#fff0f2;color:#982032;font-weight:800;position:sticky;top:0;z-index:2}.preview-table td:first-child,.preview-table th:first-child{background:#f8f8fa;color:#9899a1;min-width:42px;max-width:62px;text-align:right;font-family:'DM Mono',monospace}.preview-table tr:nth-child(even) td{background:#fcfcfd}.preview-table tr:nth-child(even) td:first-child{background:#f6f6f8}.preview-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 17px;background:#fcfcfd;border-top:1px solid #f0f0f3;color:#9697a0;font-size:10px;line-height:1.5}.footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:25px 4px 4px;color:#999aa3;font-size:10px}.footer b{color:#777982}.toast-region{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:min(440px,calc(100% - 28px))}.toast{background:#24242b;color:#fff;border-radius:11px;padding:12px 15px;font-size:12px;line-height:1.5;box-shadow:0 8px 28px #1a101733;animation:toast-in .2s ease}.toast.warn{background:#8a2935}.toast.success{background:#176746}@keyframes toast-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:980px){.main-grid{grid-template-columns:minmax(0,1fr) minmax(300px,.9fr);gap:12px}.hero-art{margin-right:0;transform:scale(.9);transform-origin:center right}.top-status{display:none}.card-head{padding:14px}.settings{padding:14px}.setting-grid{gap:10px}}
+@media(max-width:740px){.topbar{min-height:64px;padding:10px 12px;gap:8px}.brand-mark{width:36px;height:36px;border-radius:12px}.brand-name{font-size:18px}.brand-sub{font-size:8px;letter-spacing:1px}.top-actions{gap:5px}.top-actions .btn{padding:9px 10px;font-size:10px}.top-actions .btn .btn-text{display:none}.page-shell{padding:18px 10px 18px}.hero{padding:2px 3px 20px}.hero-art{display:none}.hero h1{font-size:34px;letter-spacing:-1.4px;margin-top:12px}.hero p{font-size:12px}.eyebrow{font-size:8px;letter-spacing:1.1px}.format-pills{gap:5px}.format-pills span{font-size:9px;padding:6px 7px}.main-grid{grid-template-columns:minmax(0,1fr)}.column{gap:12px}.card{border-radius:15px}.upload-area{margin:12px;min-height:175px;padding:20px 12px}.notice{margin:0 12px 12px}.file-card{margin:0 12px 12px}.sheet-list{padding:0 12px 12px}.settings{padding:13px}.setting-grid{gap:10px}.field select{height:39px}.toggle-list{margin-top:13px;padding:12px}.settings-actions{gap:7px}.preview-card{margin-top:12px}.preview-toolbar{padding:10px 12px}.sheet-tab{font-size:9px;padding:7px 8px;max-width:140px}.table-preview-wrap{max-height:390px}.preview-table th,.preview-table td{padding:7px 8px;max-width:200px}.preview-foot{padding:10px 12px;align-items:flex-start;flex-direction:column}.footer{padding:19px 3px 2px;font-size:9px}}
+@media(max-width:380px){.brand-sub{display:none}.hero h1{font-size:30px}.setting-grid{grid-template-columns:1fr}.settings-actions{flex-direction:column}.stats{padding:0 12px 12px}.stat{padding:8px}.stat strong{font-size:15px}.sheet-row{padding:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand" aria-label="JNR PDF Studio">
+    <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+    <div><div class="brand-name">JNR <span>PDF</span></div><div class="brand-sub">EXCEL CONVERSION STUDIO</div></div>
+  </div>
+  <div class="top-status"><span class="live-dot"></span><span>Browser-based processing</span></div>
+  <div class="top-actions">
+    <button class="btn" id="newFileBtn" type="button" title="Choose another spreadsheet"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="btn-text">New file</span></button>
+    <button class="btn primary" id="headerExportBtn" type="button" disabled title="Convert the selected sheets to PDF"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-text">Export PDF</span></button>
+  </div>
+</header>
+<main class="page-shell">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="live-dot"></span> JNR PDF TOOLS <span class="slash">/</span> SPREADSHEET TO PDF</div>
+      <h1>Your spreadsheets, <span>beautifully printed.</span></h1>
+      <p>Convert supported Excel workbooks, templates, CSV, XML and OpenDocument sheets into a clean, multi-page PDF. Select worksheets, check the data preview, and export without silently dropping rows or columns.</p>
+      <div class="format-pills" aria-label="Supported extensions">
+        <span>.xlsx</span><span>.xls</span><span>.xlsm</span><span>.xlsb</span><span>.xltx</span><span>.xltm</span><span>.xlt</span><span>.csv</span><span>.xlam</span><span>.xla</span><span>.xml</span><span>.ods</span>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="art-sheet back"></div><div class="art-sheet"><div class="art-label">EXCEL</div><div class="art-grid"></div></div><div class="art-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> PDF READY</div></div>
+  </section>
+
+  <div class="main-grid">
+    <div class="column">
+      <section class="card" aria-labelledby="uploadTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3.5h7l4 4v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M14 3.8v4h3.8M9 14h6m-6 3h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><div id="uploadTitle" class="card-title">1. Choose your spreadsheet</div><div class="card-subtitle">Drop a supported file here or browse your device.</div></div></div><span class="micro-badge">LOCAL PARSING</span></div>
+        <input id="excelFile" class="hidden" type="file" accept=".xlsx,.xls,.xlsm,.xlsb,.xltx,.xltm,.xlt,.csv,.xlam,.xla,.xml,.ods,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv,application/vnd.oasis.opendocument.spreadsheet,application/xml,text/xml">
+        <div class="upload-area" id="dropzone" role="button" tabindex="0" aria-label="Choose or drag a spreadsheet file">
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 15.5v3A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <strong>Drag and drop your Excel file</strong><span>or <button class="text-link" id="browseBtn" type="button">browse files</button> to get started</span><small>One workbook at a time · files stay in this browser session</small>
+        </div>
+        <div id="message" class="notice" role="status" aria-live="polite"></div>
+        <div id="fileCard" class="file-card hidden">
+          <div class="file-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div class="file-details"><strong id="fileName">Workbook.xlsx</strong><span id="fileMeta">Waiting to read workbook…</span></div>
+          <button class="btn small" id="removeFileBtn" type="button">Remove</button>
+        </div>
+        <div id="sheetSection" class="hidden">
+          <div class="sheet-list-top" style="padding:2px 17px 10px"><strong>Worksheets to export</strong><div class="sheet-list-actions"><button class="btn small" id="selectAllBtn" type="button">Select all</button><button class="btn small" id="selectNoneBtn" type="button">Clear</button></div></div>
+          <div id="sheetList" class="sheet-list"></div>
+        </div>
+      </section>
+
+      <section class="card preview-card" aria-labelledby="previewTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4" width="17" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9h17M9 9v11m6-11v11M3.5 14.5h17" stroke="currentColor" stroke-width="1.3"/></svg></div><div><div id="previewTitle" class="card-title">Live data preview</div><div class="card-subtitle">Inspect actual cell values before exporting.</div></div></div><span class="micro-badge" id="previewBadge">NO FILE</span></div>
+        <div class="preview-toolbar"><div id="sheetTabs" class="sheet-tabs"><span class="preview-meta">Your sheet tabs will appear here.</span></div><span id="previewRange" class="preview-meta">—</span></div>
+        <div id="tablePreview" class="table-preview-wrap"><div class="preview-placeholder"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4" width="17" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9h17M9 9v11m6-11v11" stroke="currentColor" stroke-width="1.3"/></svg><br>Upload a workbook to inspect its first rows and columns.</div></div>
+        <div class="preview-foot"><span id="previewFootText">Preview is for checking; the PDF includes the full used range of each selected worksheet.</span><span id="previewCoverage">No range loaded</span></div>
+      </section>
+    </div>
+
+    <div class="column">
+      <section class="card" aria-labelledby="settingsTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 4v6M4 17h16m-5-3v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="7" cy="7" r="2" fill="#fff" stroke="currentColor" stroke-width="1.6"/><circle cx="15" cy="17" r="2" fill="#fff" stroke="currentColor" stroke-width="1.6"/></svg></div><div><div id="settingsTitle" class="card-title">2. Set up your PDF</div><div class="card-subtitle">Choose page dimensions and a comfortable table density.</div></div></div><span class="micro-badge">A4 / LETTER</span></div>
+        <div class="settings">
+          <div class="setting-grid">
+            <div class="field"><label for="pageSize">Paper size</label><select id="pageSize"><option value="a4" selected>A4</option><option value="letter">US Letter</option><option value="legal">Legal</option><option value="a3">A3</option></select><small>Standard printable paper sizes.</small></div>
+            <div class="field"><label for="orientation">Orientation</label><select id="orientation"><option value="auto" selected>Auto (based on columns)</option><option value="landscape">Landscape</option><option value="portrait">Portrait</option></select><small>Wide tables can split across pages.</small></div>
+            <div class="field"><label for="density">Table density</label><select id="density"><option value="comfortable">Comfortable</option><option value="compact" selected>Compact</option><option value="dense">Dense (wide data)</option></select><small>Adjusts font size and cell padding.</small></div>
+            <div class="field"><label for="titleText">PDF title (optional)</label><input id="titleText" type="text" maxlength="100" placeholder="Workbook report"></div>
+          </div>
+          <div class="toggle-list">
+            <label class="toggle-row"><input id="firstRowHeader" type="checkbox" checked><span><strong>Use the first used row as table headings</strong><small>It stays in the PDF and repeats on continuation pages.</small></span></label>
+            <label class="toggle-row"><input id="showRowNumbers" type="checkbox" checked><span><strong>Include original Excel row numbers</strong><small>Helps cross-check values against the source workbook.</small></span></label>
+            <label class="toggle-row"><input id="showFormulas" type="checkbox"><span><strong>Show formulas instead of cached results</strong><small>Off uses the value saved in the workbook; formulas are not recalculated.</small></span></label>
+            <label class="toggle-row"><input id="skipEmptyRows" type="checkbox"><span><strong>Skip completely empty rows</strong><small>Off by default so row positions and blank rows are preserved.</small></span></label>
+          </div>
+          <div class="security-note"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5.5c0 4.2-2.8 7.5-7 9.5-4.2-2-7-5.3-7-9.5V6l7-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Designed for local processing.</strong> Workbook parsing and PDF generation run in your browser. External libraries load from CDNs, but workbook contents are not sent to a conversion server.</span></div>
+          <div id="exportMessage" class="notice" role="status" aria-live="polite" style="margin:13px 0 0"></div>
+          <div class="settings-actions"><button class="btn" id="sampleBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4.5h14v15H5zM8 8h8M8 11.5h8M8 15h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Load demo workbook</button><button class="btn primary" id="convertBtn" type="button" disabled><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11m0 0 4-4m-4 4-4-4M5 16v3.25c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Convert to PDF</button></div>
+          <div id="progressWrap" class="progress-wrap" aria-hidden="true"><span></span></div>
+          <div class="enhancement-note" style="font-size:9px;color:#999aa2;line-height:1.6;margin-top:12px">Conversion prints worksheet values and used cell ranges. Original workbook themes, charts, drawings, VBA/macros, and exact merged-cell layout are not recreated. Excel formulas use saved results unless formula display is enabled. Password-protected or malformed files may need to be unlocked/repaired first.</div>
+        </div>
+        <div class="stats"><div class="stat"><strong id="sheetStat">0</strong><span>Selected sheets</span></div><div class="stat"><strong id="cellStat">0</strong><span>Cells in ranges</span></div><div class="stat"><strong id="formulaStat">0</strong><span>Formula cells</span></div></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.7" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5v5l3.3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><div class="card-title">Before you export</div><div class="card-subtitle">A couple of details that protect your data.</div></div></div></div>
+        <div style="padding:5px 17px 17px">
+          <div class="toggle-row" style="margin-top:12px"><span class="live-dot" style="margin:4px 2px 0 0;flex:0 0 auto"></span><span><strong>Every selected worksheet is included</strong><small>Very hidden and hidden sheets are listed separately; they are selected by default.</small></span></div>
+          <div class="toggle-row" style="margin-top:13px"><span class="live-dot" style="margin:4px 2px 0 0;flex:0 0 auto"></span><span><strong>No silent row/column truncation</strong><small>If the selected range is too large for a safe browser export, conversion stops with a warning instead of dropping data.</small></span></div>
+          <div class="toggle-row" style="margin-top:13px"><span class="live-dot" style="margin:4px 2px 0 0;flex:0 0 auto"></span><span><strong>Legacy add-in and XML caveats</strong><small>.xla/.xlam files only export when they contain readable worksheet data. .xml means Excel SpreadsheetML XML, not every XML document.</small></span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <footer class="footer"><span>Made with care by <b>JNR Corporation</b></span><span>Spreadsheet to PDF · Clean tables, clear records.</span></footer>
+</main>
+<div class="toast-region" id="toastRegion" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const ACCEPTED = new Set(['xlsx','xls','xlsm','xlsb','xltx','xltm','xlt','csv','xlam','xla','xml','ods']);
+  const MAX_FILE_BYTES = 100 * 1024 * 1024;
+  const MAX_CELLS = 750000;
+  const PREVIEW_ROWS = 12, PREVIEW_COLS = 8;
+  let workbook = null, currentFile = null, sheetInfo = [], activeSheetName = '', parsing = false, exporting = false, lastToastTimer = null;
+  const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function toast(message, kind='') {
+    const region = $('toastRegion'); const el = document.createElement('div'); el.className = 'toast' + (kind ? ' '+kind : ''); el.textContent = message; region.appendChild(el);
+    setTimeout(() => el.remove(), 4600);
+  }
+  function setNotice(id, message, type='') {
+    const node = $(id); node.textContent = message || ''; node.className = 'notice' + (type ? ' '+type : '');
+  }
+  function humanBytes(bytes) {
+    if (!Number.isFinite(bytes)) return '';
+    const units=['B','KB','MB','GB']; let size=bytes, i=0; while(size>=1024&&i<units.length-1){size/=1024;i++;}
+    return `${size.toFixed(i===0?0:1)} ${units[i]}`;
+  }
+  function extensionOf(name) { const i=name.lastIndexOf('.'); return i>=0 ? name.slice(i+1).toLowerCase() : ''; }
+  function cellText(cell, showFormula=false) {
+    if (!cell) return '';
+    if (showFormula && cell.f) return '='+String(cell.f);
+    if (cell.w !== undefined && cell.w !== null) return String(cell.w);
+    if (cell.v !== undefined && cell.v !== null) {
+      if (cell.v instanceof Date && !Number.isNaN(cell.v.getTime())) return cell.v.toISOString().replace('T',' ').replace(/\.000Z$/,' UTC');
+      if (typeof cell.v === 'boolean') return cell.v ? 'TRUE' : 'FALSE';
+      return String(cell.v);
+    }
+    if (cell.f) return '='+String(cell.f)+' [no cached result]';
+    return '';
+  }
+  function sheetMetadata(wb) {
+    const meta = Array.isArray(wb.Workbook && wb.Workbook.Sheets) ? wb.Workbook.Sheets : [];
+    return wb.SheetNames.map((name, index) => {
+      const ws = wb.Sheets[name]; let range=null, rows=0, cols=0, formulaCount=0, nonEmpty=0, cellCount=0;
+      if (ws && ws['!ref']) {
+        try { range = XLSX.utils.decode_range(ws['!ref']); rows=range.e.r-range.s.r+1; cols=range.e.c-range.s.c+1; cellCount=rows*cols; } catch(e) { range=null; }
+      }
+      // Count actual stored cells rather than walking the full rectangle. A malformed or
+      // formatting-only worksheet can advertise an enormous !ref, so this must stay sparse.
+      if (ws && range) {
+        for (const address of Object.keys(ws)) {
+          if (address[0] === '!') continue;
+          let point; try { point=XLSX.utils.decode_cell(address); } catch(e) { continue; }
+          if (point.r<range.s.r || point.r>range.e.r || point.c<range.s.c || point.c>range.e.c) continue;
+          const cell=ws[address]; if (!cell) continue;
+          if (cell.f) formulaCount++;
+          if ((cell.v!==undefined && cell.v!==null && cell.v!=='') || cell.f) nonEmpty++;
+        }
+      }
+      const hiddenCode = meta[index] && Number(meta[index].Hidden) || 0;
+      return {name, index, ws, range, rows, cols, formulaCount, nonEmpty, cellCount, hiddenCode, hidden:hiddenCode>0};
+    });
+  }
+  function selectedSheets() { const boxes=[...document.querySelectorAll('[data-sheet-check]')]; return sheetInfo.filter(s => boxes.some(box => box.dataset.sheetCheck===s.name && box.checked)); }
+  function updateStats() {
+    const selected=selectedSheets(); const cellCount=selected.reduce((n,s)=>n+s.cellCount,0); const formulas=selected.reduce((n,s)=>n+s.formulaCount,0);
+    $('sheetStat').textContent=String(selected.length); $('cellStat').textContent=cellCount.toLocaleString(); $('formulaStat').textContent=formulas.toLocaleString();
+    const tooLarge=cellCount>MAX_CELLS;
+    $('convertBtn').disabled=!workbook||selected.length===0||parsing||exporting||tooLarge;
+    $('headerExportBtn').disabled=$('convertBtn').disabled;
+    if (tooLarge) setNotice('exportMessage',`Selected used ranges cover ${cellCount.toLocaleString()} cells. This browser-safe build caps one export at ${MAX_CELLS.toLocaleString()} cells to avoid hangs or silent truncation. Deselect a worksheet or choose a smaller range in your spreadsheet, then export again.`,'warn');
+    else if (workbook && !selected.length) setNotice('exportMessage','Select at least one worksheet to create a PDF.','warn');
+    else if (workbook && !$('exportMessage').classList.contains('warn')) setNotice('exportMessage','All selected cell ranges will be included; nothing is automatically truncated.','ok');
+  }
+  function createSheetRows() {
+    const list=$('sheetList'); list.replaceChildren();
+    sheetInfo.forEach(info => {
+      const row=document.createElement('label'); row.className='sheet-row selected';
+      const check=document.createElement('input'); check.type='checkbox'; check.checked=true; check.dataset.sheetCheck=info.name; check.setAttribute('aria-label','Include worksheet '+info.name);
+      const main=document.createElement('span'); main.className='sheet-row-main';
+      const name=document.createElement('strong'); name.textContent=info.name;
+      const detail=document.createElement('span'); detail.textContent=info.range ? `${info.rows.toLocaleString()} rows × ${info.cols.toLocaleString()} columns · ${info.nonEmpty.toLocaleString()} populated cells` : 'Empty worksheet · will add a sheet cover note';
+      main.append(name,detail); row.append(check,main);
+      if(info.hidden){const tag=document.createElement('span');tag.className='sheet-hidden';tag.textContent=info.hiddenCode===2?'VERY HIDDEN':'HIDDEN';tag.title='This worksheet is hidden in the workbook but included by default.';row.append(tag);}
+      check.addEventListener('change',()=>{row.classList.toggle('selected',check.checked);updateStats();renderTabs();if(activeSheetName===info.name)renderPreview(info.name);});
+      row.addEventListener('click',ev=>{if(ev.target!==check && !ev.target.closest('button')){activeSheetName=info.name;renderTabs();renderPreview(info.name);}});
+      list.appendChild(row);
+    });
+    $('sheetSection').classList.remove('hidden');
+  }
+  function renderTabs() {
+    const tabs=$('sheetTabs');tabs.replaceChildren();
+    const selected=selectedSheets();
+    if(!selected.length){const span=document.createElement('span');span.className='preview-meta';span.textContent='Select a worksheet to preview it.';tabs.appendChild(span);return;}
+    if(!selected.some(s=>s.name===activeSheetName))activeSheetName=selected[0].name;
+    selected.forEach(info=>{const b=document.createElement('button');b.type='button';b.className='sheet-tab'+(info.name===activeSheetName?' active':'');b.textContent=info.name;b.title=info.name;b.addEventListener('click',()=>{activeSheetName=info.name;renderTabs();renderPreview(info.name);});tabs.appendChild(b);});
+  }
+  function renderPreview(name) {
+    const info=sheetInfo.find(s=>s.name===name); const wrap=$('tablePreview'); wrap.replaceChildren();
+    if(!info){wrap.innerHTML='<div class="preview-placeholder">Select a worksheet to preview.</div>';return;}
+    $('previewBadge').textContent=info.hidden?'HIDDEN SHEET':'WORKSHEET';
+    if(!info.range){const p=document.createElement('div');p.className='preview-placeholder';p.textContent=`“${info.name}” is empty. It will still be represented in the PDF.`;wrap.appendChild(p);$('previewRange').textContent='Empty sheet';$('previewCoverage').textContent='0 populated cells';return;}
+    const range=info.range, lastR=Math.min(range.e.r,range.s.r+PREVIEW_ROWS-1), lastC=Math.min(range.e.c,range.s.c+PREVIEW_COLS-1), table=document.createElement('table');table.className='preview-table';
+    const thead=document.createElement('thead'), headRow=document.createElement('tr'); const corner=document.createElement('th');corner.textContent='Row';headRow.appendChild(corner);
+    for(let c=range.s.c;c<=lastC;c++){const th=document.createElement('th');th.textContent=XLSX.utils.encode_col(c);th.title='Excel column '+XLSX.utils.encode_col(c);headRow.appendChild(th);}thead.appendChild(headRow);table.appendChild(thead);
+    const tbody=document.createElement('tbody');
+    for(let r=range.s.r;r<=lastR;r++){const tr=document.createElement('tr');const rn=document.createElement('td');rn.textContent=String(r+1);tr.appendChild(rn);for(let c=range.s.c;c<=lastC;c++){const td=document.createElement('td');td.textContent=cellText(info.ws[XLSX.utils.encode_cell({r,c})],$('showFormulas').checked);const cell=info.ws[XLSX.utils.encode_cell({r,c})];if(cell&&cell.f)td.title='Formula: ='+cell.f;tr.appendChild(td);}tbody.appendChild(tr);}table.appendChild(tbody);wrap.appendChild(table);
+    const totalRange=`${XLSX.utils.encode_cell(range.s)}:${XLSX.utils.encode_cell(range.e)}`;$('previewRange').textContent=totalRange;$('previewCoverage').textContent=`Showing ${lastR-range.s.r+1} of ${info.rows.toLocaleString()} rows · ${lastC-range.s.c+1} of ${info.cols.toLocaleString()} columns`;
+    $('previewFootText').textContent=`Preview shows the top ${PREVIEW_ROWS} rows × ${PREVIEW_COLS} columns where available; the PDF uses the entire detected range ${totalRange}.`;
+  }
+  function clearWorkbook() {
+    workbook=null;currentFile=null;sheetInfo=[];activeSheetName='';$('excelFile').value='';$('fileCard').classList.add('hidden');$('sheetSection').classList.add('hidden');$('sheetList').replaceChildren();$('sheetTabs').innerHTML='<span class="preview-meta">Your sheet tabs will appear here.</span>';$('tablePreview').innerHTML='<div class="preview-placeholder">Upload a workbook to inspect its first rows and columns.</div>';$('previewBadge').textContent='NO FILE';$('previewRange').textContent='—';$('previewCoverage').textContent='No range loaded';$('fileName').textContent='';$('fileMeta').textContent='';$('sheetStat').textContent='0';$('cellStat').textContent='0';$('formulaStat').textContent='0';setNotice('message','');setNotice('exportMessage','');$('convertBtn').disabled=true;$('headerExportBtn').disabled=true;
+  }
+  function setBusy(value, label='') { parsing=value; $('dropzone').style.pointerEvents=value?'none':''; $('dropzone').style.opacity=value?'.65':''; $('convertBtn').disabled=value||!workbook; $('headerExportBtn').disabled=$('convertBtn').disabled; if(label)setNotice('message',label); }
+  async function loadFile(file) {
+    if(!file)return;
+    const ext=extensionOf(file.name);
+    if(!ACCEPTED.has(ext)){setNotice('message',`Unsupported extension “.${ext||'unknown'}”. Supported: ${[...ACCEPTED].map(x=>'.'+x).join(', ')}.`,'warn');return;}
+    if(file.size>MAX_FILE_BYTES){setNotice('message',`This file is ${humanBytes(file.size)}. The browser converter has a ${humanBytes(MAX_FILE_BYTES)} file-size safety limit to reduce crashes. No data was truncated or converted.`,'warn');return;}
+    clearWorkbook();currentFile=file; $('fileCard').classList.remove('hidden');$('fileName').textContent=file.name;$('fileMeta').textContent=`${humanBytes(file.size)} · .${ext.toUpperCase()} · Reading…`;
+    setBusy(true,'Reading workbook locally…');$('progressWrap').classList.add('show');
+    try {
+      if(typeof XLSX==='undefined') throw new Error('The spreadsheet reader library did not load. Check your internet connection, then reload this page.');
+      const buffer=await file.arrayBuffer();
+      // CSV uses raw text mode so identifiers such as 00123 remain text rather than being silently coerced to 123.
+      const opts={type:'array',cellDates:true,cellNF:true,cellStyles:true,cellHTML:true,cellFormula:true,sheetStubs:true,WTF:false};
+      if(ext==='csv')opts.raw=true;
+      const wb=XLSX.read(buffer,opts);
+      if(!wb||!Array.isArray(wb.SheetNames)||!wb.SheetNames.length)throw new Error('No readable worksheets were found. An .xla/.xlam add-in may contain code but no worksheet data.');
+      const metadata=sheetMetadata(wb);
+      const usable=metadata.filter(s=>s.ws && (s.range || s.hiddenCode>=0));
+      if(!usable.length)throw new Error('No readable worksheet data was found in this file.');
+      workbook=wb;sheetInfo=metadata;activeSheetName=metadata[0].name;
+      $('fileMeta').textContent=`${humanBytes(file.size)} · .${ext.toUpperCase()} · ${sheetInfo.length} worksheet(s) detected`;
+      createSheetRows();renderTabs();renderPreview(activeSheetName);updateStats();
+      const totalPopulated=sheetInfo.reduce((n,s)=>n+s.nonEmpty,0),totalFormulas=sheetInfo.reduce((n,s)=>n+s.formulaCount,0);
+      let note=`Read ${sheetInfo.length} worksheet(s) with ${totalPopulated.toLocaleString()} populated cell(s) and ${totalFormulas.toLocaleString()} formula cell(s). The full used range of selected sheets will be exported.`;
+      if(ext==='xla'||ext==='xlam')note+=' Add-in files are supported only when the parser finds readable worksheet values; VBA/macros are not executed.';
+      if(ext==='xml')note+=' XML support targets Excel SpreadsheetML workbook files, not arbitrary XML documents.';
+      setNotice('message',note,'ok');
+      if(totalFormulas)setNotice('exportMessage',`${totalFormulas.toLocaleString()} formula cell(s) detected. The default PDF shows cached results saved in the source file; this tool does not recalculate Excel formulas.`,'');
+      toast('Workbook loaded. Review worksheets and preview before export.','success');
+    } catch(err) {
+      console.error(err);workbook=null;sheetInfo=[];$('sheetSection').classList.add('hidden');$('tablePreview').innerHTML='<div class="preview-placeholder">This file could not be read as a supported spreadsheet. No PDF was created.</div>';$('previewBadge').textContent='READ ERROR';$('fileMeta').textContent=`${humanBytes(file.size)} · Read failed`;setNotice('message',err&&err.message?err.message:'This workbook could not be parsed. It may be corrupt, password-protected, or use unsupported features.','warn');setNotice('exportMessage','Fix or unlock the source file, then try again.','warn');$('convertBtn').disabled=true;$('headerExportBtn').disabled=true;
+    } finally {setBusy(false);$('progressWrap').classList.remove('show');updateStats();}
+  }
+  function selectionChanged(){updateStats();renderTabs();if(activeSheetName)renderPreview(activeSheetName);}
+  function visibleRangeData(info, opts) {
+    const {range,ws}=info; if(!range)return {columns:[],head:[],body:[],rowCount:0};
+    const rows=[]; let rowIndexes=[];
+    for(let r=range.s.r;r<=range.e.r;r++){
+      const cells=[]; let allEmpty=true;
+      for(let c=range.s.c;c<=range.e.c;c++){const cell=ws[XLSX.utils.encode_cell({r,c})];const v=cellText(cell,opts.showFormulas);cells.push(v);if(v!=='')allEmpty=false;}
+      if(opts.skipEmptyRows&&allEmpty)continue;
+      rows.push({r, cells});rowIndexes.push(r+1);
+    }
+    const colNames=[];for(let c=range.s.c;c<=range.e.c;c++)colNames.push(XLSX.utils.encode_col(c));
+    const addRows=opts.showRowNumbers;const syntheticHead=addRows?['Excel row']:[];
+    const headerMode=opts.firstRowHeader&&rows.length>0;
+    const head=headerMode?syntheticHead.concat(rows[0].cells.map((v,i)=>v!==''?v:`Column ${colNames[i]}`)):[];
+    const dataRows=headerMode?rows.slice(1):rows;
+    const body=dataRows.map(item=>(addRows?[String(item.r+1)]:[]).concat(item.cells));
+    const columnCount=colNames.length+(addRows?1:0);
+    const columns=Array.from({length:columnCount},(_,i)=>({header:headerMode?head[i]:(addRows&&i===0?'Excel row':colNames[i-(addRows?1:0)]),dataKey:i}));
+    return {columns,head,body,rowCount:rows.length,sourceRows:rowIndexes.length,headerMode,sourceRange:range};
+  }
+  function getOrientation(info){const pref=$('orientation').value;if(pref!=='auto')return pref;return info.cols>5?'landscape':'portrait';}
+  function densityOptions(){const d=$('density').value;if(d==='comfortable')return {fontSize:8,cellPadding:3.3};if(d==='dense')return {fontSize:5.3,cellPadding:1.4};return {fontSize:6.6,cellPadding:2.1};}
+  function safePdfName(name){return String(name||'JNR-Spreadsheet').replace(/[\\/:*?"<>|\u0000-\u001f]/g,'-').replace(/\s+/g,' ').trim().slice(0,90)||'JNR-Spreadsheet';}
+  function drawTop(doc, title, fileName, sheetName, orientation){const w=doc.internal.pageSize.getWidth();doc.setTextColor(201,32,50);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('JNR PDF  /  SPREADSHEET EXPORT',14,10);doc.setTextColor(40,40,48);doc.setFontSize(12);doc.text(title.slice(0,95),14,17);doc.setTextColor(115,117,126);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.text(`${fileName}  •  ${sheetName}`,14,22.2);doc.setDrawColor(235,220,223);doc.setLineWidth(.25);doc.line(14,24,w-14,24);}
+  function addSheetEmptyPage(doc, info, title, fileName, orientation){const w=doc.internal.pageSize.getWidth(),h=doc.internal.pageSize.getHeight();drawTop(doc,title,fileName,info.name,orientation);doc.setTextColor(105,107,115);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.text('This worksheet has no populated cell range.',14,39);doc.setFontSize(8);doc.text('It was kept in the export because it was selected in the workbook sheet list.',14,46);}
+  async function createPdf() {
+    if(exporting||$('convertBtn').disabled)return;
+    if(typeof XLSX==='undefined'||!window.jspdf||!window.jspdf.jsPDF){setNotice('exportMessage','A required library did not load. Check your internet connection and reload the page.','warn');return;}
+    if(typeof window.jspdf.jsPDF.API.autoTable!=='function'){setNotice('exportMessage','The PDF table engine did not load. Check your internet connection and reload the page.','warn');return;}
+    const infos=selectedSheets();if(!infos.length){setNotice('exportMessage','Select at least one worksheet.','warn');return;}
+    const totalCells=infos.reduce((n,s)=>n+s.cellCount,0);if(totalCells>MAX_CELLS){updateStats();return;}
+    exporting=true;$('convertBtn').disabled=true;$('headerExportBtn').disabled=true;$('progressWrap').classList.add('show');setNotice('exportMessage','Preparing all selected worksheets. No ranges will be silently truncated.','');
+    let doc=null;
+    try {
+      const jsPDF=window.jspdf.jsPDF; const paper=$('pageSize').value; const orientation=getOrientation(infos[0]);
+      doc=new jsPDF({orientation:orientation,unit:'mm',format:paper,compress:true,putOnlyUsedFonts:true});
+      const baseTitle=$('titleText').value.trim()||safePdfName(currentFile?currentFile.name.replace(/\.[^.]+$/,''):'Spreadsheet report');
+      const opts={firstRowHeader:$('firstRowHeader').checked,showRowNumbers:$('showRowNumbers').checked,showFormulas:$('showFormulas').checked,skipEmptyRows:$('skipEmptyRows').checked};
+      const dense=densityOptions();let anyData=false;
+      for(let i=0;i<infos.length;i++){
+        const info=infos[i];if(i>0)doc.addPage(paper,getOrientation(info));
+        setNotice('exportMessage',`Building PDF · worksheet ${i+1} of ${infos.length}: ${info.name}`,'');
+        if(!info.range){addSheetEmptyPage(doc,info,baseTitle,currentFile?currentFile.name:'Spreadsheet',orientation);await new Promise(r=>setTimeout(r,0));continue;}
+        const data=visibleRangeData(info,opts);
+        const expectedRows=info.range.e.r-info.range.s.r+1;
+        if(!opts.skipEmptyRows && data.rowCount!==expectedRows) throw new Error(`Row coverage check failed for worksheet "${info.name}" (${data.rowCount} rows prepared, ${expectedRows} expected).`);
+        if(data.body.some(row=>row.length!==data.columns.length)) throw new Error(`Column coverage check failed for worksheet "${info.name}". Export cancelled to avoid dropping data.`);
+        if(data.columns.length===0){addSheetEmptyPage(doc,info,baseTitle,currentFile?currentFile.name:'Spreadsheet',orientation);await new Promise(r=>setTimeout(r,0));continue;}
+        anyData=true;
+        const orientationThis=getOrientation(info);
+        if(orientationThis!==orientation && i===0){/* First page was initialised with an auto orientation based on all selected sheets. */}
+        const tableHead=data.headerMode?[data.head]:[];
+        const tableBody=data.body;
+        // Keep every source column and every non-skipped row. Horizontal pagination handles wide sheets.
+        doc.autoTable({
+          columns:data.columns,
+          head:tableHead,
+          body:tableBody,
+          startY:27,
+          margin:{top:27,right:12,bottom:15,left:12},
+          tableWidth:'auto',
+          theme:'grid',
+          showHead:data.headerMode?'everyPage':'never',
+          styles:{font:'helvetica',fontSize:dense.fontSize,cellPadding:dense.cellPadding,overflow:'linebreak',valign:'top',textColor:[46,47,55],lineColor:[226,226,233],lineWidth:.12,minCellHeight:4},
+          headStyles:{fillColor:[201,32,50],textColor:[255,255,255],fontStyle:'bold',lineColor:[176,25,42],lineWidth:.15},
+          alternateRowStyles:{fillColor:[249,249,251]},
+          horizontalPageBreak:data.columns.length>5,
+          horizontalPageBreakRepeat:opts.showRowNumbers?[0]:undefined,
+          horizontalPageBreakBehaviour:'afterAllRows',
+          rowPageBreak:'auto',
+          didDrawPage:()=>drawTop(doc,baseTitle,currentFile?currentFile.name:'Spreadsheet',info.name,orientationThis),
+          didParseCell: dataCell => {
+            if(!opts.firstRowHeader && dataCell.section==='body' && dataCell.row.index===0) dataCell.cell.styles.fontStyle='bold';
+            if(opts.showRowNumbers && dataCell.column.index===0){dataCell.cell.styles.textColor=[130,132,141];dataCell.cell.styles.fontSize=Math.min(dense.fontSize,6);}
+          }
+        });
+        await new Promise(resolve=>setTimeout(resolve,0));
+      }
+      if(!doc.getNumberOfPages())throw new Error('The selected worksheets did not produce any pages.');
+      // Add page count and provenance footer on every generated page.
+      const totalPages=doc.getNumberOfPages();
+      for(let n=1;n<=totalPages;n++){
+        doc.setPage(n);const w=doc.internal.pageSize.getWidth(),h=doc.internal.pageSize.getHeight();
+        doc.setDrawColor(232,232,237);doc.setLineWidth(.2);doc.line(12,h-10,w-12,h-10);
+        doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(130,132,140);
+        doc.text('JNR PDF · Values from selected worksheet ranges',12,h-6);
+        doc.text(`Page ${n} / ${totalPages}`,w-12,h-6,{align:'right'});
+      }
+      doc.setProperties({title:baseTitle,subject:'Spreadsheet workbook converted to PDF by JNR PDF',author:'JNR Corporation',creator:'JNR PDF Excel Conversion Studio'});
+      const filename=`${safePdfName(currentFile?currentFile.name.replace(/\.[^.]+$/,''):'Spreadsheet')}.pdf`;
+      doc.save(filename);
+      setNotice('exportMessage',`PDF created with ${infos.length} selected worksheet(s), ${totalCells.toLocaleString()} cells across their detected ranges and ${totalPages} PDF page(s). Check the downloaded file before sharing.`,'ok');toast(`PDF exported: ${filename}`,'success');
+    } catch(err) {
+      console.error(err);setNotice('exportMessage',`PDF export failed: ${err&&err.message?err.message:'unexpected PDF rendering error'}. No partial PDF is reported as complete. Try fewer worksheets or a smaller source range, then retry.`,'warn');toast('Export failed. Your original workbook has not been changed.','warn');
+    } finally {exporting=false;$('progressWrap').classList.remove('show');updateStats();}
+  }
+  function makeDemoWorkbook(){
+    if(typeof XLSX==='undefined'){setNotice('message','Spreadsheet library has not loaded yet. Check your connection and retry.','warn');return;}
+    const wb=XLSX.utils.book_new();const sales=[['Order ID','Date','Product','Units','Unit Price','Total'],['JN-001',new Date('2026-01-05T00:00:00Z'),'Notebook',12,45,540],['JN-002',new Date('2026-01-06T00:00:00Z'),'Pen set',7,80,560],['JN-003',new Date('2026-01-07T00:00:00Z'),'Desk organiser',4,225,900],['JN-004',new Date('2026-01-08T00:00:00Z'),'Planner',9,150,1350],['JN-005',new Date('2026-01-09T00:00:00Z'),'Marker pack',3,110,330]];const ws1=XLSX.utils.aoa_to_sheet(sales);ws1['B2'].z='dd-mmm-yyyy';ws1['B3'].z='dd-mmm-yyyy';ws1['B4'].z='dd-mmm-yyyy';ws1['B5'].z='dd-mmm-yyyy';ws1['B6'].z='dd-mmm-yyyy';ws1['F2']={t:'n',f:'D2*E2',v:540,z:'#,##0.00'};ws1['F3']={t:'n',f:'D3*E3',v:560,z:'#,##0.00'};ws1['F4']={t:'n',f:'D4*E4',v:900,z:'#,##0.00'};ws1['F5']={t:'n',f:'D5*E5',v:1350,z:'#,##0.00'};ws1['F6']={t:'n',f:'D6*E6',v:330,z:'#,##0.00'};ws1['!ref']='A1:F6';XLSX.utils.book_append_sheet(wb,ws1,'Sales Report');const ws2=XLSX.utils.aoa_to_sheet([['Region','Revenue','Manager'],['North',23500,'A. Sharma'],['South',19750,'P. Rao'],['East',16400,'S. Das'],['West',28600,'M. Khan'],['International',8200,'J. Verma']]);ws2['!ref']='A1:C6';XLSX.utils.book_append_sheet(wb,ws2,'Regions');
+    workbook=wb;currentFile={name:'JNR-Excel-Demo.xlsx',size:0,synthetic:true};sheetInfo=sheetMetadata(wb);activeSheetName=sheetInfo[0].name;$('fileCard').classList.remove('hidden');$('fileName').textContent=currentFile.name;$('fileMeta').textContent='Demo workbook · 2 worksheets · generated locally';createSheetRows();renderTabs();renderPreview(activeSheetName);updateStats();setNotice('message','Demo loaded: two worksheets, dates, numeric values, a formula with saved results, and regional data. Try changing the options before export.','ok');setNotice('exportMessage','Demo is ready. PDF export includes all selected rows and columns.','ok');toast('Demo workbook loaded.','success');
+  }
+  $('browseBtn').addEventListener('click',ev=>{ev.stopPropagation();$('excelFile').click();});$('dropzone').addEventListener('click',ev=>{if(ev.target.closest('button'))return;$('excelFile').click();});$('dropzone').addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();$('excelFile').click();}});
+  $('excelFile').addEventListener('change',ev=>loadFile(ev.target.files&&ev.target.files[0]));
+  ['dragenter','dragover'].forEach(type=>$('dropzone').addEventListener(type,ev=>{ev.preventDefault();ev.dataTransfer.dropEffect='copy';$('dropzone').classList.add('drag-over');}));
+  ['dragleave','dragend'].forEach(type=>$('dropzone').addEventListener(type,ev=>{ev.preventDefault();$('dropzone').classList.remove('drag-over');}));
+  $('dropzone').addEventListener('drop',ev=>{ev.preventDefault();$('dropzone').classList.remove('drag-over');const file=ev.dataTransfer.files&&ev.dataTransfer.files[0];if(file)loadFile(file);});
+  $('newFileBtn').addEventListener('click',()=>{$('excelFile').click();});$('removeFileBtn').addEventListener('click',()=>{clearWorkbook();toast('Workbook removed from this session.');});
+  $('selectAllBtn').addEventListener('click',()=>{document.querySelectorAll('[data-sheet-check]').forEach(el=>{el.checked=true;el.closest('.sheet-row').classList.add('selected');});selectionChanged();});
+  $('selectNoneBtn').addEventListener('click',()=>{document.querySelectorAll('[data-sheet-check]').forEach(el=>{el.checked=false;el.closest('.sheet-row').classList.remove('selected');});selectionChanged();});
+  $('convertBtn').addEventListener('click',createPdf);$('headerExportBtn').addEventListener('click',createPdf);$('sampleBtn').addEventListener('click',makeDemoWorkbook);
+  $('showFormulas').addEventListener('change',()=>{if(activeSheetName)renderPreview(activeSheetName);});$('firstRowHeader').addEventListener('change',()=>setNotice('exportMessage',$('firstRowHeader').checked?'The first used row will be used as a repeated table header and is still included in the PDF.':'No source row is used as a header; all used rows are rendered as data.',''));$('skipEmptyRows').addEventListener('change',()=>setNotice('exportMessage',$('skipEmptyRows').checked?'Completely blank rows will be omitted by request.':'Blank rows are retained to preserve original row positions.',''));
+  document.querySelectorAll('[data-grid-placeholder]').forEach(el=>el.remove());
+  // Fill the decorative spreadsheet icon with inert CSS cells (no user data is injected as HTML).
+  const artGrid=document.querySelector('.art-grid');if(artGrid)for(let i=0;i<15;i++)artGrid.appendChild(document.createElement('i'));
+  window.addEventListener('error',ev=>{if(String(ev.message||'').includes('XLSX')||String(ev.message||'').includes('autoTable'))setNotice('message','A conversion library failed to initialise. Check your connection and reload the page.','warn');});
+})();
+</script>
+<script src="./block.js" ></script>
+</body>
+</html>

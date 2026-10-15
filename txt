@@ -1,0 +1,198 @@
+<head>
+  <!-- =====================================================
+       JNR PDF STUDIO
+       Brand       : JNR Corporations
+       Platform    : Vercel
+       Production  : https://jnr-pdf.vercel.app/
+       Social Image: /banner.png
+       Brand Logo  : /logo.png
+       ===================================================== -->
+
+  <!-- 01. CORE DOCUMENT CONFIGURATION -->
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>JNR PDF Studio — PDF Creator, Converter &amp; Editor</title>
+
+  <meta
+    name="description"
+    content="Create professional PDFs from text, images and code with JNR PDF Studio. Convert PDFs to images or Word documents and format documents using a powerful markup-based editor. Explore PDF tools by JNR Corporations."
+  >
+
+  <meta name="author" content="JNR Corporations">
+  <meta name="application-name" content="JNR PDF Studio">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#C92032">
+
+  <!-- 02. SEARCH ENGINE DIRECTIVES -->
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+
+  <meta
+    name="googlebot"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+
+  <!-- 03. CANONICAL URL -->
+  <link
+    rel="canonical"
+    href="https://jnr-pdf.vercel.app/"
+  >
+
+  <!-- 04. FAVICON AND BRAND ICON -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="/logo.png"
+  >
+
+  <!-- Recommended if logo.png is a suitable high-resolution,
+       square icon for Apple devices. -->
+  <link
+    rel="apple-touch-icon"
+    href="/logo.png"
+  >
+
+  <!-- 05. OPEN GRAPH: WHATSAPP AND SOCIAL LINK PREVIEWS -->
+  <meta property="og:type" content="website">
+
+  <meta
+    property="og:site_name"
+    content="JNR PDF Studio"
+  >
+
+  <meta
+    property="og:title"
+    content="JNR PDF Studio — Powerful PDF Tools by JNR Corporations"
+  >
+
+  <meta
+    property="og:description"
+    content="Create PDFs from text, images and code. Convert PDF files to images or Word documents, and format documents with JNR PDF Studio."
+  >
+
+  <meta
+    property="og:url"
+    content="https://jnr-pdf.vercel.app/"
+  >
+
+  <meta
+    property="og:locale"
+    content="en_IN"
+  >
+
+  <meta
+    property="og:image"
+    content="https://jnr-pdf.vercel.app/banner.png"
+  >
+
+  <meta
+    property="og:image:secure_url"
+    content="https://jnr-pdf.vercel.app/banner.png"
+  >
+
+  <meta
+    property="og:image:type"
+    content="image/png"
+  >
+
+  <meta
+    property="og:image:alt"
+    content="JNR PDF Studio — PDF creation, conversion and document formatting"
+  >
+
+  <!-- Add these two tags only if banner.png is actually 1200 x 630. -->
+  <!--
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  -->
+
+  <!-- 06. X / TWITTER CARD METADATA -->
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="JNR PDF Studio — PDF Creator & Converter"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Create, convert and format PDF documents with JNR PDF Studio by JNR Corporations."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://jnr-pdf.vercel.app/banner.png"
+  >
+
+  <meta
+    name="twitter:image:alt"
+    content="JNR PDF Studio PDF tools"
+  >
+
+  <!-- 07. STRUCTURED DATA FOR SEARCH ENGINES -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://jnr-pdf.vercel.app/#organization",
+        "name": "JNR Corporations",
+        "url": "https://jnr-pdf.vercel.app/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://jnr-pdf.vercel.app/logo.png"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://jnr-pdf.vercel.app/#application",
+        "name": "JNR PDF Studio",
+        "url": "https://jnr-pdf.vercel.app/",
+        "description": "A web-based PDF toolkit for creating documents from text, images and code, converting PDF files to images or Word documents, and formatting content.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "publisher": {
+          "@id": "https://jnr-pdf.vercel.app/#organization"
+        },
+        "image": "https://jnr-pdf.vercel.app/banner.png"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://jnr-pdf.vercel.app/#website",
+        "url": "https://jnr-pdf.vercel.app/",
+        "name": "JNR PDF Studio",
+        "publisher": {
+          "@id": "https://jnr-pdf.vercel.app/#organization"
+        },
+        "inLanguage": "en-IN"
+      }
+    ]
+  }
+  </script>
+
+  <!-- 08. GOOGLE SEARCH CONSOLE VERIFICATION -->
+  <!-- Uncomment and add your actual verification token. -->
+  <!--
+  <meta
+    name="google-site-verification"
+    content="YOUR_REAL_VERIFICATION_TOKEN"
+  >
+  -->
+
+  <!-- 09. OPTIONAL: PREVENT UNNECESSARY RESOURCE HINTS -->
+  <!-- Keep your existing inline CSS and JavaScript below.
+       No external CSS/JS paths are assumed. -->
+
+</head>

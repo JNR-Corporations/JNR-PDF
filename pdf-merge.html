@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#c92032">
+<meta name="description" content="Merge two or more PDF files locally in your browser with JNR PDF Studio. Keep original page content without rasterising or intentionally reducing quality.">
+<title>PDF Merge — JNR PDF Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c92032;--red-dark:#a91627;--red-soft:#fff0f2;--ink:#202126;--muted:#777982;--line:#e9e9ed;--paper:#fff;--canvas:#f5f5f7;--green:#25875a;--shadow:0 10px 32px rgba(35,23,27,.07);--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:'DM Sans',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--canvas)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #c9203233;outline-offset:2px}button:disabled{opacity:.52;cursor:not-allowed;transform:none!important;box-shadow:none!important}.topbar{min-height:74px;padding:12px clamp(14px,3vw,36px);display:flex;align-items:center;justify-content:space-between;gap:18px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand-mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#df3345,#b81429);color:#fff;box-shadow:0 7px 15px #c920322e;flex:0 0 auto}.brand-mark svg{width:23px;height:23px}.brand-name{font-size:20px;font-weight:800;letter-spacing:-.8px;line-height:1}.brand-name span{color:var(--red)}.brand-sub{font-size:10px;color:#91929a;letter-spacing:1.55px;font-weight:800;margin-top:5px}.top-status{display:flex;align-items:center;gap:8px;font-size:11px;color:#71737c;white-space:nowrap}.live-dot{width:7px;height:7px;border-radius:50%;background:#39aa73;box-shadow:0 0 0 4px #e8f7ef;display:inline-block}.top-actions{display:flex;align-items:center;gap:8px}.btn{border:1px solid var(--line);border-radius:11px;background:#fff;color:#3b3d44;padding:10px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:800;transition:transform .16s,box-shadow .16s,border-color .16s;white-space:nowrap}.btn:hover{transform:translateY(-1px);border-color:#d6d6dc;box-shadow:0 5px 14px #14141e0f}.btn svg{width:16px;height:16px;flex:0 0 auto}.btn.primary{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 6px 15px #c920322e}.btn.primary:hover{background:var(--red-dark)}.btn.soft{background:var(--red-soft);border-color:#f5d7dc;color:var(--red)}.btn.small{padding:8px 10px;font-size:11px;border-radius:9px}.page-shell{max-width:1500px;margin:0 auto;padding:30px clamp(13px,3vw,40px) 26px}.hero{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:4px 4px 27px}.hero-copy{max-width:800px}.eyebrow{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:1.65px;font-weight:800;color:#898b94}.eyebrow .slash{color:#d2a0a7}.hero h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-2px;margin:16px 0 11px;font-weight:800}.hero h1 span{color:var(--red)}.hero p{font-size:14px;line-height:1.75;color:#787a83;max-width:740px;margin:0}.format-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:17px}.format-pills span{padding:7px 9px;border-radius:8px;background:#fff;border:1px solid #e8e8ed;color:#777984;font:10px 'DM Mono',monospace}.hero-art{position:relative;width:188px;height:155px;flex:0 0 188px;margin-right:20px}.art-sheet{position:absolute;left:32px;top:8px;width:104px;height:137px;border:1px solid #dce9df;border-radius:10px;background:#fff;box-shadow:0 15px 26px #18281c13;padding:12px 9px;transform:rotate(-6deg)}.art-sheet.back{left:69px;top:17px;background:#f0f8f1;transform:rotate(10deg)}.art-label{font-size:10px;color:#18864c;font-weight:900;letter-spacing:1px;margin-bottom:9px}.art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}.art-grid i{height:13px;border-radius:2px;background:#e5f2e9}.art-grid i:nth-child(3n+1){background:#cde8d4}.art-grid i:nth-child(3n+2){background:#edf6ef}.art-badge{position:absolute;right:0;bottom:9px;background:#fff;border:1px solid #efcbd1;border-radius:12px;padding:10px 11px;box-shadow:0 8px 20px #38101a12;font-size:11px;font-weight:800;color:var(--red);display:flex;align-items:center;gap:7px}.art-badge svg{width:17px;height:17px}.main-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:17px;align-items:start}.column{display:flex;flex-direction:column;gap:16px;min-width:0}.card{background:#fff;border:1px solid #e7e7ec;border-radius:var(--radius);overflow:hidden;min-width:0;box-shadow:0 4px 18px #1e141a06}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid #f0f0f3}.head-main{display:flex;align-items:center;gap:10px;min-width:0}.icon-box{width:36px;height:36px;border-radius:11px;background:var(--red-soft);display:grid;place-items:center;color:var(--red);flex:0 0 auto}.icon-box svg{width:18px;height:18px}.card-title{font-size:13px;font-weight:800;letter-spacing:-.2px}.card-subtitle{font-size:10px;color:#92939b;line-height:1.5;margin-top:4px}.micro-badge{border-radius:7px;padding:6px 8px;background:#f7f7f9;border:1px solid #eeeef2;color:#92939b;font-size:9px;font-weight:800;white-space:nowrap;letter-spacing:.7px}.upload-area{margin:17px;border:1.5px dashed #dedee7;background:linear-gradient(140deg,#fffdfd,#fff8f9);min-height:196px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;padding:24px 16px;transition:border-color .16s,background .16s,transform .16s}.upload-area:hover,.upload-area.drag-over{border-color:#dc8490;background:#fff1f3}.upload-area.drag-over{transform:scale(.997)}.upload-icon{width:47px;height:47px;border-radius:15px;display:grid;place-items:center;background:#fff;border:1px solid #f0dadd;color:var(--red);box-shadow:0 5px 14px #6d182015;margin-bottom:3px}.upload-icon svg{width:23px;height:23px}.upload-area strong{font-size:13px;color:#34353d}.upload-area>span{font-size:11px;color:#8d8e97;line-height:1.6}.upload-area small{font-size:10px;color:#a2a3ab;margin-top:3px}.text-link{border:0;padding:0;background:none;color:var(--red);font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}.hidden{display:none!important}.notice{margin:0 17px 16px;border:1px solid #e8e8ed;background:#fbfbfc;color:#777984;border-radius:10px;padding:11px 12px;font-size:10px;line-height:1.65}.notice strong{color:#4b4d55}.notice.warn{border-color:#f0d9dd;background:#fff6f7;color:#9c303d}.notice.ok{border-color:#d8f0e2;background:#f0fbf5;color:#22764e}.notice:empty{display:none}.file-card{margin:0 17px 17px;padding:13px;border:1px solid #eaeaf0;border-radius:12px;display:flex;align-items:center;gap:11px;min-width:0}.file-mark{width:42px;height:45px;flex:0 0 42px;display:grid;place-items:center;background:#fff0f2;border-radius:9px;color:var(--red)}.file-mark svg{width:22px;height:22px}.file-details{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}.file-details strong{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-details span{color:#9697a0;font-size:10px;line-height:1.5}.file-card .btn{flex:0 0 auto}.sheet-list{padding:3px 17px 17px;display:flex;flex-direction:column;gap:7px}.sheet-list-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 0 3px}.sheet-list-top strong{font-size:11px}.sheet-list-actions{display:flex;gap:5px}.sheet-row{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #ececf1;border-radius:10px;min-width:0;background:#fff;transition:background .12s,border-color .12s}.sheet-row.selected{background:#fff9fa;border-color:#f0cbd1}.sheet-row input{accent-color:var(--red);width:15px;height:15px;flex:0 0 auto}.sheet-row-main{min-width:0;flex:1}.sheet-row-main strong{display:block;font-size:11px;overflow-wrap:anywhere}.sheet-row-main span{display:block;font-size:9px;color:#9798a0;margin-top:4px;line-height:1.45}.sheet-hidden{font-size:8px;font-weight:800;color:#9b5b65;background:#fff0f2;border-radius:5px;padding:4px 5px;white-space:nowrap}.empty-workbook{padding:14px 17px;color:#9899a1;font-size:11px;line-height:1.6}.settings{padding:17px 18px 18px}.setting-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field label,.field-label{font-size:10px;font-weight:800;color:#585a63}.field select,.field input[type=text],.field input[type=number]{width:100%;min-width:0;height:40px;padding:0 11px;border:1px solid #e3e3ea;background:#fff;border-radius:9px;color:#3e4048;font-size:11px;outline:none}.field select:focus,.field input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212}.field small{font-size:9px;color:#999aa3;line-height:1.5}.toggle-list{display:flex;flex-direction:column;gap:10px;margin-top:17px;padding:14px;border-radius:11px;background:#fbfbfc;border:1px solid #efeff3}.toggle-row{display:flex;align-items:flex-start;gap:9px;font-size:10px;color:#676973;line-height:1.5}.toggle-row input{accent-color:var(--red);margin:2px 0 0;flex:0 0 auto}.toggle-row strong{color:#454750;display:block;font-size:10px}.toggle-row small{display:block;font-size:9px;color:#999aa3;margin-top:2px}.security-note{display:flex;gap:9px;align-items:flex-start;margin:14px 0 0;padding:11px;background:#f0fbf5;border:1px solid #d8f0e2;color:#377757;border-radius:10px;font-size:10px;line-height:1.6}.security-note svg{width:16px;height:16px;flex:0 0 auto}.settings-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.settings-actions .btn{flex:1;min-height:40px}.progress-wrap{height:4px;background:#f7dfe3;overflow:hidden;display:none;margin-top:13px;border-radius:4px}.progress-wrap.show{display:block}.progress-wrap span{display:block;height:100%;width:40%;background:var(--red);animation:progress 1s infinite ease-in-out}@keyframes progress{0%{transform:translateX(-110%)}100%{transform:translateX(270%)}}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 17px 17px}.stat{border:1px solid #ededf1;border-radius:10px;padding:10px;min-width:0}.stat strong{display:block;font-size:17px;letter-spacing:-.5px;color:#30313a;overflow:hidden;text-overflow:ellipsis}.stat span{display:block;color:#93949d;font-size:9px;margin-top:5px}.preview-card{margin-top:17px}.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 17px;border-bottom:1px solid #f0f0f3;background:#fff}.sheet-tabs{display:flex;gap:6px;flex-wrap:wrap;min-width:0}.sheet-tab{border:1px solid #eeeef2;background:#fff;color:#72747d;padding:7px 10px;border-radius:8px;font-size:10px;font-weight:800;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sheet-tab.active{background:var(--red-soft);border-color:#f3d6da;color:var(--red)}.preview-meta{font-size:10px;color:#9697a0;white-space:nowrap}.table-preview-wrap{width:100%;overflow:auto;max-height:490px;background:#fff}.preview-placeholder{padding:46px 18px;text-align:center;color:#999aa2;font-size:11px;line-height:1.8}.preview-placeholder svg{width:34px;height:34px;color:#d4a0a7;margin-bottom:9px}.preview-table{border-collapse:separate;border-spacing:0;min-width:100%;width:max-content;font-size:10px;color:#383942}.preview-table th,.preview-table td{max-width:260px;min-width:74px;padding:8px 10px;border-right:1px solid #e9e9ed;border-bottom:1px solid #e9e9ed;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:top;text-align:left}.preview-table thead th{background:#fff0f2;color:#982032;font-weight:800;position:sticky;top:0;z-index:2}.preview-table td:first-child,.preview-table th:first-child{background:#f8f8fa;color:#9899a1;min-width:42px;max-width:62px;text-align:right;font-family:'DM Mono',monospace}.preview-table tr:nth-child(even) td{background:#fcfcfd}.preview-table tr:nth-child(even) td:first-child{background:#f6f6f8}.preview-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 17px;background:#fcfcfd;border-top:1px solid #f0f0f3;color:#9697a0;font-size:10px;line-height:1.5}.footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:25px 4px 4px;color:#999aa3;font-size:10px}.footer b{color:#777982}.toast-region{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:min(440px,calc(100% - 28px))}.toast{background:#24242b;color:#fff;border-radius:11px;padding:12px 15px;font-size:12px;line-height:1.5;box-shadow:0 8px 28px #1a101733;animation:toast-in .2s ease}.toast.warn{background:#8a2935}.toast.success{background:#176746}@keyframes toast-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:980px){.main-grid{grid-template-columns:minmax(0,1fr) minmax(300px,.9fr);gap:12px}.hero-art{margin-right:0;transform:scale(.9);transform-origin:center right}.top-status{display:none}.card-head{padding:14px}.settings{padding:14px}.setting-grid{gap:10px}}
+@media(max-width:740px){.topbar{min-height:64px;padding:10px 12px;gap:8px}.brand-mark{width:36px;height:36px;border-radius:12px}.brand-name{font-size:18px}.brand-sub{font-size:8px;letter-spacing:1px}.top-actions{gap:5px}.top-actions .btn{padding:9px 10px;font-size:10px}.top-actions .btn .btn-text{display:none}.page-shell{padding:18px 10px 18px}.hero{padding:2px 3px 20px}.hero-art{display:none}.hero h1{font-size:34px;letter-spacing:-1.4px;margin-top:12px}.hero p{font-size:12px}.eyebrow{font-size:8px;letter-spacing:1.1px}.format-pills{gap:5px}.format-pills span{font-size:9px;padding:6px 7px}.main-grid{grid-template-columns:minmax(0,1fr)}.column{gap:12px}.card{border-radius:15px}.upload-area{margin:12px;min-height:175px;padding:20px 12px}.notice{margin:0 12px 12px}.file-card{margin:0 12px 12px}.sheet-list{padding:0 12px 12px}.settings{padding:13px}.setting-grid{gap:10px}.field select{height:39px}.toggle-list{margin-top:13px;padding:12px}.settings-actions{gap:7px}.preview-card{margin-top:12px}.preview-toolbar{padding:10px 12px}.sheet-tab{font-size:9px;padding:7px 8px;max-width:140px}.table-preview-wrap{max-height:390px}.preview-table th,.preview-table td{padding:7px 8px;max-width:200px}.preview-foot{padding:10px 12px;align-items:flex-start;flex-direction:column}.footer{padding:19px 3px 2px;font-size:9px}}
+@media(max-width:380px){.brand-sub{display:none}.hero h1{font-size:30px}.setting-grid{grid-template-columns:1fr}.settings-actions{flex-direction:column}.stats{padding:0 12px 12px}.stat{padding:8px}.stat strong{font-size:15px}.sheet-row{padding:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* PDF Merge screen additions; the shared JNR PDF Studio styles above stay intact. */
+.merge-hero-art{position:relative;width:190px;height:150px;flex:0 0 190px;margin-right:14px}
+.merge-paper{position:absolute;width:83px;height:112px;border-radius:10px;background:#fff;border:1px solid #e4e4eb;box-shadow:0 14px 24px #21131a13;padding:13px 10px;top:15px;left:24px;transform:rotate(-10deg)}
+.merge-paper.p2{left:62px;top:7px;transform:rotate(2deg);background:#fffafb;border-color:#f0d3d8}
+.merge-paper.p3{left:101px;top:19px;transform:rotate(10deg);background:#fff;border-color:#e8e8ee}
+.merge-paper-label{font:900 9px 'DM Mono',monospace;color:var(--red);letter-spacing:1px;margin-bottom:10px}
+.merge-paper-lines{display:flex;flex-direction:column;gap:5px}.merge-paper-lines i{height:3px;background:#e9e9ef;border-radius:3px}.merge-paper-lines i:nth-child(2){width:75%}.merge-paper-lines i:nth-child(4){width:58%}
+.merge-art-badge{position:absolute;right:0;bottom:5px;background:#fff;border:1px solid #efcbd1;border-radius:12px;padding:10px 11px;box-shadow:0 8px 20px #38101a12;font-size:10px;font-weight:800;color:var(--red);display:flex;align-items:center;gap:7px}
+.merge-art-badge svg{width:17px;height:17px}
+.merge-upload{min-height:215px}
+.merge-queue{padding:3px 17px 17px;display:flex;flex-direction:column;gap:8px}
+.merge-queue-head{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:0 0 3px}
+.merge-queue-head strong{font-size:11px}
+.merge-queue-head span{font-size:9px;color:#92939b}
+.merge-file-row{display:flex;align-items:center;gap:10px;min-width:0;border:1px solid #ececf1;background:#fff;border-radius:12px;padding:11px;transition:border-color .15s,background .15s,transform .15s;}
+.merge-file-row.dragging{opacity:.48;border-style:dashed}.merge-file-row.drag-target{border-color:#cf6978;background:#fff8f9}
+.merge-order{width:29px;height:32px;border-radius:9px;background:#fff0f2;display:grid;place-items:center;color:var(--red);font:700 11px 'DM Mono',monospace;flex:0 0 auto}
+.merge-file-icon{width:38px;height:42px;border:1px solid #f1d9dd;background:#fff7f8;color:var(--red);border-radius:9px;display:grid;place-items:center;flex:0 0 auto}.merge-file-icon svg{width:21px;height:21px}
+.merge-file-main{min-width:0;flex:1}.merge-file-main strong{display:block;font-size:11px;line-height:1.45;overflow-wrap:anywhere}.merge-file-main span{display:block;font-size:9px;color:#92939b;line-height:1.55;margin-top:4px}.merge-file-status{display:inline-flex!important;align-items:center;gap:5px;margin-top:5px!important;color:#25875a!important;font-weight:700}.merge-file-status.failed{color:#b52638!important}.merge-file-status.pending{color:#9c6a16!important}
+.merge-row-actions{display:flex;align-items:center;gap:4px;flex:0 0 auto}.merge-row-actions .btn{width:30px;height:31px;padding:0;display:grid;place-items:center;font-size:13px}.merge-row-actions svg{width:14px;height:14px}
+.merge-empty{padding:24px 14px;text-align:center;color:#92939b;font-size:11px;line-height:1.7;border:1px dashed #e3e3ea;border-radius:12px;background:#fcfcfd}
+.merge-empty svg{width:32px;height:32px;color:#d2a1a8;margin-bottom:8px}
+.merge-control{display:flex;flex-direction:column;gap:7px;min-width:0}.merge-control label{font-size:10px;font-weight:800;color:#585a63}.merge-control input{width:100%;min-width:0;height:40px;padding:0 11px;border:1px solid #e3e3ea;background:#fff;border-radius:9px;color:#3e4048;font-size:11px;outline:none}.merge-control input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212}.merge-control small{font-size:9px;color:#999aa3;line-height:1.5}
+.merge-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 17px 17px}
+.merge-stat{padding:13px 10px;border:1px solid #ededf1;border-radius:11px;background:#fcfcfd;min-width:0}.merge-stat strong{display:block;font-size:20px;letter-spacing:-.7px;color:#30313a;overflow:hidden;text-overflow:ellipsis}.merge-stat span{display:block;font-size:9px;color:#898b94;margin-top:5px;line-height:1.4}
+.merge-progress{height:7px;background:#f0edf0;border-radius:8px;overflow:hidden;margin:10px 0 7px;display:none}.merge-progress.show{display:block}.merge-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#c92032,#ed7785);border-radius:8px;transition:width .2s}
+.merge-progress-text{font-size:10px;color:#898b94;line-height:1.6;min-height:16px}
+.merge-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:15px}.merge-actions .btn.primary{min-height:43px;padding:12px 16px}.merge-actions .btn{flex:0 0 auto}
+.merge-security{display:flex;gap:10px;align-items:flex-start;margin-top:15px;padding:12px;background:#f0fbf5;border:1px solid #d8f0e2;color:#377757;border-radius:11px;font-size:10px;line-height:1.7}.merge-security svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px}
+.merge-output-note{margin-top:14px;font-size:10px;line-height:1.7;color:#858791}
+.merge-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 4px 5px;color:#999aa2;font-size:10px;line-height:1.6}
+.merge-foot strong{color:#686a73}
+body.merge-busy .merge-file-row{pointer-events:none}
+@media(max-width:900px){.merge-hero-art{margin-right:0;transform:scale(.9);transform-origin:center right}.main-grid{grid-template-columns:minmax(0,1fr) minmax(290px,.85fr)}}
+@media(max-width:720px){.merge-hero-art{display:none}.merge-file-row{gap:7px;padding:9px}.merge-order{width:24px;height:29px}.merge-file-icon{display:none}.merge-file-main strong{font-size:10px}.merge-row-actions .btn{width:28px;height:29px}.merge-stats{gap:6px}.merge-stat{padding:11px 8px}.merge-stat strong{font-size:18px}.merge-actions{display:grid;grid-template-columns:1fr 1fr}.merge-actions .btn.primary{grid-column:1/-1;width:100%}.merge-actions .btn{width:100%}.merge-foot{flex-direction:column;align-items:flex-start;gap:4px}}
+@media(max-width:420px){.top-status{display:none}.top-actions .btn{padding:9px}.top-actions .btn-text{display:none}.merge-queue{padding-left:10px;padding-right:10px}.merge-file-row{gap:6px}.merge-row-actions{gap:2px}.merge-row-actions .btn{width:25px}.merge-file-main span{font-size:8px}}
+
+</style>
+<script id="pdfLibScript" defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand" aria-label="JNR PDF Studio">
+    <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+    <div><div class="brand-name">JNR <span>PDF</span></div><div class="brand-sub">PDF MERGE STUDIO</div></div>
+  </div>
+  <div class="top-status"><span class="live-dot"></span><span>Browser-based · No upload</span></div>
+  <div class="top-actions">
+    <a class="btn" href="index.html" title="Back to all PDF tools"><svg viewBox="0 0 24 24" fill="none"><path d="m14.5 5-7 7 7 7M8 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-text">All tools</span></a>
+    <button class="btn primary" id="headerMergeBtn" type="button" disabled title="Merge queued PDFs"><svg viewBox="0 0 24 24" fill="none"><path d="M7 4v6m0 0-3-3m3 3 3-3M17 20v-6m0 0-3 3m3-3 3 3M8 10h8v4H8z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-text">Merge PDFs</span></button>
+  </div>
+</header>
+<main class="page-shell">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="live-dot"></span> JNR PDF TOOLS <span class="slash">/</span> PDF MERGE</div>
+      <h1>Many PDFs. <span>One perfect file.</span></h1>
+      <p>Combine two or more PDFs into a single document, put every file in the exact order you need, and download the result in one step. Processing runs locally in this browser — your PDFs are not sent to a JNR backend.</p>
+      <div class="format-pills" aria-label="Tool features"><span>LOSSLESS PAGE COPY</span><span>REORDER FILES</span><span>NO BACKEND</span><span>DESKTOP + MOBILE</span></div>
+    </div>
+    <div class="merge-hero-art" aria-hidden="true">
+      <div class="merge-paper"><div class="merge-paper-label">PDF 01</div><div class="merge-paper-lines"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="merge-paper p2"><div class="merge-paper-label">PDF 02</div><div class="merge-paper-lines"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="merge-paper p3"><div class="merge-paper-label">PDF 03</div><div class="merge-paper-lines"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="merge-art-badge"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.3 4.2L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> ONE CLEAN PDF</div>
+    </div>
+  </section>
+
+  <div class="main-grid">
+    <div class="column">
+      <section class="card" aria-labelledby="uploadTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><div id="uploadTitle" class="card-title">1. Add your PDF files</div><div class="card-subtitle">Select multiple files at once or drop them here.</div></div></div><span class="micro-badge">LOCAL PROCESSING</span></div>
+        <input id="pdfFiles" class="hidden" type="file" accept="application/pdf,.pdf" multiple>
+        <div class="upload-area merge-upload" id="dropzone" role="button" tabindex="0" aria-label="Choose or drag multiple PDF files">
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 15.5v3A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <strong>Drop two or more PDF files here</strong>
+          <span>or <button class="text-link" id="browseBtn" type="button">browse files</button> from your device</span>
+          <small>PDF only · Select multiple files · No server upload</small>
+        </div>
+        <div id="message" class="notice" role="status" aria-live="polite"></div>
+        <div class="merge-queue" id="queueSection">
+          <div class="merge-queue-head"><strong>Merge order</strong><span id="queueHint">Add at least 2 PDFs</span></div>
+          <div id="fileList"><div class="merge-empty"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><br>Your PDFs will appear here. Use the arrows or drag rows to change their order.</div></div>
+        </div>
+        <div class="merge-stats" aria-live="polite">
+          <div class="merge-stat"><strong id="fileStat">0</strong><span>PDF files</span></div>
+          <div class="merge-stat"><strong id="pageStat">0</strong><span>Total pages</span></div>
+          <div class="merge-stat"><strong id="sizeStat">0 B</strong><span>Total source size</span></div>
+        </div>
+      </section>
+      <section class="card" aria-labelledby="qualityTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5.5c0 4.2-2.8 7.5-7 9.5-4.2-2-7-5.3-7-9.5V6l7-3Z" stroke="currentColor" stroke-width="1.7"/><path d="m8.5 12.2 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div id="qualityTitle" class="card-title">Designed to preserve quality</div><div class="card-subtitle">Original PDF pages are copied, not converted into screenshots.</div></div></div><span class="micro-badge">NO RASTERISING</span></div>
+        <div class="settings">
+          <div class="toggle-list" style="margin-top:0">
+            <div class="toggle-row"><span style="color:var(--green);font-weight:900">✓</span><span><strong>Text stays text where the source PDF supports it</strong><small>No intentional image downsampling or page screenshot conversion is performed.</small></span></div>
+            <div class="toggle-row"><span style="color:var(--green);font-weight:900">✓</span><span><strong>Page dimensions and orientation are kept</strong><small>Portrait and landscape pages can live together in the same merged PDF.</small></span></div>
+            <div class="toggle-row"><span style="color:var(--green);font-weight:900">✓</span><span><strong>Original input files remain untouched</strong><small>The new merged file is created separately and can be downloaded again.</small></span></div>
+          </div>
+          <div class="security-note"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5.5c0 4.2-2.8 7.5-7 9.5-4.2-2-7-5.3-7-9.5V6l7-3Z" stroke="currentColor" stroke-width="1.7"/><path d="m8.5 12.2 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Your files stay on this device.</strong> The PDF merge logic runs inside your browser tab. The PDF library is loaded from a CDN, but your selected document contents are not uploaded to that CDN or to JNR servers.</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="column">
+      <section class="card" aria-labelledby="settingsTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 4v6M4 17h16m-5-3v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="7" cy="7" r="2" fill="#fff" stroke="currentColor" stroke-width="1.6"/><circle cx="15" cy="17" r="2" fill="#fff" stroke="currentColor" stroke-width="1.6"/></svg></div><div><div id="settingsTitle" class="card-title">2. Output settings</div><div class="card-subtitle">Name your final PDF and set its basic metadata.</div></div></div><span class="micro-badge">CUSTOM OUTPUT</span></div>
+        <div class="settings">
+          <div class="merge-control"><label for="outputName">Output filename</label><input id="outputName" type="text" value="JNR-Merged-PDF" maxlength="120" autocomplete="off" spellcheck="false"><small>.pdf is added automatically. Avoid special path characters.</small></div>
+          <div class="field" style="margin-top:14px"><label for="pdfTitle">Document title (optional)</label><input id="pdfTitle" type="text" maxlength="180" placeholder="Combined documents"></div>
+          <div class="field" style="margin-top:14px"><label for="pdfAuthor">Author (optional)</label><input id="pdfAuthor" type="text" maxlength="120" placeholder="Your name or organisation"></div>
+          <div class="toggle-list">
+            <label class="toggle-row"><input id="setMetadata" type="checkbox" checked><span><strong>Set document metadata</strong><small>Writes the optional title and author into the output PDF properties.</small></span></label>
+            <label class="toggle-row"><input id="saveObjectStreams" type="checkbox" checked><span><strong>Use compact PDF object streams</strong><small>Can reduce file overhead without rasterising page content; actual size depends on source files.</small></span></label>
+          </div>
+          <div id="mergeProgress" class="merge-progress" role="progressbar" aria-label="PDF merge progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+          <div id="progressText" class="merge-progress-text" aria-live="polite">Ready when at least two valid PDFs are added.</div>
+          <div class="merge-actions">
+            <button class="btn primary" id="mergeBtn" type="button" disabled><svg viewBox="0 0 24 24" fill="none"><path d="M7 4v6m0 0-3-3m3 3 3-3M17 20v-6m0 0-3 3m3-3 3 3M8 10h8v4H8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Merge and download</button>
+            <button class="btn" id="addMoreBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Add PDFs</button>
+            <button class="btn" id="clearBtn" type="button" disabled>Clear all</button>
+          </div>
+          <div id="resultMessage" class="notice" role="status" aria-live="polite" style="margin:14px 0 0"></div>
+          <div class="merge-output-note">Note: password-protected or malformed PDFs may not open. Some interactive form fields, bookmarks, embedded attachments and other advanced PDF structures are not guaranteed to transfer. Changing a digitally signed PDF invalidates its existing signature. Always check the merged output before sharing.</div>
+        </div>
+      </section>
+      <section class="card" aria-labelledby="workflowTitle">
+        <div class="card-head"><div class="head-main"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.2 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div id="workflowTitle" class="card-title">A straightforward workflow</div><div class="card-subtitle">Built for phones, tablets and desktop browsers.</div></div></div></div>
+        <div class="settings">
+          <div class="toggle-list" style="margin-top:0">
+            <div class="toggle-row"><span class="merge-order">01</span><span><strong>Add any two or more PDFs</strong><small>Multiple selection and drag-and-drop are supported.</small></span></div>
+            <div class="toggle-row"><span class="merge-order">02</span><span><strong>Arrange the sequence</strong><small>Drag a file row or use its up/down controls.</small></span></div>
+            <div class="toggle-row"><span class="merge-order">03</span><span><strong>Merge and save</strong><small>The output is generated in this tab and downloaded to your device.</small></span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="merge-foot"><span><strong>JNR PDF Studio</strong> · PDF Merge</span><span>Client-side processing · No backend required</span></div>
+</main>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const state = { files: [], busy: false, nextId: 1, dragId: null, progressFinal: false };
+  const pdfLibReady = new Promise((resolve, reject) => {
+    const script = $('pdfLibScript');
+    if (window.PDFLib) { resolve(window.PDFLib); return; }
+    if (!script) { reject(new Error('PDF processing library could not be located.')); return; }
+    script.addEventListener('load', () => window.PDFLib ? resolve(window.PDFLib) : reject(new Error('The PDF processing library loaded incorrectly.')), { once: true });
+    script.addEventListener('error', () => reject(new Error('The PDF processing library failed to load. Check your internet connection and reload this page.')), { once: true });
+  });
+  pdfLibReady.catch(() => {});
+  const MAX_FILENAME = 120;
+
+  function humanBytes(bytes) {
+    if (!Number.isFinite(bytes) || bytes < 0) return '—';
+    if (bytes === 0) return '0 B';
+    const units = ['B','KB','MB','GB','TB'];
+    const idx = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+    const amount = bytes / (1024 ** idx);
+    return `${amount.toFixed(idx === 0 ? 0 : 1)} ${units[idx]}`;
+  }
+  function setNotice(id, message, kind='') {
+    const el = $(id);
+    el.textContent = message || '';
+    el.className = 'notice' + (kind ? ' ' + kind : '');
+  }
+  function setProgress(percent, message, show=true) {
+    const wrap = $('mergeProgress');
+    wrap.classList.toggle('show', show);
+    const safe = Math.max(0, Math.min(100, Number(percent) || 0));
+    wrap.firstElementChild.style.width = safe + '%';
+    wrap.setAttribute('aria-valuenow', String(Math.round(safe)));
+    $('progressText').textContent = message || '';
+  }
+  function pageTotal() { return state.files.reduce((n, item) => n + (item.valid ? item.pages : 0), 0); }
+  function totalSize() { return state.files.reduce((n, item) => n + item.file.size, 0); }
+  function canMerge() { return !state.busy && state.files.length >= 2 && state.files.every(item => item.valid); }
+  function updateStats() {
+    $('fileStat').textContent = state.files.length.toLocaleString();
+    $('pageStat').textContent = pageTotal().toLocaleString();
+    $('sizeStat').textContent = humanBytes(totalSize());
+    $('queueHint').textContent = state.files.length < 2 ? 'Add at least 2 PDFs' : `${state.files.length} files · ${pageTotal()} pages`;
+    $('mergeBtn').disabled = !canMerge();
+    $('headerMergeBtn').disabled = !canMerge();
+    $('clearBtn').disabled = state.busy || state.files.length === 0;
+    $('addMoreBtn').disabled = state.busy;
+    $('browseBtn').disabled = state.busy;
+    $('pdfFiles').disabled = state.busy;
+    $('dropzone').style.pointerEvents = state.busy ? 'none' : '';
+    $('dropzone').style.opacity = state.busy ? '.55' : '';
+    if (!state.busy && !state.progressFinal) {
+      if (state.files.length === 0) setProgress(0, 'Ready when at least two valid PDFs are added.', false);
+      else if (state.files.length === 1 && state.files[0].valid) setProgress(0, 'Add one more valid PDF to enable merging.', false);
+      else if (state.files.length >= 2 && state.files.every(f => f.valid)) setProgress(0, 'Ready to merge. File order determines page order.', false);
+      else if (state.files.some(f => f.status === 'checking')) setProgress(0, 'Checking selected PDF files…', false);
+      else if (state.files.some(f => !f.valid)) setProgress(0, 'Remove the file(s) marked as unsupported or invalid before merging.', false);
+    }
+  }
+  function svgDoc() { return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'; }
+  function moveFile(index, delta) {
+    if (state.busy) return;
+    state.progressFinal = false; setNotice('resultMessage', '');
+    const target = index + delta;
+    if (target < 0 || target >= state.files.length) return;
+    const [item] = state.files.splice(index, 1);
+    state.files.splice(target, 0, item);
+    renderQueue();
+  }
+  function removeFile(id) {
+    if (state.busy) return;
+    state.progressFinal = false; setNotice('resultMessage', '');
+    state.files = state.files.filter(item => item.id !== id);
+    renderQueue();
+    setNotice('message', 'File removed from the merge queue. Your original file has not been changed.', '');
+  }
+  function renderQueue() {
+    const list = $('fileList');
+    list.replaceChildren();
+    if (!state.files.length) {
+      const empty = document.createElement('div'); empty.className = 'merge-empty';
+      empty.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><br>Your PDFs will appear here. Use the arrows or drag rows to change their order.';
+      list.appendChild(empty);
+      updateStats();
+      return;
+    }
+    state.files.forEach((item, index) => {
+      const row = document.createElement('div');
+      row.className = 'merge-file-row'; row.draggable = !state.busy; row.dataset.id = String(item.id);
+      row.addEventListener('dragstart', ev => {
+        if (state.busy) { ev.preventDefault(); return; }
+        state.dragId = item.id; row.classList.add('dragging');
+        if (ev.dataTransfer) { ev.dataTransfer.effectAllowed = 'move'; ev.dataTransfer.setData('text/plain', String(item.id)); }
+      });
+      row.addEventListener('dragend', () => { state.dragId = null; document.querySelectorAll('.merge-file-row').forEach(r => r.classList.remove('dragging','drag-target')); });
+      row.addEventListener('dragover', ev => {
+        if (state.busy || state.dragId === null || state.dragId === item.id) return;
+        ev.preventDefault(); row.classList.add('drag-target');
+        if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+      });
+      row.addEventListener('dragleave', () => row.classList.remove('drag-target'));
+      row.addEventListener('drop', ev => {
+        ev.preventDefault(); row.classList.remove('drag-target');
+        const raw = ev.dataTransfer && ev.dataTransfer.getData('text/plain');
+        const id = Number(raw || state.dragId);
+        if (!id || id === item.id || state.busy) return;
+        const from = state.files.findIndex(f => f.id === id);
+        const to = state.files.findIndex(f => f.id === item.id);
+        if (from < 0 || to < 0) return;
+        const [moving] = state.files.splice(from, 1);
+        state.files.splice(to, 0, moving);
+        state.dragId = null;
+        renderQueue();
+      });
+
+      const order = document.createElement('div'); order.className = 'merge-order'; order.textContent = String(index + 1).padStart(2,'0'); order.title = `Position ${index + 1}`;
+      const icon = document.createElement('div'); icon.className = 'merge-file-icon'; icon.innerHTML = svgDoc();
+      const main = document.createElement('div'); main.className = 'merge-file-main';
+      const name = document.createElement('strong'); name.textContent = item.file.name; name.title = item.file.name;
+      const meta = document.createElement('span');
+      meta.textContent = `${humanBytes(item.file.size)}${item.valid ? ` · ${item.pages} page${item.pages === 1 ? '' : 's'}` : ''}`;
+      const status = document.createElement('span'); status.className = 'merge-file-status' + (item.status === 'checking' ? ' pending' : item.valid ? '' : ' failed');
+      status.textContent = item.status === 'checking' ? 'Checking PDF…' : item.valid ? '✓ Ready to merge' : 'Not ready · remove this file';
+      main.append(name, meta, status);
+      const actions = document.createElement('div'); actions.className = 'merge-row-actions';
+      const up = makeIconButton('Move up', '↑', index === 0 || state.busy, () => moveFile(index, -1));
+      const down = makeIconButton('Move down', '↓', index === state.files.length - 1 || state.busy, () => moveFile(index, 1));
+      const remove = makeIconButton('Remove ' + item.file.name, '×', state.busy, () => removeFile(item.id));
+      actions.append(up, down, remove);
+      row.append(order, icon, main, actions);
+      list.appendChild(row);
+    });
+    updateStats();
+  }
+  function makeIconButton(label, text, disabled, callback) {
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn'; btn.setAttribute('aria-label', label); btn.title = label; btn.textContent = text; btn.disabled = disabled; btn.addEventListener('click', callback); return btn;
+  }
+  async function inspectPdf(file) {
+    const lib = await pdfLibReady;
+    const bytes = await file.arrayBuffer();
+    const doc = await lib.PDFDocument.load(bytes, { updateMetadata: false });
+    const pages = doc.getPageCount();
+    if (!pages) throw new Error('This PDF contains no readable pages.');
+    return pages;
+  }
+  async function addFiles(fileList) {
+    if (state.busy) return;
+    const files = Array.from(fileList || []);
+    if (!files.length) return;
+    state.progressFinal = false; setNotice('resultMessage', '');
+    let added = 0;
+    for (const file of files) {
+      if (!(file.name || '').toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+        setNotice('message', `Skipped “${file.name}”: choose a PDF file.`, 'warn');
+        continue;
+      }
+      // Avoid queuing the exact same File object twice if a user reopens the picker.
+      if (state.files.some(existing => existing.file === file)) continue;
+      const item = { id: state.nextId++, file, pages: 0, valid: false, status: 'checking', error: '' };
+      state.files.push(item); added++;
+      renderQueue();
+      setNotice('message', `Checking PDF ${state.files.length}: ${file.name}`, '');
+      try {
+        item.pages = await inspectPdf(file);
+        item.valid = true; item.status = 'ready';
+      } catch (error) {
+        item.valid = false; item.status = 'failed'; item.error = error && error.message ? error.message : 'The PDF could not be read.';
+        setNotice('message', `Could not read “${file.name}”. ${item.error} Password-protected, damaged or unsupported PDFs may need to be unlocked or repaired first. Remove this file to continue.`, 'warn');
+      }
+      renderQueue();
+    }
+    if (added > 0 && state.files.every(item => item.valid)) {
+      setNotice('message', `${state.files.length} PDF file(s) ready. Arrange their order, then merge.`, 'ok');
+    }
+    $('pdfFiles').value = '';
+  }
+  function safeFilename(raw) {
+    let value = String(raw || '').trim().replace(/\.pdf$/i, '').replace(/[\/:*?"<>|]/g, '-').replace(/\s+/g, ' ').replace(/[. ]+$/g, '').slice(0, MAX_FILENAME);
+    return value || 'JNR-Merged-PDF';
+  }
+  function setBusy(value) {
+    state.busy = value;
+    document.body.classList.toggle('merge-busy', value);
+    renderQueue();
+  }
+  async function mergePdfs() {
+    if (!canMerge()) { setNotice('resultMessage', 'Add at least two readable PDF files before merging.', 'warn'); return; }
+    if (typeof window.PDFLib === 'undefined') { setNotice('resultMessage', 'PDF library is not available. Reload this page when you are online and try again.', 'warn'); return; }
+    setNotice('resultMessage', '');
+    setBusy(true);
+    let objectUrl = null;
+    try {
+      const lib = await pdfLibReady;
+      const { PDFDocument } = lib;
+      const output = await PDFDocument.create();
+      let completedPages = 0;
+      const allPages = pageTotal();
+      for (let i = 0; i < state.files.length; i++) {
+        const item = state.files[i];
+        setProgress((i / state.files.length) * 85, `Opening ${i + 1} of ${state.files.length}: ${item.file.name}`);
+        await new Promise(resolve => setTimeout(resolve, 0));
+        const srcBytes = await item.file.arrayBuffer();
+        const sourceDoc = await PDFDocument.load(srcBytes, { updateMetadata: false });
+        const indices = sourceDoc.getPageIndices();
+        const pages = await output.copyPages(sourceDoc, indices);
+        for (const page of pages) { output.addPage(page); completedPages++; }
+        setProgress(85 * ((i + 1) / state.files.length), `Copied ${completedPages.toLocaleString()} of ${allPages.toLocaleString()} pages…`);
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
+      if (output.getPageCount() === 0) throw new Error('No pages were copied, so a merged PDF was not created.');
+      if ($('setMetadata').checked) {
+        const title = $('pdfTitle').value.trim();
+        const author = $('pdfAuthor').value.trim();
+        if (title) output.setTitle(title);
+        if (author) output.setAuthor(author);
+        output.setCreator('JNR PDF Studio — PDF Merge');
+        output.setProducer('JNR PDF Studio / pdf-lib');
+        output.setModificationDate(new Date());
+      }
+      setProgress(92, 'Building the final PDF file…');
+      await new Promise(resolve => setTimeout(resolve, 0));
+      const bytes = await output.save({ useObjectStreams: $('saveObjectStreams').checked, addDefaultPage: false });
+      if (!bytes || !bytes.length) throw new Error('The PDF library returned an empty output.');
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = objectUrl; link.download = safeFilename($('outputName').value) + '.pdf';
+      document.body.appendChild(link); link.click(); link.remove();
+      state.progressFinal = true;
+      setProgress(100, 'Merge complete. Your download should start automatically.');
+      setNotice('resultMessage', `Success: merged ${state.files.length} PDFs and ${output.getPageCount().toLocaleString()} pages into ${humanBytes(blob.size)}. Original page content was copied without rasterising it. Check the downloaded PDF before sharing.`, 'ok');
+      setNotice('message', 'PDF merge completed successfully. Your source files remain unchanged.', 'ok');
+      // Delay revoking so the browser has time to begin the download.
+      setTimeout(() => { if (objectUrl) URL.revokeObjectURL(objectUrl); }, 60000);
+    } catch (error) {
+      console.error('JNR PDF Merge error:', error);
+      const detail = error && error.message ? error.message : 'An unexpected processing error occurred.';
+      setNotice('resultMessage', `Merge failed: ${detail}. No successful output is reported. Check whether the source PDFs are readable and whether your device has enough memory, then retry.`, 'warn');
+      state.progressFinal = true;
+      setProgress(0, 'Merge failed. The source files have not been changed.');
+    } finally {
+      setBusy(false);
+    }
+  }
+  function clearAll() {
+    if (state.busy) return;
+    state.progressFinal = false;
+    state.files = []; renderQueue(); setNotice('message', 'Merge queue cleared. Files have not been changed on your device.', ''); setNotice('resultMessage', '');
+  }
+
+  $('browseBtn').addEventListener('click', ev => { ev.stopPropagation(); if (!state.busy) $('pdfFiles').click(); });
+  $('addMoreBtn').addEventListener('click', () => { if (!state.busy) $('pdfFiles').click(); });
+  $('dropzone').addEventListener('click', ev => { if (ev.target.closest('button')) return; if (!state.busy) $('pdfFiles').click(); });
+  $('dropzone').addEventListener('keydown', ev => { if ((ev.key === 'Enter' || ev.key === ' ') && !state.busy) { ev.preventDefault(); $('pdfFiles').click(); } });
+  $('pdfFiles').addEventListener('change', ev => addFiles(ev.target.files));
+  ['dragenter','dragover'].forEach(type => $('dropzone').addEventListener(type, ev => { ev.preventDefault(); if (state.busy) return; ev.dataTransfer.dropEffect = 'copy'; $('dropzone').classList.add('drag-over'); }));
+  ['dragleave','dragend'].forEach(type => $('dropzone').addEventListener(type, ev => { ev.preventDefault(); $('dropzone').classList.remove('drag-over'); }));
+  $('dropzone').addEventListener('drop', ev => { ev.preventDefault(); $('dropzone').classList.remove('drag-over'); if (!state.busy) addFiles(ev.dataTransfer.files); });
+  $('mergeBtn').addEventListener('click', mergePdfs);
+  $('headerMergeBtn').addEventListener('click', mergePdfs);
+  $('clearBtn').addEventListener('click', clearAll);
+  window.addEventListener('online', () => { if (typeof window.PDFLib !== 'undefined') setNotice('message', 'Connection restored. PDF processing is ready.', 'ok'); });
+  window.addEventListener('error', ev => { if (String(ev.message || '').includes('PDFLib')) setNotice('message', 'PDF processing library failed to load. Check your connection and reload the page.', 'warn'); });
+  renderQueue();
+  if (typeof window.PDFLib === 'undefined') {
+    window.addEventListener('load', () => { if (typeof window.PDFLib === 'undefined') setNotice('message', 'The PDF library could not be loaded. Connect to the internet and reload this page to use the merger.', 'warn'); });
+  }
+})();
+</script>
+<script src="./block.js" ></script>
+</body>
+</html>
