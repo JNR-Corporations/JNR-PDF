@@ -8,36 +8,43 @@
 <meta name="description" content="JNR Corporation splash screen">
 <title>JNR Corporation — Splash Screen</title>
 <style>
-:root{color-scheme:light;--ink:#17212b;--muted:#7b8794;--cyan:#08b9c7}
+:root{color-scheme:light;--ink:#12313a;--muted:#72818a;--cyan:#08aeba;--deep:#087f8a}
 *{box-sizing:border-box}
 html,body{width:100%;min-height:100%;margin:0}
 body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
-.splash-screen{min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(22px,5vh,56px) 20px;position:relative;isolation:isolate;background:#fff}
-.splash-screen:before{content:"";position:absolute;width:min(76vw,560px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(13,190,203,.055),rgba(13,190,203,0) 68%);z-index:-1;pointer-events:none}
+.splash-screen{min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(22px,5vh,56px) 20px;position:relative;overflow:hidden;background:#fff}
 .splash-brand{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.5vh,24px)}
-.jnr-formation-section{width:100%;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent;color:inherit;isolation:isolate;-webkit-tap-highlight-color:transparent}
-.jnr-formation-stage{width:min(100%,clamp(260px,66vw,500px));min-width:0;margin:0 auto}
-.jnr-formation-art{display:block;width:100%;height:auto;max-height:54svh;overflow:visible;filter:drop-shadow(0 9px 22px rgba(15,70,82,.10))}
-.jnr-fill-layer,.jnr-fill-light,.jnr-image-light{pointer-events:none}
-.jnr-fill-layer{filter:drop-shadow(0 0 8px rgba(0,225,238,.34))}
-.jnr-fill-light,.jnr-image-light{opacity:0;filter:drop-shadow(0 0 8px rgba(126,255,255,.75))}
-.jnr-outline{fill:none;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:var(--jnr-outline-length,100000);stroke-dashoffset:var(--jnr-outline-length,100000);pointer-events:none}
-.jnr-outline-halo{stroke:#10f5fa;stroke-width:10;opacity:.54;filter:drop-shadow(0 0 7px rgba(0,244,255,.95)) drop-shadow(0 0 18px rgba(0,204,230,.55))}
-.jnr-outline-edge{stroke:#007b8b;stroke-width:5.4;opacity:.98;filter:drop-shadow(0 0 2px rgba(0,71,88,.8))}
-.jnr-outline-core{stroke:#d8ffff;stroke-width:1.9;opacity:1;filter:drop-shadow(0 0 4px rgba(115,255,255,.98))}
-.splash-caption{margin:0;text-align:center;font-size:clamp(11px,1.4vw,13px);font-weight:650;letter-spacing:.24em;text-transform:uppercase;color:#71808b}
-.splash-loader{display:flex;align-items:center;gap:9px;margin-top:clamp(18px,4vh,34px);color:#87929b;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.loader-track{width:68px;height:3px;overflow:hidden;border-radius:99px;background:#e9f1f2}
-.loader-track:after{content:"";display:block;width:38%;height:100%;border-radius:99px;background:linear-gradient(90deg,#0aa6b4,#63e5e7);animation:load-sweep 1.35s ease-in-out infinite}
-@keyframes load-sweep{from{transform:translateX(-110%)}to{transform:translateX(280%)}}
-.jnr-formation-replay{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:9px 14px;border:1px solid #e2ecee;border-radius:999px;background:#fff;color:#54717a;font:600 11px/1.1 inherit;cursor:pointer;box-shadow:0 3px 12px rgba(18,62,72,.045);transition:background .2s,border-color .2s,transform .2s}
-.jnr-formation-replay:hover{background:#f4fcfc;border-color:#a8dfe2;transform:translateY(-1px)}
-.jnr-formation-replay:focus-visible{outline:2px solid #20cbd7;outline-offset:4px}
-.jnr-replay-icon{font-size:15px;line-height:.8}
-@media(min-width:900px){.splash-screen{padding:42px}.jnr-formation-stage{width:min(42vw,460px)}.jnr-formation-art{max-height:60svh}}
-@media(max-width:480px){.splash-screen{padding:24px 16px}.jnr-formation-stage{width:min(88vw,390px)}.jnr-formation-art{max-height:48svh}.splash-loader{margin-top:22px}}
-@media(max-height:600px){.splash-screen{padding:12px}.jnr-formation-stage{width:min(48vh,330px)}.jnr-formation-art{max-height:57svh}.splash-loader{margin-top:10px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
+.jnr-formation-section{width:100%;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent;color:inherit;isolation:isolate;-webkit-tap-highlight-color:transparent;position:relative}
+.jnr-formation-stage{width:min(100%,clamp(260px,66vw,500px));min-width:0;margin:0 auto;position:relative}
+.jnr-formation-art{display:block;width:100%;height:auto;max-height:54svh;overflow:visible;transform-origin:center}
+/* Only the clean, original-contour trace is visible during formation. */
+.jnr-outline{fill:none;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:var(--jnr-outline-length,100000);stroke-dashoffset:var(--jnr-outline-length,100000);pointer-events:none;filter:none}
+.jnr-outline-halo,.jnr-outline-edge{opacity:0!important;filter:none!important}
+.jnr-outline-core{stroke:#087f8a;stroke-width:1.7;opacity:1;filter:none}
+.jnr-fill-layer,.jnr-fill-light,.jnr-image-light{opacity:0!important;pointer-events:none}
+.jnr-original-image{opacity:0}
+.splash-copy{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;margin-top:clamp(2px,1vh,12px);opacity:0;animation:copy-arrive .78s 8.1s cubic-bezier(.2,.7,.2,1) both}
+.splash-title{font-size:clamp(25px,4vw,39px);font-weight:800;letter-spacing:.16em;text-indent:.16em;line-height:1.1;color:#12313a}
+.splash-title span{color:inherit}
+.splash-caption{margin:0;text-align:center;font-size:clamp(10px,1.4vw,12px);font-weight:650;letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;color:#71808b}
+.splash-loader{display:flex;align-items:center;gap:12px;margin-top:clamp(18px,4vh,34px);color:#71828c;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.loader-track{width:clamp(110px,18vw,168px);height:3px;overflow:hidden;border-radius:99px;background:#e5eff0}
+.loader-track:before{content:"";display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:#0caeba;animation:progress-fill 10s linear forwards}
+.loader-status{min-width:31px;font-variant-numeric:tabular-nums}
+@keyframes progress-fill{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes copy-arrive{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:900px){.splash-screen{padding:42px}.jnr-formation-stage{width:min(42vw,460px)}.jnr-formation-art{max-height:56svh}}
+@media(max-width:480px){.splash-screen{padding:24px 16px}.jnr-formation-stage{width:min(88vw,390px)}.jnr-formation-art{max-height:45svh}.splash-loader{margin-top:22px}}
+@media(max-height:600px){.splash-screen{padding:12px}.jnr-formation-stage{width:min(42vh,300px)}.jnr-formation-art{max-height:48svh}.splash-loader{margin-top:10px}.splash-copy{gap:6px}}
+@media(prefers-reduced-motion:reduce){.splash-copy{animation:none;opacity:1}.loader-track:before{animation:none;transform:scaleX(1)}}
+
+/* Particle-led construction layer. The source SVG/image itself is preserved. */
+.jnr-formation-stage{isolation:isolate;overflow:visible}
+.jnr-particle-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:5;opacity:1;transition:opacity .18s linear}
+.jnr-outline,.jnr-outline-core,.jnr-outline-halo,.jnr-outline-edge{opacity:0!important;filter:none!important}
+.jnr-original-image{opacity:0}
+.splash-title{letter-spacing:.19em}
+@media(prefers-reduced-motion:reduce){.jnr-particle-canvas{display:none}.splash-copy{animation:none;opacity:1}}
 </style>
 </head>
 <body>
@@ -96,174 +103,273 @@ body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-san
       <path class="jnr-outline jnr-outline-inner jnr-outline-edge" d="M 128.5 552.5 Q 128 543 128.5 542.5 Q 129 542 132.5 545.5 Q 136 549 136.5 549 Q 137 549 161 572.5 Q 185 596 185.5 596 Q 186 596 237.5 647.5 Q 289 699 289 699.5 Q 289 700 292 702.5 Q 295 705 295 705.5 Q 295 706 305.5 716.5 Q 316 727 317 729 Q 318 731 317.5 731.5 Q 317 732 306 732 Q 295 732 294.5 731.5 Q 294 731 290 731 Q 286 731 285.5 730.5 Q 285 730 282.5 730 Q 280 730 279.5 729.5 Q 279 729 274.5 728.5 Q 270 728 269.5 727.5 Q 269 727 267.5 727 Q 266 727 262.5 725.5 Q 259 724 257.5 724 Q 256 724 253 723 Q 250 722 247.5 720.5 Q 245 719 242.5 718.5 Q 240 718 237 716 Q 234 714 226.5 710.5 Q 219 707 205 696.5 Q 191 686 187 682 Q 183 678 183 677.5 Q 183 677 180.5 675 Q 178 673 169.5 662 Q 161 651 156.5 644 Q 152 637 152 636 Q 152 635 148 627.5 Q 144 620 144 619 Q 144 618 141 611.5 Q 138 605 138 603.5 Q 138 602 137 600 Q 136 598 136 596.5 Q 136 595 135.5 594.5 Q 135 594 135 592.5 Q 135 591 133.5 586.5 Q 132 582 132 579.5 Q 132 577 131.5 576.5 Q 131 576 131 573.5 Q 131 571 130.5 570.5 Q 130 570 130 566.5 Q 130 563 129.5 562.5 Q 129 562 128.5 552.5 Z"/>
       <path class="jnr-outline jnr-outline-inner jnr-outline-core" d="M 128.5 552.5 Q 128 543 128.5 542.5 Q 129 542 132.5 545.5 Q 136 549 136.5 549 Q 137 549 161 572.5 Q 185 596 185.5 596 Q 186 596 237.5 647.5 Q 289 699 289 699.5 Q 289 700 292 702.5 Q 295 705 295 705.5 Q 295 706 305.5 716.5 Q 316 727 317 729 Q 318 731 317.5 731.5 Q 317 732 306 732 Q 295 732 294.5 731.5 Q 294 731 290 731 Q 286 731 285.5 730.5 Q 285 730 282.5 730 Q 280 730 279.5 729.5 Q 279 729 274.5 728.5 Q 270 728 269.5 727.5 Q 269 727 267.5 727 Q 266 727 262.5 725.5 Q 259 724 257.5 724 Q 256 724 253 723 Q 250 722 247.5 720.5 Q 245 719 242.5 718.5 Q 240 718 237 716 Q 234 714 226.5 710.5 Q 219 707 205 696.5 Q 191 686 187 682 Q 183 678 183 677.5 Q 183 677 180.5 675 Q 178 673 169.5 662 Q 161 651 156.5 644 Q 152 637 152 636 Q 152 635 148 627.5 Q 144 620 144 619 Q 144 618 141 611.5 Q 138 605 138 603.5 Q 138 602 137 600 Q 136 598 136 596.5 Q 136 595 135.5 594.5 Q 135 594 135 592.5 Q 135 591 133.5 586.5 Q 132 582 132 579.5 Q 132 577 131.5 576.5 Q 131 576 131 573.5 Q 131 571 130.5 570.5 Q 130 570 130 566.5 Q 130 563 129.5 562.5 Q 129 562 128.5 552.5 Z"/>
     </svg>
+    <canvas class="jnr-particle-canvas" aria-hidden="true"></canvas>
   </div>
 </section>
 
-    <p class="splash-caption">JNR Corporation</p>
+    <div class="splash-copy" aria-label="JNR Corporation">
+      <div class="splash-title"><span>JNR</span></div>
+      <p class="splash-caption">Corporation · Ideas into reality</p>
+    </div>
   </div>
-  <div class="splash-loader" role="status" aria-label="Loading">
-    <span>Welcome</span><span class="loader-track" aria-hidden="true"></span>
+  <div class="splash-loader" role="status" aria-label="Splash screen progress">
+    <span id="loaderMessage">Crafting the identity</span>
+    <span class="loader-track" aria-hidden="true"></span>
+    <span class="loader-status" id="loaderPercent">00%</span>
   </div>
 </main>
 <script>
 (() => {
-  let instanceCounter = 0;
-  document.querySelectorAll('[data-jnr-formation]').forEach((section) => {
-    if (section.dataset.jnrFormationInitialized === 'true') return;
-    section.dataset.jnrFormationInitialized = 'true';
+  const section = document.querySelector('[data-jnr-formation]');
+  if (!section) return;
+  const stage = section.querySelector('.jnr-formation-stage');
+  const svg = section.querySelector('.jnr-formation-art');
+  const canvas = stage.querySelector('.jnr-particle-canvas');
+  const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+  const outerPath = svg.querySelector('.jnr-outline-outer.jnr-outline-core');
+  const innerPath = svg.querySelector('.jnr-outline-inner.jnr-outline-core');
+  const source = svg.querySelector('#jnrFormationSource');
+  const artwork = svg.querySelector('.jnr-original-image');
+  const message = document.getElementById('loaderMessage');
+  const percent = document.getElementById('loaderPercent');
 
-    const svg = section.querySelector('.jnr-formation-art');
-    // Give all SVG defs local unique IDs so multiple copies of this section can coexist on one page.
-    const suffix = `instance-${++instanceCounter}`;
-    const idMap = new Map();
-    svg.querySelectorAll('[id]').forEach((node) => {
-      const oldId = node.id;
-      const newId = `${oldId}-${suffix}`;
-      idMap.set(oldId, newId);
-      node.id = newId;
-    });
-    svg.querySelectorAll('*').forEach((node) => {
-      [...node.attributes].forEach((attr) => {
-        let value = attr.value;
-        if (attr.name === 'href' && value.startsWith('#')) {
-          value = `#${idMap.get(value.slice(1)) || value.slice(1)}`;
-        } else {
-          value = value.replace(/url\(#([^)]+)\)/g, (match, id) => `url(#${idMap.get(id) || id})`);
-        }
-        if (value !== attr.value) node.setAttribute(attr.name, value);
+  const W = 989, H = 868, TOTAL = 10000;
+  const clamp = v => Math.max(0, Math.min(1, v));
+  const smooth = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+  const easeOut = v => { v = clamp(v); return 1 - Math.pow(1 - v, 3); };
+  const rand = (min, max) => min + Math.random() * (max - min);
+  let raf = 0, startAt = 0, fillParticles = [], outerDots = [], innerDots = [], atmosphere = [];
+  let completed = false;
+
+  function resizeCanvas() {
+    const r = stage.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const bw = Math.max(1, Math.round(r.width * dpr));
+    const bh = Math.max(1, Math.round(r.height * dpr));
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw; canvas.height = bh;
+    }
+    // Draw directly in the same 989 × 868 coordinate space as the original SVG.
+    ctx.setTransform(bw / W, 0, 0, bh / H, 0, 0);
+  }
+
+  function makeBorderDots(path, spacing, delay, duration, isInner = false) {
+    const len = path.getTotalLength();
+    const count = Math.max(2, Math.ceil(len / spacing));
+    const out = [];
+    for (let i = 0; i <= count; i++) {
+      const d = len * i / count;
+      const pt = path.getPointAtLength(d);
+      out.push({
+        x: pt.x, y: pt.y, d, len,
+        start: delay + duration * (i / count),
+        radius: rand(isInner ? .62 : .7, isInner ? 1.35 : 1.55),
+        phase: rand(0, Math.PI * 2),
+        color: Math.random() < .27 ? '#f2ffff' : (Math.random() < .5 ? '#0bc5d0' : '#087f8a'),
+        isInner
       });
-    });
-    const outerOutlines = [...section.querySelectorAll('.jnr-outline-outer')];
-    const innerOutlines = [...section.querySelectorAll('.jnr-outline-inner')];
-    const fillClipRect = section.querySelector('.jnr-fill-clip-rect');
-    const fillLayer = section.querySelector('.jnr-fill-layer');
-    const originalImage = section.querySelector('.jnr-original-image');
-    const fillLight = section.querySelector('.jnr-fill-light');
-    const imageLight = section.querySelector('.jnr-image-light');
-    const replayButton = section.querySelector('[data-jnr-formation-replay]');
-    const width = 989;
-    const height = 868;
-    const outlineDuration = 3400;
-    const innerOutlineDuration = 620;
-    const fillDuration = 1900;
-    const holdDuration = 280;
-    const imageRevealDuration = 2200;
-    const outlineTotalDuration = outlineDuration + innerOutlineDuration;
-    const totalDuration = outlineTotalDuration + fillDuration + holdDuration + imageRevealDuration;
-    const outerPathLength = outerOutlines[0].getTotalLength();
-    const innerPathLength = innerOutlines.length ? innerOutlines[0].getTotalLength() : 0;
-    let raf = 0;
-    let observer = null;
-
-    outerOutlines.forEach((path) => {
-      path.style.setProperty('--jnr-outline-length', String(outerPathLength));
-      path.style.strokeDasharray = String(outerPathLength);
-      path.style.strokeDashoffset = String(outerPathLength);
-    });
-    innerOutlines.forEach((path) => {
-      path.style.setProperty('--jnr-outline-length', String(innerPathLength));
-      path.style.strokeDasharray = String(innerPathLength || 1);
-      path.style.strokeDashoffset = String(innerPathLength || 1);
-    });
-
-    const clamp01 = (v) => Math.max(0, Math.min(1, v));
-    const easeInOut = (v) => v < .5 ? 4*v*v*v : 1 - Math.pow(-2*v + 2, 3)/2;
-    const easeOut = (v) => 1 - Math.pow(1-v, 3);
-    const setWidth = (node, value) => node.setAttribute('width', String(Math.max(0, Math.min(width, value))));
-
-    function reset() {
-      cancelAnimationFrame(raf);
-      outerOutlines.forEach((path) => { path.style.strokeDashoffset = String(outerPathLength); path.style.opacity = ''; });
-      innerOutlines.forEach((path) => { path.style.strokeDashoffset = String(innerPathLength || 1); path.style.opacity = ''; });
-      setWidth(fillClipRect, 0);
-      fillLayer.style.opacity = '1';
-      originalImage.style.opacity = '0';
-      fillLight.style.opacity = '0';
-      imageLight.style.opacity = '0';
-      fillLight.setAttribute('x', '-125');
-      imageLight.setAttribute('x', '-135');
     }
+    return out;
+  }
 
-    function finish() {
-      cancelAnimationFrame(raf);
-      outerOutlines.forEach((path) => { path.style.strokeDashoffset = '0'; });
-      innerOutlines.forEach((path) => { path.style.strokeDashoffset = '0'; });
-      setWidth(fillClipRect, width);
-      fillLayer.style.opacity = '0';
-      originalImage.style.opacity = '1';
-      fillLight.style.opacity = '0';
-      imageLight.style.opacity = '0';
+  function setupAtmosphere() {
+    atmosphere = [];
+    const n = window.innerWidth < 600 ? 50 : 86;
+    for (let i = 0; i < n; i++) {
+      atmosphere.push({ x: rand(-22, W + 22), y: rand(-20, H + 20),
+        r: rand(.35, 1.2), phase: rand(0, 6.28), speed: rand(.12, .5),
+        drift: rand(2, 12), alpha: rand(.10, .36) });
     }
+  }
 
-    function play() {
-      if (observer) { observer.disconnect(); observer = null; }
-      reset();
-      if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-        finish();
-        return;
-      }
-      // Force style/layout so every replay begins from a genuinely empty artwork layer.
-      svg.getBoundingClientRect();
-      const start = performance.now();
-
-      function tick(now) {
-        const elapsed = now - start;
-
-        // Phase 1 — draw the outer contour from a single start point; the paint and original art stay hidden.
-        const outerP = clamp01(elapsed / outlineDuration);
-        const outerEased = easeInOut(outerP);
-        outerOutlines.forEach((path) => { path.style.strokeDashoffset = String(outerPathLength * (1-outerEased)); });
-
-        // Finish the enclosed counter only after the outer contour, instead of tracing separate contours simultaneously.
-        const innerElapsed = elapsed - outlineDuration;
-        const innerP = clamp01(innerElapsed / innerOutlineDuration);
-        const innerEased = innerP <= 0 ? 0 : easeInOut(innerP);
-        innerOutlines.forEach((path) => { path.style.strokeDashoffset = String(innerPathLength * (1-innerEased)); });
-
-        // Phase 2 — sweep a luminous cyan paint layer strictly inside the source PNG alpha.
-        const fillElapsed = elapsed - outlineTotalDuration;
-        const fillP = clamp01(fillElapsed / fillDuration);
-        const fillEased = fillP <= 0 ? 0 : easeOut(fillP);
-        setWidth(fillClipRect, width * fillEased);
-        const fillFront = width * fillEased;
-        fillLight.setAttribute('x', String(fillFront - 125));
-        fillLight.style.opacity = fillElapsed > 120 && fillP < .995
-          ? String(.9 * Math.sin(Math.PI * clamp01(fillP))) : '0';
-
-        // Phase 3 — cross-fade the original artwork in place over the completed paint; no moving image or hard wipe edge.
-        const revealElapsed = fillElapsed - fillDuration - holdDuration;
-        const revealP = clamp01(revealElapsed / imageRevealDuration);
-        const revealEased = revealP <= 0 ? 0 : easeInOut(revealP);
-        originalImage.style.opacity = String(revealEased);
-        fillLayer.style.opacity = String(1 - revealEased);
-        const revealFront = width * revealEased;
-        imageLight.setAttribute('x', String(revealFront - 135));
-        imageLight.style.opacity = revealElapsed > 100 && revealP < .99
-          ? String(.92 * Math.sin(Math.PI * revealP)) : '0';
-
-        if (elapsed < totalDuration) {
-          raf = requestAnimationFrame(tick);
-        } else {
-          finish();
+  function buildFillParticles(image) {
+    try {
+      const iw = image.naturalWidth || W, ih = image.naturalHeight || H;
+      const raster = document.createElement('canvas');
+      raster.width = iw; raster.height = ih;
+      const rctx = raster.getContext('2d', { willReadFrequently: true });
+      rctx.clearRect(0, 0, iw, ih);
+      rctx.drawImage(image, 0, 0, iw, ih);
+      const pixels = rctx.getImageData(0, 0, iw, ih).data;
+      // A finer grid on desktop; a lighter sample on phones to keep the animation silky.
+      const step = window.innerWidth < 520 ? 10.5 : 7.7;
+      fillParticles = [];
+      for (let y = step / 2; y < ih; y += step) {
+        const row = Math.floor(y / step);
+        const offset = row % 2 ? step * .45 : 0;
+        for (let x = step / 2 + offset; x < iw; x += step) {
+          const ix = Math.min(iw - 1, Math.floor(x));
+          const iy = Math.min(ih - 1, Math.floor(y));
+          const k = (iy * iw + ix) * 4;
+          const a = pixels[k + 3];
+          if (a < 55) continue;
+          const spreadAngle = rand(0, Math.PI * 2);
+          const spread = rand(85, 350);
+          const tx = x * W / iw, ty = y * H / ih;
+          const sx = tx + Math.cos(spreadAngle) * spread;
+          const sy = ty + Math.sin(spreadAngle) * spread * .88;
+          // The curve control sends each grain on a soft, varied arc instead of a rigid straight line.
+          const bend = rand(-52, 52);
+          const dx = tx - sx, dy = ty - sy;
+          const mag = Math.max(1, Math.hypot(dx, dy));
+          const cx = (sx + tx) * .5 + (-dy / mag) * bend;
+          const cy = (sy + ty) * .5 + ( dx / mag) * bend;
+          fillParticles.push({
+            sx, sy, cx, cy, tx, ty,
+            delay: rand(2.05, 3.42), duration: rand(2.25, 3.9),
+            radius: rand(1.7, 3.5), phase: rand(0, 6.28),
+            r: pixels[k], g: pixels[k + 1], b: pixels[k + 2],
+            alpha: a / 255, prevX: null, prevY: null,
+            trail: Math.random() < .19
+          });
         }
       }
-      raf = requestAnimationFrame(tick);
+    } catch (e) {
+      // The original logo still appears at the end if canvas pixel access is unavailable.
+      fillParticles = [];
     }
+  }
 
-    replayButton?.addEventListener('click', play);
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-      finish();
-    } else if ('IntersectionObserver' in window) {
-      observer = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) play();
-      }, { threshold: .12 });
-      observer.observe(section);
-    } else {
-      play();
+  function roundedDot(x, y, radius, color, alpha = 1) {
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawBorder(dots, elapsed, colorTone = 0) {
+    for (const p of dots) {
+      const age = elapsed - p.start;
+      if (age < 0) continue;
+      const appear = smooth(age / .14);
+      const shimmer = .73 + .27 * Math.sin(elapsed * 3.5 + p.phase);
+      const a = Math.min(1, appear) * shimmer;
+      roundedDot(p.x, p.y, p.radius * (0.88 + .12 * shimmer), p.color, a);
     }
-  });
+    // The bright drawing-head travels on the exact silhouette path, starting at its first point.
+    const isOuter = !dots[0]?.isInner;
+    const delay = isOuter ? 0 : 1.08;
+    const duration = isOuter ? 3.55 : 2.95;
+    const local = clamp((elapsed - delay) / duration);
+    if (elapsed >= delay && local < 1.015) {
+      const path = isOuter ? outerPath : innerPath;
+      const pt = path.getPointAtLength(path.getTotalLength() * local);
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.shadowColor = '#19d6e0';
+      ctx.shadowBlur = 20;
+      roundedDot(pt.x, pt.y, isOuter ? 5.0 : 3.9, '#eaffff', .95);
+      ctx.shadowBlur = 7;
+      roundedDot(pt.x, pt.y, isOuter ? 8.5 : 6.5, '#09b8c5', .45);
+      ctx.restore();
+    }
+  }
+
+  function drawFill(elapsed) {
+    for (let i = 0; i < fillParticles.length; i++) {
+      const p = fillParticles[i];
+      const raw = (elapsed - p.delay) / p.duration;
+      if (raw < 0) continue;
+      const t = clamp(raw), e = easeOut(t), inv = 1 - e;
+      const x = inv * inv * p.sx + 2 * inv * e * p.cx + e * e * p.tx;
+      const y = inv * inv * p.sy + 2 * inv * e * p.cy + e * e * p.ty;
+      const fade = (1 - smooth(clamp((elapsed - 7.45) / .92))) * p.alpha;
+      if (p.trail && t < .95 && p.prevX !== null) {
+        ctx.globalAlpha = Math.min(.38, (1 - t) * .34) * p.alpha;
+        ctx.strokeStyle = `rgb(${p.r},${p.g},${p.b})`;
+        ctx.lineWidth = Math.max(.55, p.radius * .7);
+        ctx.beginPath(); ctx.moveTo(p.prevX, p.prevY); ctx.lineTo(x, y); ctx.stroke();
+      }
+      p.prevX = x; p.prevY = y;
+      const pulse = 0.91 + 0.09 * Math.sin(elapsed * 5 + p.phase);
+      const radius = p.radius * (t < 1 ? (0.68 + 0.32 * e) : pulse);
+      const color = `rgb(${p.r},${p.g},${p.b})`;
+      roundedDot(x, y, radius, color, fade * (t < 1 ? 1 : .84));
+      if (t > .83 && t < 1 && (i % 13 === 0)) {
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.shadowColor = '#a9ffff'; ctx.shadowBlur = 5;
+        roundedDot(x, y, radius * .48, '#efffff', fade * .8); ctx.restore();
+      }
+    }
+  }
+
+  function drawAmbient(elapsed) {
+    if (elapsed < .55 || elapsed > 8.45) return;
+    const strength = smooth((elapsed - .55) / 1.1) * (1 - smooth((elapsed - 7.6) / .85));
+    for (const p of atmosphere) {
+      const x = p.x + Math.sin(elapsed * p.speed + p.phase) * p.drift;
+      const y = p.y + Math.cos(elapsed * p.speed * .8 + p.phase) * p.drift * .75;
+      const a = p.alpha * strength * (.68 + .32 * Math.sin(elapsed * 2.7 + p.phase));
+      roundedDot(x, y, p.r, '#41cbd2', a);
+    }
+  }
+
+  function finish() {
+    cancelAnimationFrame(raf);
+    ctx.clearRect(0, 0, W, H);
+    canvas.style.opacity = '0';
+    artwork.style.opacity = '1';
+    if (message) message.textContent = 'JNR identity ready';
+    if (percent) percent.textContent = '100%';
+    completed = true;
+  }
+
+  function play() {
+    cancelAnimationFrame(raf);
+    completed = false;
+    canvas.style.opacity = '1';
+    artwork.style.opacity = '0';
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { finish(); return; }
+    resizeCanvas();
+    startAt = performance.now();
+    function frame(now) {
+      const elapsedMs = Math.min(TOTAL, now - startAt);
+      const elapsed = elapsedMs / 1000;
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
+      drawAmbient(elapsed);
+      drawBorder(outerDots, elapsed);
+      drawBorder(innerDots, elapsed, 1);
+      drawFill(elapsed);
+      // Transition from the finely assembled particle mosaic to the exact original artwork.
+      const originalOpacity = smooth((elapsed - 7.25) / 1.12);
+      artwork.style.opacity = String(originalOpacity);
+      canvas.style.opacity = String(1 - smooth((elapsed - 7.4) / .95));
+
+      if (message) {
+        message.textContent = elapsed < .8 ? 'Igniting the first edge' :
+          elapsed < 3.6 ? 'Drawing the outer particle border' :
+          elapsed < 5.1 ? 'Building the inner contours' :
+          elapsed < 7.4 ? 'Assembling thousands of particles' :
+          elapsed < 9.5 ? 'Restoring the original logo finish' : 'JNR identity ready';
+      }
+      if (percent) percent.textContent = `${String(Math.round(elapsedMs / TOTAL * 100)).padStart(2, '0')}%`;
+      if (elapsedMs < TOTAL) raf = requestAnimationFrame(frame); else finish();
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function init() {
+    resizeCanvas();
+    outerDots = makeBorderDots(outerPath, 2.65, 0, 3.55, false);
+    innerDots = makeBorderDots(innerPath, 2.7, 1.08, 2.95, true);
+    setupAtmosphere();
+    const image = new Image();
+    image.onload = () => buildFillParticles(image);
+    image.onerror = () => { fillParticles = []; };
+    const href = source.getAttribute('href') || source.href?.baseVal;
+    if (href) image.src = href;
+    play();
+  }
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    setupAtmosphere();
+  }, { passive: true });
+  init();
 })();
 </script>
-<script src="./block.js" ></script>
+
 </body>
 </html>
