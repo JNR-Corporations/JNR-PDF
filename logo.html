@@ -8,43 +8,38 @@
 <meta name="description" content="JNR Corporation splash screen">
 <title>JNR Corporation — Splash Screen</title>
 <style>
-:root{color-scheme:light;--ink:#12313a;--muted:#72818a;--cyan:#08aeba;--deep:#087f8a}
-*{box-sizing:border-box}
+:root{color-scheme:light;--ink:#12343b;--muted:#71868d;--cyan:#0bb5c2;--deep:#087986;--progress:0}
+*,*::before,*::after{box-sizing:border-box}
 html,body{width:100%;min-height:100%;margin:0}
-body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
-.splash-screen{min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(22px,5vh,56px) 20px;position:relative;overflow:hidden;background:#fff}
-.splash-brand{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.5vh,24px)}
-.jnr-formation-section{width:100%;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent;color:inherit;isolation:isolate;-webkit-tap-highlight-color:transparent;position:relative}
-.jnr-formation-stage{width:min(100%,clamp(260px,66vw,500px));min-width:0;margin:0 auto;position:relative}
-.jnr-formation-art{display:block;width:100%;height:auto;max-height:54svh;overflow:visible;transform-origin:center}
-/* Only the clean, original-contour trace is visible during formation. */
-.jnr-outline{fill:none;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:var(--jnr-outline-length,100000);stroke-dashoffset:var(--jnr-outline-length,100000);pointer-events:none;filter:none}
-.jnr-outline-halo,.jnr-outline-edge{opacity:0!important;filter:none!important}
-.jnr-outline-core{stroke:#087f8a;stroke-width:1.7;opacity:1;filter:none}
+body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.splash-screen{min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(20px,5vh,52px) 18px;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse 48% 35% at 50% 42%,rgba(16,190,201,.075),rgba(16,190,201,0) 74%),linear-gradient(180deg,#fff 0%,#fcfeff 100%)}
+.splash-screen:before{content:"";position:absolute;z-index:-1;left:50%;top:43%;width:min(96vw,860px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(5,174,188,.034) 0%,rgba(5,174,188,.014) 37%,transparent 70%);pointer-events:none}
+.splash-brand{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transform:translateY(-.6vh)}
+.jnr-formation-section{width:100%;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent;color:inherit;isolation:isolate;position:relative;-webkit-tap-highlight-color:transparent}
+.jnr-formation-stage{width:min(88vw,540px);min-width:0;margin:0 auto;position:relative;isolation:isolate;overflow:visible;line-height:0}
+.jnr-formation-art{position:relative;z-index:1;display:block;width:100%;height:auto;overflow:visible;transform-origin:center;filter:none}
+.jnr-outline{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--outline-length,1);stroke-dashoffset:var(--outline-length,1);pointer-events:none}
+.jnr-outline-outer.jnr-outline-halo,.jnr-outline-inner.jnr-outline-halo{stroke:#35e3e9;stroke-width:8;opacity:0;filter:none}
+.jnr-outline-outer.jnr-outline-edge{stroke:#10bdc9;stroke-width:3.1;opacity:0}
+.jnr-outline-inner.jnr-outline-edge{stroke:#11c2ce;stroke-width:2.6;opacity:0}
+.jnr-outline-outer.jnr-outline-core{stroke:#087987;stroke-width:1.3;opacity:0}
+.jnr-outline-inner.jnr-outline-core{stroke:#087987;stroke-width:1.1;opacity:0}
 .jnr-fill-layer,.jnr-fill-light,.jnr-image-light{opacity:0!important;pointer-events:none}
-.jnr-original-image{opacity:0}
-.splash-copy{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;margin-top:clamp(2px,1vh,12px);opacity:0;animation:copy-arrive .78s 8.1s cubic-bezier(.2,.7,.2,1) both}
-.splash-title{font-size:clamp(25px,4vw,39px);font-weight:800;letter-spacing:.16em;text-indent:.16em;line-height:1.1;color:#12313a}
+.jnr-original-image{opacity:0;will-change:opacity}
+.jnr-particle-canvas{position:absolute;z-index:4;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:1;will-change:opacity}
+.splash-copy{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;margin-top:clamp(4px,1.2vh,12px);opacity:0;transform:translateY(8px);will-change:opacity,transform}
+.splash-title{font-size:clamp(24px,3.2vw,34px);font-weight:780;letter-spacing:.25em;text-indent:.25em;line-height:1.05;color:#12343b}
 .splash-title span{color:inherit}
-.splash-caption{margin:0;text-align:center;font-size:clamp(10px,1.4vw,12px);font-weight:650;letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;color:#71808b}
-.splash-loader{display:flex;align-items:center;gap:12px;margin-top:clamp(18px,4vh,34px);color:#71828c;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
-.loader-track{width:clamp(110px,18vw,168px);height:3px;overflow:hidden;border-radius:99px;background:#e5eff0}
-.loader-track:before{content:"";display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:#0caeba;animation:progress-fill 10s linear forwards}
-.loader-status{min-width:31px;font-variant-numeric:tabular-nums}
-@keyframes progress-fill{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
-@keyframes copy-arrive{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-@media(min-width:900px){.splash-screen{padding:42px}.jnr-formation-stage{width:min(42vw,460px)}.jnr-formation-art{max-height:56svh}}
-@media(max-width:480px){.splash-screen{padding:24px 16px}.jnr-formation-stage{width:min(88vw,390px)}.jnr-formation-art{max-height:45svh}.splash-loader{margin-top:22px}}
-@media(max-height:600px){.splash-screen{padding:12px}.jnr-formation-stage{width:min(42vh,300px)}.jnr-formation-art{max-height:48svh}.splash-loader{margin-top:10px}.splash-copy{gap:6px}}
-@media(prefers-reduced-motion:reduce){.splash-copy{animation:none;opacity:1}.loader-track:before{animation:none;transform:scaleX(1)}}
-
-/* Particle-led construction layer. The source SVG/image itself is preserved. */
-.jnr-formation-stage{isolation:isolate;overflow:visible}
-.jnr-particle-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:5;opacity:1;transition:opacity .18s linear}
-.jnr-outline,.jnr-outline-core,.jnr-outline-halo,.jnr-outline-edge{opacity:0!important;filter:none!important}
-.jnr-original-image{opacity:0}
-.splash-title{letter-spacing:.19em}
-@media(prefers-reduced-motion:reduce){.jnr-particle-canvas{display:none}.splash-copy{animation:none;opacity:1}}
+.splash-caption{margin:0;text-align:center;font-size:clamp(9px,1.1vw,10.5px);font-weight:650;letter-spacing:.21em;text-indent:.21em;text-transform:uppercase;color:#758990}
+.splash-loader{width:min(82vw,310px);display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto 3px;align-items:center;column-gap:14px;row-gap:11px;margin-top:clamp(23px,4.2vh,34px);color:#71858c;font-size:9px;font-weight:680;letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+#loaderMessage{grid-column:1;grid-row:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .25s ease}
+.loader-track{grid-column:1/-1;grid-row:2;width:100%;height:3px;position:relative;overflow:hidden;border-radius:99px;background:#e7f0f1}
+.loader-track:before{content:"";display:block;width:100%;height:100%;transform:scaleX(var(--progress));transform-origin:left center;border-radius:inherit;background:linear-gradient(90deg,#087986 0%,#13bcca 70%,#54dce2 100%);will-change:transform}
+.loader-status{grid-column:2;grid-row:1;min-width:34px;text-align:right;color:#476c73;letter-spacing:.1em}
+@media(min-width:760px){.splash-screen{padding:38px}.jnr-formation-stage{width:min(49vw,540px,63svh)}.splash-loader{margin-top:30px}}
+@media(max-width:480px){.splash-screen{padding:22px 14px}.jnr-formation-stage{width:min(90vw,390px,52svh)}.splash-copy{margin-top:8px;gap:7px}.splash-title{font-size:25px}.splash-caption{font-size:9px;letter-spacing:.17em;text-indent:.17em}.splash-loader{margin-top:23px;width:min(84vw,300px)}}
+@media(max-height:620px){.splash-screen{padding:10px 16px}.splash-brand{transform:translateY(-1vh)}.jnr-formation-stage{width:min(42svh,430px,72vw)}.splash-copy{margin-top:2px;gap:5px}.splash-title{font-size:23px}.splash-caption{font-size:8px}.splash-loader{margin-top:15px;row-gap:7px}}
+@media(prefers-reduced-motion:reduce){.splash-copy{opacity:1!important;transform:none!important}.jnr-particle-canvas{display:none}.jnr-original-image{opacity:1!important}.loader-track:before{transform:scaleX(1)}}
 </style>
 </head>
 <body>
@@ -113,33 +108,56 @@ body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-san
     </div>
   </div>
   <div class="splash-loader" role="status" aria-label="Splash screen progress">
-    <span id="loaderMessage">Crafting the identity</span>
+    <span id="loaderMessage">Loading the Workspace</span>
     <span class="loader-track" aria-hidden="true"></span>
     <span class="loader-status" id="loaderPercent">00%</span>
   </div>
 </main>
 <script>
 (() => {
+  'use strict';
   const section = document.querySelector('[data-jnr-formation]');
   if (!section) return;
   const stage = section.querySelector('.jnr-formation-stage');
   const svg = section.querySelector('.jnr-formation-art');
   const canvas = stage.querySelector('.jnr-particle-canvas');
   const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
-  const outerPath = svg.querySelector('.jnr-outline-outer.jnr-outline-core');
-  const innerPath = svg.querySelector('.jnr-outline-inner.jnr-outline-core');
   const source = svg.querySelector('#jnrFormationSource');
   const artwork = svg.querySelector('.jnr-original-image');
+  const copy = document.querySelector('.splash-copy');
   const message = document.getElementById('loaderMessage');
   const percent = document.getElementById('loaderPercent');
-
-  const W = 989, H = 868, TOTAL = 10000;
+  const W = 989, H = 868, TOTAL = 7000;
   const clamp = v => Math.max(0, Math.min(1, v));
   const smooth = v => { v = clamp(v); return v * v * (3 - 2 * v); };
-  const easeOut = v => { v = clamp(v); return 1 - Math.pow(1 - v, 3); };
+  const easeOut = v => 1 - Math.pow(1 - clamp(v), 3);
   const rand = (min, max) => min + Math.random() * (max - min);
-  let raf = 0, startAt = 0, fillParticles = [], outerDots = [], innerDots = [], atmosphere = [];
-  let completed = false;
+  let raf = 0, startAt = 0, fillParticles = [], borderParticles = [];
+  let outerPaths = [], innerPaths = [], outerPath = null, innerPath = null;
+  let outerLength = 0, innerLength = 0, completed = false;
+
+  function prepareOutline(pathSelector) {
+    return [...svg.querySelectorAll(pathSelector)].map(path => {
+      let length = 0;
+      try { length = path.getTotalLength(); } catch (_) {}
+      path.style.strokeDasharray = String(length || 1);
+      path.style.strokeDashoffset = String(length || 1);
+      path.style.opacity = '0';
+      let opacity = .8;
+      if (path.classList.contains('jnr-outline-halo')) opacity = .19;
+      else if (path.classList.contains('jnr-outline-edge')) opacity = .52;
+      else if (path.classList.contains('jnr-outline-core')) opacity = .88;
+      return { el: path, length: length || 1, opacity };
+    });
+  }
+
+  function setOutline(paths, progress, opacityScale = 1) {
+    for (const p of paths) {
+      p.el.style.strokeDashoffset = String(p.length * (1 - progress));
+      const begin = Math.min(1, progress * 7.5);
+      p.el.style.opacity = String(p.opacity * begin * opacityScale);
+    }
+  }
 
   function resizeCanvas() {
     const r = stage.getBoundingClientRect();
@@ -147,39 +165,29 @@ body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-san
     const bw = Math.max(1, Math.round(r.width * dpr));
     const bh = Math.max(1, Math.round(r.height * dpr));
     if (canvas.width !== bw || canvas.height !== bh) {
-      canvas.width = bw; canvas.height = bh;
+      canvas.width = bw;
+      canvas.height = bh;
     }
-    // Draw directly in the same 989 × 868 coordinate space as the original SVG.
     ctx.setTransform(bw / W, 0, 0, bh / H, 0, 0);
   }
 
-  function makeBorderDots(path, spacing, delay, duration, isInner = false) {
+  function makeBorderParticles(path, spacing, delay, duration, inner = false) {
     const len = path.getTotalLength();
     const count = Math.max(2, Math.ceil(len / spacing));
     const out = [];
     for (let i = 0; i <= count; i++) {
       const d = len * i / count;
       const pt = path.getPointAtLength(d);
+      const seed = Math.random();
       out.push({
         x: pt.x, y: pt.y, d, len,
-        start: delay + duration * (i / count),
-        radius: rand(isInner ? .62 : .7, isInner ? 1.35 : 1.55),
-        phase: rand(0, Math.PI * 2),
-        color: Math.random() < .27 ? '#f2ffff' : (Math.random() < .5 ? '#0bc5d0' : '#087f8a'),
-        isInner
+        start: delay + duration * i / count,
+        radius: rand(inner ? .65 : .78, inner ? 1.2 : 1.45),
+        color: seed < .22 ? '#f6ffff' : seed < .62 ? '#13c6d1' : '#087986',
+        inner
       });
     }
     return out;
-  }
-
-  function setupAtmosphere() {
-    atmosphere = [];
-    const n = window.innerWidth < 600 ? 50 : 86;
-    for (let i = 0; i < n; i++) {
-      atmosphere.push({ x: rand(-22, W + 22), y: rand(-20, H + 20),
-        r: rand(.35, 1.2), phase: rand(0, 6.28), speed: rand(.12, .5),
-        drift: rand(2, 12), alpha: rand(.10, .36) });
-    }
   }
 
   function buildFillParticles(image) {
@@ -191,46 +199,59 @@ body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-san
       rctx.clearRect(0, 0, iw, ih);
       rctx.drawImage(image, 0, 0, iw, ih);
       const pixels = rctx.getImageData(0, 0, iw, ih).data;
-      // A finer grid on desktop; a lighter sample on phones to keep the animation silky.
-      const step = window.innerWidth < 520 ? 10.5 : 7.7;
+      const step = window.innerWidth < 540 ? 10.8 : 8.8;
+      const centerX = W * .5, centerY = H * .5;
       fillParticles = [];
-      for (let y = step / 2; y < ih; y += step) {
-        const row = Math.floor(y / step);
-        const offset = row % 2 ? step * .45 : 0;
-        for (let x = step / 2 + offset; x < iw; x += step) {
+      for (let baseY = step * .5; baseY < ih; baseY += step) {
+        const row = Math.floor(baseY / step);
+        const y = baseY + rand(-step * .27, step * .27);
+        const offset = row % 2 ? step * .43 : 0;
+        for (let baseX = step * .5 + offset; baseX < iw; baseX += step) {
+          const x = baseX + rand(-step * .27, step * .27);
           const ix = Math.min(iw - 1, Math.floor(x));
           const iy = Math.min(ih - 1, Math.floor(y));
           const k = (iy * iw + ix) * 4;
           const a = pixels[k + 3];
-          if (a < 55) continue;
-          const spreadAngle = rand(0, Math.PI * 2);
-          const spread = rand(85, 350);
+          if (a < 48) continue;
           const tx = x * W / iw, ty = y * H / ih;
-          const sx = tx + Math.cos(spreadAngle) * spread;
-          const sy = ty + Math.sin(spreadAngle) * spread * .88;
-          // The curve control sends each grain on a soft, varied arc instead of a rigid straight line.
-          const bend = rand(-52, 52);
-          const dx = tx - sx, dy = ty - sy;
-          const mag = Math.max(1, Math.hypot(dx, dy));
-          const cx = (sx + tx) * .5 + (-dy / mag) * bend;
-          const cy = (sy + ty) * .5 + ( dx / mag) * bend;
+          let dx = tx - centerX, dy = ty - centerY;
+          let mag = Math.hypot(dx, dy);
+          if (mag < 8) { const angle = rand(0, Math.PI * 2); dx = Math.cos(angle); dy = Math.sin(angle); mag = 1; }
+          const nx = dx / mag, ny = dy / mag;
+          const txTan = -ny, tyTan = nx;
+          // Particles begin just outside their final location and follow a gentle, controlled arc inward.
+          const travel = rand(88, 184);
+          const lateral = rand(-42, 42);
+          const sx = tx + nx * travel + txTan * lateral;
+          const sy = ty + ny * travel + tyTan * lateral;
+          const vx = tx - sx, vy = ty - sy;
+          const vmag = Math.max(1, Math.hypot(vx, vy));
+          const bend = rand(-56, 56);
+          const cx = (sx + tx) * .5 - (vy / vmag) * bend;
+          const cy = (sy + ty) * .5 + (vx / vmag) * bend;
+          const wave = .62 * (tx / W) + .38 * (1 - ty / H);
           fillParticles.push({
             sx, sy, cx, cy, tx, ty,
-            delay: rand(2.05, 3.42), duration: rand(2.25, 3.9),
-            radius: rand(1.7, 3.5), phase: rand(0, 6.28),
+            delay: 1.05 + Math.pow(wave, .72) * 2.2 + rand(0, .22),
+            duration: rand(1.85, 2.1),
+            radius: rand(step * .22, step * .4),
+            phase: rand(0, Math.PI * 2),
+            glow: Math.random() < .13,
             r: pixels[k], g: pixels[k + 1], b: pixels[k + 2],
-            alpha: a / 255, prevX: null, prevY: null,
-            trail: Math.random() < .19
+            alpha: a / 255,
+            glint: Math.random() < .035,
+            streak: Math.random() < .055
           });
         }
       }
-    } catch (e) {
-      // The original logo still appears at the end if canvas pixel access is unavailable.
+    } catch (_) {
+      // The unchanged embedded SVG image remains the final source of truth.
       fillParticles = [];
     }
   }
 
-  function roundedDot(x, y, radius, color, alpha = 1) {
+  function drawDot(x, y, radius, color, alpha = 1) {
+    if (alpha <= .005 || radius <= 0) return;
     ctx.globalAlpha = alpha;
     ctx.fillStyle = color;
     ctx.beginPath();
@@ -238,70 +259,119 @@ body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-san
     ctx.fill();
   }
 
-  function drawBorder(dots, elapsed, colorTone = 0) {
-    for (const p of dots) {
+  function drawSpark(path, length, progress, inner = false) {
+    if (!path || progress <= 0 || progress >= 1.001) return;
+    const d = Math.max(0, Math.min(length, length * progress));
+    const pt = path.getPointAtLength(d);
+    const glowR = inner ? 12 : 17;
+    const glow = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, glowR);
+    glow.addColorStop(0, inner ? 'rgba(244,255,255,.92)' : 'rgba(249,255,255,1)');
+    glow.addColorStop(.13, inner ? 'rgba(31,214,224,.72)' : 'rgba(31,214,224,.86)');
+    glow.addColorStop(1, 'rgba(31,214,224,0)');
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = glow;
+    ctx.beginPath(); ctx.arc(pt.x, pt.y, glowR, 0, Math.PI * 2); ctx.fill();
+    const tailOffsets = inner ? [4, 9, 15] : [4, 9, 15, 23];
+    tailOffsets.forEach((offset, i) => {
+      const back = path.getPointAtLength(Math.max(0, d - offset));
+      drawDot(back.x, back.y, Math.max(.65, (inner ? 1.25 : 1.65) - i * .22), '#20cbd6', .68 - i * .14);
+    });
+    drawDot(pt.x, pt.y, inner ? 1.65 : 2.15, '#ffffff', .98);
+    drawDot(pt.x, pt.y, inner ? .8 : 1.05, '#16c6d2', 1);
+  }
+
+  function drawBorderParticles(elapsed) {
+    const fade = 1 - smooth((elapsed - 2.32) / 1.25);
+    if (fade <= .001) return;
+    for (const p of borderParticles) {
+      if (elapsed < p.start) continue;
       const age = elapsed - p.start;
-      if (age < 0) continue;
-      const appear = smooth(age / .14);
-      const shimmer = .73 + .27 * Math.sin(elapsed * 3.5 + p.phase);
-      const a = Math.min(1, appear) * shimmer;
-      roundedDot(p.x, p.y, p.radius * (0.88 + .12 * shimmer), p.color, a);
-    }
-    // The bright drawing-head travels on the exact silhouette path, starting at its first point.
-    const isOuter = !dots[0]?.isInner;
-    const delay = isOuter ? 0 : 1.08;
-    const duration = isOuter ? 3.55 : 2.95;
-    const local = clamp((elapsed - delay) / duration);
-    if (elapsed >= delay && local < 1.015) {
-      const path = isOuter ? outerPath : innerPath;
-      const pt = path.getPointAtLength(path.getTotalLength() * local);
-      ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.shadowColor = '#19d6e0';
-      ctx.shadowBlur = 20;
-      roundedDot(pt.x, pt.y, isOuter ? 5.0 : 3.9, '#eaffff', .95);
-      ctx.shadowBlur = 7;
-      roundedDot(pt.x, pt.y, isOuter ? 8.5 : 6.5, '#09b8c5', .45);
-      ctx.restore();
+      const alpha = fade * (1 - smooth((age - .42) / .8)) * (p.inner ? .78 : .88);
+      const pulse = .88 + .12 * Math.sin(elapsed * 6 + p.d * .025);
+      drawDot(p.x, p.y, p.radius * pulse, p.color, alpha);
     }
   }
 
-  function drawFill(elapsed) {
+  function bezier(p, t) {
+    const inv = 1 - t;
+    return {
+      x: inv * inv * p.sx + 2 * inv * t * p.cx + t * t * p.tx,
+      y: inv * inv * p.sy + 2 * inv * t * p.cy + t * t * p.ty
+    };
+  }
+
+  function drawFormationParticles(elapsed) {
+    const fade = 1 - smooth((elapsed - 5.02) / .7);
+    if (fade <= .001) return;
     for (let i = 0; i < fillParticles.length; i++) {
       const p = fillParticles[i];
       const raw = (elapsed - p.delay) / p.duration;
       if (raw < 0) continue;
-      const t = clamp(raw), e = easeOut(t), inv = 1 - e;
-      const x = inv * inv * p.sx + 2 * inv * e * p.cx + e * e * p.tx;
-      const y = inv * inv * p.sy + 2 * inv * e * p.cy + e * e * p.ty;
-      const fade = (1 - smooth(clamp((elapsed - 7.45) / .92))) * p.alpha;
-      if (p.trail && t < .95 && p.prevX !== null) {
-        ctx.globalAlpha = Math.min(.38, (1 - t) * .34) * p.alpha;
+      const moving = raw < 1;
+      const t = moving ? smooth(raw) : 1;
+      const pos = bezier(p, t);
+      const pulse = moving ? (0.88 + .12 * Math.sin(elapsed * 5 + p.phase)) : .92;
+      const alpha = p.alpha * fade * (moving ? .94 : .86);
+      if (p.streak && moving && raw > .04 && raw < .94 && (i % 3 === 0)) {
+        const tail = bezier(p, Math.max(0, t - .045));
+        ctx.globalAlpha = alpha * .16;
         ctx.strokeStyle = `rgb(${p.r},${p.g},${p.b})`;
-        ctx.lineWidth = Math.max(.55, p.radius * .7);
-        ctx.beginPath(); ctx.moveTo(p.prevX, p.prevY); ctx.lineTo(x, y); ctx.stroke();
+        ctx.lineWidth = Math.max(.6, p.radius * .62);
+        ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(tail.x, tail.y); ctx.lineTo(pos.x, pos.y); ctx.stroke();
       }
-      p.prevX = x; p.prevY = y;
-      const pulse = 0.91 + 0.09 * Math.sin(elapsed * 5 + p.phase);
-      const radius = p.radius * (t < 1 ? (0.68 + 0.32 * e) : pulse);
-      const color = `rgb(${p.r},${p.g},${p.b})`;
-      roundedDot(x, y, radius, color, fade * (t < 1 ? 1 : .84));
-      if (t > .83 && t < 1 && (i % 13 === 0)) {
-        ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.shadowColor = '#a9ffff'; ctx.shadowBlur = 5;
-        roundedDot(x, y, radius * .48, '#efffff', fade * .8); ctx.restore();
+      const radius = p.radius * pulse * (moving ? .86 + .14 * t : .9);
+      const cyanMix = moving ? .34 * (1 - t) : 0;
+      const rr = Math.round(p.r * (1 - cyanMix) + 18 * cyanMix);
+      const gg = Math.round(p.g * (1 - cyanMix) + 202 * cyanMix);
+      const bb = Math.round(p.b * (1 - cyanMix) + 214 * cyanMix);
+      if (p.glow && moving) drawDot(pos.x, pos.y, radius * 2.0, '#16c5d0', alpha * .13 * (1 - t * .35));
+      drawDot(pos.x, pos.y, radius, `rgb(${rr},${gg},${bb})`, alpha);
+      if (p.glint && moving && raw > .58 && raw < 1) {
+        drawDot(pos.x, pos.y, Math.max(.55, radius * .34), '#f5ffff', alpha * .78);
       }
     }
   }
 
-  function drawAmbient(elapsed) {
-    if (elapsed < .55 || elapsed > 8.45) return;
-    const strength = smooth((elapsed - .55) / 1.1) * (1 - smooth((elapsed - 7.6) / .85));
-    for (const p of atmosphere) {
-      const x = p.x + Math.sin(elapsed * p.speed + p.phase) * p.drift;
-      const y = p.y + Math.cos(elapsed * p.speed * .8 + p.phase) * p.drift * .75;
-      const a = p.alpha * strength * (.68 + .32 * Math.sin(elapsed * 2.7 + p.phase));
-      roundedDot(x, y, p.r, '#41cbd2', a);
+  function render(now) {
+    const elapsedMs = Math.min(TOTAL, now - startAt);
+    const elapsed = elapsedMs / 1000;
+    const outerProgress = smooth((elapsed - .17) / 1.58);
+    const innerProgress = smooth((elapsed - .64) / 1.62);
+    const outlineFade = 1 - smooth((elapsed - 4.43) / .52);
+    setOutline(outerPaths, outerProgress, outlineFade);
+    setOutline(innerPaths, innerProgress, outlineFade);
+
+    const artworkProgress = smooth((elapsed - 5.0) / .78);
+    artwork.style.opacity = String(artworkProgress);
+    canvas.style.opacity = String(1 - smooth((elapsed - 5.12) / .65));
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+    drawBorderParticles(elapsed);
+    drawSpark(outerPath, outerLength, outerProgress, false);
+    drawSpark(innerPath, innerLength, innerProgress, true);
+    drawFormationParticles(elapsed);
+
+    const copyProgress = smooth((elapsed - 5.34) / .58);
+    if (copy) {
+      copy.style.opacity = String(copyProgress);
+      copy.style.transform = `translateY(${(1 - copyProgress) * 8}px)`;
     }
+
+    if (message) {
+      message.textContent = elapsed < .55 ? 'Starting the first edge' :
+        elapsed < 1.95 ? 'Tracing the original contour' :
+        elapsed < 5.0 ? 'Assembling the mark' :
+        elapsed < 6.0 ? 'Refining the original finish' : 'Identity formed';
+    }
+    const progress = clamp(elapsedMs / TOTAL);
+    document.documentElement.style.setProperty('--progress', String(progress));
+    if (percent) percent.textContent = `${String(Math.round(progress * 100)).padStart(2, '0')}%`;
+
+    if (elapsedMs < TOTAL) raf = requestAnimationFrame(render);
+    else finish();
   }
 
   function finish() {
@@ -309,63 +379,46 @@ body{min-height:100svh;background:#fff;color:var(--ink);font-family:Inter,ui-san
     ctx.clearRect(0, 0, W, H);
     canvas.style.opacity = '0';
     artwork.style.opacity = '1';
-    if (message) message.textContent = 'JNR identity ready';
+    [...outerPaths, ...innerPaths].forEach(p => p.el.style.opacity = '0');
+    if (copy) { copy.style.opacity = '1'; copy.style.transform = 'translateY(0)'; }
+    if (message) message.textContent = 'Identity ready';
     if (percent) percent.textContent = '100%';
+    document.documentElement.style.setProperty('--progress', '1');
     completed = true;
   }
 
   function play() {
-    cancelAnimationFrame(raf);
-    completed = false;
-    canvas.style.opacity = '1';
-    artwork.style.opacity = '0';
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { finish(); return; }
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      finish(); return;
+    }
     resizeCanvas();
     startAt = performance.now();
-    function frame(now) {
-      const elapsedMs = Math.min(TOTAL, now - startAt);
-      const elapsed = elapsedMs / 1000;
-      ctx.clearRect(0, 0, W, H);
-      ctx.globalAlpha = 1;
-      ctx.globalCompositeOperation = 'source-over';
-      drawAmbient(elapsed);
-      drawBorder(outerDots, elapsed);
-      drawBorder(innerDots, elapsed, 1);
-      drawFill(elapsed);
-      // Transition from the finely assembled particle mosaic to the exact original artwork.
-      const originalOpacity = smooth((elapsed - 7.25) / 1.12);
-      artwork.style.opacity = String(originalOpacity);
-      canvas.style.opacity = String(1 - smooth((elapsed - 7.4) / .95));
-
-      if (message) {
-        message.textContent = elapsed < .8 ? 'Igniting the first edge' :
-          elapsed < 3.6 ? 'Drawing the outer particle border' :
-          elapsed < 5.1 ? 'Building the inner contours' :
-          elapsed < 7.4 ? 'Assembling thousands of particles' :
-          elapsed < 9.5 ? 'Restoring the original logo finish' : 'JNR identity ready';
-      }
-      if (percent) percent.textContent = `${String(Math.round(elapsedMs / TOTAL * 100)).padStart(2, '0')}%`;
-      if (elapsedMs < TOTAL) raf = requestAnimationFrame(frame); else finish();
-    }
-    raf = requestAnimationFrame(frame);
+    completed = false;
+    raf = requestAnimationFrame(render);
   }
 
   function init() {
     resizeCanvas();
-    outerDots = makeBorderDots(outerPath, 2.65, 0, 3.55, false);
-    innerDots = makeBorderDots(innerPath, 2.7, 1.08, 2.95, true);
-    setupAtmosphere();
+    outerPaths = prepareOutline('.jnr-outline-outer');
+    innerPaths = prepareOutline('.jnr-outline-inner');
+    outerPath = svg.querySelector('.jnr-outline-outer.jnr-outline-core');
+    innerPath = svg.querySelector('.jnr-outline-inner.jnr-outline-core');
+    try { outerLength = outerPath.getTotalLength(); innerLength = innerPath.getTotalLength(); } catch (_) {}
+    try {
+      borderParticles = [
+        ...makeBorderParticles(outerPath, 3.45, .18, 1.58, false),
+        ...makeBorderParticles(innerPath, 3.25, .64, 1.62, true)
+      ];
+    } catch (_) { borderParticles = []; }
     const image = new Image();
-    image.onload = () => buildFillParticles(image);
-    image.onerror = () => { fillParticles = []; };
-    const href = source.getAttribute('href') || source.href?.baseVal;
-    if (href) image.src = href;
-    play();
+    image.onload = () => { buildFillParticles(image); play(); };
+    image.onerror = () => play();
+    const href = source && (source.getAttribute('href') || source.href?.baseVal);
+    if (href) image.src = href; else play();
   }
 
   window.addEventListener('resize', () => {
     resizeCanvas();
-    setupAtmosphere();
   }, { passive: true });
   init();
 })();

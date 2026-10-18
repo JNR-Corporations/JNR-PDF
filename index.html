@@ -18,11 +18,11 @@
   >
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>JNR PDF Studio — PDF Creator, Converter &amp; Editor</title>
+  <title>JNR PDF Studio | Online PDF Tools by JNR Corporations</title>
 
   <meta
     name="description"
-    content="Create professional PDFs from text, images and code with JNR PDF Studio. Convert PDFs to images or Word documents and format documents using a powerful markup-based editor. Explore PDF tools by JNR Corporations."
+    content="Create, edit, merge, split, compress, sign, watermark and secure PDFs with JNR PDF Studio. Explore document conversion and privacy tools by JNR Corporations."
   >
 
   <meta name="author" content="JNR Corporations">
@@ -72,12 +72,12 @@
 
   <meta
     property="og:title"
-    content="JNR PDF Studio — Powerful PDF Tools by JNR Corporations"
+    content="JNR PDF Studio — All-in-One PDF Tools by JNR Corporations"
   >
 
   <meta
     property="og:description"
-    content="Create PDFs from text, images and code. Convert PDF files to images or Word documents, and format documents with JNR PDF Studio."
+    content="Create, convert, compress, merge, split, sign, watermark and protect PDFs in one mobile-friendly workspace with JNR PDF Studio."
   >
 
   <meta
@@ -107,14 +107,10 @@
 
   <meta
     property="og:image:alt"
-    content="JNR PDF Studio — PDF creation, conversion and document formatting"
+    content="JNR PDF Studio — create, edit, convert, compress, sign and secure PDF documents"
   >
-
-  <!-- Add these two tags only if banner.png is actually 1200 x 630. -->
-  <!--
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  -->
 
   <!-- 06. X / TWITTER CARD METADATA -->
   <meta
@@ -124,12 +120,12 @@
 
   <meta
     name="twitter:title"
-    content="JNR PDF Studio — PDF Creator & Converter"
+    content="JNR PDF Studio — All-in-One PDF Tools"
   >
 
   <meta
     name="twitter:description"
-    content="Create, convert and format PDF documents with JNR PDF Studio by JNR Corporations."
+    content="Create, convert, compress, merge, split, sign and protect PDFs with JNR PDF Studio by JNR Corporations."
   >
 
   <meta
@@ -162,7 +158,8 @@
         "@id": "https://jnr-pdf.vercel.app/#application",
         "name": "JNR PDF Studio",
         "url": "https://jnr-pdf.vercel.app/",
-        "description": "A web-based PDF toolkit for creating documents from text, images and code, converting PDF files to images or Word documents, and formatting content.",
+        "description": "A mobile-friendly PDF toolkit for creating, converting, compressing, merging, splitting, signing, watermarking, organizing and protecting PDF documents.",
+        "featureList": ["Create PDF", "Convert PDF", "Compress PDF", "Merge and split pages", "Sign PDF", "Add watermarks", "Redact sensitive content", "Remove metadata", "Repair PDFs", "Compare PDF versions"],
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any",
         "publisher": {
@@ -197,15 +194,65 @@
   <!-- Keep your existing inline CSS and JavaScript below.
        No external CSS/JS paths are assumed. -->
 
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="/manifest.json">
 <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then((reg) => console.log('Service Worker registered successfully:', reg.scope))
-        .catch((err) => console.error('Service Worker registration failed:', err));
-    });
+/* JNR PDF Studio: update-aware Service Worker registration */
+(() => {
+  if (!('serviceWorker' in navigator)) return;
+
+  const registerJNRWorker = async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('/sw.js', {
+        scope: '/',
+        updateViaCache: 'none'
+      });
+
+      console.info('[JNR PDF Studio] Service Worker registered:', registration.scope);
+
+      // Check immediately after registration and whenever the page returns.
+      const checkForUpdates = () => {
+        if (navigator.onLine && registration.update) {
+          registration.update().catch(error =>
+            console.debug('[JNR PDF Studio] Update check deferred:', error)
+          );
+        }
+      };
+
+      checkForUpdates();
+      window.addEventListener('online', checkForUpdates);
+      window.addEventListener('focus', checkForUpdates);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') checkForUpdates();
+      });
+
+      // If an update is already waiting, activate it; block.js handles one reload
+      // after the new worker takes control.
+      if (registration.waiting && navigator.serviceWorker.controller) {
+        registration.waiting.postMessage({ type: 'JNR_SKIP_WAITING' });
+      }
+
+      registration.addEventListener('updatefound', () => {
+        const installing = registration.installing;
+        if (!installing) return;
+        installing.addEventListener('statechange', () => {
+          if (installing.state === 'installed' &&
+              navigator.serviceWorker.controller &&
+              registration.waiting) {
+            registration.waiting.postMessage({ type: 'JNR_SKIP_WAITING' });
+          }
+        });
+      });
+    } catch (error) {
+      console.error('[JNR PDF Studio] Service Worker registration failed:', error);
+    }
+  };
+
+  if (document.readyState === 'complete') {
+    registerJNRWorker();
+  } else {
+    window.addEventListener('load', registerJNRWorker, { once: true });
   }
+})();
 </script>
 <style>
 :root{--red:#c82032;--red-dark:#9f1727;--red-soft:#fff0f1;--ink:#201b1c;--muted:#746b6d;--line:#eee2e3;--paper:#fff;--bg:#fffafa;--green:#16855b;--shadow:0 16px 46px rgba(76,22,31,.075);--shadow-sm:0 7px 22px rgba(76,22,31,.055);--radius:24px;--max:1220px}
@@ -276,6 +323,224 @@ body.splash-active {
 }
 </style>
 <link rel="stylesheet" href="block-tap.css">
+
+<style id="jnr-mobile-share-enhancements">
+  /* The desktop design remains untouched; the extra share control is mobile-only. */
+  .jnr-mobile-share-trigger { display: none; }
+  @media (max-width: 700px) {
+    .nav { gap: 8px; }
+    .jnr-mobile-share-trigger {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      min-width: 42px; min-height: 42px; padding: 9px 11px; flex: 0 0 auto;
+      border: 1px solid #f0cbd0; border-radius: 13px;
+      background: linear-gradient(135deg, #fff, #fff2f4); color: #c82032;
+      box-shadow: 0 4px 13px rgba(200,32,50,.09); font: inherit; font-size: 11px;
+      font-weight: 850; cursor: pointer; -webkit-tap-highlight-color: transparent;
+      transition: transform .18s, box-shadow .18s, background .18s;
+    }
+    .jnr-mobile-share-trigger svg { width: 18px; height: 18px; flex: 0 0 auto; }
+    .jnr-mobile-share-trigger:active { transform: scale(.96); }
+    .nav-cta { flex: 0 0 auto; }
+    .tool-card { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    .filter-chip, .btn, .nav-cta, .mobile-bottom a { touch-action: manipulation; }
+    .filter-chip { min-height: 40px; }
+    .tool-card:hover { transform: none; }
+    .tool-card:active { transform: scale(.988); border-color: #e9aab2; box-shadow: 0 7px 20px rgba(100,20,33,.07); }
+    .searchbox { box-shadow: 0 7px 19px rgba(58,24,29,.045); }
+  }
+  @media (max-width: 380px) {
+    .jnr-mobile-share-trigger { width: 40px; min-width: 40px; padding: 9px; }
+    .jnr-mobile-share-trigger span { display: none; }
+    .brand { gap: 8px; }
+    .brand-name { font-size: 16px; }
+  }
+  @media (hover: none) and (pointer: coarse) and (max-width: 700px) {
+    .tool-card, .featured-card { box-shadow: 0 8px 22px rgba(58,24,29,.05); }
+    .btn, .nav-cta, .filter-chip { min-height: 42px; }
+  }
+
+  #jnr-share-layer {
+    position: fixed; inset: 0; z-index: 100200; display: grid; align-items: end;
+    padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(35, 17, 21, .46); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .22s ease, visibility .22s ease;
+  }
+  #jnr-share-layer.jnr-share-open { opacity: 1; visibility: visible; pointer-events: auto; }
+  #jnr-share-dialog {
+    position: relative; width: min(100%, 520px); max-height: min(88dvh, 760px); overflow-y: auto;
+    margin: 0 auto; padding: 13px 18px 20px; border: 1px solid #fff;
+    border-radius: 28px; background: radial-gradient(circle at 100% 0%, #fff0f2, transparent 38%), #fff;
+    box-shadow: 0 24px 80px rgba(51, 11, 20, .26); transform: translateY(24px);
+    transition: transform .26s cubic-bezier(.2,.8,.2,1); color: #201b1c;
+  }
+  #jnr-share-layer.jnr-share-open #jnr-share-dialog { transform: translateY(0); }
+  .jnr-share-handle { width: 42px; height: 4px; border-radius: 99px; background: #e8d5d8; margin: 0 auto 14px; }
+  .jnr-share-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .jnr-share-kicker { margin: 0 0 4px; color: #c82032; font-size: 9px; letter-spacing: 1.5px; font-weight: 900; text-transform: uppercase; }
+  #jnr-share-title { margin: 0; font-size: 23px; line-height: 1.15; font-weight: 900; letter-spacing: -.8px; }
+  .jnr-share-close { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 auto; border: 1px solid #f0dfe2; border-radius: 12px; background: #fff; color: #66585b; font-size: 22px; cursor: pointer; }
+  .jnr-share-copy { margin: 8px 0 14px; color: #7d7174; font-size: 12px; line-height: 1.6; }
+  .jnr-share-preview { overflow: hidden; margin: 0 0 15px; border: 1px solid #f0d7da; border-radius: 18px; background: #fff6f7; box-shadow: 0 6px 18px rgba(100,20,33,.055); }
+  .jnr-share-preview img { display: block; width: 100%; max-height: 165px; aspect-ratio: 1200 / 630; object-fit: cover; object-position: center; background: #fff0f1; }
+  .jnr-share-preview-caption { padding: 10px 12px 12px; }
+  .jnr-share-preview-caption strong { display: block; color: #302426; font-size: 12px; font-weight: 900; }
+  .jnr-share-preview-caption span { display: block; margin-top: 3px; color: #88797d; font-size: 10px; overflow-wrap: anywhere; }
+  .jnr-share-native { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 48px; padding: 12px 15px; border: 0; border-radius: 15px; background: linear-gradient(135deg,#d72c40,#b8182b); color: #fff; box-shadow: 0 9px 20px rgba(200,32,50,.2); font: inherit; font-size: 12px; font-weight: 850; cursor: pointer; }
+  .jnr-share-native svg { width: 18px; height: 18px; }
+  .jnr-share-divider { display: flex; align-items: center; gap: 10px; margin: 15px 0 11px; color: #aa999d; font-size: 9px; font-weight: 850; letter-spacing: 1px; text-transform: uppercase; }
+  .jnr-share-divider:before, .jnr-share-divider:after { content: ''; height: 1px; flex: 1; background: #f0e5e7; }
+  .jnr-share-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+  .jnr-share-tile { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 10px 3px 8px; border: 1px solid #f0e7e8; border-radius: 15px; background: rgba(255,255,255,.9); color: #4b4143; font: inherit; cursor: pointer; transition: transform .17s, border-color .17s, background .17s; }
+  .jnr-share-tile:active { transform: scale(.96); border-color: #e5a4ac; background: #fff8f9; }
+  .jnr-share-tile span:last-child { max-width: 100%; overflow-wrap: anywhere; font-size: 9px; line-height: 1.25; font-weight: 800; text-align: center; }
+  .jnr-share-app { display: grid; place-items: center; width: 37px; height: 37px; border-radius: 13px; color: #fff; font-size: 13px; font-weight: 950; box-shadow: 0 5px 11px rgba(35,20,24,.11); }
+  .jnr-share-app svg { width: 20px; height: 20px; }
+  .jnr-share-app.wa { background: #22a96b; }
+  .jnr-share-app.fb { background: #2874e8; font-family: Arial, sans-serif; font-size: 24px; }
+  .jnr-share-app.tg { background: #229ed9; }
+  .jnr-share-app.ig { background: linear-gradient(135deg,#8246c8,#ec496b 62%,#f9b54b); }
+  .jnr-share-app.x { background: #171717; }
+  .jnr-share-app.mail { background: #6c788e; }
+  .jnr-share-app.copy { background: #c82032; }
+  .jnr-share-app.in { background: #176da8; }
+  #jnr-share-status { min-height: 18px; margin: 12px 0 0; color: #6c5b60; font-size: 10px; line-height: 1.55; text-align: center; }
+  #jnr-share-status:empty { display: none; }
+  .jnr-share-privacy { margin: 10px 0 0; text-align: center; color: #a09395; font-size: 9px; line-height: 1.5; }
+  @media (min-width: 701px) { #jnr-share-layer { align-items: center; padding: 20px; } }
+  @media (max-width: 380px) { #jnr-share-dialog { padding-inline: 14px; border-radius: 24px; } .jnr-share-grid { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; } .jnr-share-tile { padding-inline: 1px; } .jnr-share-app { width: 34px; height: 34px; } }
+  @media (prefers-reduced-motion: reduce) { #jnr-share-layer, #jnr-share-dialog, .jnr-mobile-share-trigger, .jnr-share-tile { transition: none !important; } }
+</style>
+
+
+<style id="jnr-android-polish-v2">
+  /* Android-only layout corrections; desktop styling and dimensions remain unchanged. */
+  @media (max-width: 700px) {
+    html, body { max-width: 100%; }
+    body { overflow-x: clip; }
+    img, video, iframe, canvas, svg { max-width: 100%; }
+    @supports not (overflow: clip) { body { overflow-x: hidden; } }
+    .topbar {
+      position: fixed !important; top: 0; left: 0; right: 0; width: 100%;
+      z-index: 100100; background: rgba(255,255,255,.96);
+      -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+      box-shadow: 0 5px 20px rgba(70,20,28,.055);
+    }
+    body { padding-top: 66px !important; padding-bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
+    .nav { width: 100%; min-height: 66px; gap: 8px; }
+    .brand { min-width: 0; flex: 1 1 auto; gap: 8px; overflow: hidden; }
+    .brand > span:last-child { min-width: 0; }
+    .brand-name { white-space: nowrap; font-size: 16px; }
+    .brand-sub { white-space: nowrap; letter-spacing: 1.1px; font-size: 8px; }
+    .jnr-mobile-share-trigger { flex: 0 0 auto; min-width: 42px; height: 42px; min-height: 42px; }
+    .nav-cta { flex: 0 0 auto; min-height: 42px; padding: 9px 11px; border-radius: 12px; gap: 6px; font-size: 10px; white-space: nowrap; }
+    .nav-cta svg { width: 14px; height: 14px; }
+    /* Filters wrap into rows instead of making the whole page scroll sideways. */
+    .filter-row { display: flex; flex-wrap: wrap; gap: 7px; width: 100%; max-width: 100%; overflow: visible; margin-right: 0; padding-right: 0; }
+    .filter-chip { white-space: normal; max-width: 100%; min-height: 38px; padding: 8px 10px; }
+    .wrap { width: calc(100% - 26px); max-width: 100%; }
+    .hero-grid, .featured-card, .tools-top, .section-head, .footer-top, .footer-bottom { min-width: 0; }
+    .tool-grid { min-width: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tool-card, .category-block, .category-head, .tools-section, .featured, .bottom-cta { min-width: 0; max-width: 100%; }
+    .hero h1 { overflow-wrap: normal; }
+    .hero h1 .accent { white-space: normal; }
+    .mobile-bottom { z-index: 100050; padding-bottom: calc(9px + env(safe-area-inset-bottom)); }
+    .mobile-bottom a { flex: 1 1 0; min-width: 0; }
+    .mobile-bottom a span { white-space: nowrap; }
+  }
+  @media (max-width: 390px) {
+    .brand-mark { width: 35px; height: 35px; border-radius: 11px; }
+    .brand-name { font-size: 15px; letter-spacing: -.4px; }
+    .brand-sub { font-size: 7px; letter-spacing: .9px; }
+    .jnr-mobile-share-trigger { width: 40px; min-width: 40px; padding: 8px; }
+    .jnr-mobile-share-trigger span { display: none; }
+    .nav-cta { width: 40px; min-width: 40px; padding: 0; font-size: 0; gap: 0; }
+    .nav-cta svg { width: 18px; height: 18px; }
+  }
+  @media (max-width: 340px) {
+    .wrap { width: calc(100% - 20px); }
+    .tool-grid { gap: 8px; }
+    .tool-card { padding-inline: 10px; }
+    .mobile-bottom a { font-size: 8px; }
+  }
+
+  /* Redesigned JNR share sheet: intentional custom panel first, system app chooser second. */
+  #jnr-share-layer {
+    position: fixed; inset: 0; z-index: 100200; display: flex; align-items: flex-end; justify-content: center;
+    padding: 12px 10px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(32, 12, 17, .54); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    overscroll-behavior: contain; opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .22s ease, visibility .22s ease;
+  }
+  #jnr-share-layer.jnr-share-open { opacity: 1; visibility: visible; pointer-events: auto; }
+  #jnr-share-dialog {
+    position: relative; width: min(100%, 540px); max-height: min(91dvh, 820px); overflow-y: auto; overscroll-behavior: contain;
+    margin: 0 auto; padding: 13px 18px calc(20px + env(safe-area-inset-bottom));
+    border: 1px solid rgba(255,255,255,.95); border-radius: 30px 30px 24px 24px;
+    background: radial-gradient(ellipse at 100% 0%, rgba(255,218,224,.75), transparent 40%), linear-gradient(180deg,#fff 0%,#fffafa 100%);
+    box-shadow: 0 26px 90px rgba(36,8,15,.35); transform: translateY(26px);
+    transition: transform .27s cubic-bezier(.2,.8,.2,1); color: #201b1c; scrollbar-width: thin;
+  }
+  #jnr-share-layer.jnr-share-open #jnr-share-dialog { transform: translateY(0); }
+  .jnr-share-handle { width: 44px; height: 4px; border-radius: 99px; background: #e6cbd0; margin: 0 auto 16px; }
+  .jnr-share-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .jnr-share-kicker { margin: 0 0 5px; color: #c82032; font-size: 9px; letter-spacing: 1.45px; font-weight: 950; text-transform: uppercase; }
+  #jnr-share-title { margin: 0; font-size: clamp(21px, 5.5vw, 25px); line-height: 1.12; font-weight: 950; letter-spacing: -.75px; }
+  .jnr-share-close { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 auto; border: 1px solid #f1dadd; border-radius: 15px; background: rgba(255,255,255,.94); color: #66585b; font-size: 24px; cursor: pointer; box-shadow: 0 4px 12px rgba(80,20,30,.05); }
+  .jnr-share-copy { margin: 9px 0 13px; color: #76686b; font-size: 12px; line-height: 1.55; }
+  .jnr-share-preview { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); align-items: stretch; overflow: hidden; margin: 0 0 13px; border: 1px solid #f1d1d6; border-radius: 20px; background: linear-gradient(125deg,#fff0f2,#fff 70%); box-shadow: 0 8px 22px rgba(100,20,33,.075); }
+  .jnr-share-preview img { display: block; width: 100%; height: 100%; min-height: 118px; max-height: 154px; aspect-ratio: 1200 / 630; object-fit: cover; object-position: center; background: #fff0f1; }
+  .jnr-share-preview-caption { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 12px; }
+  .jnr-share-preview-caption strong { display: block; color: #302426; font-size: 12px; line-height: 1.35; font-weight: 950; }
+  .jnr-share-preview-caption span { display: block; margin-top: 7px; color: #88797d; font-size: 10px; overflow-wrap: anywhere; line-height: 1.4; }
+  .jnr-share-preview-caption:after { content: "PUBLIC WEBSITE  ·  JNR CORPORATIONS"; display: block; margin-top: 10px; color: #c82032; font-size: 7px; line-height: 1.4; letter-spacing: .8px; font-weight: 950; }
+  .jnr-share-native, .jnr-share-banner-native { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 50px; padding: 12px 15px; border: 0; border-radius: 16px; background: linear-gradient(135deg,#df3045,#a91629); color: #fff; box-shadow: 0 9px 23px rgba(200,32,50,.22); font: inherit; font-size: 12px; font-weight: 900; cursor: pointer; transition: transform .16s, box-shadow .16s; }
+  .jnr-share-native:active, .jnr-share-banner-native:active { transform: scale(.99); }
+  .jnr-share-native svg, .jnr-share-banner-native svg { width: 19px; height: 19px; flex: 0 0 auto; }
+  .jnr-share-banner-native { margin-top: 8px; min-height: 46px; border: 1px solid #f0cbd0; background: #fff; color: #b11c2e; box-shadow: 0 4px 13px rgba(200,32,50,.06); }
+  .jnr-share-divider { display: flex; align-items: center; gap: 10px; margin: 15px 0 10px; color: #aa999d; font-size: 9px; font-weight: 900; letter-spacing: .9px; text-transform: uppercase; }
+  .jnr-share-divider:before, .jnr-share-divider:after { content: ''; height: 1px; flex: 1; background: #f0e0e3; }
+  .jnr-share-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 9px; }
+  .jnr-share-tile { min-width: 0; min-height: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 9px 3px 8px; border: 1px solid #efe3e5; border-radius: 17px; background: rgba(255,255,255,.96); color: #4b4143; font: inherit; cursor: pointer; box-shadow: 0 4px 11px rgba(35,20,24,.035); transition: transform .17s, border-color .17s, background .17s, box-shadow .17s; touch-action: manipulation; }
+  .jnr-share-tile:hover { border-color: #e7a9b1; box-shadow: 0 7px 15px rgba(100,20,33,.07); }
+  .jnr-share-tile:active { transform: scale(.96); border-color: #e5a4ac; background: #fff8f9; }
+  .jnr-share-tile span:last-child { max-width: 100%; overflow-wrap: anywhere; font-size: 10px; line-height: 1.25; font-weight: 850; text-align: center; }
+  .jnr-share-app { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 14px; color: #fff; font-size: 13px; font-weight: 950; box-shadow: 0 5px 11px rgba(35,20,24,.12); }
+  .jnr-share-app svg { width: 21px; height: 21px; }
+  .jnr-share-app.wa { background: #20a96b; }
+  .jnr-share-app.fb { background: #2874e8; font-family: Arial,sans-serif; font-size: 25px; }
+  .jnr-share-app.tg { background: #229ed9; }
+  .jnr-share-app.ig { background: linear-gradient(135deg,#8246c8,#ec496b 62%,#f9b54b); }
+  .jnr-share-app.x { background: #171717; }
+  .jnr-share-app.mail { background: #6c788e; }
+  .jnr-share-app.copy { background: #c82032; }
+  .jnr-share-app.in { background: #176da8; }
+  #jnr-share-status { min-height: 18px; margin: 12px 0 0; padding: 0 5px; color: #6c5b60; font-size: 10px; line-height: 1.55; text-align: center; overflow-wrap: anywhere; }
+  #jnr-share-status:empty { display: none; }
+  .jnr-share-privacy { margin: 8px 0 0; text-align: center; color: #9b8b8f; font-size: 9px; line-height: 1.5; }
+  @media (min-width: 701px) {
+    #jnr-share-layer { align-items: center; padding: 20px; }
+    #jnr-share-dialog { border-radius: 30px; padding: 18px 22px 22px; max-height: min(90vh,820px); }
+  }
+  @media (max-width: 420px) {
+    #jnr-share-layer { padding: 7px 7px calc(7px + env(safe-area-inset-bottom)); }
+    #jnr-share-dialog { width: 100%; padding: 11px 13px calc(15px + env(safe-area-inset-bottom)); border-radius: 26px 26px 20px 20px; max-height: calc(94dvh - env(safe-area-inset-bottom)); }
+    .jnr-share-preview { grid-template-columns: 1fr; }
+    .jnr-share-preview img { height: auto; min-height: 0; max-height: 125px; width: 100%; object-fit: cover; }
+    .jnr-share-preview-caption { padding: 9px 11px 10px; }
+    .jnr-share-preview-caption:after { display: none; }
+    .jnr-share-preview-caption span { margin-top: 4px; }
+    .jnr-share-grid { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; }
+    .jnr-share-tile { min-height: 71px; gap: 5px; padding: 7px 1px 6px; border-radius: 14px; }
+    .jnr-share-app { width: 35px; height: 35px; border-radius: 12px; }
+    .jnr-share-tile span:last-child { font-size: 9px; }
+    .jnr-share-copy { margin: 7px 0 10px; font-size: 11px; }
+    .jnr-share-divider { margin: 12px 0 8px; }
+    .jnr-share-native, .jnr-share-banner-native { min-height: 46px; font-size: 11px; }
+  }
+  @media (prefers-reduced-motion: reduce) { #jnr-share-layer, #jnr-share-dialog, .jnr-mobile-share-trigger, .jnr-share-tile { transition: none !important; } }
+</style>
+
 </head>
 <body>
     <div id="splash-overlay">
@@ -311,7 +576,11 @@ body.splash-active {
  <div class="wrap nav">
   <a class="brand" href="#home" aria-label="JNR PDFs home"><span class="brand-mark"><svg><use href="#i-file"/></svg></span><span><span class="brand-name">JNR <span>PDFs</span></span><span class="brand-sub">   All in One </span></span></a>
   <nav class="navlinks" aria-label="Main navigation"><a href="#tools">Explore tools</a><a href="#create">Create & convert</a><a href="#organize">Organize</a><a href="#secure">Privacy & security</a></nav>
-  <a class="nav-cta" href="./jnr-pdf.html"><svg><use href="#i-spark"/></svg>PDF Maker</a>
+  <button class="jnr-mobile-share-trigger" id="jnr-mobile-share-trigger" type="button" aria-label="Open JNR PDF Studio share panel" title="Share JNR PDF Studio">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="1.8"/><path d="m8.7 10.6 6.6-4.1M8.7 13.5l6.6 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>Share</span>
+  </button>
+  <a class="nav-cta" href="./jnr-pdf.html" aria-label="Open JNR PDF Maker" title="Open JNR PDF Maker"><svg><use href="#i-spark"/></svg>PDF Maker</a>
  </div>
 </header>
 <main id="home">
@@ -358,22 +627,22 @@ body.splash-active {
   </div></div>
   <div class="category-block" id="edit" data-category="edit"><div class="category-head"><span class="category-symbol"><svg><use href="#i-edit"/></svg></span><div><h3>Edit & polish</h3><p>Make your document cleaner, smaller and more complete.</p></div></div><div class="tool-grid">
    <a class="tool-card" href="./jnr-pdf-editor.html" target="_blank" rel="noopener noreferrer" data-tags="edit annotate text image draw markup" data-tint="orange"><span class="tool-icon"><svg><use href="#i-edit"/></svg></span><h4>Edit PDF</h4><p>Add content or annotate a PDF document.</p><span class="card-action"><span>Edit document</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/compress-pdf" target="_blank" rel="noopener noreferrer" data-tags="compress reduce file size optimize" data-tint="green"><span class="tool-icon"><svg><use href="#i-compress"/></svg></span><h4>Compress PDF</h4><p>Reduce the file size for easier sharing.</p><span class="card-action"><span>Compress file</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/add-watermark" target="_blank" rel="noopener noreferrer" data-tags="watermark branding stamp mark" data-tint="purple"><span class="tool-icon"><svg><use href="#i-watermark"/></svg></span><h4>Add Watermark</h4><p>Place a text or image watermark on pages.</p><span class="card-action"><span>Add watermark</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/add-page-numbers" target="_blank" rel="noopener noreferrer" data-tags="page number numbering footer header" data-tint="blue"><span class="tool-icon"><svg><use href="#i-pages"/></svg></span><h4>Add Page Numbers</h4><p>Give every page a clear number.</p><span class="card-action"><span>Number pages</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/sign-pdf" target="_blank" rel="noopener noreferrer" data-tags="sign signature electronic signature" data-tint="teal"><span class="tool-icon"><svg><use href="#i-sign"/></svg></span><h4>Sign PDF</h4><p>Add a signature to your document.</p><span class="card-action"><span>Sign document</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/compare-pdf" target="_blank" rel="noopener noreferrer" data-tags="compare check differences versions" data-tint="orange"><span class="tool-icon"><svg><use href="#i-eye"/></svg></span><h4>Compare PDFs</h4><p>Check two versions for differences.</p><span class="card-action"><span>Compare files</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./pdf-compressor.html" target="_blank" rel="noopener noreferrer" data-tags="compress reduce file size optimize" data-tint="green"><span class="tool-icon"><svg><use href="#i-compress"/></svg></span><h4>Compress PDF</h4><p>Reduce the file size for easier sharing.</p><span class="card-action"><span>Compress file</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./pdf-watermark.html" target="_blank" rel="noopener noreferrer" data-tags="watermark branding stamp mark" data-tint="purple"><span class="tool-icon"><svg><use href="#i-watermark"/></svg></span><h4>Add Watermark</h4><p>Place a text or image watermark on pages.</p><span class="card-action"><span>Add watermark</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./pdf-to-word.html" target="_blank" rel="noopener noreferrer" data-tags="page number numbering footer header" data-tint="blue"><span class="tool-icon"><svg><use href="#i-pages"/></svg></span><h4>Add Page Numbers</h4><p>Give every page a clear number.</p><span class="card-action"><span>Number pages</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./pdf-signature-studio.html" target="_blank" rel="noopener noreferrer" data-tags="sign signature electronic signature" data-tint="teal"><span class="tool-icon"><svg><use href="#i-sign"/></svg></span><h4>Sign PDF</h4><p>Add a signature to your document.</p><span class="card-action"><span>Sign document</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./jnr-pdf-compare-studio.html" target="_blank" rel="noopener noreferrer" data-tags="compare check differences versions" data-tint="orange"><span class="tool-icon"><svg><use href="#i-eye"/></svg></span><h4>Compare PDFs</h4><p>Check two versions for differences.</p><span class="card-action"><span>Compare files</span><svg><use href="#i-arrow"/></svg></span></a>
   </div></div>
   <div class="category-block" id="secure" data-category="secure"><div class="category-head"><span class="category-symbol"><svg><use href="#i-shield"/></svg></span><div><h3>Privacy & security</h3><p>Manage access to documents you share.</p></div></div><div class="tool-grid">
    <a class="tool-card" href="./protect-pdf.html" target="_blank" rel="noopener noreferrer" data-tags="protect password encrypt secure lock" data-tint="green"><span class="tool-icon"><svg><use href="#i-lock"/></svg></span><h4>Protect PDF</h4><p>Add password protection to a PDF.</p><span class="card-action"><span>Protect file</span><svg><use href="#i-arrow"/></svg></span></a>
    <a class="tool-card" href="./pdf-password-unlock.html" target="_blank" rel="noopener noreferrer" data-tags="unlock remove password owner permission" data-tint="orange"><span class="tool-icon"><svg><use href="#i-unlock"/></svg></span><h4>Unlock PDF</h4><p>Remove supported PDF restrictions when authorized.</p><span class="card-action"><span>Unlock file</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/redact-pdf" target="_blank" rel="noopener noreferrer" data-tags="redact hide sensitive information privacy" data-tint="slate"><span class="tool-icon"><svg><use href="#i-shield"/></svg></span><h4>Redact PDF</h4><p>Remove sensitive information from a PDF.</p><span class="card-action"><span>Redact content</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/remove-pdf-metadata" target="_blank" rel="noopener noreferrer" data-tags="metadata remove author hidden information privacy" data-tint="slate"><span class="tool-icon"><svg><use href="#i-shield"/></svg></span><h4>Remove Metadata</h4><p>Clean document properties before sharing.</p><span class="card-action"><span>Clean metadata</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./jnr-pdf-redaction-studio.html" target="_blank" rel="noopener noreferrer" data-tags="redact hide sensitive information privacy" data-tint="slate"><span class="tool-icon"><svg><use href="#i-shield"/></svg></span><h4>Redact PDF</h4><p>Remove sensitive information from a PDF.</p><span class="card-action"><span>Redact content</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./jnr-pdf-metadata-cleaner.html" target="_blank" rel="noopener noreferrer" data-tags="metadata remove author hidden information privacy" data-tint="slate"><span class="tool-icon"><svg><use href="#i-shield"/></svg></span><h4>Remove Metadata</h4><p>Clean document properties before sharing.</p><span class="card-action"><span>Clean metadata</span><svg><use href="#i-arrow"/></svg></span></a>
   </div></div>
   <div class="category-block" id="smart" data-category="smart"><div class="category-head"><span class="category-symbol"><svg><use href="#i-scan"/></svg></span><div><h3>Read, check & repair</h3><p>Make scanned documents and tricky files more useful.</p></div></div><div class="tool-grid">
-   <a class="tool-card" href="https://tools.pdf24.org/en/ocr-pdf" target="_blank" rel="noopener noreferrer" data-tags="ocr recognize scanned text search" data-tint="teal"><span class="tool-icon"><svg><use href="#i-scan"/></svg></span><h4>OCR PDF</h4><p>Recognize text in scanned PDF pages.</p><span class="card-action"><span>Recognize text</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/repair-pdf" target="_blank" rel="noopener noreferrer" data-tags="repair fix damaged broken corrupt pdf" data-tint="orange"><span class="tool-icon"><svg><use href="#i-spark"/></svg></span><h4>Repair PDF</h4><p>Try to recover a damaged PDF file.</p><span class="card-action"><span>Repair file</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="https://tools.pdf24.org/en/pdf-to-pdf-a" target="_blank" rel="noopener noreferrer" data-tags="archive standard pdf a long term" data-tint="blue"><span class="tool-icon"><svg><use href="#i-file"/></svg></span><h4>PDF to PDF/A</h4><p>Prepare a PDF for long-term archiving.</p><span class="card-action"><span>Convert format</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./pdf-to-word.html" target="_blank" rel="noopener noreferrer" data-tags="ocr recognize scanned text search" data-tint="teal"><span class="tool-icon"><svg><use href="#i-scan"/></svg></span><h4>OCR PDF</h4><p>Recognize text in scanned PDF pages.</p><span class="card-action"><span>Recognize text</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./jnr-pdf-repair-studio.html" target="_blank" rel="noopener noreferrer" data-tags="repair fix damaged broken corrupt pdf" data-tint="orange"><span class="tool-icon"><svg><use href="#i-spark"/></svg></span><h4>Repair PDF</h4><p>Try to recover a damaged PDF file.</p><span class="card-action"><span>Repair file</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./jnr-pdfa.html" target="_blank" rel="noopener noreferrer" data-tags="archive standard pdf a long term" data-tint="blue"><span class="tool-icon"><svg><use href="#i-file"/></svg></span><h4>PDF to PDF/A</h4><p>Prepare a PDF for long-term archiving.</p><span class="card-action"><span>Convert format</span><svg><use href="#i-arrow"/></svg></span></a>
    <a class="tool-card" href="https://tools.pdf24.org/en/all-tools" target="_blank" rel="noopener noreferrer" data-tags="all more tools browse complete list" data-tint="purple"><span class="tool-icon"><svg><use href="#i-grid"/></svg></span><h4>Explore More Tools</h4><p>Browse the full PDF24 tool collection.</p><span class="card-action"><span>View all tools</span><svg><use href="#i-arrow"/></svg></span></a>
   </div></div>
   <div class="empty-state" id="emptyState"><strong>No tools found just yet</strong><p>Try a different keyword or select “All tools”.</p></div>
@@ -382,6 +651,45 @@ body.splash-active {
 </main>
 <footer class="footer"><div class="wrap"><div class="footer-top"><div><a class="footer-brand" href="#home"><span class="brand-mark"><svg><use href="#i-file"/></svg></span><span><span class="brand-name">JNR <span>PDFs</span></span><span class="brand-sub" style="display:block">Every page, made simple</span></span></a><p class="footer-note">A thoughtfully arranged home for your PDF work.</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="#home">Home</a><a href="#maker">JNR PDF Maker</a><a href="#tools">All tools</a><a href="#create">Convert</a><a href="#secure">Security</a></nav></div><div class="footer-bottom"><span>© <span id="year">2026</span> JNR PDFs. Made with care.</span><span class="disclaimer">Third-party tools open on their respective websites. Review their privacy terms before uploading sensitive documents.</span></div></div></footer>
 <nav class="mobile-bottom" aria-label="Quick navigation"><a class="active" href="#home"><svg><use href="#i-file"/></svg><span>Home</span></a><a href="#maker"><svg><use href="#i-spark"/></svg><span>PDF Maker</span></a><a href="#tools"><svg><use href="#i-grid"/></svg><span>All tools</span></a><a href="#secure"><svg><use href="#i-shield"/></svg><span>Security</span></a></nav>
+
+<!-- JNR PDF Studio: native sharing on supported devices, branded fallback elsewhere. -->
+<div id="jnr-share-layer" aria-hidden="true">
+  <section id="jnr-share-dialog" role="dialog" aria-modal="true" aria-labelledby="jnr-share-title" tabindex="-1">
+    <div class="jnr-share-handle" aria-hidden="true"></div>
+    <div class="jnr-share-dialog-head">
+      <div><p class="jnr-share-kicker">Spread the word</p><h2 id="jnr-share-title">Share JNR PDF Studio</h2></div>
+      <button class="jnr-share-close" id="jnr-share-close" type="button" aria-label="Close share panel">×</button>
+    </div>
+    <p class="jnr-share-copy">Your all-in-one PDF workspace, ready to share. Choose an app below or copy the link.</p>
+    <div class="jnr-share-preview">
+      <img id="jnr-share-banner" src="/banner.png" alt="JNR PDF Studio social sharing banner" onerror="this.style.display='none'">
+      <div class="jnr-share-preview-caption"><strong>JNR PDF Studio — All-in-One PDF Tools</strong><span id="jnr-share-url-label">https://jnr-pdf.vercel.app/</span></div>
+    </div>
+    <button class="jnr-share-native" id="jnr-share-native" type="button">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="1.8"/><path d="m8.7 10.6 6.6-4.1M8.7 13.5l6.6 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Share website link to apps
+    </button>
+    <button class="jnr-share-banner-native" id="jnr-share-banner-native" type="button">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><circle cx="8" cy="9" r="1.4" stroke="currentColor" stroke-width="1.5"/><path d="m4 18 5-5 3 3 3-4 5 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Share banner image + link
+    </button>
+    <div class="jnr-share-divider">Choose a destination</div>
+    <div class="jnr-share-grid" role="group" aria-label="Share destinations">
+      <button class="jnr-share-tile" data-share-target="whatsapp" type="button"><span class="jnr-share-app wa">WA</span><span>WhatsApp</span></button>
+      <button class="jnr-share-tile" data-share-target="facebook" type="button"><span class="jnr-share-app fb">f</span><span>Facebook</span></button>
+      <button class="jnr-share-tile" data-share-target="telegram" type="button"><span class="jnr-share-app tg"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 11 15-6-4.8 15-3.5-6L4 11Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m10.7 14 4.7-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span>Telegram</span></button>
+      <button class="jnr-share-tile" data-share-target="instagram" type="button"><span class="jnr-share-app ig"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.8" r="1" fill="currentColor"/></svg></span><span>Instagram</span></button>
+      <button class="jnr-share-tile" data-share-target="x" type="button"><span class="jnr-share-app x">X</span><span>X / Twitter</span></button>
+      <button class="jnr-share-tile" data-share-target="linkedin" type="button"><span class="jnr-share-app in">in</span><span>LinkedIn</span></button>
+      <button class="jnr-share-tile" data-share-target="email" type="button"><span class="jnr-share-app mail"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span><span>Email</span></button>
+      <button class="jnr-share-tile" data-share-target="copy" type="button"><span class="jnr-share-app copy"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.7"/></svg></span><span>Copy link</span></button>
+      <button class="jnr-share-tile" data-share-target="more" type="button"><span class="jnr-share-app" style="background:#efe7ff;color:#6d48b7;font-size:21px">+</span><span>More options</span></button>
+    </div>
+    <p id="jnr-share-status" role="status" aria-live="polite"></p>
+    <p class="jnr-share-privacy">Your link opens the public JNR PDF Studio website. Preview images depend on each app's support and cache.</p>
+  </section>
+</div>
+
 <script>
 (()=>{
  const search=document.getElementById('toolSearch');
@@ -1132,8 +1440,188 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 </script>
-</body>
-</html>
+
+<script id="jnr-share-controller">
+(() => {
+  "use strict";
+  const trigger = document.getElementById("jnr-mobile-share-trigger");
+  const layer = document.getElementById("jnr-share-layer");
+  const dialog = document.getElementById("jnr-share-dialog");
+  const closeButton = document.getElementById("jnr-share-close");
+  const nativeButton = document.getElementById("jnr-share-native");
+  const bannerNativeButton = document.getElementById("jnr-share-banner-native");
+  const status = document.getElementById("jnr-share-status");
+  if (!trigger || !layer || !dialog || !nativeButton || !status) return;
+
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const shareUrl = canonical && canonical.href ? canonical.href : "https://jnr-pdf.vercel.app/";
+  const shareTitle = "JNR PDF Studio — All-in-One PDF Tools";
+  const shareText = "Create, convert, compress, merge, split, sign, watermark, redact and protect PDFs in one mobile-friendly workspace. Explore JNR PDF Studio by JNR Corporations.";
+  const urlLabel = document.getElementById("jnr-share-url-label");
+  if (urlLabel) urlLabel.textContent = shareUrl;
+  const bannerUrl = new URL("banner.png", shareUrl).href;
+  let bannerFile = null;
+  // Preload banner before a click so Web Share file sharing can remain inside a user gesture.
+  fetch(bannerUrl, { cache: "force-cache", credentials: "same-origin" }).then(response => {
+    if (!response.ok) throw new Error("Banner unavailable");
+    return response.blob();
+  }).then(blob => {
+    if (!blob || !blob.size) return;
+    bannerFile = new File([blob], "jnr-pdf-studio-banner.png", { type: blob.type || "image/png", lastModified: Date.now() });
+  }).catch(() => { bannerFile = null; });
+
+  let previousFocus = null;
+  let previousOverflow = "";
+  const nativeSupported = () => window.isSecureContext && typeof navigator.share === "function";
+
+  function openFallback() {
+    const alreadyOpen = layer.classList.contains("jnr-share-open");
+    if (!alreadyOpen) {
+      previousFocus = document.activeElement;
+      previousOverflow = document.body.style.overflow;
+    }
+    layer.classList.add("jnr-share-open");
+    layer.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    status.textContent = nativeSupported()
+      ? "Choose your destination, or use the device share sheet for more installed apps."
+      : "This browser cannot list installed apps. Use a destination below, or copy the link.";
+    window.setTimeout(() => dialog.focus(), 35);
+  }
+
+  function closeFallback() {
+    layer.classList.remove("jnr-share-open");
+    layer.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = previousOverflow;
+    if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
+  }
+
+  function invokeNativeShare() {
+    if (!nativeSupported()) return false;
+    // Call directly in the click gesture so Android/iOS can open the system chooser.
+    try {
+      const sharePromise = navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+      Promise.resolve(sharePromise).then(() => {
+        if (layer.classList.contains("jnr-share-open")) closeFallback();
+      }).catch(error => {
+        if (error && error.name === "AbortError") return; // User intentionally dismissed the chooser.
+        openFallback();
+        status.textContent = "The device share sheet could not open. Try a direct destination instead.";
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  trigger.addEventListener("click", () => {
+    // Always show the polished JNR share panel first. The system chooser is a clear next action.
+    openFallback();
+  });
+  nativeButton.addEventListener("click", () => {
+    if (invokeNativeShare()) {
+      status.textContent = "Opening your device share sheet…";
+      return;
+    }
+    status.textContent = "The system share sheet isn't available here. Choose a direct app below or copy the link.";
+  });
+  if (bannerNativeButton) bannerNativeButton.addEventListener("click", () => {
+    if (!nativeSupported()) {
+      status.textContent = "Image sharing needs a supported device share sheet. You can still share the website link below.";
+      return;
+    }
+    if (!bannerFile) {
+      status.textContent = "The share banner hasn't loaded yet. Use Share website link to apps or try again once the preview has loaded.";
+      return;
+    }
+    try {
+      const payload = { files: [bannerFile], title: shareTitle, text: shareText + "\n" + shareUrl, url: shareUrl };
+      if (typeof navigator.canShare === "function" && !navigator.canShare({ files: [bannerFile] })) {
+        status.textContent = "This device's share sheet cannot share image files. Use Share website link to apps instead.";
+        return;
+      }
+      Promise.resolve(navigator.share(payload)).then(() => {
+        if (layer.classList.contains("jnr-share-open")) closeFallback();
+      }).catch(error => {
+        if (error && error.name === "AbortError") return;
+        status.textContent = "Image sharing failed in this browser. Use Share website link to apps instead.";
+      });
+    } catch (_) {
+      status.textContent = "Image sharing isn't supported in this browser. Use Share website link to apps instead.";
+    }
+  });
+  closeButton.addEventListener("click", closeFallback);
+  layer.addEventListener("click", event => { if (event.target === layer) closeFallback(); });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && layer.classList.contains("jnr-share-open")) closeFallback();
+    if (event.key === "Tab" && layer.classList.contains("jnr-share-open")) {
+      const focusable = [...dialog.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')]
+        .filter(node => node.offsetParent !== null);
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+
+  async function copyLink() {
+    try {
+      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(shareUrl);
+      else {
+        const helper = document.createElement("textarea");
+        helper.value = shareUrl; helper.setAttribute("readonly", "");
+        helper.style.position = "fixed"; helper.style.opacity = "0"; helper.style.top = "0";
+        document.body.appendChild(helper); helper.select();
+        const ok = document.execCommand("copy"); helper.remove();
+        if (!ok) throw new Error("Copy unavailable");
+      }
+      status.textContent = "Link copied. Paste it into your chat, bio or post.";
+    } catch (_) {
+      status.textContent = "Copy did not work automatically. Copy this link: " + shareUrl;
+      try { window.prompt("Copy the JNR PDF Studio link", shareUrl); } catch (_) {}
+    }
+  }
+
+  function openShareUrl(url) {
+    // Use a short-lived anchor so noopener does not return a misleading null popup handle.
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  document.querySelectorAll("[data-share-target]").forEach(button => {
+    button.addEventListener("click", async () => {
+      const target = button.dataset.shareTarget;
+      const encodedUrl = encodeURIComponent(shareUrl);
+      const encodedText = encodeURIComponent(shareText);
+      const encodedTitle = encodeURIComponent(shareTitle);
+      switch (target) {
+        case "whatsapp": openShareUrl("https://wa.me/?text=" + encodeURIComponent(shareTitle + "\n" + shareText + "\n" + shareUrl)); break;
+        case "facebook": openShareUrl("https://www.facebook.com/sharer/sharer.php?u=" + encodedUrl); break;
+        case "telegram": openShareUrl("https://t.me/share/url?url=" + encodedUrl + "&text=" + encodedText); break;
+        case "x": openShareUrl("https://twitter.com/intent/tweet?text=" + encodedTitle + "&url=" + encodedUrl); break;
+        case "linkedin": openShareUrl("https://www.linkedin.com/sharing/share-offsite/?url=" + encodedUrl); break;
+        case "email": window.location.href = "mailto:?subject=" + encodedTitle + "&body=" + encodeURIComponent(shareText + "\n\n" + shareUrl); break;
+        case "copy": await copyLink(); break;
+        case "more":
+          if (invokeNativeShare()) return;
+          status.textContent = "This browser doesn't expose the native installed-app chooser. Direct destinations are shown here instead.";
+          break;
+        case "instagram":
+          openShareUrl("https://www.instagram.com/");
+          await copyLink();
+          status.textContent = "Link copied. Instagram's web share options vary; paste the link where links are supported.";
+          break;
+      }
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

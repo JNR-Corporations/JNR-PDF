@@ -1,24 +1,142 @@
 {
+  "id": "/",
   "name": "JNR PDF Studio",
   "short_name": "JNR PDFs",
-  "description": "Create professional PDFs from text, images and code with JNR PDF Studio. Convert PDFs to images or Word documents and format documents using a powerful markup-based editor.",
-  "start_url": "/",
+  "description": "Create, convert, edit, organize and protect PDFs with JNR PDF Studio.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#C92032",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "orientation": "any",
+  "categories": [
+    "productivity",
+    "utilities",
+    "business"
+  ],
+  "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "icons": [
     {
       "src": "/logo.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/logo.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "PDF Studio",
+      "short_name": "Studio",
+      "url": "/jnr-pdf.html",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Merge PDFs",
+      "short_name": "Merge",
+      "url": "/pdf-merge.html",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Images to PDF",
+      "short_name": "Images PDF",
+      "url": "/images-to-pdf.html",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/jnr-pdf.html",
+      "accept": {
+        "application/pdf": [
+          ".pdf"
+        ]
+      }
+    },
+    {
+      "action": "/images-to-pdf.html",
+      "accept": {
+        "image/*": [
+          ".png",
+          ".jpg",
+          ".jpeg",
+          ".webp",
+          ".gif",
+          ".bmp"
+        ]
+      }
+    },
+    {
+      "action": "/word-to-pdf.html",
+      "accept": {
+        "application/msword": [
+          ".doc"
+        ],
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [
+          ".docx"
+        ]
+      }
+    },
+    {
+      "action": "/excel-to-pdf.html",
+      "accept": {
+        "application/vnd.ms-excel": [
+          ".xls"
+        ],
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+          ".xlsx"
+        ],
+        "text/csv": [
+          ".csv"
+        ]
+      }
+    },
+    {
+      "action": "/powerpoint-to-pdf.html",
+      "accept": {
+        "application/vnd.ms-powerpoint": [
+          ".ppt"
+        ],
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation": [
+          ".pptx"
+        ]
+      }
     }
   ]
 }
