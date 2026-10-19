@@ -541,10 +541,94 @@ body.splash-active {
   @media (prefers-reduced-motion: reduce) { #jnr-share-layer, #jnr-share-dialog, .jnr-mobile-share-trigger, .jnr-share-tile { transition: none !important; } }
 </style>
 
+
+<style id="jnr-splash-fix">
+  /* Keep the logo intro above every page layer, including the Android fixed header. */
+  #splash-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    overflow: hidden;
+    isolation: isolate;
+    contain: paint;
+    background: #fff;
+    z-index: 2147483647;
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform .9s cubic-bezier(.76, 0, .18, 1),
+      opacity .72s cubic-bezier(.2, .7, .2, 1),
+      visibility .9s step-end;
+    will-change: transform, opacity;
+    pointer-events: auto;
+  }
+  #splash-overlay iframe {
+    display: block;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    border: 0;
+    background: #fff;
+  }
+  #splash-overlay.slide-out {
+    transform: translate3d(-100%, 0, 0);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  body.splash-active {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+  }
+
+  /* Subtle staged entrance for the original page, started after logo.html exits. */
+  @keyframes jnrSplashContentReveal {
+    0% { opacity: 0; transform: translate3d(0, 18px, 0) scale(.992); }
+    100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  }
+  body.splash-revealed .topbar,
+  body.splash-revealed #home > .hero,
+  body.splash-revealed #maker,
+  body.splash-revealed #tools,
+  body.splash-revealed .bottom-cta,
+  body.splash-revealed .footer,
+  body.splash-revealed .mobile-bottom {
+    animation: jnrSplashContentReveal .72s cubic-bezier(.2, .75, .25, 1) both;
+    will-change: opacity, transform;
+  }
+  body.splash-revealed #home > .hero { animation-delay: .05s; }
+  body.splash-revealed #maker { animation-delay: .12s; }
+  body.splash-revealed #tools { animation-delay: .19s; }
+  body.splash-revealed .bottom-cta { animation-delay: .25s; }
+  body.splash-revealed .footer { animation-delay: .31s; }
+  body.splash-revealed .mobile-bottom { animation-delay: .16s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #splash-overlay { transition: none !important; }
+    #splash-overlay.slide-out { transform: none; }
+    body.splash-revealed .topbar,
+    body.splash-revealed #home > .hero,
+    body.splash-revealed #maker,
+    body.splash-revealed #tools,
+    body.splash-revealed .bottom-cta,
+    body.splash-revealed .footer,
+    body.splash-revealed .mobile-bottom { animation: none !important; }
+  }
+</style>
+
 </head>
-<body>
-    <div id="splash-overlay">
-  <iframe src="logo.html" title="Logo Intro"></iframe>
+<body class="splash-active">
+    <div id="splash-overlay" role="presentation" aria-label="JNR PDF Studio intro">
+  <iframe src="./logo.html" title="JNR PDF Studio logo animation" loading="eager" scrolling="no" allow="autoplay"></iframe>
 </div>
 <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
  <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 2v7h7M8 14h8M8 18h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
@@ -629,7 +713,7 @@ body.splash-active {
    <a class="tool-card" href="./jnr-pdf-editor.html" target="_blank" rel="noopener noreferrer" data-tags="edit annotate text image draw markup" data-tint="orange"><span class="tool-icon"><svg><use href="#i-edit"/></svg></span><h4>Edit PDF</h4><p>Add content or annotate a PDF document.</p><span class="card-action"><span>Edit document</span><svg><use href="#i-arrow"/></svg></span></a>
    <a class="tool-card" href="./pdf-compressor.html" target="_blank" rel="noopener noreferrer" data-tags="compress reduce file size optimize" data-tint="green"><span class="tool-icon"><svg><use href="#i-compress"/></svg></span><h4>Compress PDF</h4><p>Reduce the file size for easier sharing.</p><span class="card-action"><span>Compress file</span><svg><use href="#i-arrow"/></svg></span></a>
    <a class="tool-card" href="./pdf-watermark.html" target="_blank" rel="noopener noreferrer" data-tags="watermark branding stamp mark" data-tint="purple"><span class="tool-icon"><svg><use href="#i-watermark"/></svg></span><h4>Add Watermark</h4><p>Place a text or image watermark on pages.</p><span class="card-action"><span>Add watermark</span><svg><use href="#i-arrow"/></svg></span></a>
-   <a class="tool-card" href="./pdf-to-word.html" target="_blank" rel="noopener noreferrer" data-tags="page number numbering footer header" data-tint="blue"><span class="tool-icon"><svg><use href="#i-pages"/></svg></span><h4>Add Page Numbers</h4><p>Give every page a clear number.</p><span class="card-action"><span>Number pages</span><svg><use href="#i-arrow"/></svg></span></a>
+   <a class="tool-card" href="./pdf-page-numbers.html" target="_blank" rel="noopener noreferrer" data-tags="page number numbering footer header" data-tint="blue"><span class="tool-icon"><svg><use href="#i-pages"/></svg></span><h4>Add Page Numbers</h4><p>Give every page a clear number.</p><span class="card-action"><span>Number pages</span><svg><use href="#i-arrow"/></svg></span></a>
    <a class="tool-card" href="./pdf-signature-studio.html" target="_blank" rel="noopener noreferrer" data-tags="sign signature electronic signature" data-tint="teal"><span class="tool-icon"><svg><use href="#i-sign"/></svg></span><h4>Sign PDF</h4><p>Add a signature to your document.</p><span class="card-action"><span>Sign document</span><svg><use href="#i-arrow"/></svg></span></a>
    <a class="tool-card" href="./jnr-pdf-compare-studio.html" target="_blank" rel="noopener noreferrer" data-tags="compare check differences versions" data-tint="orange"><span class="tool-icon"><svg><use href="#i-eye"/></svg></span><h4>Compare PDFs</h4><p>Check two versions for differences.</p><span class="card-action"><span>Compare files</span><svg><use href="#i-arrow"/></svg></span></a>
   </div></div>
@@ -649,7 +733,7 @@ body.splash-active {
  </div></section>
  <section class="wrap bottom-cta"><div><h2>Your next great PDF starts here.</h2><p>Open JNR PDF Maker and watch your document come together, one line at a time.</p></div><div><a class="btn btn-light" href="./jnr-pdf.html"><svg><use href="#i-file"/></svg> Launch JNR PDF Maker <svg><use href="#i-arrow"/></svg></a></div></section>
 </main>
-<footer class="footer"><div class="wrap"><div class="footer-top"><div><a class="footer-brand" href="#home"><span class="brand-mark"><svg><use href="#i-file"/></svg></span><span><span class="brand-name">JNR <span>PDFs</span></span><span class="brand-sub" style="display:block">Every page, made simple</span></span></a><p class="footer-note">A thoughtfully arranged home for your PDF work.</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="#home">Home</a><a href="#maker">JNR PDF Maker</a><a href="#tools">All tools</a><a href="#create">Convert</a><a href="#secure">Security</a></nav></div><div class="footer-bottom"><span>© <span id="year">2026</span> JNR PDFs. Made with care.</span><span class="disclaimer">Third-party tools open on their respective websites. Review their privacy terms before uploading sensitive documents.</span></div></div></footer>
+<footer class="footer"><div class="wrap"><div class="footer-top"><div><a class="footer-brand" href="#home"><span class="brand-mark"><svg><use href="#i-file"/></svg></span><span><span class="brand-name">JNR <span>PDFs</span></span><span class="brand-sub" style="display:block">Every page, made simple</span></span></a><p class="footer-note">A thoughtfully arranged home for your PDF work.</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="#home">Home</a><a href="#maker">JNR PDF Maker</a><a href="#tools">All tools</a><a href="#create">Convert</a><a href="#secure">Security</a><a href="./privacy-policy.html">Privacy&Policy</a></nav></div><div class="footer-bottom"><span>© <span id="year">2026</span> JNR PDFs. Made with care.</span><span class="disclaimer">Third-party tools open on their respective websites. Review their privacy terms before uploading sensitive documents.</span></div></div></footer>
 <nav class="mobile-bottom" aria-label="Quick navigation"><a class="active" href="#home"><svg><use href="#i-file"/></svg><span>Home</span></a><a href="#maker"><svg><use href="#i-spark"/></svg><span>PDF Maker</span></a><a href="#tools"><svg><use href="#i-grid"/></svg><span>All tools</span></a><a href="#secure"><svg><use href="#i-shield"/></svg><span>Security</span></a></nav>
 
 <!-- JNR PDF Studio: native sharing on supported devices, branded fallback elsewhere. -->
@@ -718,40 +802,68 @@ body.splash-active {
  document.getElementById('year').textContent=new Date().getFullYear();
  document.querySelectorAll('.mobile-bottom a').forEach(link=>link.addEventListener('click',()=>{document.querySelectorAll('.mobile-bottom a').forEach(a=>a.classList.toggle('active',a===link))}));
 })();
-document.addEventListener("DOMContentLoaded", () => {
+/* JNR PDF Studio splash controller — one timer, one exit path. */
+(() => {
   const splashOverlay = document.getElementById("splash-overlay");
-  document.body.classList.add("splash-active");
+  if (!splashOverlay) {
+    document.body.classList.remove("splash-active");
+    return;
+  }
 
-  // 10 seconds (10000 ms) ka timer
-  setTimeout(() => {
-    if (splashOverlay) {
-      splashOverlay.style.opacity = "0";
-      setTimeout(() => {
-        splashOverlay.remove();
-        document.body.classList.remove("splash-active");
-      }, 500); // Fade-out transition duration match karne ke liye
+  const logoFrame = splashOverlay.querySelector("iframe");
+  const SPLASH_DURATION = 10000;
+  const EXIT_FALLBACK = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1200;
+  let countdownStarted = false;
+  let splashFinished = false;
+
+  function revealOriginalContent() {
+    if (splashFinished || !splashOverlay.isConnected) return;
+    splashFinished = true;
+    splashOverlay.classList.add("slide-out");
+    splashOverlay.setAttribute("aria-hidden", "true");
+
+    let cleanedUp = false;
+    const finishExit = () => {
+      if (cleanedUp) return;
+      cleanedUp = true;
+      splashOverlay.removeEventListener("transitionend", onExitTransition);
+      if (splashOverlay.isConnected) splashOverlay.remove();
+      document.body.classList.remove("splash-active");
+      // Trigger the page's entrance sequence only after the splash has cleared.
+      requestAnimationFrame(() => document.body.classList.add("splash-revealed"));
+    };
+    const onExitTransition = (event) => {
+      if (event.target === splashOverlay && event.propertyName === "transform") finishExit();
+    };
+
+    splashOverlay.addEventListener("transitionend", onExitTransition);
+    window.setTimeout(finishExit, EXIT_FALLBACK);
+  }
+
+  function beginCountdown() {
+    if (countdownStarted || splashFinished) return;
+    countdownStarted = true;
+    // Start after logo.html and its dependent assets finish loading, giving its
+    // heavier intro animation the full ten seconds on screen.
+    window.setTimeout(revealOriginalContent, SPLASH_DURATION);
+  }
+
+  if (logoFrame) {
+    logoFrame.addEventListener("load", beginCountdown, { once: true });
+    // Covers a fast/cached iframe whose load event fired before this handler ran.
+    try {
+      const frameDocument = logoFrame.contentDocument;
+      // Do not treat the iframe's initial about:blank document as logo.html.
+      if (frameDocument && frameDocument.URL !== "about:blank" && frameDocument.readyState === "complete") {
+        beginCountdown();
+      }
+    } catch (_) {
+      // The load event remains the normal start signal if the iframe is cross-origin.
     }
-  }, 10000);
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const splashOverlay = document.getElementById("splash-overlay");
-  document.body.classList.add("splash-active");
-
-  // 10 seconds (10000 milliseconds) ka timer
-  setTimeout(() => {
-    if (splashOverlay) {
-      // Left swipe animation class add karein
-      splashOverlay.classList.add("slide-out");
-
-      // Animation complete hone ke baad element ko remove karein (0.8s animation time ke hisaab se)
-      setTimeout(() => {
-        splashOverlay.remove();
-        document.body.classList.remove("splash-active");
-      }, 800); 
-    }
-  }, 10000);
-});
+  } else {
+    beginCountdown();
+  }
+})();
 </script>
 <script src="./block.js" ></script>
 
