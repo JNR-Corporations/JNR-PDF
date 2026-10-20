@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#c92032" />
 <meta name="description" content="JNR PDF — write with commands, preview live, and export polished PDFs." />
-<title>JNR PDF — Live PDF Studio</title>
+<title>JNR PDF — JNRML Document Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="block-tap.css" />
@@ -198,6 +198,89 @@
 .encrypt-modal{width:min(600px,100%)}.encrypt-body{display:grid;gap:14px}.encrypt-dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1.5px dashed #dfc3c8;background:linear-gradient(140deg,#fffdfd,#fff6f7);border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer;transition:background .16s,border-color .16s}.encrypt-dropzone:hover,.encrypt-dropzone.drag-over{background:#fff0f2;border-color:#c92032}.encrypt-dropzone svg{width:28px;height:28px;color:#c92032}.encrypt-dropzone strong{font-size:13px}.encrypt-dropzone small{font-size:10px;color:#8b8d96;line-height:1.5}.encrypt-file-status{font-size:11px;padding:10px 12px;border-radius:9px;background:#f7f7f9;color:#777984;overflow-wrap:anywhere}.encrypt-file-status.ready{background:#effaf4;color:#21784f}.encrypt-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.encrypt-field{display:flex;flex-direction:column;gap:6px;min-width:0}.encrypt-field span{font-size:11px;font-weight:800;color:#4a4b53}.encrypt-field input{width:100%;min-width:0;border:1px solid #e2e2e9;border-radius:9px;padding:11px 12px;color:#2d2e35;background:#fff;font-size:12px}.encrypt-field input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212;outline:none}.encrypt-meter{height:5px;background:#f0e4e6;border-radius:99px;overflow:hidden}.encrypt-meter span{display:block;height:100%;width:0;background:#c92032;transition:width .16s}.encrypt-hint{font-size:10px;color:#8d8e96;line-height:1.55;margin:0}.encrypt-warning{display:flex;gap:9px;align-items:flex-start;background:#fff8e9;border:1px solid #f1dfb8;color:#72561e;border-radius:10px;padding:11px 12px;font-size:10px;line-height:1.55}.encrypt-warning svg{width:16px;height:16px;flex:0 0 auto}.encrypt-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}.encrypt-actions .btn{min-height:40px}.encrypt-status{font-size:11px;color:#797b84;min-height:16px;line-height:1.5}.encrypt-status.error{color:#a72b3a}.encrypt-status.success{color:#20754d}.encrypt-loading{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid #ffffff88;border-top-color:#fff;animation:pdf-image-spin .7s linear infinite}
 @media(max-width:720px){.align-chip{padding:7px}.align-chip span{font-size:9px}.encrypt-fields{grid-template-columns:1fr}.encrypt-body{gap:12px}.encrypt-modal .modal-head{padding:15px}.encrypt-modal .modal-body{padding:14px}.encrypt-actions{display:grid;grid-template-columns:1fr}.encrypt-actions .btn{width:100%}}
 
+
+/* JNRML terminal upgrade: command discovery, inline autocomplete and mobile-first search. */
+.jnrml-commandbar{display:flex;align-items:center;gap:7px;padding:9px 12px;background:linear-gradient(180deg,#fff,#fdfdfe);border-bottom:1px solid #ededf2;flex-wrap:wrap}
+.jnrml-command-search-wrap{display:flex;align-items:center;gap:8px;flex:1 1 200px;min-width:130px;height:36px;padding:0 9px;border:1px solid #e8e8ee;border-radius:10px;background:#f9f9fb;transition:border-color .15s,box-shadow .15s,background .15s}
+.jnrml-command-search-wrap:focus-within{background:#fff;border-color:#d98590;box-shadow:0 0 0 3px #c920320c}
+.jnrml-command-search-wrap svg{width:15px;height:15px;flex:0 0 auto;color:#999aa3}
+.jnrml-command-search-wrap input{width:100%;min-width:0;border:0!important;outline:none!important;box-shadow:none!important;background:transparent;color:#30313a;font-size:11px;padding:0;height:30px}
+.jnrml-command-search-wrap kbd{font:9px 'DM Mono',monospace;color:#9c9da6;border:1px solid #e5e5eb;border-bottom-width:2px;background:#fff;border-radius:5px;padding:3px 4px;white-space:nowrap}
+.jnrml-tool-button{height:35px;white-space:nowrap}
+.jnrml-command-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:9px 12px;max-height:215px;overflow:auto;background:#fbfbfd;border-bottom:1px solid #eeeef3}
+.jnrml-command-results[hidden],.command-autocomplete[hidden]{display:none!important}
+.jnrml-command-result{display:flex;align-items:flex-start;gap:8px;min-width:0;text-align:left;padding:8px 9px;border:1px solid #e9e9ef;border-radius:9px;background:#fff;color:#5a5c65;cursor:pointer;transition:border-color .14s,background .14s,transform .14s}
+.jnrml-command-result:hover,.jnrml-command-result:focus-visible{border-color:#e3a4ad;background:#fff5f6;transform:translateY(-1px)}
+.jnrml-command-result code{display:block;font:10px 'DM Mono',monospace;color:#b51e30;white-space:normal;overflow-wrap:anywhere}
+.jnrml-command-result span{display:block;margin-top:4px;font-size:10px;line-height:1.4;color:#878892}
+.jnrml-command-result-copy{min-width:0;flex:1}
+.jnrml-command-category{align-self:center;flex:0 0 auto;font-size:8px;letter-spacing:.3px;color:#9b9ca5;background:#f5f5f8;border-radius:5px;padding:4px 5px;text-transform:uppercase}
+.editor-wrap{position:relative}
+.command-autocomplete{display:flex;flex-direction:column;gap:3px;padding:7px 10px;background:#fcfcfe;border-bottom:1px solid #ececf1;max-height:205px;overflow:auto;box-shadow:0 5px 12px #20121a06;z-index:8}
+.command-autocomplete[hidden]{display:none!important}
+.command-autocomplete-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:1px 3px 4px;font-size:9px;font-weight:800;letter-spacing:.8px;color:#9697a0;text-transform:uppercase}
+.command-autocomplete-head span:last-child{font-weight:500;letter-spacing:0;text-transform:none}
+.command-autocomplete-item{display:flex;align-items:center;gap:9px;width:100%;border:1px solid transparent;border-radius:8px;background:transparent;padding:7px 9px;text-align:left;color:#555762;cursor:pointer}
+.command-autocomplete-item:hover,.command-autocomplete-item.active{border-color:#f0cbd0;background:#fff2f4}
+.command-autocomplete-item code{font:10px 'DM Mono',monospace;color:#b91e30;min-width:95px;overflow-wrap:anywhere}
+.command-autocomplete-item span{font-size:10px;line-height:1.4;color:#83858f;flex:1}
+.command-autocomplete-item kbd{font:9px 'DM Mono',monospace;color:#9798a0;border:1px solid #e7e7ec;border-radius:4px;background:#fff;padding:3px 5px}
+#terminal{caret-color:#c92032;scrollbar-width:thin;scrollbar-color:#d4d4dc #f8f8fa}
+#terminal::selection{background:#f8d8dd;color:#30212a}
+.terminal-find-modal{width:min(590px,100%)}
+.terminal-find-body{display:flex;flex-direction:column;gap:9px}
+.terminal-find-label{font-size:10px;font-weight:800;color:#747680}
+.terminal-find-row{display:flex;gap:8px;align-items:center}
+.terminal-find-body input{min-width:0;width:100%;height:42px;padding:0 12px;border:1px solid #e2e2e9;border-radius:10px;background:#fff;font-size:12px;color:#32333b;outline:none}
+.terminal-find-body input:focus{border-color:#d67884;box-shadow:0 0 0 3px #c9203212}
+.terminal-find-count{flex:0 0 auto;min-width:75px;border:1px solid #ececf1;border-radius:8px;padding:8px;color:#8a8b94;text-align:center;font-size:10px;background:#fafafd}
+.terminal-find-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.terminal-find-actions .btn{flex:1}
+.terminal-find-divider{height:1px;background:#ededf1;margin:8px 0 4px}
+.preview-vline{position:relative;height:56px;width:3px;margin:13px auto;background:linear-gradient(180deg,#ef7180,#c92032 65%,#971626);border-radius:999px;box-shadow:0 3px 9px #c9203221;break-inside:avoid}
+.page-running-header,.page-running-footer{position:absolute;left:8.4%;right:8.4%;z-index:3;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#777982;font-size:9px;letter-spacing:.2px}
+.page-running-header{top:3.4%;padding-bottom:5px;border-bottom:1px solid #eeeeF1}
+.page-running-footer{bottom:2.5%;padding-top:5px;border-top:1px solid #eeeeF1}
+.preview-table-wrap{max-width:100%;-webkit-overflow-scrolling:touch}
+.preview-table{max-width:100%;table-layout:auto}
+.preview-table th,.preview-table td{padding:var(--table-padding,8px 9px);border-width:var(--table-border-width,1px);overflow-wrap:anywhere;word-break:normal}
+.preview-table th{white-space:normal}
+.preview-table td{min-width:36px}
+.preview-stamp{display:inline-flex;align-items:center;justify-content:center;margin:12px 3px;padding:7px 14px;border:3px double #c92032;border-radius:4px;color:#c92032;font-weight:900;letter-spacing:2px;text-transform:uppercase;transform:rotate(-4deg);opacity:.9}
+.preview-note{margin:12px 0;padding:11px 13px;border-radius:10px;border:1px solid #d9e7ff;background:#f2f7ff;color:#334155;break-inside:avoid}
+.preview-note.note-warning{background:#fff8e7;border-color:#f2dda8;color:#79551b}
+.preview-note.note-success{background:#effaf4;border-color:#cbeed9;color:#216b45}
+.preview-note.note-info{background:#eff8ff;border-color:#c9e5fb;color:#245b83}
+.preview-note.note-error{background:#fff1f2;border-color:#f4cbd0;color:#8f2633}
+.page-running-header,.page-running-footer,.preview-note,.preview-stamp,.preview-vline{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+@media(max-width:720px){
+  /* Keep the formatting toolbar compact on phones so the editor gets more height. */
+  .toolbar{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;align-items:center;scrollbar-width:thin;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .toolbar>.tool-chip,.toolbar>.tool-separator,.toolbar>.toolbar-label{flex:0 0 auto}
+  .toolbar-label{white-space:nowrap}
+  .tool-separator{flex:0 0 1px}
+  #terminal{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+  .jnrml-commandbar{padding:7px;gap:6px}
+  .jnrml-command-search-wrap{height:39px;flex-basis:100%;order:0}
+  .jnrml-command-search-wrap kbd{display:none}
+  .jnrml-tool-button{flex:1;height:34px;padding:7px 8px}
+  .jnrml-command-results{grid-template-columns:1fr;max-height:31vh;padding:7px}
+  .jnrml-command-result{padding:9px}
+  .command-autocomplete{max-height:26vh;padding:6px}
+  .command-autocomplete-item{padding:9px 7px;gap:6px}
+  .command-autocomplete-item code{min-width:88px;font-size:9px}
+  .command-autocomplete-item span{font-size:9px}
+  .command-autocomplete-item kbd{display:none}
+  .terminal-find-actions{display:grid;grid-template-columns:1fr 1fr}
+  .terminal-find-modal .modal-head,.terminal-find-modal .modal-body{padding:14px}
+  .terminal-find-row{align-items:stretch;flex-direction:column}
+  .terminal-find-count{width:100%;text-align:left}
+  .page-running-header{top:3%;font-size:7px}
+  .page-running-footer{bottom:2%;font-size:7px}
+  .preview-table th,.preview-table td{min-width:30px}
+}
+@media(prefers-reduced-motion:reduce){.jnrml-command-result,.jnrml-command-search-wrap{transition:none} }
+
 </style>
 <link rel="stylesheet" href="block-tap.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
@@ -210,7 +293,7 @@
   <header class="topbar">
     <div class="brand" aria-label="JNR PDF home">
       <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 2.75h7l4.25 4.3v13.2a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V3.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 2.9v4.4h4.1M8.5 12h7M8.5 15.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-      <div><div class="brand-name">JNR <span>PDF</span></div><div class="brand-sub">LIVE DOCUMENT STUDIO</div></div>
+      <div><div class="brand-name">JNR <span>PDF</span></div><div class="brand-sub">JNR MARKUP LANGUAGE · JNRML</div></div>
     </div>
     <div class="top-status"><span><i class="live-dot"></i>Live preview</span><span id="saveStatus">Autosave ready</span></div>
     <div class="top-actions">
@@ -229,7 +312,7 @@
     </nav>
     <section class="panel editor-panel mobile-active" id="editorPanel" aria-label="Document terminal">
       <div class="panel-head">
-        <div class="panel-heading"><div class="panel-icon"><svg viewBox="0 0 24 24" fill="none"><path d="m4 6 5 5-5 5m8 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="panel-title">Document terminal</div><div class="panel-subtitle">Write commands. Watch your PDF take shape.</div></div></div>
+        <div class="panel-heading"><div class="panel-icon"><svg viewBox="0 0 24 24" fill="none"><path d="m4 6 5 5-5 5m8 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="panel-title">JNRML Terminal</div><div class="panel-subtitle">Smart command editor · live A4 preview · local-first draft</div></div></div>
         <div class="panel-head-actions"><span class="counter" id="wordCount">0 words</span><button class="btn small" id="clearBtn" title="Clear document">Clear</button></div>
       </div>
       <div class="toolbar" aria-label="Quick insert commands">
@@ -239,10 +322,17 @@
         <label class="toolbar-label" title="Apply text colour to selected text">Text <input type="color" id="inlineColor" class="tool-color" value="#c92032" aria-label="Inline text colour" /></label><label class="toolbar-label" title="Choose highlight colour">Mark <input type="color" id="inlineHighlight" class="tool-color" value="#fff0a8" aria-label="Highlight colour" /></label><label class="toolbar-label" title="Choose inline background colour">BG <input type="color" id="inlineBackground" class="tool-color" value="#e0f2fe" aria-label="Text background colour" /></label><label class="toolbar-label" title="Set the A4 page background">Page <input type="color" id="pageBgColor" class="tool-color" value="#ffffff" aria-label="Page background colour" /></label>
         <span class="tool-separator"></span><button class="tool-chip" data-insert="/h\n">Divider</button><button class="tool-chip" data-insert="/tbale\n">+ Table</button><button class="tool-chip" data-insert="/pagebreak\n">Page break</button><button class="tool-chip" data-insert="/pagebg #fffdf7\n">Page BG</button><button class="tool-chip" data-insert="/img ">+ Image</button><button class="tool-chip" data-insert="/pgno\n">Page no.</button><button class="tool-chip" id="uploadImageBtn">Upload image</button><input id="imageFile" class="hidden-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
       </div>
+      <div class="jnrml-commandbar" aria-label="JNRML command tools">
+        <div class="jnrml-command-search-wrap"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="commandSearch" type="search" autocomplete="off" spellcheck="false" aria-label="Search JNRML commands" placeholder="Search JNRML commands… (Ctrl+K)"/><kbd>CTRL K</kbd></div>
+        <button class="tool-chip jnrml-tool-button" id="findTerminalBtn" type="button" title="Find and replace terminal text (Ctrl+F)">Find text</button>
+        <button class="tool-chip jnrml-tool-button" id="browseCommandsBtn" type="button" title="Browse all JNRML commands">All cmds</button>
+      </div>
+      <div class="jnrml-command-results" id="commandResults" role="listbox" aria-label="JNRML command search results" hidden></div>
       <div class="editor-wrap">
-        <div class="editor-meta"><div class="terminal-label"><span class="terminal-leds"><i></i><i></i><i></i></span>JNR TERMINAL <span style="color:#c7c7ce;font-weight:500">/ document.jnr</span></div><span>UTF-8 · Plain text</span></div>
-        <textarea id="terminal" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Write document commands" placeholder="Start writing your document…"></textarea>
-        <div class="editor-footer"><div class="editor-footnote">Changes render automatically.<br/>Use <span class="shortcut">Ctrl + M</span> for all commands.</div><div style="display:flex;gap:7px;align-items:center"><button class="btn small soft" id="insertHelpBtn">Command guide</button><button class="btn small" id="sampleBtn">Load sample</button></div></div>
+        <div class="editor-meta"><div class="terminal-label"><span class="terminal-leds"><i></i><i></i><i></i></span>JNRML TERMINAL <span style="color:#c7c7ce;font-weight:500">/ document.jnrml</span></div><span>JNRML v1.2 · UTF-8</span></div>
+        <div class="command-autocomplete" id="commandAutocomplete" role="listbox" aria-label="Command autocomplete" hidden></div>
+        <textarea id="terminal" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Write document commands" placeholder="Start with /h1 Your title · type / to autocomplete JNRML commands…"></textarea>
+        <div class="editor-footer"><div class="editor-footnote">Changes render automatically.<br/>Use <span class="shortcut">Ctrl + K</span> commands · <span class="shortcut">Alt + Z</span> undo · <span class="shortcut">Ctrl + F</span> find.</div><div style="display:flex;gap:7px;align-items:center"><button class="btn small soft" id="insertHelpBtn">Command guide</button><button class="btn small" id="sampleBtn">Load sample</button></div></div>
       </div>
     </section>
     <section class="panel preview-panel" id="previewPanel" aria-label="Live PDF preview">
@@ -310,29 +400,29 @@
 </div>
 <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
   <div class="modal">
-    <div class="modal-head"><div><h2 id="helpTitle">JNR PDF command guide</h2><p>Commands are written on their own line unless a value is needed.</p></div><button class="btn" id="closeHelp" aria-label="Close help">✕</button></div>
+    <div class="modal-head"><div><h2 id="helpTitle">JNRML command handbook</h2><p>JNR Markup Language · Commands work in the live PDF terminal.</p></div><button class="btn" id="closeHelp" aria-label="Close help">✕</button></div>
     <div class="modal-body">
-      <div class="help-intro"><b>Quick start:</b> type normal text directly. Use <code>/h1 Your title</code> for a heading. For paired styles, turn them on with the slash command and turn them off with the backslash command. Export at any time to save a high-quality PDF. <br/><b>Tables:</b> put <code>/table</code> on its own line, then add rows separated by <code>|</code>; leave a blank line to end the table. The older typo <code>/tbale</code> remains supported for compatibility. You can also edit table cells directly in the preview.</div>
+      <div class="help-intro"><b>JNRML quick start:</b> type normal text directly, or use <code>/h1 Your title</code>. Paired styles use a slash opener and a backslash closer. Search commands in the Command Deck, type <code>/</code> for live autocomplete, press <code>Tab</code> to accept a suggestion, and use <code>Ctrl+K</code> to open the command search. <br/><b>Advanced layout:</b> <code>/margin 18</code> sets all page margins in millimetres; <code>/margin 18 14 20 14</code> sets top/right/bottom/left. <code>/padding 24px 28px</code> sets inner page padding. Tables support sizing with <code>/table 4x3</code> plus independent width, cell padding and colours. The legacy typo <code>/tbale</code> remains supported.</div>
       <div class="help-grid">
         <div class="help-card"><h3>Text & layout</h3>
-          <div class="help-row"><code>/n</code><span>New line / line break</span></div><div class="help-row"><code>/t</code><span>Tab / indent</span></div><div class="help-row"><code>/h</code><span>Horizontal divider</span></div><div class="help-row"><code>/v</code><span>Vertical accent line</span></div><div class="help-row"><code>/h1 … /h5</code><span>Heading levels 1–5 (add text after command or use next line)</span></div><div class="help-row"><code>/p</code><span>Normal paragraph</span></div><div class="help-row"><code>/align center</code><span>Set alignment; also supports left, right and justify. Use <code>/align center text</code> for a one-line aligned paragraph.</span></div><div class="help-row"><code>/indent 20</code><span>Set paragraph left indent in pixels; use /indent 0 to reset.</span></div><div class="help-row"><code>/lineheight 1.6</code><span>Set line-height for subsequent text blocks (1–2.8).</span></div><div class="help-row"><code>/letterspacing 0.5</code><span>Adjust character spacing in pixels; use 0 to reset.</span></div><div class="help-row"><code>/spacer 12</code><span>Insert a controlled vertical gap in pixels.</span></div>
+          <div class="help-row"><code>/n</code><span>New line / line break</span></div><div class="help-row"><code>/t</code><span>Tab / indent</span></div><div class="help-row"><code>/h</code><span>Horizontal divider</span></div><div class="help-row"><code>/v 72 #2563eb 4 center</code><span>Configurable vertical line: height px, colour, width px and left/center/right alignment.</span></div><div class="help-row"><code>/h1 … /h5</code><span>Heading levels 1–5 (add text after command or use next line)</span></div><div class="help-row"><code>/p</code><span>Normal paragraph</span></div><div class="help-row"><code>/align center</code><span>Set alignment; also supports left, right and justify. Use <code>/align center text</code> for a one-line aligned paragraph.</span></div><div class="help-row"><code>/indent 20</code><span>Set paragraph left indent in pixels; use /indent 0 to reset.</span></div><div class="help-row"><code>/lineheight 1.6</code><span>Set line-height for subsequent text blocks (1–2.8).</span></div><div class="help-row"><code>/letterspacing 0.5</code><span>Adjust character spacing in pixels; use 0 to reset.</span></div><div class="help-row"><code>/spacer 12</code><span>Insert a controlled vertical gap in pixels.</span></div><div class="help-row"><code>/margin 18 14 20 14</code><span>Page margins in mm: top, right, bottom, left; one to four values work.</span></div><div class="help-row"><code>/padding 24px 28px</code><span>Set content padding using CSS-like values; accepts px, mm, pt, %, and 1–4 values.</span></div><div class="help-row"><code>/header /footer</code><span>Show a running page header/footer on every page.</span></div><div class="help-row"><code>/resetlayout</code><span>Reset margin, padding, alignment and paragraph spacing.</span></div>
         </div>
         <div class="help-card"><h3>Formatting</h3>
           <div class="help-row"><code>/bold … \bold</code><span>Bold start / end</span></div><div class="help-row"><code>/i … \i</code><span>Italic start / end</span></div><div class="help-row"><code>/u … \u</code><span>Underline start / end</span></div><div class="help-row"><code>/high … \high</code><span>Highlight start / end</span></div><div class="help-row"><code>/highlight #fff59d text\highlightend</code><span>Custom highlight colour</span></div><div class="help-row"><code>/sub H₂O\sub</code><span>Subscript</span></div><div class="help-row"><code>/sup x²\sup</code><span>Superscript</span></div><div class="help-row"><code>/strike old text\strike</code><span>Strikethrough</span></div><div class="help-row"><code>/bgcolor #e0f2fe text\bgcolorend</code><span>Inline background colour</span></div><div class="help-row"><code>/colorcode #c92032</code><span>Start text color</span></div><div class="help-row"><code>\colorend</code><span>End text color</span></div><div class="help-row"><code>/font Georgia</code><span>Change font family</span></div><div class="help-row"><code>/size 18</code><span>Change font size in px</span></div>
         </div>
         <div class="help-card"><h3>Insert elements</h3>
-          <div class="help-row"><code>/img URL</code><span>Insert an image URL</span></div><div class="help-row"><code>/img sample</code><span>Insert the built-in sample banner</span></div><div class="help-row"><code>/table</code> <span>Editable table; use cell toolbar to change rows, columns and colours</span></div><div class="help-row"><code>/tbale</code><span>Legacy alias for /table, retained for compatibility.</span></div><div class="help-row"><code>/tablehead #c92032</code><span>Table header background</span></div><div class="help-row"><code>/tableheadtext #ffffff</code><span>Table header text colour</span></div><div class="help-row"><code>/tableborder #dddddd</code><span>Table border colour</span></div><div class="help-row"><code>/tablebg #ffffff</code><span>Table cell background</span></div><div class="help-row"><code>/tablealt #f7f7f7</code><span>Alternate row background</span></div><div class="help-row"><code>/sign Your Name</code><span>Signature block</span></div><div class="help-row"><code>/watermark DRAFT</code><span>Single user watermark setting, applied to pages</span></div><div class="help-row"><code>/border #c92032</code><span>Single page border setting</span></div><div class="help-row"><code>/pgno</code><span>Toggle page numbers on/off</span></div><div class="help-row"><code>/link URL | label</code><span>Insert text with a clickable PDF link</span></div>
+          <div class="help-row"><code>/img URL</code><span>Insert an image URL</span></div><div class="help-row"><code>/img sample</code><span>Insert the built-in sample banner</span></div><div class="help-row"><code>/table 4x3</code> <span>Create a pre-sized editable table; also supports plain /table plus pipe-separated rows.</span></div><div class="help-row"><code>/tbale</code><span>Legacy alias for /table, retained for compatibility.</span></div><div class="help-row"><code>/tablehead #c92032</code><span>Table header background</span></div><div class="help-row"><code>/tableheadtext #ffffff</code><span>Table header text colour</span></div><div class="help-row"><code>/tableborder #dddddd</code><span>Table border colour</span></div><div class="help-row"><code>/tablebg #ffffff</code><span>Table cell background</span></div><div class="help-row"><code>/tablealt #f7f7f7</code><span>Alternate row background</span></div><div class="help-row"><code>/tablewidth 100%</code><span>Table width in percent or CSS length.</span></div><div class="help-row"><code>/tablepadding 10</code><span>Cell padding in pixels.</span></div><div class="help-row"><code>/tablealign center</code><span>Align a table left, center or right.</span></div><div class="help-row"><code>/tableborderwidth 1.5</code><span>Set cell border thickness in pixels.</span></div><div class="help-row"><code>/sign Your Name</code><span>Signature block</span></div><div class="help-row"><code>/stamp APPROVED</code><span>Add a stamp-style document label.</span></div><div class="help-row"><code>/note /info /warning /success</code><span>Pre-styled callout blocks.</span></div><div class="help-row"><code>/image URL</code><span>Alias for /img URL.</span></div><div class="help-row"><code>/newpage</code><span>Alias for /pagebreak.</span></div><div class="help-row"><code>/watermark DRAFT</code><span>Single user watermark setting, applied to pages</span></div><div class="help-row"><code>/border #c92032</code><span>Single page border setting</span></div><div class="help-row"><code>/pgno</code><span>Toggle page numbers on/off</span></div><div class="help-row"><code>/link URL | label</code><span>Insert text with a clickable PDF link</span></div>
         </div>
         <div class="help-card"><h3>Document layout & content</h3>
           <div class="help-row"><code>/pagebreak</code><span>Start the next page</span></div><div class="help-row"><code>/quote text</code><span>Quote block</span></div><div class="help-row"><code>/bullet text</code><span>Bullet item</span></div><div class="help-row"><code>/num text</code><span>Numbered item</span></div><div class="help-row"><code>/code text</code><span>Monospaced code block</span></div><div class="help-row"><code>/callout text</code><span>Highlighted note block</span></div><div class="help-row"><code>/box #eef2ff text</code><span>Custom colour-backed information box.</span></div><div class="help-row"><code>/upper /lower /capitalize</code><span>Apply text transformation to a single display line.</span></div><div class="help-row"><code>/check text</code><span>Checklist item.</span></div><div class="help-row"><code>/date</code><span>Insert today’s date</span></div><div class="help-row"><code>/small text</code><span>Small text paragraph</span></div>
         </div>
         <div class="help-card"><h3>Keyboard shortcuts</h3>
-          <div class="help-row"><code>Ctrl + Z</code><span>Undo (editor)</span></div><div class="help-row"><code>Ctrl + Shift + Z</code><span>Redo while typing; Shift + Z works outside the terminal</span></div><div class="help-row"><code>Ctrl + C / X / A</code><span>Copy / cut / select all</span></div><div class="help-row"><code>Ctrl + P</code><span>Paste clipboard into terminal (permission may be required)</span></div><div class="help-row"><code>Ctrl + M</code><span>Open command help</span></div><div class="help-row"><code>Shift + M</code><span>Open preview (when terminal isn't focused)</span></div><div class="help-row"><code>Shift + P / N</code><span>Previous / next page</span></div><div class="help-row"><code>/help</code><span>Open this guide</span></div>
+          <div class="help-row"><code>Ctrl + Z / Alt + Z</code><span>Undo in the terminal.</span></div><div class="help-row"><code>Alt + Shift + Z</code><span>Redo in the terminal.</span></div><div class="help-row"><code>Ctrl + F / Alt + F</code><span>Find and replace text in the terminal.</span></div><div class="help-row"><code>Ctrl + K</code><span>Focus JNRML command search.</span></div><div class="help-row"><code>Tab / ↑ / ↓ / Esc</code><span>Accept, navigate or close autocomplete suggestions.</span></div><div class="help-row"><code>Ctrl + Shift + Z</code><span>Redo while typing; Shift + Z works outside the terminal</span></div><div class="help-row"><code>Ctrl + C / X / A</code><span>Copy / cut / select all</span></div><div class="help-row"><code>Ctrl + P</code><span>Paste clipboard into terminal (permission may be required)</span></div><div class="help-row"><code>Ctrl + M</code><span>Open command help</span></div><div class="help-row"><code>Shift + M</code><span>Open preview (when terminal isn't focused)</span></div><div class="help-row"><code>Shift + P / N</code><span>Previous / next page</span></div><div class="help-row"><code>/help</code><span>Open this guide</span></div>
         </div>
       </div>
       <p style="font-size:10px;color:#999aa2;line-height:1.6;margin:15px 2px 0">Limits: up to 50 preview/export pages. Page breaks are added automatically. Export uses an HD canvas renderer; external images need to allow cross-origin access to appear in the PDF.</p>
     </div>
-    <div class="modal-foot"><span>JNR PDF · Live Document Studio</span><button class="btn primary" id="helpGotIt">Got it</button></div>
+    <div class="modal-foot"><span>JNR PDF · JNR Markup Language</span><button class="btn primary" id="helpGotIt">Got it</button></div>
   </div>
 </div>
 
@@ -371,6 +461,23 @@
       <div class="encrypt-actions"><button class="btn" id="cancelEncrypt">Cancel</button><button class="btn primary" id="encryptNowBtn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Encrypt & Download</button></div>
     </div>
     <div class="modal-foot"><span>AES-256 · Browser-side processing</span><span>JNR PDF</span></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="terminalFindModal" role="dialog" aria-modal="true" aria-labelledby="terminalFindTitle">
+  <div class="modal terminal-find-modal">
+    <div class="modal-head"><div><h2 id="terminalFindTitle">Find in JNRML terminal</h2><p>Search the source text, jump between matches, or replace one/all matches.</p></div><button class="btn" id="closeTerminalFind" aria-label="Close terminal search">✕</button></div>
+    <div class="modal-body terminal-find-body">
+      <label class="terminal-find-label" for="terminalFindInput">Find text</label>
+      <div class="terminal-find-row"><input id="terminalFindInput" type="search" autocomplete="off" placeholder="Text or command to find…"/><span class="terminal-find-count" id="terminalFindCount">0 matches</span></div>
+      <div class="terminal-find-actions"><button class="btn" id="findPrevBtn" type="button">↑ Previous</button><button class="btn" id="findNextBtn" type="button">↓ Next</button></div>
+      <div class="terminal-find-divider"></div>
+      <label class="terminal-find-label" for="terminalReplaceInput">Replace with</label>
+      <input id="terminalReplaceInput" type="text" autocomplete="off" placeholder="Replacement text…"/>
+      <div class="terminal-find-actions"><button class="btn soft" id="replaceOneBtn" type="button">Replace current</button><button class="btn primary" id="replaceAllBtn" type="button">Replace all</button></div>
+      <p class="enhancement-note">Shortcuts: Ctrl+F or Alt+F to open · Enter for next match · Shift+Enter for previous match. Search wraps at the document ends.</p>
+    </div>
+    <div class="modal-foot"><span>JNRML · Source search</span><button class="btn" id="terminalFindDone">Done</button></div>
   </div>
 </div>
 
@@ -493,10 +600,19 @@ A spacer command adds a controlled gap without filling the page with blank lines
 /h3 Table command compatibility
 /table
 Command | Purpose | Example
-Align command | Paragraph alignment | align center
-Indent command | Left indent in px | indent 20
-Letter spacing | Character spacing | letterspacing 0.5
-Page background | Page background | pagebg #fffdf7
+Padding | Inner content spacing | /padding 24px 28px
+Table controls | Width, cell padding, alignment | /tablewidth 100%
+
+/info JNRML supports ready-to-edit layouts and inline styles.
+/warning Review page breaks and images before exporting.
+/stamp JNRML READY
+
+/h3 Advanced page layout
+/header JNR PDF · JNRML Document
+/footer JNR Corporation · Document copy
+/v 64 #7c3aed 4 center
+/margin 18 16 20 16
+/padding 22px 24px 30px 24px
 
 /h
 End of JNR PDF sample`;
@@ -546,7 +662,13 @@ End of JNR PDF sample`;
     const page=document.createElement('article'); page.className='pdf-page'; page.dataset.page=String(number); page.setAttribute('aria-label',`PDF page ${number}`);
     if(opts.border){ page.style.boxShadow=`inset 0 0 0 2px ${opts.border}`; page.style.borderColor=opts.border; }
     page.style.backgroundColor=opts.pageBg||'#ffffff';
-    const content=document.createElement('div'); content.className='pdf-page-content'; if(opts.margin){const m=Math.max(10,Math.min(35,Number(opts.margin)||18));const px=(m/210)*794;content.style.padding=`${px}px ${px}px ${Math.min(35,m*1.15)/210*794}px`; } page.appendChild(content);
+    const content=document.createElement('div'); content.className='pdf-page-content';
+    if(Array.isArray(opts.margin)&&opts.margin.length){const m=opts.margin.map(v=>`${(Math.max(0,Math.min(50,Number(v)||0))/25.4)*96}px`);content.style.padding=`${m[0]} ${m[1]} ${m[2]} ${m[3]}`;}
+    else if(opts.margin){const mm=Math.max(0,Math.min(50,Number(opts.margin)||0));const px=(mm/25.4)*96;content.style.padding=`${px}px ${px}px ${(Math.min(50,mm*1.15)/25.4)*96}px`; }
+    if(opts.pagePadding)content.style.padding=opts.pagePadding;
+    page.appendChild(content);
+    if(opts.header){const header=document.createElement('div');header.className='page-running-header';header.textContent=opts.header;page.appendChild(header);}
+    if(opts.footer){const footer=document.createElement('div');footer.className='page-running-footer';footer.textContent=opts.footer;page.appendChild(footer);}
     if(opts.watermark){const wm=document.createElement('div');wm.className='page-watermark';const span=document.createElement('span');span.textContent=opts.watermark;wm.appendChild(span);page.appendChild(wm);}
     if(opts.pageNumbers){const no=document.createElement('div');no.className='page-number';no.textContent=String(number);page.appendChild(no);}
     const edge=document.createElement('div');edge.className='page-edge-label';edge.textContent='JNR PDF  /  A4';page.appendChild(edge);
@@ -574,23 +696,23 @@ End of JNR PDF sample`;
     const escapeRegExp=value=>value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
     const fontPattern=allowedFonts.slice().sort((a,b)=>b.length-a.length).map(escapeRegExp).join('|');
     const hex=String.raw`#(?:[0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{3})`;
-    const regex=new RegExp(String.raw`(\\(?:colorend|bold|highlight(?:end)?|high(?:end)?|markend|fontend|sizeend|bgcolorend|strikethrough|strike|sub|sup|i|u|s)(?![a-z])|/(?:strikethrough|strike|bold|sub|sup|i|u|s|n|t)(?=\s|$)|/(?:highlight|high|mark)(?:\s+${hex})?|/colorcode\s+${hex}|/bgcolor\s+${hex}|/font\s+(?:${fontPattern})(?![\\w-])|/size\s+\d{1,2})`,'gi');
+    const regex=new RegExp(String.raw`(\\(?:colorend|textcolor|fill|italic|underline|bold|highlight(?:end)?|high(?:end)?|markend|fontend|sizeend|bgcolorend|strikethrough|strike|sub|sup|i|u|s)(?![a-z])|/(?:strikethrough|strike|bold|sub|sup|italic|underline|i|u|s|n|t)(?=\s|$)|/(?:highlight|high|mark)(?:\s+${hex})?|/(?:colorcode|textcolor)\s+${hex}|/(?:bgcolor|fill)\s+${hex}|/font\s+(?:${fontPattern})(?![\\w-])|/size\s+\d{1,2})`,'gi');
     let last=0,match;
     while((match=regex.exec(text))!==null){
       if(match.index>last)frag.appendChild(formatSpan(text.slice(last,match.index),state));
       const token=match[0],lower=token.toLowerCase();
       if(lower==='/bold')state.bold=true;
       else if(lower==='\\bold')state.bold=false;
-      else if(lower==='/i')state.italic=true;
-      else if(lower==='\\i')state.italic=false;
-      else if(lower==='/u')state.underline=true;
-      else if(lower==='\\u')state.underline=false;
+      else if(lower==='/i'||lower==='/italic')state.italic=true;
+      else if(lower==='\\i'||lower==='\\italic')state.italic=false;
+      else if(lower==='/u'||lower==='/underline')state.underline=true;
+      else if(lower==='\\u'||lower==='\\underline')state.underline=false;
       else if(/^\/(?:high|highlight|mark)/i.test(token)){state.highlight=true;state.highlightColor=(token.match(/#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})/i)||[])[0]||'#fff0a8';}
       else if(/^\\(?:high|highlight|markend)/i.test(token)){state.highlight=false;state.highlightColor='';}
-      else if(/^\/colorcode/i.test(token))state.color=ensureColor(token.replace(/^\/colorcode\s+/i,''));
-      else if(lower==='\\colorend')state.color='';
-      else if(/^\/bgcolor/i.test(token))state.background=ensureColor(token.replace(/^\/bgcolor\s+/i,''));
-      else if(lower==='\\bgcolorend')state.background='';
+      else if(/^\/(?:colorcode|textcolor)/i.test(token))state.color=ensureColor(token.replace(/^\/(?:colorcode|textcolor)\s+/i,''));
+      else if(lower==='\\colorend'||lower==='\\textcolor')state.color='';
+      else if(/^\/(?:bgcolor|fill)/i.test(token))state.background=ensureColor(token.replace(/^\/(?:bgcolor|fill)\s+/i,''));
+      else if(lower==='\\bgcolorend'||lower==='\\fill')state.background='';
       else if(/^\/font\s+/i.test(token)){const f=token.replace(/^\/font\s+/i,'').trim();state.font=allowedFonts.find(x=>x.toLowerCase()===f.toLowerCase())||'';}
       else if(lower==='\\fontend')state.font='';
       else if(/^\/size\s+/i.test(token)){const n=parseInt(token.replace(/^\/size\s+/i,''),10);state.size=Number.isFinite(n)?Math.max(8,Math.min(72,n)):0;}
@@ -611,21 +733,33 @@ End of JNR PDF sample`;
   function appendTextBlock(parent,text,state,tag='p'){
     const node=document.createElement(tag); node.appendChild(renderInline(text,state)); parent.appendChild(node); return node;
   }
+  function parseMarginValues(raw){
+    const tokens=(raw||'').trim().split(/\s+/).filter(Boolean);if(!tokens.length)return null;if(tokens.length>4)return null;
+    const values=[];for(const token of tokens){const m=token.match(/^(\d+(?:\.\d+)?)(mm|cm|in|pt|px)?$/i);if(!m)return null;let n=Number(m[1]);const unit=(m[2]||'mm').toLowerCase();if(unit==='cm')n*=10;else if(unit==='in')n*=25.4;else if(unit==='pt')n*=25.4/72;else if(unit==='px')n*=25.4/96;values.push(Math.max(0,Math.min(50,n)));}
+    if(values.length===1)return [values[0],values[0],values[0],values[0]];if(values.length===2)return [values[0],values[1],values[0],values[1]];if(values.length===3)return [values[0],values[1],values[2],values[1]];return values;
+  }
+  function parsePaddingValues(raw){
+    const tokens=(raw||'').trim().split(/\s+/).filter(Boolean);if(!tokens.length||tokens.length>4)return '';const cooked=[];
+    for(const token of tokens){const m=token.match(/^(\d+(?:\.\d+)?)(px|mm|cm|in|pt|%)?$/i);if(!m)return '';let n=Number(m[1]);const unit=(m[2]||'px').toLowerCase();if(unit==='%')n=Math.max(0,Math.min(35,n));else n=Math.max(0,Math.min(unit==='mm'?50:unit==='cm'?5:unit==='in'?2:unit==='pt'?144:220,n));cooked.push(`${n}${unit}`);}
+    if(cooked.length===1)return `${cooked[0]}`;if(cooked.length===2)return `${cooked[0]} ${cooked[1]}`;if(cooked.length===3)return `${cooked[0]} ${cooked[1]} ${cooked[2]}`;return cooked.join(' ');
+  }
   function tableFromRows(lines,tableOptions={}){
     const table=document.createElement('table');table.className='preview-table';
+    table.style.width=tableOptions.width||'100%';table.style.tableLayout=tableOptions.layout==='fixed'?'fixed':'auto';table.style.setProperty('--table-padding',`${Math.max(2,Math.min(28,Number(tableOptions.padding)||8))}px`);table.style.setProperty('--table-border-width',`${Math.max(.5,Math.min(4,Number(tableOptions.borderWidth)||1))}px`);
     const body=document.createElement('tbody');table.appendChild(body);
     const rows=lines.map(line=>line.split('|').map(v=>v.trim()));
     if(!rows.length||!rows.some(r=>r.join('').trim()))rows.push(['Column 1','Column 2','Column 3'],['Click to edit','Your content','Add a value']);
     const cols=Math.max(1,Math.min(20,...[Math.max(...rows.map(r=>r.length))]));
     rows.slice(0,100).forEach((row,ri)=>{const tr=document.createElement('tr');for(let c=0;c<cols;c++){const cell=document.createElement(ri===0?'th':'td');cell.contentEditable='true';cell.spellcheck=false;cell.textContent=row[c]||((ri===0)?`Column ${c+1}`:'');tr.appendChild(cell);}body.appendChild(tr);});
-    const wrap=document.createElement('div');wrap.className='preview-table-wrap';
+    const wrap=document.createElement('div');wrap.className='preview-table-wrap';if(tableOptions.align)wrap.style.textAlign=tableOptions.align;
     const tools=document.createElement('div');tools.className='table-tools';
-    tools.innerHTML=`<label>Rows <input type="number" min="1" max="100" value="${Math.min(100,rows.length)}" data-table-control="rows" aria-label="Table row count"></label><label>Columns <input type="number" min="1" max="20" value="${cols}" data-table-control="cols" aria-label="Table column count"></label><span class="tools-divider"></span><label>Header <input type="color" value="${tableOptions.headBg||'#fff0f2'}" data-table-color="head-bg" aria-label="Table header colour"></label><label>Header text <input type="color" value="${tableOptions.headText||'#9f1928'}" data-table-color="head-text" aria-label="Table header text colour"></label><label>Cells <input type="color" value="${tableOptions.cellBg||'#ffffff'}" data-table-color="cell-bg" aria-label="Table cell colour"></label><label>Alternate <input type="color" value="${tableOptions.altBg||'#ffffff'}" data-table-color="alt-bg" aria-label="Table alternate row colour"></label><label>Border <input type="color" value="${tableOptions.border||'#eee2e4'}" data-table-color="border" aria-label="Table border colour"></label>`;
+    tools.innerHTML=`<label>Rows <input type="number" min="1" max="100" value="${Math.min(100,rows.length)}" data-table-control="rows" aria-label="Table row count"></label><label>Columns <input type="number" min="1" max="20" value="${cols}" data-table-control="cols" aria-label="Table column count"></label><label>Padding <input type="number" min="2" max="28" value="${Math.max(2,Math.min(28,Number(tableOptions.padding)||8))}" data-table-control="padding" aria-label="Table cell padding in pixels"></label><label>Width <select data-table-control="width" aria-label="Table width"><option value="60%" ${tableOptions.width==='60%'?'selected':''}>60%</option><option value="75%" ${tableOptions.width==='75%'?'selected':''}>75%</option><option value="100%" ${!tableOptions.width||tableOptions.width==='100%'?'selected':''}>100%</option></select></label><label>Align <select data-table-control="align" aria-label="Table alignment"><option value="left" ${!tableOptions.align||tableOptions.align==='left'?'selected':''}>Left</option><option value="center" ${tableOptions.align==='center'?'selected':''}>Center</option><option value="right" ${tableOptions.align==='right'?'selected':''}>Right</option></select></label><span class="tools-divider"></span><label>Header <input type="color" value="${tableOptions.headBg||'#fff0f2'}" data-table-color="head-bg" aria-label="Table header colour"></label><label>Header text <input type="color" value="${tableOptions.headText||'#9f1928'}" data-table-color="head-text" aria-label="Table header text colour"></label><label>Cells <input type="color" value="${tableOptions.cellBg||'#ffffff'}" data-table-color="cell-bg" aria-label="Table cell colour"></label><label>Alternate <input type="color" value="${tableOptions.altBg||'#ffffff'}" data-table-color="alt-bg" aria-label="Table alternate row colour"></label><label>Border <input type="color" value="${tableOptions.border||'#eee2e4'}" data-table-color="border" aria-label="Table border colour"></label>`;
     wrap.append(tools,table);setTableStyles(table,tableOptions);return wrap;
   }
   function setTableStyles(table,options={}){
     const values={'head-bg':options.headBg||'#fff0f2','head-text':options.headText||'#9f1928','cell-bg':options.cellBg||'#ffffff','alt-bg':options.altBg||'#ffffff','border':options.border||'#eee2e4'};
     for(const [key,value] of Object.entries(values))table.style.setProperty(`--table-${key}`,ensureColor(value));
+    table.style.width=options.width||table.style.width||'100%';if(options.align){table.style.marginLeft=options.align==='right'||options.align==='center'?'auto':'0';table.style.marginRight=options.align==='left'||options.align==='center'?'auto':'0';}table.style.setProperty('--table-padding',`${Math.max(2,Math.min(28,Number(options.padding)||8))}px`);table.style.setProperty('--table-border-width',`${Math.max(.5,Math.min(4,Number(options.borderWidth)||1))}px`);
   }
   function resizeTable(wrap,requestedRows,requestedCols){
     const table=wrap.querySelector('.preview-table');if(!table)return;
@@ -639,9 +773,12 @@ End of JNR PDF sample`;
     const trim=line.trim();
     if(!trim) return {node:Object.assign(document.createElement('div'),{className:'blank-line'}),special:'blank'};
     if(trim==='/n'){const n=document.createElement('br');return {node:n,special:'br'};}
-    if(/^\/pagebreak$/i.test(trim))return {pageBreak:true};
-    if(/^\/(?:pagebg|background|bgpage)\s+\S+$/i.test(trim)){const raw=trim.replace(/^\/(?:pagebg|background|bgpage)\s*/i,'').trim();return {option:'pageBg',value:ensureColor(raw)};}
-    if(/^\/margin\s+\d+(?:\.\d+)?$/i.test(trim)){return {option:'margin',value:Math.max(10,Math.min(35,Number(trim.replace(/^\/margin\s*/i,''))))};}
+    if(/^\/(?:pagebreak|newpage)$/i.test(trim))return {pageBreak:true};
+    if(/^\/(?:pagebg|pagebackground|background|bgpage)\s+\S+$/i.test(trim)){const raw=trim.replace(/^\/(?:pagebg|pagebackground|background|bgpage)\s*/i,'').trim();return {option:'pageBg',value:ensureColor(raw)};}
+    const marginMatch=trim.match(/^\/margin(?:\s+(.+))?$/i);if(marginMatch){if(!marginMatch[1]||/^(?:reset|default|auto)$/i.test(marginMatch[1].trim()))return {option:'margin',value:0};const parsed=parseMarginValues(marginMatch[1]);return parsed?{option:'margin',value:parsed}:{skip:true,notice:'Margin expects 1–4 numeric values in mm, e.g. /margin 18 14 20 14.'};}
+    const paddingMatch=trim.match(/^\/padding(?:\s+(.+))?$/i);if(paddingMatch){if(!paddingMatch[1]||/^(?:reset|default|auto)$/i.test(paddingMatch[1].trim()))return {option:'pagePadding',value:''};const parsed=parsePaddingValues(paddingMatch[1]);return parsed?{option:'pagePadding',value:parsed}:{skip:true,notice:'Padding expects 1–4 CSS-like values, e.g. /padding 24px 28px.'};}
+    const headerMatch=trim.match(/^\/(header|footer)(?:\s+(.*))?$/i);if(headerMatch){const val=(headerMatch[2]||'').trim();return {option:headerMatch[1].toLowerCase(),value:/^(?:off|none|reset)$/i.test(val)?'':val};}
+    if(/^\/resetlayout$/i.test(trim))return {option:'resetLayout'};
     if(/^\/lineheight\s+\d+(?:\.\d+)?$/i.test(trim)){state.lineHeight=Math.max(1,Math.min(2.8,Number(trim.replace(/^\/lineheight\s*/i,''))));return {skip:true};}
     const spacer=trim.match(/^\/spacer\s+(\d{1,3})$/i);if(spacer){const n=document.createElement('div');n.style.height=Math.max(0,Math.min(100,Number(spacer[1])))+'px';n.style.minHeight=n.style.height;return {node:n};}
     const box=trim.match(/^\/box\s+(#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8}))\s+(.+)$/i);if(box){const n=document.createElement('div');n.className='preview-callout';n.style.backgroundColor=ensureColor(box[1]);n.style.borderColor=ensureColor(box[1]);n.appendChild(renderInline(box[2],state));return {node:n};}
@@ -654,15 +791,17 @@ End of JNR PDF sample`;
     const bullet=trim.match(/^\/bullet(?:\s+(.*))?$/i);if(bullet){const n=document.createElement('p');n.style.paddingLeft='1.4em';n.style.textIndent='-1em';n.appendChild(document.createTextNode('•  '));n.appendChild(renderInline(bullet[1]||'',state));return {node:n};}
     const numbered=trim.match(/^\/num(?:\s+(.*))?$/i);if(numbered){const n=document.createElement('p');n.style.paddingLeft='1.6em';n.style.textIndent='-1.6em';n.appendChild(document.createTextNode(`${state.numberedCount||1}.  `));n.appendChild(renderInline(numbered[1]||'',state));return {node:n};}
     const code=trim.match(/^\/code(?:\s+(.*))?$/i);if(code){const n=document.createElement('pre');n.className='preview-code';n.textContent=code[1]||'';return {node:n};}
-    const callout=trim.match(/^\/callout(?:\s+(.*))?$/i);if(callout){const n=document.createElement('div');n.className='preview-callout';n.appendChild(renderInline(callout[1]||'',state));return {node:n};}
+    const callout=trim.match(/^\/(callout|note|info|warning|success|error)(?:\s+(.*))?$/i);if(callout){const kind=callout[1].toLowerCase();const n=document.createElement('div');n.className=['info','warning','success','error'].includes(kind)?`preview-note note-${kind}`:'preview-callout';n.appendChild(renderInline(callout[2]||'',state));return {node:n};}
+    const stamp=trim.match(/^\/stamp(?:\s+(.*))?$/i);if(stamp){const n=document.createElement('div');n.className='preview-stamp';n.textContent=(stamp[1]||'APPROVED').slice(0,100);return {node:n};}
     const small=trim.match(/^\/small(?:\s+(.*))?$/i);if(small){const n=appendTextBlock(document.createElement('div'),small[1]||'',state,'p');n.style.fontSize='.85em';return {node:n};}
     if(trim==='/t'){const n=document.createElement('div');n.style.paddingLeft='2em';n.style.height='1.1em';return {node:n};}
     if(trim==='/h'){return {node:document.createElement('hr')};}
-    if(trim==='/v'){const n=document.createElement('div');n.className='preview-vline';return {node:n};}
+    const vline=trim.match(/^\/v(?:\s+(.*))?$/i);if(vline){const args=(vline[1]||'').trim().split(/\s+/).filter(Boolean);let height=56,width=3,colour='#c92032',align='center',numericCount=0;for(const arg of args){if(/^(left|center|right)$/i.test(arg))align=arg.toLowerCase();else if(/^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(arg)||/^(red|blue|green|black|white|gray|grey|orange|purple|teal|navy|maroon|crimson|gold|indigo|tomato|coral)$/i.test(arg))colour=ensureColor(arg);else if(/^\d+(?:\.\d+)?$/.test(arg)){if(numericCount===0)height=Math.max(8,Math.min(280,Number(arg)));else if(numericCount===1)width=Math.max(1,Math.min(14,Number(arg)));numericCount++;}}const n=document.createElement('div');n.className='preview-vline';n.style.height=height+'px';n.style.width=width+'px';n.style.background=`linear-gradient(180deg,${colour},${colour} 65%,${colour})`;n.style.marginLeft=align==='left'?'0':align==='right'?'auto':'auto';n.style.marginRight=align==='right'?'0':align==='left'?'auto':'auto';if(align==='center'){n.style.marginLeft='auto';n.style.marginRight='auto';}return {node:n};}
     const head=trim.match(/^\/(h[1-5])(?:\s+(.*))?$/i);
     if(head){const lvl=head[1].toLowerCase();const content=head[2]||'';if(content){const node=document.createElement(lvl);node.appendChild(renderInline(content,state));return {node};}return {pendingHeading:Number(lvl[1])};}
     if(/^\/p(?:\s|$)/i.test(trim)){const content=trim.replace(/^\/p\s*/, '');if(content)return {node:appendTextBlock(document.createElement('div'),content,state,'p')};return {pendingHeading:0};}
     if(trim==='/help'){openHelp();return {skip:true};}
+    const tableMetric=trim.match(/^\/(tablewidth|tablepadding|tablealign|tableborderwidth)\s+(\S+)$/i);if(tableMetric){const cmd=tableMetric[1].toLowerCase(),raw=tableMetric[2];if(cmd==='tablewidth'){if(!/^(?:100|75|60)%$/.test(raw)&&!/^\d{1,3}(?:\.\d+)?(?:px|mm|%)?$/i.test(raw))return {skip:true,notice:'Use a valid table width such as /tablewidth 100%.'};let v=raw;if(/^\d+(?:\.\d+)?$/.test(v))v=Math.max(10,Math.min(100,Number(v)))+'%';if(/%$/.test(v))v=Math.max(10,Math.min(100,parseFloat(v)))+'%';return {option:'tableWidth',value:v};}if(cmd==='tablepadding'){const n=Number(raw);if(!Number.isFinite(n))return {skip:true,notice:'Use /tablepadding with a number from 2 to 28.'};return {option:'tablePadding',value:Math.max(2,Math.min(28,n))};}if(cmd==='tableborderwidth'){const n=Number(raw);if(!Number.isFinite(n))return {skip:true,notice:'Use /tableborderwidth with a number from 0.5 to 4.'};return {option:'tableBorderWidth',value:Math.max(.5,Math.min(4,n))};}if(!/^(left|center|right)$/i.test(raw))return {skip:true,notice:'Table alignment must be left, center or right.'};return {option:'tableAlign',value:raw.toLowerCase()};}
     const tableStyle=trim.match(/^\/(tableheadtext|tablehead|tableborder|tablebg|tablealt)\s+(\S+)$/i);
     if(tableStyle){const map={tablehead:'tableHeadBg',tableheadtext:'tableHeadText',tableborder:'tableBorder',tablebg:'tableCellBg',tablealt:'tableAltBg'};return {option:map[tableStyle[1].toLowerCase()],value:ensureColor(tableStyle[2])};}
     if(/^\/watermark(?:\s|$)/i.test(trim)){return {option:'watermark',value:trim.replace(/^\/watermark\s*/i,'').trim()||'DRAFT'};}
@@ -670,18 +809,18 @@ End of JNR PDF sample`;
     if(trim==='/pgno'){return {option:'pageNumbers'};}
     if(/^\/font\s+.+$/i.test(trim)){const f=trim.replace(/^\/font\s*/i,'').trim();const matched=allowedFonts.find(x=>x.toLowerCase()===f.toLowerCase());if(matched){state.font=matched;return {skip:true};}}
     if(/^\/size\s+\d{1,2}$/i.test(trim)){const n=parseInt(trim.replace(/^\/size\s*/i,''),10);state.size=Math.max(8,Math.min(48,n));return {skip:true};}
-    if(/^\/img(?:\s|$)/i.test(trim)){
-      const rawSource=trim.replace(/^\/img\s*/i,'').trim();const src=rawSource.toLowerCase()==='sample'?SAMPLE_IMAGE_DATA:safeURL(rawSource);
+    if(/^\/(?:img|image)(?:\s|$)/i.test(trim)){
+      const rawSource=trim.replace(/^\/(?:img|image)\s*/i,'').trim();const src=rawSource.toLowerCase()==='sample'?SAMPLE_IMAGE_DATA:safeURL(rawSource);
       if(!src){const n=document.createElement('div');n.className='image-placeholder';n.textContent='Image not set — add a URL after /img or choose Upload image in the terminal toolbar.';return {node:n};}
       const img=document.createElement('img');img.className='preview-image';img.src=src;img.alt='Document image';img.crossOrigin=src.startsWith('data:')?'anonymous':'anonymous';img.loading='eager';img.addEventListener('error',()=>{img.replaceWith(Object.assign(document.createElement('div'),{className:'image-placeholder',textContent:'Image could not load. Check the URL or upload a local image.'}));});return {node:img};
     }
-    if(/^\/sign(?:\s|$)/i.test(trim)){
-      const name=trim.replace(/^\/sign\s*/i,'').trim()||'Your Name';const wrap=document.createElement('div');wrap.className='preview-sign';const sign=document.createElement('div');sign.className='signature-name';sign.textContent=name;sign.contentEditable='true';sign.spellcheck=false;const cap=document.createElement('div');cap.className='signature-caption';cap.textContent='Signature';wrap.append(sign,cap);return {node:wrap};
+    if(/^\/(?:sign|signature)(?:\s|$)/i.test(trim)){
+      const name=trim.replace(/^\/(?:sign|signature)\s*/i,'').trim()||'Your Name';const wrap=document.createElement('div');wrap.className='preview-sign';const sign=document.createElement('div');sign.className='signature-name';sign.textContent=name;sign.contentEditable='true';sign.spellcheck=false;const cap=document.createElement('div');cap.className='signature-caption';cap.textContent='Signature';wrap.append(sign,cap);return {node:wrap};
     }
     if(/^\/link(?:\s|$)/i.test(trim)){
       const args=trim.replace(/^\/link\s*/i,'');const split=args.split('|');const url=safeURL(split[0]);const label=(split.slice(1).join('|').trim()||split[0]||'Open link').trim();const p=document.createElement('p');if(url){const a=document.createElement('a');a.className='preview-link';a.href=url;a.textContent=label;a.target='_blank';a.rel='noopener noreferrer';p.appendChild(a);}else p.textContent=label;return {node:p};
     }
-    if(trim==='/tbale'||trim==='/table') return {tableStart:true};
+    const tableStart=trim.match(/^\/(?:table|tbale)(?:\s+(\d{1,2})[xX](\d{1,2}))?$/i);if(tableStart)return {tableStart:true,tableConfig:tableStart[1]?{rows:Math.max(1,Math.min(100,Number(tableStart[1]))),cols:Math.max(1,Math.min(20,Number(tableStart[2])))}:null};
     return {node:appendTextBlock(document.createElement('div'),line,state,'p').firstChild};
   }
   function ensureColor(color){
@@ -690,14 +829,14 @@ End of JNR PDF sample`;
   }
   function renderDocument(){
     const token=++renderToken; const text=terminal.value; const lines=text.split(/\r?\n/);
-    const options={watermark:'',border:'',pageBg:'#ffffff',margin:0,pageNumbers:false,watermarkSet:false,borderSet:false,tableHeadBg:'#fff0f2',tableHeadText:'#9f1928',tableCellBg:'#ffffff',tableAltBg:'#ffffff',tableBorder:'#eee2e4'};
+    const options={watermark:'',border:'',pageBg:'#ffffff',margin:0,pagePadding:'',header:'',footer:'',pageNumbers:false,watermarkSet:false,borderSet:false,tableHeadBg:'#fff0f2',tableHeadText:'#9f1928',tableCellBg:'#ffffff',tableAltBg:'#ffffff',tableBorder:'#eee2e4',tableWidth:'100%',tablePadding:8,tableAlign:'left',tableBorderWidth:1};
     const state={bold:false,italic:false,underline:false,strike:false,subscript:false,superscript:false,highlight:false,highlightColor:'',color:'',background:'',font:'',size:0,align:'left',lineHeight:0,indent:0,letterSpacing:0,numberedCount:0};
-    const blocks=[]; let pendingHeading=0; let tableMode=false, tableRows=[];
+    const blocks=[]; let pendingHeading=0; let tableMode=false, tableRows=[], tableConfig=null;
     for(let i=0;i<lines.length;i++){
       const line=lines[i]; const trim=line.trim();
       if(tableMode){
-        if(!trim || /^\/(?:h[1-5]|p|img|sign|watermark|border|pgno|font|size|link|tbale|table|n|t|h|v|help|pagebreak|align|tableheadtext|tablehead|tableborder|tablebg|tablealt|date|quote|bullet|num|code|callout|small|pagebg|background|bgpage|margin|lineheight|title|subtitle|caption|check|checkbox|hr|line|pageborder|indent|letterspacing|spacer|box|upper|uppercase|lower|lowercase|capitalize)(?:\s|$)/i.test(trim)){
-          blocks.push({type:'table',rows:tableRows.length?tableRows:[]});tableMode=false;tableRows=[];
+        if(!trim || /^\/(?:h[1-5]|p|img|image|sign|signature|watermark|border|pgno|font|size|link|tbale|table|n|t|h|v|help|pagebreak|newpage|align|tableheadtext|tablehead|tableborder|tablebg|tablealt|tablewidth|tablepadding|tablealign|tableborderwidth|date|quote|bullet|num|code|callout|note|info|warning|success|error|stamp|small|pagebg|pagebackground|background|bgpage|margin|padding|header|footer|resetlayout|lineheight|title|subtitle|caption|check|checkbox|hr|line|pageborder|indent|letterspacing|spacer|box|upper|uppercase|lower|lowercase|capitalize|clearformats)(?:\s|$)/i.test(trim)){
+          blocks.push({type:'table',rows:tableRows,tableConfig});tableMode=false;tableRows=[];tableConfig=null;
           if(!trim){continue;}
           // process this command normally below
         } else if(line.includes('|')){tableRows.push(line);continue;}
@@ -705,16 +844,17 @@ End of JNR PDF sample`;
       }
       if(/^\/num(?:\s|$)/i.test(trim))state.numberedCount=(state.numberedCount||0)+1;else if(trim)state.numberedCount=0;
       // Format toggles may also be written as a standalone command.
+      if(trim==='/clearformats'){Object.assign(state,{bold:false,italic:false,underline:false,strike:false,subscript:false,superscript:false,highlight:false,highlightColor:'',color:'',background:'',font:'',size:0});continue;}
       if(trim==='/bold'){state.bold=true;continue;} if(trim==='\\bold'){state.bold=false;continue;}
-      if(trim==='/i'){state.italic=true;continue;} if(trim==='\\i'){state.italic=false;continue;}
-      if(trim==='/u'){state.underline=true;continue;} if(trim==='\\u'){state.underline=false;continue;}
+      if(trim==='/i'||trim==='/italic'){state.italic=true;continue;} if(trim==='\\i'||trim==='\\italic'){state.italic=false;continue;}
+      if(trim==='/u'||trim==='/underline'){state.underline=true;continue;} if(trim==='\\u'||trim==='\\underline'){state.underline=false;continue;}
       if(trim==='/high'||trim==='/highlight'||trim==='/mark'){state.highlight=true;state.highlightColor='#fff0a8';continue;} if(trim==='\\high'||trim==='\\highend'||trim==='\\highlightend'||trim==='\\markend'){state.highlight=false;state.highlightColor='';continue;}
       const highCommand=trim.match(/^\/(?:high|highlight|mark)\s+(#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8}))$/i);if(highCommand){state.highlight=true;state.highlightColor=ensureColor(highCommand[1]);continue;}
       if(trim==='/sub'){state.subscript=true;continue;} if(trim==='\\sub'){state.subscript=false;continue;}
       if(trim==='/sup'){state.superscript=true;continue;} if(trim==='\\sup'){state.superscript=false;continue;}
       if(/^\/(?:strike|strikethrough|s)$/i.test(trim)){state.strike=true;continue;} if(/^\\(?:strike|strikethrough|s)$/i.test(trim)){state.strike=false;continue;}
-      const colorCommand=trim.match(/^\/colorcode\s+(\S+)$/i);if(colorCommand){state.color=ensureColor(colorCommand[1]);continue;} if(trim==='\\colorend'){state.color='';continue;}
-    const bgCommand=trim.match(/^\/bgcolor\s+(\S+)$/i);if(bgCommand){state.background=ensureColor(bgCommand[1]);continue;} if(trim==='\\bgcolorend'){state.background='';continue;}
+      const colorCommand=trim.match(/^\/(?:colorcode|textcolor)\s+(\S+)$/i);if(colorCommand){state.color=ensureColor(colorCommand[1]);continue;} if(trim==='\\colorend'||trim==='\\textcolor'){state.color='';continue;}
+    const bgCommand=trim.match(/^\/(?:bgcolor|fill)\s+(\S+)$/i);if(bgCommand){state.background=ensureColor(bgCommand[1]);continue;} if(trim==='\\bgcolorend'||trim==='\\fill'){state.background='';continue;}
     if(trim==='\\fontend'){state.font='';continue;} if(trim==='\\sizeend'){state.size=0;continue;}
           const alignCommand=trim.match(/^\/align\s+(left|center|right|justify)(?:\s+(.*))?$/i);
       if(alignCommand){
@@ -731,13 +871,19 @@ End of JNR PDF sample`;
       const indentCommand=trim.match(/^\/indent\s+(-?\d+(?:\.\d+)?)$/i);if(indentCommand){state.indent=Math.max(0,Math.min(120,Number(indentCommand[1])||0));continue;}
       const spacingCommand=trim.match(/^\/letterspacing\s+(-?\d+(?:\.\d+)?)$/i);if(spacingCommand){state.letterSpacing=Math.max(-2,Math.min(8,Number(spacingCommand[1])||0));continue;}
       const item=createBlock(line,state,pendingHeading);
-      if(item.tableStart){tableMode=true;tableRows=[];continue;}
+      if(item.tableStart){tableMode=true;tableRows=[];tableConfig=item.tableConfig||null;continue;}
       if(item.option){
         if(item.option==='pageNumbers')options.pageNumbers=!options.pageNumbers;
         else if(item.option==='watermark'){if(!options.watermarkSet){options.watermark=item.value;options.watermarkSet=true;}}
         else if(item.option==='border'){if(!options.borderSet){options.border=ensureColor(item.value);options.borderSet=true;}}
         else if(item.option==='pageBg')options.pageBg=ensureColor(item.value);
-        else if(item.option==='margin')options.margin=Math.max(10,Math.min(35,Number(item.value)||18));
+        else if(item.option==='margin'){options.margin=item.value;options.pagePadding='';}
+        else if(item.option==='pagePadding'){options.pagePadding=item.value;options.margin=0;}
+        else if(item.option==='resetLayout'){options.margin=0;options.pagePadding='';state.align='left';state.indent=0;state.lineHeight=0;state.letterSpacing=0;}
+        else if(item.option==='tableWidth')options.tableWidth=item.value;
+        else if(item.option==='tablePadding')options.tablePadding=item.value;
+        else if(item.option==='tableAlign')options.tableAlign=item.value;
+        else if(item.option==='tableBorderWidth')options.tableBorderWidth=item.value;
         else options[item.option]=item.value;
         continue;
       }
@@ -756,7 +902,7 @@ End of JNR PDF sample`;
         blocks.push({type:'node',node:item.node});pendingHeading=0;
       }
     }
-    if(tableMode) blocks.push({type:'table',rows:tableRows});
+    if(tableMode) blocks.push({type:'table',rows:tableRows,tableConfig});
     if(token!==renderToken)return;
     pdfDocument.replaceChildren();pages=[];currentPageIndex=Math.min(currentPageIndex,49);
     let pageNo=1, current=makePage(pageNo,options);pdfDocument.appendChild(current.page);pages.push(current.page);
@@ -769,7 +915,7 @@ End of JNR PDF sample`;
         continue;
       }
       let node;
-      if(block.type==='table') node=tableFromRows(block.rows,{headBg:options.tableHeadBg,headText:options.tableHeadText,cellBg:options.tableCellBg,altBg:options.tableAltBg,border:options.tableBorder});
+      if(block.type==='table'){let tableLines=block.rows.slice();if(block.tableConfig){const wantedRows=block.tableConfig.rows,wantedCols=block.tableConfig.cols;if(!tableLines.length){for(let r=0;r<wantedRows;r++){const cells=[];for(let c=0;c<wantedCols;c++)cells.push(r===0?`Column ${c+1}`:'');tableLines.push(cells.join(' | '));}}else{tableLines=tableLines.slice(0,wantedRows).map((line,r)=>{const cells=line.split('|').map(v=>v.trim()).slice(0,wantedCols);while(cells.length<wantedCols)cells.push(r===0?`Column ${cells.length+1}`:'');return cells.join(' | ');});while(tableLines.length<wantedRows){const r=tableLines.length,cells=[];for(let c=0;c<wantedCols;c++)cells.push(r===0?`Column ${c+1}`:'');tableLines.push(cells.join(' | '));}}}node=tableFromRows(tableLines,{headBg:options.tableHeadBg,headText:options.tableHeadText,cellBg:options.tableCellBg,altBg:options.tableAltBg,border:options.tableBorder,width:options.tableWidth,padding:options.tablePadding,align:options.tableAlign,borderWidth:options.tableBorderWidth});}
       else if(block.type==='blank'){node=document.createElement('div');node.style.height='12px';node.style.minHeight='12px';}
       else node=block.node;
       current.content.appendChild(node);
@@ -864,9 +1010,163 @@ End of JNR PDF sample`;
     const atLineStart=terminal.value.lastIndexOf('\n',start-1)+1;
     insertAtCursor((start>0 && terminal.value[start-1]!=='\n'?'\n':'')+command+'\n');
   }
+  // JNRML command registry powers both the searchable command deck and terminal autocomplete.
+  const JNRML_COMMANDS = [
+    {cmd:'/h1',template:'/h1 {|}',category:'Headings',desc:'Large document title'},
+    {cmd:'/h2',template:'/h2 {|}',category:'Headings',desc:'Section heading'},
+    {cmd:'/h3',template:'/h3 {|}',category:'Headings',desc:'Subsection heading'},
+    {cmd:'/h4',template:'/h4 {|}',category:'Headings',desc:'Small heading'},
+    {cmd:'/h5',template:'/h5 {|}',category:'Headings',desc:'Compact heading'},
+    {cmd:'/p',template:'/p {|}',category:'Text',desc:'Start a normal paragraph'},
+    {cmd:'/title',template:'/title {|}',category:'Headings',desc:'Title display block'},
+    {cmd:'/subtitle',template:'/subtitle {|}',category:'Headings',desc:'Subtitle display block'},
+    {cmd:'/caption',template:'/caption {|}',category:'Text',desc:'Figure or supporting caption'},
+    {cmd:'/bold',template:'/bold{|}\\bold',category:'Format',desc:'Bold selected or typed text'},
+    {cmd:'/i',template:'/i{|}\\i',category:'Format',desc:'Italic text'},
+    {cmd:'/italic',template:'/italic{|}\\italic',category:'Format',desc:'Italic text alias'},
+    {cmd:'/u',template:'/u{|}\\u',category:'Format',desc:'Underline text'},
+    {cmd:'/underline',template:'/underline{|}\\underline',category:'Format',desc:'Underline alias'},
+    {cmd:'/high',template:'/high {|}text\\high',category:'Format',desc:'Highlight text'},
+    {cmd:'/highlight',template:'/highlight #fff0a8 {|}text\\highlightend',category:'Format',desc:'Custom-colour highlight'},
+    {cmd:'/colorcode',template:'/colorcode #c92032 {|}text\\colorend',category:'Format',desc:'Set inline text colour'},
+    {cmd:'/textcolor',template:'/textcolor #2563eb {|}text\\colorend',category:'Format',desc:'Text colour alias'},
+    {cmd:'/bgcolor',template:'/bgcolor #e0f2fe {|}text\\bgcolorend',category:'Format',desc:'Inline text background'},
+    {cmd:'/fill',template:'/fill #e0f2fe {|}text\\fill',category:'Format',desc:'Inline background alias'},
+    {cmd:'/font',template:'/font Montserrat{|}\\fontend',category:'Format',desc:'Set font family for a text run'},
+    {cmd:'/size',template:'/size 18 {|}text\\sizeend',category:'Format',desc:'Set font size in pixels'},
+    {cmd:'/sup',template:'/sup{|}2\\sup',category:'Format',desc:'Superscript text'},
+    {cmd:'/sub',template:'/sub{|}2\\sub',category:'Format',desc:'Subscript text'},
+    {cmd:'/strike',template:'/strike{|}old text\\strike',category:'Format',desc:'Strikethrough text'},
+    {cmd:'/clearformats',template:'/clearformats',category:'Format',desc:'Reset inline style toggles'},
+    {cmd:'/align',template:'/align center{|}',category:'Layout',desc:'Set alignment: left/center/right/justify'},
+    {cmd:'/left',template:'/left {|}',category:'Layout',desc:'One-line left-aligned paragraph'},
+    {cmd:'/center',template:'/center {|}',category:'Layout',desc:'One-line centered paragraph'},
+    {cmd:'/right',template:'/right {|}',category:'Layout',desc:'One-line right-aligned paragraph'},
+    {cmd:'/justify',template:'/justify {|}',category:'Layout',desc:'One-line justified paragraph'},
+    {cmd:'/margin',template:'/margin 18 14 20 14',category:'Page',desc:'Set top/right/bottom/left page margins in mm'},
+    {cmd:'/padding',template:'/padding 24px 28px',category:'Page',desc:'Set page content padding (px/mm/pt/% allowed)'},
+    {cmd:'/resetlayout',template:'/resetlayout',category:'Page',desc:'Reset margins, padding and text layout'},
+    {cmd:'/pagebg',template:'/pagebg #fffdf7',category:'Page',desc:'Set page background colour'},
+    {cmd:'/pagebackground',template:'/pagebackground #fffdf7',category:'Page',desc:'Page background alias'},
+    {cmd:'/border',template:'/border #c92032',category:'Page',desc:'Add a coloured page border'},
+    {cmd:'/watermark',template:'/watermark DRAFT',category:'Page',desc:'Set a page watermark'},
+    {cmd:'/pgno',template:'/pgno',category:'Page',desc:'Toggle page numbers'},
+    {cmd:'/header',template:'/header {|}JNR PDF',category:'Page',desc:'Running header on all pages'},
+    {cmd:'/footer',template:'/footer {|}Confidential',category:'Page',desc:'Running footer on all pages'},
+    {cmd:'/pagebreak',template:'/pagebreak',category:'Page',desc:'Start a new page'},
+    {cmd:'/newpage',template:'/newpage',category:'Page',desc:'Page break alias'},
+    {cmd:'/n',template:'/n',category:'Layout',desc:'Insert a line break'},
+    {cmd:'/t',template:'/t',category:'Layout',desc:'Insert a tab/indent marker'},
+    {cmd:'/h',template:'/h',category:'Layout',desc:'Horizontal divider'},
+    {cmd:'/hr',template:'/hr #c92032',category:'Layout',desc:'Colour horizontal rule'},
+    {cmd:'/v',template:'/v 72 #c92032 3 center',category:'Layout',desc:'Vertical accent: height colour width alignment'},
+    {cmd:'/indent',template:'/indent 20',category:'Layout',desc:'Set left indent in pixels'},
+    {cmd:'/spacer',template:'/spacer 16',category:'Layout',desc:'Add controlled vertical spacing'},
+    {cmd:'/lineheight',template:'/lineheight 1.6',category:'Layout',desc:'Set line-height from 1 to 2.8'},
+    {cmd:'/letterspacing',template:'/letterspacing 0.5',category:'Layout',desc:'Set character spacing in pixels'},
+    {cmd:'/table',template:'/table 4x3\nColumn 1 | Column 2 | Column 3',category:'Tables',desc:'Create editable table (rows x columns)'},
+    {cmd:'/tbale',template:'/tbale',category:'Tables',desc:'Legacy typo kept for compatibility'},
+    {cmd:'/tablehead',template:'/tablehead #fff0f2',category:'Tables',desc:'Table header background'},
+    {cmd:'/tableheadtext',template:'/tableheadtext #9f1928',category:'Tables',desc:'Table header text colour'},
+    {cmd:'/tableborder',template:'/tableborder #e7d9dc',category:'Tables',desc:'Table grid border colour'},
+    {cmd:'/tablebg',template:'/tablebg #ffffff',category:'Tables',desc:'Table cell background'},
+    {cmd:'/tablealt',template:'/tablealt #f7f7f9',category:'Tables',desc:'Alternate row background'},
+    {cmd:'/tablewidth',template:'/tablewidth 100%',category:'Tables',desc:'Set table width in percent/CSS units'},
+    {cmd:'/tablepadding',template:'/tablepadding 10',category:'Tables',desc:'Set table cell padding in px'},
+    {cmd:'/tablealign',template:'/tablealign center',category:'Tables',desc:'Align table left/center/right'},
+    {cmd:'/tableborderwidth',template:'/tableborderwidth 1.5',category:'Tables',desc:'Set grid border thickness'},
+    {cmd:'/img',template:'/img {|}https://example.com/image.png',category:'Media',desc:'Insert image by URL or use sample'},
+    {cmd:'/image',template:'/image {|}https://example.com/image.png',category:'Media',desc:'Image alias'},
+    {cmd:'/link',template:'/link https://example.com | {|}Link label',category:'Media',desc:'Insert a clickable PDF hyperlink'},
+    {cmd:'/sign',template:'/sign {|}Your Name',category:'Media',desc:'Editable signature block'},
+    {cmd:'/signature',template:'/signature {|}Your Name',category:'Media',desc:'Signature alias'},
+    {cmd:'/stamp',template:'/stamp {|}APPROVED',category:'Media',desc:'Angled stamp label'},
+    {cmd:'/quote',template:'/quote {|}Quote text',category:'Blocks',desc:'Styled quotation block'},
+    {cmd:'/callout',template:'/callout {|}Important note',category:'Blocks',desc:'Callout/note block'},
+    {cmd:'/note',template:'/note {|}Note text',category:'Blocks',desc:'Neutral note card'},
+    {cmd:'/info',template:'/info {|}Information',category:'Blocks',desc:'Blue information callout'},
+    {cmd:'/warning',template:'/warning {|}Please review',category:'Blocks',desc:'Amber warning callout'},
+    {cmd:'/success',template:'/success {|}Completed',category:'Blocks',desc:'Green success callout'},
+    {cmd:'/error',template:'/error {|}Attention required',category:'Blocks',desc:'Red attention callout'},
+    {cmd:'/box',template:'/box #eef2ff {|}Box text',category:'Blocks',desc:'Custom colour callout box'},
+    {cmd:'/bullet',template:'/bullet {|}List item',category:'Lists',desc:'Bulleted list item'},
+    {cmd:'/num',template:'/num {|}Numbered item',category:'Lists',desc:'Numbered list item'},
+    {cmd:'/check',template:'/check {|}Checklist item',category:'Lists',desc:'Checkbox-style checklist'},
+    {cmd:'/checkbox',template:'/checkbox {|}Checklist item',category:'Lists',desc:'Checklist alias'},
+    {cmd:'/code',template:'/code {|}const example = true;',category:'Blocks',desc:'Monospaced code block'},
+    {cmd:'/small',template:'/small {|}Small supporting text',category:'Text',desc:'Small text paragraph'},
+    {cmd:'/upper',template:'/upper {|}uppercase text',category:'Text',desc:'Uppercase one line'},
+    {cmd:'/lower',template:'/lower {|}LOWERCASE TEXT',category:'Text',desc:'Lowercase one line'},
+    {cmd:'/capitalize',template:'/capitalize {|}title case text',category:'Text',desc:'Capitalize one line'},
+    {cmd:'/date',template:'/date',category:'Text',desc:'Insert today’s date'},
+    {cmd:'/help',template:'/help',category:'Help',desc:'Open the JNRML handbook'}
+  ];
+  const commandSearch=el('commandSearch'),commandResults=el('commandResults'),commandAutocomplete=el('commandAutocomplete');
+  let autocompleteItems=[],activeAutocompleteIndex=0,searchMatches=[],searchMatchIndex=-1;
+  function commandSearchText(command){return `${command.cmd} ${command.category} ${command.desc}`.toLowerCase();}
+  function makeCommandButton(command,compact=false,index=0){
+    const b=document.createElement('button');b.type='button';b.className=compact?'command-autocomplete-item':'jnrml-command-result';b.setAttribute('role','option');b.dataset.command=command.cmd;
+    const code=document.createElement('code');code.textContent=command.cmd;const copy=document.createElement('div');copy.className='jnrml-command-result-copy';
+    if(!compact)copy.appendChild(code);else b.appendChild(code);
+    const desc=document.createElement('span');desc.textContent=command.desc;copy.appendChild(desc);if(!compact){const cat=document.createElement('small');cat.className='jnrml-command-category';cat.textContent=command.category;copy.appendChild(cat);}else{const key=document.createElement('kbd');key.textContent=index===0?'TAB ↵':'↵';b.appendChild(key);}
+    if(!compact)b.appendChild(copy);else b.appendChild(copy);
+    b.addEventListener('mousedown',e=>e.preventDefault());
+    if(compact)b.addEventListener('click',()=>acceptAutocomplete(index));
+    else b.addEventListener('click',()=>{insertCommandTemplate(command.template);commandResults.hidden=true;commandSearch.value='';commandSearch.blur();hideAutocomplete();});
+    return b;
+  }
+  function renderCommandResults(query='',forceAll=false){
+    const q=query.trim().toLowerCase();const found=JNRML_COMMANDS.filter(c=>!q||commandSearchText(c).includes(q)||c.template.toLowerCase().includes(q));
+    commandResults.replaceChildren();if(!found.length){const empty=document.createElement('div');empty.className='enhancement-note';empty.textContent='No matching commands. Try a category such as tables, page, format or media.';commandResults.appendChild(empty);commandResults.hidden=false;return;}
+    found.slice(0,forceAll?JNRML_COMMANDS.length:18).forEach((command,index)=>commandResults.appendChild(makeCommandButton(command,false,index)));
+    const footer=document.createElement('div');footer.className='enhancement-note';footer.style.gridColumn='1/-1';footer.textContent=`${found.length} command${found.length===1?'':'s'} · Tap a command to insert its ready-to-edit template.`;commandResults.appendChild(footer);commandResults.hidden=false;
+  }
+  function insertCommandTemplate(template){
+    const marker='{|}';const markerAt=template.indexOf(marker);const clean=template.replace(marker,'');const start=terminal.selectionStart;
+    insertAtCursor(clean);const point=markerAt>=0?start+markerAt: start+clean.length;try{terminal.setSelectionRange(Math.min(point,terminal.value.length),Math.min(point,terminal.value.length));}catch(e){}terminal.focus({preventScroll:true});updateAutocomplete();
+  }
+  function hideAutocomplete(){commandAutocomplete.hidden=true;commandAutocomplete.replaceChildren();autocompleteItems=[];activeAutocompleteIndex=0;}
+  function updateAutocomplete(){
+    const pos=terminal.selectionStart;const before=terminal.value.slice(0,pos);const currentLine=before.slice(before.lastIndexOf('\n')+1);const match=currentLine.match(/^\s*(\/|\\)([a-z0-9-]*)$/i);
+    if(!match||(!currentLine.trim().startsWith('/')&&!currentLine.trim().startsWith('\\'))){hideAutocomplete();return;}
+    const prefix=match[1]+match[2].toLowerCase();const isClose=match[1]==='\\';
+    if(!match[2]&&prefix==='/'){autocompleteItems=JNRML_COMMANDS.filter(c=>c.cmd.startsWith('/')).slice(0,10);}
+    else if(isClose){const closers=[{cmd:'\\bold',desc:'Close bold range'},{cmd:'\\i',desc:'Close italic range'},{cmd:'\\italic',desc:'Close italic range'},{cmd:'\\u',desc:'Close underline range'},{cmd:'\\underline',desc:'Close underline range'},{cmd:'\\high',desc:'Close highlight range'},{cmd:'\\highlightend',desc:'Close highlight range'},{cmd:'\\colorend',desc:'Close text colour range'},{cmd:'\\bgcolorend',desc:'Close background range'},{cmd:'\\fontend',desc:'Close font range'},{cmd:'\\sizeend',desc:'Close font size range'},{cmd:'\\sub',desc:'Close subscript range'},{cmd:'\\sup',desc:'Close superscript range'},{cmd:'\\strike',desc:'Close strike range'}];autocompleteItems=closers.filter(c=>c.cmd.toLowerCase().startsWith(prefix));}
+    else autocompleteItems=JNRML_COMMANDS.filter(c=>c.cmd.toLowerCase().startsWith(prefix));
+    if(!autocompleteItems.length){hideAutocomplete();return;}activeAutocompleteIndex=0;commandAutocomplete.replaceChildren();
+    const head=document.createElement('div');head.className='command-autocomplete-head';const a=document.createElement('span');a.textContent='JNRML suggestions';const b=document.createElement('span');b.textContent='↑ ↓ navigate · Tab insert · Esc close';head.append(a,b);commandAutocomplete.appendChild(head);
+    autocompleteItems.slice(0,8).forEach((command,index)=>{const item=makeCommandButton(command,true,index);commandAutocomplete.appendChild(item);});
+    commandAutocomplete.hidden=false;syncAutocompleteActive();
+  }
+  function syncAutocompleteActive(){[...commandAutocomplete.querySelectorAll('.command-autocomplete-item')].forEach((item,index)=>{item.classList.toggle('active',index===activeAutocompleteIndex);item.setAttribute('aria-selected',String(index===activeAutocompleteIndex));});}
+  function acceptAutocomplete(index=activeAutocompleteIndex){const command=autocompleteItems[index];if(!command)return;const pos=terminal.selectionStart,before=terminal.value.slice(0,pos),lineStart=before.lastIndexOf('\n')+1;const prefix=before.slice(lineStart);terminal.setSelectionRange(lineStart,pos);insertCommandTemplate(command.template);hideAutocomplete();}
+  commandSearch.addEventListener('input',()=>renderCommandResults(commandSearch.value));
+  commandSearch.addEventListener('focus',()=>{if(commandSearch.value.trim())renderCommandResults(commandSearch.value);});
+  commandSearch.addEventListener('keydown',e=>{if(e.key==='Escape'){commandResults.hidden=true;commandSearch.blur();}else if(e.key==='Enter'){const first=commandResults.querySelector('button');if(first){e.preventDefault();first.click();}}else if(e.key==='ArrowDown'){const first=commandResults.querySelector('button');if(first){e.preventDefault();first.focus();}}});
+  el('browseCommandsBtn').addEventListener('click',()=>{if(!commandResults.hidden&&commandSearch.value===''){commandResults.hidden=true;}else{commandSearch.value='';renderCommandResults('',true);}});
+
+  // Find / replace utilities select the actual source text in the terminal and wrap at edges.
+  const findModal=el('terminalFindModal'),findInput=el('terminalFindInput'),replaceInput=el('terminalReplaceInput'),findCount=el('terminalFindCount');
+  function findAllMatches(needle){const value=terminal.value;if(!needle){return [];}const matches=[];const hay=value.toLocaleLowerCase(),term=needle.toLocaleLowerCase();let pos=0;while((pos=hay.indexOf(term,pos))!==-1){matches.push({start:pos,end:pos+needle.length});pos+=Math.max(1,term.length);}return matches;}
+  function refreshFindMatches(preferCurrent=true){searchMatches=findAllMatches(findInput.value);findCount.textContent=`${searchMatches.length} match${searchMatches.length===1?'':'es'}`;if(!searchMatches.length){searchMatchIndex=-1;return;}const caret=terminal.selectionStart;let index=searchMatches.findIndex(m=>preferCurrent?m.start>=caret:m.start>caret);if(index<0)index=0;searchMatchIndex=index;selectCurrentFindMatch(false);}
+  function selectCurrentFindMatch(focusEditor=true){if(searchMatchIndex<0||!searchMatches[searchMatchIndex])return;const m=searchMatches[searchMatchIndex];terminal.focus({preventScroll:true});terminal.setSelectionRange(m.start,m.end);const lines=terminal.value.slice(0,m.start).split('\n').length;const lineHeight=parseFloat(getComputedStyle(terminal).lineHeight)||29;terminal.scrollTop=Math.max(0,(lines-3)*lineHeight);findCount.textContent=`${searchMatchIndex+1} / ${searchMatches.length}`;if(focusEditor&&window.matchMedia('(max-width:720px)').matches)setMobileSection('terminal');}
+  function navigateFind(direction){if(!searchMatches.length){refreshFindMatches(false);return;}searchMatchIndex=(searchMatchIndex+direction+searchMatches.length)%searchMatches.length;selectCurrentFindMatch();}
+  function openFind(){findModal.classList.add('open');findInput.value=findInput.value||'';refreshFindMatches(false);setTimeout(()=>{findInput.focus();findInput.select();},0);}
+  function closeFind(){findModal.classList.remove('open');terminal.focus({preventScroll:true});}
+  findInput.addEventListener('input',()=>refreshFindMatches(false));findInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();navigateFind(e.shiftKey?-1:1);}if(e.key==='Escape')closeFind();});
+  el('findPrevBtn').addEventListener('click',()=>navigateFind(-1));el('findNextBtn').addEventListener('click',()=>navigateFind(1));
+  function replaceCurrentMatch(){if(searchMatchIndex<0||!searchMatches[searchMatchIndex]){refreshFindMatches(false);if(searchMatchIndex<0)return;}const m=searchMatches[searchMatchIndex];const before=terminal.value;terminal.setSelectionRange(m.start,m.end);insertAtCursor(replaceInput.value);findInput.focus();terminal.setSelectionRange(m.start+replaceInput.value.length,m.start+replaceInput.value.length);refreshFindMatches(false);toast('Current match replaced.','success');}
+  function replaceEveryMatch(){const needle=findInput.value;if(!needle){toast('Type text to find first.','warn');return;}const matches=findAllMatches(needle);if(!matches.length){toast('No matches to replace.');return;}let next=terminal.value;for(let i=matches.length-1;i>=0;i--)next=next.slice(0,matches[i].start)+replaceInput.value+next.slice(matches[i].end);setEditorValue(next);refreshFindMatches(false);toast(`${matches.length} match${matches.length===1?'':'es'} replaced.`,'success');}
+  el('replaceOneBtn').addEventListener('click',replaceCurrentMatch);el('replaceAllBtn').addEventListener('click',replaceEveryMatch);el('findTerminalBtn').addEventListener('click',openFind);el('closeTerminalFind').addEventListener('click',closeFind);el('terminalFindDone').addEventListener('click',closeFind);findModal.addEventListener('click',e=>{if(e.target===findModal)closeFind();});
+  terminal.addEventListener('keydown',e=>{
+    if(!commandAutocomplete.hidden){if(e.key==='ArrowDown'){e.preventDefault();activeAutocompleteIndex=(activeAutocompleteIndex+1)%autocompleteItems.length;syncAutocompleteActive();return;}if(e.key==='ArrowUp'){e.preventDefault();activeAutocompleteIndex=(activeAutocompleteIndex-1+autocompleteItems.length)%autocompleteItems.length;syncAutocompleteActive();return;}if(e.key==='Tab'){e.preventDefault();acceptAutocomplete();return;}if(e.key==='Escape'){e.preventDefault();hideAutocomplete();return;}}
+    if(e.key==='Tab'){e.preventDefault();insertAtCursor('    ');return;}
+    if(e.key==='Enter'&&findModal.classList.contains('open')&&document.activeElement===findInput){e.preventDefault();navigateFind(e.shiftKey?-1:1);}
+  });
+
   // Live input and local draft persistence.
   terminal.addEventListener('input',()=>{
-    const now=terminal.value;if(now!==lastKnownValue){undoStack.push(lastKnownValue);if(undoStack.length>150)undoStack.shift();redoStack=[];lastKnownValue=now;}userChanged=true;updateCounts();scheduleRender();
+    const now=terminal.value;if(now!==lastKnownValue){undoStack.push(lastKnownValue);if(undoStack.length>150)undoStack.shift();redoStack=[];lastKnownValue=now;}userChanged=true;updateCounts();scheduleRender();updateAutocomplete();
     const tail=terminal.value.slice(0,terminal.selectionStart).split(/\r?\n/).pop().trim();
     if(tail==='/help' && lastHelpTrigger!=='/help'){openHelp();lastHelpTrigger='/help';}else if(tail!=='/help')lastHelpTrigger='';
   });
@@ -887,7 +1187,7 @@ End of JNR PDF sample`;
   el('inlineColor').addEventListener('change',()=>applyInlineTags(`/colorcode ${el('inlineColor').value} `,'\\colorend'));
   el('inlineHighlight').addEventListener('change',()=>applyInlineTags(`/highlight ${el('inlineHighlight').value} `,'\\highlightend'));
   el('inlineBackground').addEventListener('change',()=>applyInlineTags(`/bgcolor ${el('inlineBackground').value} `,'\\bgcolorend'));
-  el('pageBgColor').addEventListener('change',()=>{const colour=el('pageBgColor').value;const cleaned=terminal.value.replace(/^\/(?:pagebg|background|bgpage)\s+\S+[ \t]*\r?$/gim,'').replace(/^\n+/, '');setEditorValue(`/pagebg ${colour}\n${cleaned}`);currentPageIndex=0;});
+  el('pageBgColor').addEventListener('change',()=>{const colour=el('pageBgColor').value;const cleaned=terminal.value.replace(/^\/(?:pagebg|pagebackground|background|bgpage)\s+\S+[ \t]*\r?$/gim,'').replace(/^\n+/, '');setEditorValue(`/pagebg ${colour}\n${cleaned}`);currentPageIndex=0;});
   const palette=el('paletteModal');function openPalette(){palette.classList.add('open');syncPalette(el('paletteHex').value);}
   function closePalette(){palette.classList.remove('open');}
   el('paletteBtn').addEventListener('click',openPalette);el('closePalette').addEventListener('click',closePalette);el('paletteDone').addEventListener('click',closePalette);palette.addEventListener('click',e=>{if(e.target===palette)closePalette();});
@@ -925,27 +1225,33 @@ End of JNR PDF sample`;
   el('zoomBtn').addEventListener('click',()=>{previewWorkarea.scrollTo({top:0,behavior:'smooth'});toast('Preview fitted to the top of the workspace.');});
   // Keyboard shortcuts. Native textarea handling retains normal copy/cut/select/undo behavior.
   document.addEventListener('keydown',async e=>{
-    const key=e.key.toLowerCase();const inEditor=e.target===terminal;
+    const key=e.key.toLowerCase();const inEditor=e.target===terminal;const editableTarget=['INPUT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable;
+    if((e.ctrlKey||e.metaKey)&&key==='k'){e.preventDefault();commandSearch.focus();commandSearch.select();renderCommandResults(commandSearch.value||'',true);return;}
+    if(((e.ctrlKey||e.metaKey)&&key==='f')||(e.altKey&&key==='f'&&!e.ctrlKey&&!e.metaKey)){e.preventDefault();openFind();return;}
     if((e.ctrlKey||e.metaKey)&&key==='m'){e.preventDefault();openHelp();return;}
     if((e.ctrlKey||e.metaKey)&&key==='z'&&inEditor){e.preventDefault();restoreHistory(e.shiftKey?'redo':'undo');return;}
-    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='z'&&e.target!==terminal&&!['INPUT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();restoreHistory('redo');return;}
-    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='m'&&e.target!==terminal&&!['INPUT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();setMobileSection('preview');return;}
-    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='p'&&e.target!==terminal){e.preventDefault();jumpPage(-1);return;}
-    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='n'&&e.target!==terminal){e.preventDefault();jumpPage(1);return;}
+    if(e.altKey&&key==='z'&&inEditor){e.preventDefault();restoreHistory(e.shiftKey?'redo':'undo');return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='z'&&e.target!==terminal&&!editableTarget){e.preventDefault();restoreHistory('redo');return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='m'&&e.target!==terminal&&!editableTarget){e.preventDefault();setMobileSection('preview');return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='p'&&e.target!==terminal&&!editableTarget){e.preventDefault();jumpPage(-1);return;}
+    if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&key==='n'&&e.target!==terminal&&!editableTarget){e.preventDefault();jumpPage(1);return;}
     if((e.ctrlKey||e.metaKey)&&key==='p'&&inEditor){
       e.preventDefault();
       try{if(navigator.clipboard&&navigator.clipboard.readText){const value=await navigator.clipboard.readText();insertAtCursor(value);toast('Clipboard text pasted.','success');}else toast('Clipboard permission unavailable. Use Ctrl+V to paste.','warn');}
       catch(err){toast('Allow clipboard permission, or use Ctrl+V to paste.','warn');}
       return;
     }
+    if(e.key==='Escape'&&findModal.classList.contains('open'))closeFind();
+    if(e.key==='Escape'&&!commandResults.hidden){commandResults.hidden=true;}
   });
   // On desktop, keep the preview fully usable when a user clicks directly into a table cell.
   pdfDocument.addEventListener('focusin',e=>{if(e.target.matches('[contenteditable="true"]'))el('previewMessage').textContent='Editing preview content';});
   pdfDocument.addEventListener('input',e=>{
     const target=e.target;if(target.matches('[data-table-color]')){const wrap=target.closest('.preview-table-wrap'),table=wrap&&wrap.querySelector('.preview-table');if(table){const key=target.getAttribute('data-table-color');table.style.setProperty(`--table-${key}`,ensureColor(target.value));}}
+    if(target.matches('[data-table-control="padding"]')){const table=target.closest('.preview-table-wrap')?.querySelector('.preview-table');if(table)table.style.setProperty('--table-padding',`${Math.max(2,Math.min(28,Number(target.value)||8))}px`);}
     el('previewMessage').textContent='Preview edited · export to keep these changes';
   });
-  pdfDocument.addEventListener('change',e=>{const target=e.target;if(target.matches('[data-table-control]')){const wrap=target.closest('.preview-table-wrap');if(wrap){const rows=wrap.querySelector('[data-table-control="rows"]')?.value||1,cols=wrap.querySelector('[data-table-control="cols"]')?.value||1;resizeTable(wrap,rows,cols);el('previewMessage').textContent='Table structure updated · export to keep these changes';}}});
+  pdfDocument.addEventListener('change',e=>{const target=e.target;if(target.matches('[data-table-control]')){const wrap=target.closest('.preview-table-wrap');if(wrap){const rows=wrap.querySelector('[data-table-control="rows"]')?.value||1,cols=wrap.querySelector('[data-table-control="cols"]')?.value||1,table=wrap.querySelector('.preview-table');if(target.matches('[data-table-control="rows"],[data-table-control="cols"]'))resizeTable(wrap,rows,cols);if(target.matches('[data-table-control="padding"]')&&table)table.style.setProperty('--table-padding',`${Math.max(2,Math.min(28,Number(target.value)||8))}px`);if(target.matches('[data-table-control="width"]')&&table)table.style.width=['60%','75%','100%'].includes(target.value)?target.value:'100%';if(target.matches('[data-table-control="align"]')&&table){const alignment=['left','center','right'].includes(target.value)?target.value:'left';table.style.marginLeft=alignment==='right'||alignment==='center'?'auto':'0';table.style.marginRight=alignment==='left'||alignment==='center'?'auto':'0';}el('previewMessage').textContent='Table structure updated · export to keep these changes';}}});
   window.addEventListener('resize',()=>{if(!window.matchMedia('(max-width: 720px)').matches){editorPanel.classList.add('mobile-active');previewPanel.classList.add('mobile-active');}});
 
   // Restore a local draft if present; first visit starts with a helpful, styled sample.
