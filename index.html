@@ -14,7 +14,7 @@
   <meta charset="UTF-8">
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
   >
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -30,6 +30,10 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#FFFFFF">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
 
   <!-- 02. SEARCH ENGINE DIRECTIVES -->
   <meta
@@ -42,6 +46,8 @@
     content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
   >
 
+  <meta name="keywords" content="JNR PDF Studio, free PDF tools, edit PDF online, PDF converter, merge PDF, split PDF, compress PDF, sign PDF, JNR Corporations">
+  <link rel="preload" href="/logo.png" as="image" fetchpriority="high">
   <!-- 03. CANONICAL URL -->
   <link
     rel="canonical"
@@ -138,26 +144,7 @@
     content="JNR PDF Studio PDF tools"
   >
  
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="JNR PDF Studio">
-<meta property="og:title" content="JNR PDF Studio — All-in-One PDF Tools">
-<meta property="og:description" content="Create, convert, compress, merge, split, sign, watermark and protect PDFs with JNR PDF Studio.">
-<meta property="og:url" content="https://jnr-pdfs.vercel.app/">
-<meta property="og:locale" content="en_IN">
-
-<meta property="og:image" content="https://jnr-pdfs.vercel.app/banner.png">
-<meta property="og:image:secure_url" content="https://jnr-pdfs.vercel.app/banner.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="JNR PDF Studio — All-in-One PDF Tools">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="JNR PDF Studio — All-in-One PDF Tools">
-<meta name="twitter:description" content="Create, convert and secure your PDFs with JNR PDF Studio.">
-<meta name="twitter:image" content="https://jnr-pdfs.vercel.app/banner.png">
-
-  <!-- 07. STRUCTURED DATA FOR SEARCH ENGINES -->
+<!-- 07. STRUCTURED DATA FOR SEARCH ENGINES -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -244,7 +231,7 @@
         if (document.visibilityState === 'visible') checkForUpdates();
       });
 
-      // If an update is already waiting, activate it; block.js handles one reload
+      // If an update is already waiting, activate it; the existing update handler manages one reload
       // after the new worker takes control.
       if (registration.waiting && navigator.serviceWorker.controller) {
         registration.waiting.postMessage({ type: 'JNR_SKIP_WAITING' });
@@ -285,65 +272,7 @@ main{overflow:hidden}.hero{padding:50px 0 24px}.hero-grid{display:grid;grid-temp
 @media(max-width:700px){body{padding-bottom:env(safe-area-inset-bottom)}.wrap{width:min(100% - 28px,var(--max))}.nav{min-height:66px;gap:10px}.brand-mark{width:39px;height:39px;border-radius:13px}.brand-name{font-size:17px}.brand-sub{font-size:9px;letter-spacing:1.5px}.navlinks{display:none}.nav-cta{padding:10px 12px;border-radius:12px;font-size:11px}.hero{padding:29px 0 16px}.hero-grid{grid-template-columns:1fr;gap:25px}.hero h1{font-size:clamp(39px,10vw,56px);letter-spacing:-2.4px;margin:17px 0}.hero-copy{font-size:14px;line-height:1.72;margin-bottom:19px}.tiny-trust{gap:9px 12px;margin-top:17px;font-size:10px}.maker-art{min-height:300px;border-radius:25px;padding:19px}.paper-stack{margin-top:23px;transform:scale(.83);transform-origin:top center}.tag-a{left:-1px;top:92px}.tag-b{right:-1px;bottom:27px}.featured{padding:18px 0 28px}.section-head{align-items:flex-start}.section-title{font-size:27px}.section-sub{font-size:12px}.featured-card{grid-template-columns:auto 1fr;gap:13px;padding:17px;border-radius:21px}.feature-icon{width:52px;height:52px;border-radius:16px}.feature-icon svg{width:25px;height:25px}.feature-copy h3{font-size:16px}.feature-copy p{font-size:11px;line-height:1.6}.feature-meta{gap:5px;margin-top:9px}.feature-meta span{font-size:9px;padding:5px 7px}.feature-action{grid-column:1/-1;width:100%;display:flex}.feature-action .btn{width:100%}.featured-card:after{right:-75px;top:-115px}.tools-section{padding:18px 0 42px}.tools-top{display:block;margin-bottom:14px}.searchbox{width:100%;margin-top:15px;height:45px}.filter-row{margin-right:-14px;padding-right:14px;margin-bottom:18px;gap:7px}.filter-chip{padding:9px 12px;font-size:10px}.category-block{margin-bottom:26px}.category-head{margin-bottom:11px}.category-head h3{font-size:15px}.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tool-card{min-height:169px;padding:13px 12px 12px;border-radius:16px}.tool-icon{width:38px;height:38px;border-radius:12px;margin-bottom:11px}.tool-icon svg{width:19px;height:19px}.tool-card h4{font-size:12px}.tool-card p{font-size:10px;line-height:1.5;margin-bottom:12px}.card-action{font-size:10px;padding-top:9px}.bottom-cta{display:block;margin-bottom:35px;padding:23px 19px;border-radius:23px}.bottom-cta h2{font-size:24px}.bottom-cta p{font-size:11px;line-height:1.65;margin-bottom:17px}.bottom-cta .btn{width:100%}.footer{padding-top:25px}.footer-top{align-items:flex-start;flex-direction:column}.footer-links{gap:12px}.footer-bottom{flex-direction:column;line-height:1.6}.disclaimer{text-align:left}.mobile-bottom{display:flex;position:fixed;z-index:19;bottom:0;left:0;right:0;padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.93);backdrop-filter:blur(18px);border-top:1px solid #efdedf;justify-content:space-around;gap:5px}.mobile-bottom a{min-width:54px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px 6px;color:#837477;font-size:9px;font-weight:800}.mobile-bottom svg{width:19px;height:19px}.mobile-bottom a.active,.mobile-bottom a:hover{color:var(--red)}}
 @media(max-width:360px){.wrap{width:calc(100% - 22px)}.hero h1{font-size:36px}.tool-card{padding:12px 10px;min-height:165px}.tool-card p{font-size:9.5px}.nav-cta{font-size:10px;padding:9px 10px}.brand-name{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
-/* Splash Screen / Logo Intro Styles */
-#splash-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #ffffff; /* Aap apne hisaab se background color change kar sakte hain */
-  z-index: 99999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.5s ease;
-}
-
-#splash-overlay iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Jab intro hatana ho toh ye class body par add hogi */
-body.splash-active {
-  overflow: hidden; /* Intro ke dauran scroll disable karne ke liye */
-}
-/* Splash Screen / Logo Intro Styles */
-#splash-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #ffffff;
-  z-index: 99999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-}
-
-#splash-overlay iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Jab swipe animation trigger hogi tab ye class add hogi */
-#splash-overlay.slide-out {
-  transform: translateX(-100%); /* Left ki taraf swipe ho kar gayab ho jayega */
-  opacity: 0.9;
-}
-
-/* Main website container ya body par scroll rokne ke liye */
-body.splash-active {
-  overflow: hidden;
-}
 </style>
-<link rel="stylesheet" href="block-tap.css">
-
 <style id="jnr-mobile-share-enhancements">
   /* The desktop design remains untouched; the extra share control is mobile-only. */
   .jnr-mobile-share-trigger { display: none; }
@@ -562,94 +491,20 @@ body.splash-active {
 </style>
 
 
-<style id="jnr-splash-fix">
-  /* Keep the logo intro above every page layer, including the Android fixed header. */
-  #splash-overlay {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    min-height: 100%;
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
-    overflow: hidden;
-    isolation: isolate;
-    contain: paint;
-    background: #fff;
-    z-index: 2147483647;
-    opacity: 1;
-    visibility: visible;
-    transform: translate3d(0, 0, 0);
-    transition:
-      transform .9s cubic-bezier(.76, 0, .18, 1),
-      opacity .72s cubic-bezier(.2, .7, .2, 1),
-      visibility .9s step-end;
-    will-change: transform, opacity;
-    pointer-events: auto;
-  }
-  #splash-overlay iframe {
-    display: block;
-    flex: 1 1 auto;
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-    min-height: 0;
-    border: 0;
-    background: #fff;
-  }
-  #splash-overlay.slide-out {
-    transform: translate3d(-100%, 0, 0);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  body.splash-active {
-    overflow: hidden !important;
-    overscroll-behavior: none;
-  }
 
-  /* Subtle staged entrance for the original page, started after logo.html exits. */
-  @keyframes jnrSplashContentReveal {
-    0% { opacity: 0; transform: translate3d(0, 18px, 0) scale(.992); }
-    100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-  }
-  body.splash-revealed .topbar,
-  body.splash-revealed #home > .hero,
-  body.splash-revealed #maker,
-  body.splash-revealed #tools,
-  body.splash-revealed .bottom-cta,
-  body.splash-revealed .footer,
-  body.splash-revealed .mobile-bottom {
-    animation: jnrSplashContentReveal .72s cubic-bezier(.2, .75, .25, 1) both;
-    will-change: opacity, transform;
-  }
-  body.splash-revealed #home > .hero { animation-delay: .05s; }
-  body.splash-revealed #maker { animation-delay: .12s; }
-  body.splash-revealed #tools { animation-delay: .19s; }
-  body.splash-revealed .bottom-cta { animation-delay: .25s; }
-  body.splash-revealed .footer { animation-delay: .31s; }
-  body.splash-revealed .mobile-bottom { animation-delay: .16s; }
-
-  @media (prefers-reduced-motion: reduce) {
-    #splash-overlay { transition: none !important; }
-    #splash-overlay.slide-out { transform: none; }
-    body.splash-revealed .topbar,
-    body.splash-revealed #home > .hero,
-    body.splash-revealed #maker,
-    body.splash-revealed #tools,
-    body.splash-revealed .bottom-cta,
-    body.splash-revealed .footer,
-    body.splash-revealed .mobile-bottom { animation: none !important; }
-  }
+<style id="jnr-material-native-2026">
+:root{--red:#cf2639;--red-dark:#a81b2c;--red-soft:#fff0f1;--ink:#251b1e;--muted:#76696e;--line:#f0e4e6;--bg:#fdfafb;--shadow:0 8px 24px rgba(84,22,34,.055);--shadow-sm:0 3px 12px rgba(84,22,34,.045);--radius:24px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overscroll-behavior-x:none}body{background:#fdfafb;min-width:0;overflow-x:clip}button,a,input{touch-action:manipulation}a,button{-webkit-tap-highlight-color:transparent}button:active,.btn:active,.tool-card:active{transform:scale(.98)}
+.topbar{background:rgba(255,255,255,.98);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 2px 12px rgba(37,15,20,.035);border-color:#f5ebed}.nav{min-height:72px}.brand-mark{border-radius:14px;box-shadow:0 4px 10px #c8203220}.nav-cta,.btn{min-height:45px;border-radius:15px;box-shadow:0 4px 11px #c820321d}.hero{padding-top:44px}.hero h1{letter-spacing:-2.7px}.maker-art{border-radius:27px;box-shadow:0 12px 32px rgba(179,26,43,.15)}.featured-card,.tool-card{background:#fff;box-shadow:var(--shadow-sm);border-color:#f0e6e8;transition:transform .16s,border-color .16s,box-shadow .16s}.featured-card{border-radius:23px}.tool-card{border-radius:21px;min-height:166px}.tool-card:before{width:72px;height:72px;opacity:.65}.tool-card:hover{transform:translateY(-2px);box-shadow:0 9px 22px #7e273013}.tool-icon{border-radius:14px}.filter-chip{min-height:42px;border-radius:13px}.filter-chip.active{box-shadow:0 3px 10px #c8203220}.searchbox{height:50px;border-radius:16px;box-shadow:none}.searchbox:focus-within{border-color:#d75565;box-shadow:0 0 0 3px #cf263914}.bottom-cta{background:#39272c;border-radius:24px}.footer{background:white}.jnr-share-trigger,.jnr-mobile-share-trigger{box-shadow:none}
+/* Material-style touch targets, smooth native-feeling spacing */
+@media(min-width:1000px){.wrap{max-width:1280px}.tool-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.tool-card{padding:20px;min-height:178px}.hero-grid{gap:52px}}
+@media(max-width:700px){body{background:#fffafb;padding-top:64px!important;padding-bottom:calc(78px + env(safe-area-inset-bottom))!important}.topbar{box-shadow:0 2px 14px #37151b0b}.nav{min-height:64px}.wrap{width:calc(100% - 30px)}.hero{padding:23px 0 12px}.hero-grid{gap:18px}.hero h1{font-size:clamp(35px,10vw,48px);letter-spacing:-1.7px;line-height:1.08}.hero-copy{font-size:13px;line-height:1.66}.maker-art{min-height:265px;border-radius:22px;box-shadow:0 10px 24px #ae1e3240}.paper-stack{transform:scale(.75);margin-top:12px}.section-title{font-size:24px;letter-spacing:-.7px}.featured{padding-bottom:20px}.featured-card{border-radius:20px}.tools-section{padding-top:16px}.tools-top{margin-bottom:13px}.filter-row{gap:7px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:3px 0 11px;margin-right:-15px;padding-right:15px}.filter-row::-webkit-scrollbar{display:none}.filter-chip{flex:0 0 auto;white-space:nowrap;min-height:39px;padding:9px 13px;scroll-snap-align:start}.tool-grid{gap:10px}.tool-card{padding:14px 12px 13px;min-height:168px;border-radius:18px}.tool-card h4{font-size:12.5px}.tool-card p{font-size:10.5px}.tool-icon{width:40px;height:40px}.category-block{margin-bottom:23px}.bottom-cta{border-radius:20px}.mobile-bottom{background:#fff;backdrop-filter:none;box-shadow:0 -4px 16px #37151b0b;padding-top:9px}.mobile-bottom a{min-height:47px;justify-content:center;border-radius:13px}.mobile-bottom a.active{background:#fff0f1}.jnr-mobile-share-trigger{background:#fff;border-radius:12px}.nav-cta{box-shadow:none}.searchbox{margin-top:13px}}
+@media(max-width:360px){.wrap{width:calc(100% - 24px)}.tool-grid{gap:8px}.tool-card{padding:12px 10px}.hero h1{font-size:34px}}
+@media(hover:none){.tool-card:hover,.featured-card:hover{transform:none}.tool-card:active{background:#fff6f7}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
-
 </head>
-<body class="splash-active">
-    <div id="splash-overlay" role="presentation" aria-label="JNR PDF Studio intro">
-  <iframe src="./logo.html" title="JNR PDF Studio logo animation" loading="eager" scrolling="no" allow="autoplay"></iframe>
-</div>
+<body>
 <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
  <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 2v7h7M8 14h8M8 18h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -822,70 +677,8 @@ body.splash-active {
  document.getElementById('year').textContent=new Date().getFullYear();
  document.querySelectorAll('.mobile-bottom a').forEach(link=>link.addEventListener('click',()=>{document.querySelectorAll('.mobile-bottom a').forEach(a=>a.classList.toggle('active',a===link))}));
 })();
-/* JNR PDF Studio splash controller — one timer, one exit path. */
-(() => {
-  const splashOverlay = document.getElementById("splash-overlay");
-  if (!splashOverlay) {
-    document.body.classList.remove("splash-active");
-    return;
-  }
-
-  const logoFrame = splashOverlay.querySelector("iframe");
-  const SPLASH_DURATION = 10000;
-  const EXIT_FALLBACK = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1200;
-  let countdownStarted = false;
-  let splashFinished = false;
-
-  function revealOriginalContent() {
-    if (splashFinished || !splashOverlay.isConnected) return;
-    splashFinished = true;
-    splashOverlay.classList.add("slide-out");
-    splashOverlay.setAttribute("aria-hidden", "true");
-
-    let cleanedUp = false;
-    const finishExit = () => {
-      if (cleanedUp) return;
-      cleanedUp = true;
-      splashOverlay.removeEventListener("transitionend", onExitTransition);
-      if (splashOverlay.isConnected) splashOverlay.remove();
-      document.body.classList.remove("splash-active");
-      // Trigger the page's entrance sequence only after the splash has cleared.
-      requestAnimationFrame(() => document.body.classList.add("splash-revealed"));
-    };
-    const onExitTransition = (event) => {
-      if (event.target === splashOverlay && event.propertyName === "transform") finishExit();
-    };
-
-    splashOverlay.addEventListener("transitionend", onExitTransition);
-    window.setTimeout(finishExit, EXIT_FALLBACK);
-  }
-
-  function beginCountdown() {
-    if (countdownStarted || splashFinished) return;
-    countdownStarted = true;
-    // Start after logo.html and its dependent assets finish loading, giving its
-    // heavier intro animation the full ten seconds on screen.
-    window.setTimeout(revealOriginalContent, SPLASH_DURATION);
-  }
-
-  if (logoFrame) {
-    logoFrame.addEventListener("load", beginCountdown, { once: true });
-    // Covers a fast/cached iframe whose load event fired before this handler ran.
-    try {
-      const frameDocument = logoFrame.contentDocument;
-      // Do not treat the iframe's initial about:blank document as logo.html.
-      if (frameDocument && frameDocument.URL !== "about:blank" && frameDocument.readyState === "complete") {
-        beginCountdown();
-      }
-    } catch (_) {
-      // The load event remains the normal start signal if the iframe is cross-origin.
-    }
-  } else {
-    beginCountdown();
-  }
-})();
 </script>
-<script src="./block.js" ></script>
+<script src="./block.js" defer></script>
 
 <!-- JNR PDF Studio — Custom PWA Installer -->
 <style>
@@ -1356,14 +1149,14 @@ body.splash-active {
   const launcher = document.getElementById("jnr-install-launcher");
   const installButton = document.getElementById("jnr-install-action");
   const dismissButton = document.getElementById("jnr-install-dismiss");
-  const closeButton = layer.querySelector(".jnr-install-close");
+  const closeButton = layer?.querySelector(".jnr-install-close");
   const status = document.getElementById("jnr-install-status");
 
   if (!layer || !launcher || !installButton) return;
 
   let installPromptEvent = null;
   let lastFocusedElement = null;
-  let autoPromptChecked = false;
+  const isChrome = () => /Chrome\/|CriOS\//.test(navigator.userAgent) && !/Edg\/|EdgiOS\/|OPR\/|SamsungBrowser\/|Firefox\/|FxiOS\//.test(navigator.userAgent);
 
   const isStandalone = () =>
     window.matchMedia("(display-mode: standalone)").matches ||
@@ -1385,7 +1178,7 @@ body.splash-active {
   };
 
   function openInstaller(source = "manual") {
-    if (isStandalone()) return;
+    if (isStandalone() || !isChrome() || !installPromptEvent) return;
 
     lastFocusedElement = document.activeElement;
     layer.classList.add("jnr-open");
@@ -1423,7 +1216,7 @@ body.splash-active {
   }
 
   function showLauncher() {
-    if (!isStandalone()) launcher.classList.add("jnr-visible");
+    if (isChrome() && !isStandalone() && installPromptEvent) launcher.classList.add("jnr-visible");
   }
 
   function hideLauncher() {
@@ -1465,40 +1258,9 @@ body.splash-active {
   window.addEventListener("beforeinstallprompt", event => {
     // Keep the browser's real prompt; do not call preventDefault anywhere else.
     event.preventDefault();
+    if (!isChrome() || isStandalone()) return;
     installPromptEvent = event;
     showLauncher();
-
-    // Show once per browser/device unless the user has dismissed it recently.
-    if (autoPromptChecked || isStandalone()) return;
-    autoPromptChecked = true;
-
-    const dismissedAt = Number(safeGet("jnr_pwa_dismissed_at") || 0);
-    const lastPromptAt = Number(safeGet("jnr_pwa_last_prompt") || 0);
-    const cooldown = 7 * 24 * 60 * 60 * 1000;
-
-    if (Date.now() - dismissedAt < cooldown) return;
-    if (Date.now() - lastPromptAt < cooldown) return;
-
-    const tryAutoOpen = () => {
-      if (isStandalone() || layer.classList.contains("jnr-open")) return;
-      if (document.visibilityState !== "visible") return;
-      openInstaller("auto");
-    };
-
-    // Wait for the existing splash screen to finish, if present.
-    const splash = document.getElementById("splash-overlay");
-    if (splash) {
-      const started = Date.now();
-      const waitForSplash = window.setInterval(() => {
-        const currentSplash = document.getElementById("splash-overlay");
-        if (!currentSplash || Date.now() - started > 15000) {
-          window.clearInterval(waitForSplash);
-          window.setTimeout(tryAutoOpen, 500);
-        }
-      }, 300);
-    } else {
-      window.setTimeout(tryAutoOpen, 1800);
-    }
   });
 
   installButton.addEventListener("click", async () => {
@@ -1517,6 +1279,7 @@ body.splash-active {
       try {
         await promptEvent.prompt();
         const choice = await promptEvent.userChoice;
+        hideLauncher();
 
         if (choice && choice.outcome === "accepted") {
           status.textContent = "Installation accepted. Follow your browser's instructions.";
@@ -1549,16 +1312,10 @@ body.splash-active {
     closeInstaller();
   });
 
-  // Don't show the installer while running as an installed app.
-  if (isStandalone() || safeGet("jnr_pwa_installed") === "1") {
-    hideLauncher();
-  } else {
-    // A manual entry point remains available even when automatic install
-    // isn't supported by the current browser.
-    showLauncher();
-  }
+  // Expose install only when Chrome provides a genuine install prompt.
+  if (!isChrome() || isStandalone()) hideLauncher();
 
-  // Store dismissals so the automatic popup doesn't repeatedly interrupt.
+  // Remember a user dismissal without interrupting initial page load.
   dismissButton.addEventListener("click", () => {
     safeSet("jnr_pwa_dismissed_at", String(Date.now()));
   });
