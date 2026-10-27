@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "531369487369",
+    "project_id": "jnr-pdfs",
+    "storage_bucket": "jnr-pdfs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531369487369:android:b47682dbf2e8bc0e441cd8",
+        "android_client_info": {
+          "package_name": "com.jnrcorporations.jnrpdfs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXXvgXJIyhA260WU0kEZuBxIPyuwN20iw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
