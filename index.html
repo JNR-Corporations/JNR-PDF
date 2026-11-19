@@ -655,6 +655,293 @@ button,a{-webkit-tap-highlight-color:transparent}
 @media(max-width:380px){.topbar>.nav{width:calc(100% - 18px);gap:5px}.topbar .app-search-trigger,.topbar .jnr-mobile-share-trigger,.topbar .nav-cta{width:39px!important;min-width:39px!important;max-width:39px!important;height:40px!important;min-height:40px!important}.brand-mark{width:38px;height:38px}.brand-name{font-size:15px}.brand-sub{font-size:7px}.app-brand-chevron{display:none}}
 @media(prefers-reduced-motion:reduce){.jnr-info-backdrop,.jnr-info-panel,.jnr-back-to-top,.app-drawer{transition:none!important}}
 </style>
+
+<!-- JNR PDF Studio · Clay UI refresh (visual layer only; original content and destinations preserved) -->
+<style id="jnr-clay-ui-refresh">
+:root{
+ --red:#cf2037;--red-deep:#a9142a;--red-soft:#fff0f2;--red-pale:#fff7f8;
+ --ink:#281d21;--muted:#807278;--line:#f0dfe3;--canvas:#fff9fa;
+ --clay-shadow:7px 8px 18px rgba(116,42,57,.085),-6px -6px 16px rgba(255,255,255,.96);
+ --clay-inset:inset 2px 2px 5px rgba(155,76,91,.08),inset -2px -2px 5px rgba(255,255,255,.96);
+ --radius:25px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{background:radial-gradient(ellipse at 5% 8%,rgba(255,221,228,.5),transparent 28rem),radial-gradient(ellipse at 96% 28%,rgba(255,235,219,.38),transparent 25rem),var(--canvas);color:var(--ink)}
+button,a{ -webkit-tap-highlight-color:transparent }
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid rgba(207,32,55,.3);outline-offset:3px}
+.topbar{background:rgba(255,255,255,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(241,220,225,.9);box-shadow:0 7px 24px rgba(103,34,47,.055)}
+.nav{min-height:78px}
+.brand-mark{border:3px solid #fff;box-shadow:5px 6px 12px rgba(164,27,48,.18),inset 1px 1px 2px #ffffff90}
+.brand-name{letter-spacing:-.8px}
+.brand-name span{color:var(--red)}
+.brand-sub{color:#9b858c}
+.app-brand-chevron{transition:transform .22s}
+.app-brand-toggle:hover .app-brand-chevron{transform:translateY(2px)}
+.navlinks a{padding:10px 12px;border-radius:12px;transition:background .18s,color .18s}
+.navlinks a:hover{background:#fff0f2;color:var(--red)}
+.app-search-trigger{border:1px solid #f1dfe3;background:linear-gradient(145deg,#fff,#fff3f5);box-shadow:var(--clay-shadow);border-radius:15px}
+.nav-cta,.btn{border-radius:15px;box-shadow:0 7px 15px rgba(190,28,52,.17),inset 1px 1px 1px rgba(255,255,255,.24)}
+.nav-cta:active,.btn:active{transform:translateY(1px) scale(.975)}
+
+/* Dashboard welcome and hero */
+.hero{padding-top:28px}
+.app-welcome{padding:13px 16px;margin-bottom:16px;border:1px solid #f2e1e5;border-radius:21px;background:linear-gradient(115deg,#fff 0%,#fff6f7 100%);box-shadow:var(--clay-shadow)}
+.app-overline{letter-spacing:1.7px}
+.app-welcome-title{font-size:clamp(20px,2vw,25px)}
+.app-tool-count{border-radius:16px;background:#fff;box-shadow:var(--clay-inset);border-color:#f3e3e6}
+.hero-content{border-radius:31px;background:linear-gradient(135deg,#a9152b 0%,#d2253d 52%,#f05d6b 100%);box-shadow:0 16px 32px rgba(175,22,45,.2),inset 1px 1px 0 rgba(255,255,255,.22)}
+.hero-content:before{border-width:2px;box-shadow:0 0 0 22px rgba(255,255,255,.055),0 0 0 48px rgba(255,255,255,.04)}
+.hero .eyebrow{border-radius:13px;background:rgba(255,255,255,.18);box-shadow:inset 1px 1px 3px rgba(255,255,255,.18)}
+.hero h1{letter-spacing:-2.2px}
+.app-hero-primary{border-radius:15px;box-shadow:0 7px 14px rgba(81,10,24,.13),inset 1px 1px 2px #fff}
+.app-hero-secondary{border-radius:15px}
+.maker-art{border-radius:31px;background:linear-gradient(145deg,#fff4f5,#ffe9ed 55%,#fff7f2);box-shadow:var(--clay-shadow);border:1px solid #f2dce1;isolation:isolate}
+.maker-art:before{border-width:2px}
+.paper{border-radius:16px;box-shadow:8px 12px 22px rgba(123,48,63,.16),inset 1px 1px 0 #fff}
+.paper-logo{border-radius:9px;box-shadow:inset 1px 1px 2px #ffffff65}
+.floating-tag{border-radius:14px;box-shadow:5px 6px 13px rgba(117,42,57,.13),inset 1px 1px 0 #fff}
+.tag-a:before{content:'✨';font-size:14px}
+.tag-b:before{content:'🌈';font-size:14px}
+.jnr-hero-mascot{position:absolute;right:24px;bottom:21px;z-index:3;display:flex;align-items:center;gap:9px;pointer-events:none}
+.jnr-hero-mascot-face{width:46px;height:46px;display:grid;place-items:center;border-radius:17px;background:#fff;box-shadow:5px 6px 14px rgba(70,12,27,.17),inset 1px 1px 0 #fff;font-size:27px;transform:rotate(7deg)}
+.jnr-hero-mascot-note{padding:8px 11px;border-radius:13px;background:#fff;color:#a71d32;font-size:10px;font-weight:900;box-shadow:4px 5px 12px rgba(70,12,27,.12)}
+
+/* Cute clay quick-access tiles */
+.app-quick-heading{margin-top:28px}
+.app-quick-item{position:relative;overflow:hidden;border:1px solid #f0dfe3;border-radius:22px;background:linear-gradient(145deg,#fff,#fff5f6);box-shadow:6px 7px 15px rgba(113,44,57,.065),-5px -5px 13px #fff,inset 1px 1px 0 #fff;min-height:128px}
+.app-quick-item:after{content:'✦';position:absolute;right:10px;top:8px;color:#e8a6b0;font-size:13px;opacity:.65}
+.app-quick-item:hover{transform:translateY(-3px);border-color:#edc1c8;box-shadow:8px 10px 20px rgba(113,44,57,.1),-5px -5px 13px #fff}
+.app-qicon{width:49px;height:49px;border-radius:18px;box-shadow:inset 3px 3px 6px rgba(135,53,67,.09),inset -3px -3px 6px rgba(255,255,255,.9),0 4px 10px rgba(114,37,53,.055)}
+.app-qicon svg{display:none}
+.app-qicon:after{content:attr(data-emoji);font-size:25px;line-height:1}
+.app-quick-item strong{font-size:12px}
+.app-quick-item small{font-weight:750}
+
+/* Maker banner and section headings */
+.featured-card{border:1px solid #f0dce1;background:linear-gradient(120deg,#fff 0%,#fff4f6 75%,#fff 100%);border-radius:26px;box-shadow:7px 8px 18px rgba(116,42,57,.075),-5px -5px 15px #fff}
+.featured-card:after{border-color:#f9e4e8;opacity:.8}
+.feature-icon{border-radius:20px;box-shadow:5px 6px 12px rgba(181,30,51,.18),inset 1px 1px 2px #ffffff50}
+.section-title{letter-spacing:-1px}
+.section-sub{line-height:1.65}
+.tools-section{padding-top:15px}
+.tools-top{align-items:center}
+.searchbox{height:52px;border-radius:18px;border:1px solid #efdee2;background:linear-gradient(145deg,#fff,#fffafb);box-shadow:5px 6px 13px rgba(105,48,60,.055),-4px -4px 10px #fff}
+.searchbox:focus-within{border-color:#e6a1ac;box-shadow:0 0 0 4px rgba(207,32,55,.08),5px 6px 13px rgba(105,48,60,.055)}
+.searchbox input{font-size:13px}
+.filter-row{gap:9px}
+.filter-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #f0dfe3;border-radius:14px;background:linear-gradient(145deg,#fff,#fff5f6);box-shadow:4px 5px 10px rgba(105,48,60,.045),-3px -3px 8px #fff;color:#78666d;font-size:11px;padding:10px 14px}
+.filter-chip:before{content:attr(data-emoji);font-size:13px}
+.filter-chip.active{background:linear-gradient(135deg,#d72b43,#b5162d);border-color:#c51d36;color:#fff;box-shadow:0 7px 13px rgba(182,24,46,.18),inset 1px 1px 1px rgba(255,255,255,.2)}
+.category-block{margin-bottom:33px}
+.category-head{align-items:center;margin-bottom:15px}
+.category-symbol{width:40px;height:40px;border-radius:15px;background:linear-gradient(145deg,#fff,#ffecef);box-shadow:4px 5px 10px rgba(118,47,60,.07),inset 1px 1px 0 #fff}
+.category-symbol svg{display:none}
+.category-symbol:after{content:attr(data-emoji);font-size:21px}
+.category-head h3{font-size:17px}
+.category-head p{line-height:1.45}
+
+/* Tool cards: same labels, descriptions, hrefs and original card order */
+.tool-grid{gap:15px}
+.tool-card{position:relative;isolation:isolate;overflow:hidden;min-height:180px;padding:18px;border-radius:23px;border:1px solid #f0e1e4;background:linear-gradient(145deg,#fff 0%,#fffdfd 62%,#fff7f8 100%);box-shadow:6px 7px 15px rgba(113,48,61,.065),-5px -5px 12px rgba(255,255,255,.98),inset 1px 1px 0 #fff;transition:transform .22s,border-color .22s,box-shadow .22s}
+.tool-card:before{content:'';position:absolute;right:-23px;top:-25px;width:94px;height:94px;border-radius:34px;background:var(--tint,#fff0f2);opacity:.72;transform:rotate(18deg);z-index:-1}
+.tool-card:after{content:'✦';position:absolute;right:13px;top:12px;color:var(--tone,#d22439);font-size:12px;opacity:.35;z-index:0}
+.tool-card:hover{transform:translateY(-4px);border-color:#eab7c0;box-shadow:9px 12px 22px rgba(113,48,61,.105),-5px -5px 12px #fff,inset 1px 1px 0 #fff}
+.tool-card:active{transform:scale(.985)}
+.tool-icon{width:51px;height:51px;border-radius:18px;background:linear-gradient(145deg,var(--tint,#fff0f2),#fff);color:var(--tone,#c82032);box-shadow:inset 3px 3px 6px rgba(110,40,54,.085),inset -3px -3px 7px rgba(255,255,255,.95),0 5px 10px rgba(100,30,45,.05);margin-bottom:14px}
+.tool-icon svg{display:none}
+.tool-icon:after{content:attr(data-emoji);font-size:27px;line-height:1;filter:drop-shadow(0 2px 1px rgba(65,25,35,.08))}
+.tool-card h4{font-size:13px;letter-spacing:-.25px;margin-bottom:6px}
+.tool-card p{font-size:11px;line-height:1.58;color:#84767b;max-width:96%}
+.card-action{border-top:1px dashed #efdee2;padding-top:10px;margin-top:5px;color:var(--tone,#c82032)}
+.card-action svg{width:15px;height:15px}
+.tool-card[data-tint="blue"]{--tint:#eaf3ff;--tone:#3675bd}
+.tool-card[data-tint="green"]{--tint:#e7f7ed;--tone:#21835a}
+.tool-card[data-tint="purple"]{--tint:#f0eaff;--tone:#7958b5}
+.tool-card[data-tint="orange"]{--tint:#fff0e1;--tone:#b66c28}
+.tool-card[data-tint="teal"]{--tint:#e3f7f5;--tone:#178184}
+.tool-card[data-tint="slate"]{--tint:#edf0f5;--tone:#58677d}
+.tool-card[data-tint="red"]{--tint:#ffe9ed;--tone:#c82039}
+.empty-state{border-radius:22px;background:#fff;box-shadow:var(--clay-shadow)}
+.bottom-cta{border-radius:29px;background:linear-gradient(125deg,#8f152a,#c5223b 58%,#e95264);box-shadow:0 14px 30px rgba(138,22,43,.17),inset 1px 1px 0 #ffffff30}
+.bottom-cta:before{content:'🦊';position:absolute;right:28px;top:50%;transform:translateY(-50%) rotate(9deg);font-size:58px;opacity:.2;pointer-events:none}
+.bottom-cta p{color:#ffe7eb}
+.bottom-cta .btn{box-shadow:0 7px 15px rgba(57,8,20,.15)}
+.footer{border-top:1px solid #f0e1e4;background:rgba(255,255,255,.94)}
+.footer .brand-mark{position:relative}
+
+/* Navigation drawer - richer clay menu and clearer active state */
+.app-drawer-scrim{background:rgba(36,12,19,.44);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.app-drawer{border:1px solid rgba(255,255,255,.85);background:linear-gradient(180deg,#fff 0%,#fffafb 100%);box-shadow:15px 0 50px rgba(53,14,26,.19)}
+.app-drawer-hero{background:linear-gradient(145deg,#a7132a,#cf253e 58%,#e95163);padding-bottom:22px}
+.app-drawer-brand-icon{border:3px solid rgba(255,255,255,.7);border-radius:18px;box-shadow:5px 6px 13px rgba(63,6,19,.2),inset 1px 1px 2px #fff}
+.app-drawer-title-row h2{letter-spacing:-.9px}
+.app-drawer-head-tags span{border-radius:10px;box-shadow:inset 1px 1px 1px #fff}
+.app-drawer-scroll{padding:13px 12px calc(16px + env(safe-area-inset-bottom))}
+.app-drawer-group{padding-bottom:13px;margin-bottom:10px}
+.app-drawer-label{letter-spacing:1.5px;color:#ab838d}
+.app-drawer-link{min-height:50px;border-radius:16px;border-color:transparent;font-size:12px;gap:10px}
+.app-drawer-link>svg:first-child{border-radius:13px;box-shadow:inset 2px 2px 4px rgba(131,49,65,.08),inset -2px -2px 4px #fff}
+.app-drawer-link:hover,.app-drawer-link:focus-visible,.app-drawer-link.jnr-current{background:linear-gradient(120deg,#fff0f3,#fff9fa);border-color:#f4d8de;color:#b31d35;box-shadow:3px 4px 10px rgba(121,41,57,.055),inset 1px 1px 0 #fff}
+.app-drawer-link.jnr-current{font-weight:900}
+.app-drawer-link.jnr-current:after{content:'';position:absolute;right:9px;width:5px;height:23px;border-radius:9px;background:#d22439}
+.app-drawer-link{position:relative}
+.app-drawer-bubble{border-radius:17px;padding:12px;background:linear-gradient(130deg,#fff0f3,#fff9fa);box-shadow:inset 2px 2px 5px rgba(140,55,69,.055),inset -2px -2px 5px #fff}
+.app-drawer-bubble>svg{width:21px;height:21px}
+.app-drawer-end>p{letter-spacing:1.4px}
+.app-info-backdrop,.jnr-info-backdrop{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.jnr-info-panel{border:1px solid #fff;border-radius:28px;background:linear-gradient(145deg,#fff,#fff8f9);box-shadow:12px 16px 45px rgba(72,20,34,.2)}
+.jnr-info-head{background:linear-gradient(120deg,#fff,#fff5f6)}
+.jnr-info-card{border-radius:18px;box-shadow:4px 5px 12px rgba(113,48,61,.045),inset 1px 1px 0 #fff;background:linear-gradient(145deg,#fff,#fffdfd)}
+.jnr-switch{box-shadow:inset 2px 2px 4px rgba(75,26,40,.1)}
+.jnr-back-to-top{border-radius:16px;box-shadow:5px 6px 14px rgba(113,48,61,.12),inset 1px 1px 0 #fff}
+
+/* Mobile navigation and touch targets */
+@media(max-width:1179px){
+ #app-drawer{top:0;bottom:0}
+ .app-drawer-scrim{display:block}
+}
+@media(max-width:700px){
+ html{scroll-padding-top:calc(72px + env(safe-area-inset-top))}
+ body{background:radial-gradient(ellipse at 15% 0%,rgba(255,228,233,.62),transparent 21rem),#fffafb;padding-top:calc(66px + env(safe-area-inset-top))!important;padding-bottom:calc(78px + env(safe-area-inset-bottom))!important}
+ .topbar{background:rgba(255,255,255,.96);box-shadow:0 5px 18px rgba(89,24,39,.07)}
+ .topbar .nav{min-height:66px}
+ .brand-mark{width:40px;height:40px}
+ .app-search-trigger,.jnr-mobile-share-trigger,.nav-cta{border-radius:14px!important;box-shadow:4px 5px 11px rgba(106,38,53,.07),-3px -3px 8px #fff}
+ .hero{padding:16px 0 14px}
+ .app-welcome{padding:11px 12px;border-radius:18px;gap:8px}
+ .app-welcome-title{font-size:16px;letter-spacing:-.45px}
+ .app-overline{font-size:8px;letter-spacing:1.35px}
+ .app-tool-count{padding:7px 9px;border-radius:13px;gap:7px}
+ .app-tool-count strong{font-size:13px}
+ .app-tool-count small{font-size:8px}
+ .hero-content{padding:24px 19px 23px;border-radius:25px;min-height:0}
+ .hero h1{font-size:clamp(30px,8.2vw,39px);letter-spacing:-1.45px;line-height:1.08}
+ .hero-copy{font-size:12px;line-height:1.7}
+ .hero .tiny-trust{gap:8px 12px;font-size:9px}
+ .hero .btn{min-height:43px;font-size:11px;padding:10px 12px}
+ .maker-art{min-height:250px;border-radius:25px;padding:18px}
+ .paper-stack{transform:scale(.72);margin-top:15px}
+ .tag-a{top:94px}.tag-b{bottom:22px}
+ .jnr-hero-mascot{display:none}
+ .app-quick-heading{margin:23px 0 12px}
+ .app-quick-heading h2{font-size:20px}
+ .app-quick-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+ .app-quick-item{min-height:112px;border-radius:19px;padding:11px 5px}
+ .app-qicon{width:43px;height:43px;border-radius:15px}
+ .app-qicon:after{font-size:22px}
+ .app-quick-item strong{font-size:10px}
+ .app-quick-item small{font-size:9px}
+ .featured{padding:6px 0 24px}
+ .featured-card{padding:15px;border-radius:21px;gap:12px}
+ .feature-icon{width:48px;height:48px;border-radius:16px}
+ .feature-copy h3{font-size:15px}
+ .feature-copy p{font-size:10px;line-height:1.55}
+ .feature-meta span{font-size:8px}
+ .feature-action .btn{font-size:10px;min-height:40px}
+ .tools-section{padding:12px 0 40px}
+ .tools-top{display:block}
+ .section-title{font-size:23px}
+ .section-sub{font-size:11px}
+ .searchbox{height:47px;margin-top:12px;border-radius:16px}
+ .filter-row{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:7px;margin-right:-14px;padding:4px 14px 12px 1px!important;scrollbar-width:none}
+ .filter-chip{min-height:39px;padding:8px 11px;font-size:10px;border-radius:13px}
+ .category-block{margin-bottom:25px}
+ .category-symbol{width:36px;height:36px;border-radius:13px}
+ .category-head h3{font-size:15px}
+ .category-head p{font-size:10px}
+ .tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .tool-card{min-height:166px;padding:13px 11px 12px;border-radius:19px}
+ .tool-card:before{width:75px;height:75px}
+ .tool-icon{width:43px;height:43px;border-radius:15px;margin-bottom:10px}
+ .tool-icon:after{font-size:23px}
+ .tool-card h4{font-size:11.5px;line-height:1.28}
+ .tool-card p{font-size:9.7px;line-height:1.52;margin-bottom:10px}
+ .card-action{font-size:9.5px;padding-top:8px}
+ .bottom-cta{padding:21px 17px;border-radius:23px;margin-bottom:30px}
+ .bottom-cta:before{font-size:46px;right:14px;top:22px;transform:none}
+ .bottom-cta h2{font-size:21px;max-width:85%}
+ .bottom-cta p{font-size:10px;line-height:1.6;max-width:90%}
+ .bottom-cta .btn{min-height:44px}
+ .footer{padding-top:22px}
+ .footer-bottom{font-size:9px}
+ .mobile-bottom{height:calc(67px + env(safe-area-inset-bottom));padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid #f0dfe3;box-shadow:0 -6px 20px rgba(91,25,39,.07)}
+ .mobile-bottom a,.mobile-bottom button{min-height:48px;border:0;background:transparent;border-radius:15px;color:#87777e;font-size:9px;font-weight:850;gap:3px}
+ .mobile-bottom a svg,.mobile-bottom button svg{width:19px;height:19px}
+ .mobile-bottom a.active,.mobile-bottom button.active{background:linear-gradient(145deg,#fff0f3,#fff9fa);color:#b91e36;box-shadow:4px 5px 10px rgba(109,35,52,.065),inset 1px 1px 0 #fff}
+ .mobile-bottom button{display:flex;flex-direction:column;align-items:center;justify-content:center}
+ .app-drawer{width:min(370px,calc(100vw - 28px));border-radius:0 28px 28px 0}
+ .app-drawer-hero{padding-top:calc(20px + env(safe-area-inset-top));border-radius:0 27px 0 0}
+ .app-drawer-link{min-height:48px}
+ .jnr-info-backdrop{align-items:flex-end;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+ .jnr-info-panel{width:100%;max-height:88dvh;border-radius:28px 28px 20px 20px}
+ .jnr-info-handle{display:block}
+ .jnr-info-head{padding:16px 18px 13px}
+ .jnr-info-body{padding:15px 17px calc(20px + env(safe-area-inset-bottom))}
+ .jnr-back-to-top{bottom:calc(78px + env(safe-area-inset-bottom));right:13px}
+}
+@media(max-width:360px){
+ .app-quick-grid{gap:7px}.app-quick-item{min-height:105px}
+ .app-tool-count small{display:none}
+ .hero h1{font-size:29px}
+ .tool-card{padding:11px 9px;min-height:160px}
+ .tool-card h4{font-size:10.7px}
+ .tool-card p{font-size:9.2px}
+ .filter-chip{padding-inline:9px}
+}
+
+/* Large screens: the existing drawer becomes a persistent, collapsible app sidebar. */
+@media(min-width:1180px){
+ body{margin-left:302px!important;min-height:100vh;transition:margin-left .24s ease}
+ .topbar{position:sticky;top:0;margin-left:0;width:100%;z-index:101000}
+ .topbar .nav{width:min(100% - 48px,1440px);max-width:none;margin-inline:auto}
+ #app-drawer-scrim{display:none!important}
+ #app-drawer{left:14px;top:14px;bottom:14px;width:270px;max-width:270px;visibility:visible;transform:none!important;border-radius:29px;border:1px solid #f2dce1;overflow:hidden;box-shadow:8px 10px 26px rgba(105,36,53,.09),-4px -4px 12px #fff}
+ #app-drawer .app-drawer-hero{padding:18px 18px 18px;border-radius:27px 27px 0 0}
+ #app-drawer .app-drawer-head{align-items:center;margin-bottom:14px}
+ #app-drawer .app-drawer-close{display:none}
+ #app-drawer .app-drawer-brand-icon{width:45px;height:45px}
+ #app-drawer .app-drawer-title-row{gap:6px}
+ #app-drawer .app-drawer-title-row h2{font-size:19px}
+ #app-drawer .app-drawer-title-row p{font-size:10px}
+ #app-drawer .app-drawer-head-tags{margin-top:10px;flex-wrap:wrap}
+ #app-drawer .app-drawer-scroll{flex:1;min-height:0;overflow-y:auto;padding:9px 10px 13px}
+ #app-drawer .app-drawer-group{margin-bottom:6px;padding-bottom:9px}
+ #app-drawer .app-drawer-label{margin:7px 10px 7px;font-size:8px}
+ #app-drawer .app-drawer-link{min-height:42px;padding:6px 9px;font-size:11px;border-radius:13px}
+ #app-drawer .app-drawer-link>svg:first-child{width:31px!important;height:31px!important;padding:7px;border-radius:11px}
+ #app-drawer .app-drawer-end{padding-top:6px}
+ #app-drawer .app-drawer-end>p{font-size:8px}
+ .app-drawer-scrim{display:none!important}
+ .mobile-bottom{display:none!important}
+ body.app-sidebar-collapsed{margin-left:106px!important}
+ body.app-sidebar-collapsed #app-drawer{width:76px;max-width:76px}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-hero{padding:14px 10px 12px}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-head{justify-content:center;margin:0}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-brand-icon{width:46px;height:46px}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-title-row,
+ body.app-sidebar-collapsed #app-drawer .app-drawer-head-tags,
+ body.app-sidebar-collapsed #app-drawer .app-drawer-label,
+ body.app-sidebar-collapsed #app-drawer .app-drawer-end,
+ body.app-sidebar-collapsed #app-drawer .app-recent-wrap,
+ body.app-sidebar-collapsed #app-drawer .jnr-legal-group,
+ body.app-sidebar-collapsed #app-drawer .app-drawer-link>span,
+ body.app-sidebar-collapsed #app-drawer .app-drawer-link>svg{display:none!important}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-scroll{padding:12px 8px}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-group{padding:0 0 9px;margin-bottom:9px}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-link{justify-content:center;min-height:48px;padding:6px;border-radius:15px;font-size:0}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-link:before{font-size:21px}
+ body.app-sidebar-collapsed #app-drawer .app-drawer-link.jnr-current:after{right:0;height:24px}
+ body.app-sidebar-collapsed .app-brand-words{display:none}
+ body.app-sidebar-collapsed .app-brand-chevron{transform:rotate(-90deg)}
+ .app-drawer-link{gap:8px}
+ .app-drawer-link:before{content:attr(data-emoji);display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:11px;background:linear-gradient(145deg,#fff0f2,#fff);box-shadow:inset 2px 2px 4px rgba(130,54,68,.07),inset -2px -2px 4px #fff;font-size:16px}
+ #app-drawer .app-drawer-link>svg:first-child{display:none!important}
+}
+@media(min-width:1500px){body{margin-left:316px!important}body.app-sidebar-collapsed{margin-left:106px!important}#app-drawer{width:284px!important;max-width:284px!important}}
+@media(hover:none){.tool-card:hover,.app-quick-item:hover,.featured-card:hover{transform:none}.tool-card:active,.app-quick-item:active{transform:scale(.985)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+
 </head>
 <body>
 <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -1993,5 +2280,170 @@ button,a{-webkit-tap-highlight-color:transparent}
  back.addEventListener('click',()=>window.scrollTo({top:0,behavior:document.documentElement.classList.contains('jnr-reduce-motion')||matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
 })();
 </script>
+<script id="jnr-clay-ui-behaviour">
+(() => {
+  'use strict';
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+  // Emoji are visual accents only: original card text, order, URLs and attributes remain unchanged.
+  const toolEmoji = {
+    'JNR PDF Maker':'📝','Create PDF':'📄','Word to PDF':'📘','PDF to Word':'✍️',
+    'Images to PDF':'🖼️','PDF to Images':'🌄','Excel to PDF':'📊','PowerPoint to PDF':'📽️',
+    'Webpage to PDF':'🌐','Merge PDF':'🧩','Split PDF':'✂️','Organize PDF':'🗂️',
+    'Remove Pages':'🗑️','Extract Pages':'📑','Rotate Pages':'🔄','Assemble PDF':'🧱',
+    'Edit PDF':'🖍️','Compress PDF':'🗜️','Add Watermark':'💧','Add Page Numbers':'🔢',
+    'Sign PDF':'✍️','Compare PDFs':'🔍','Protect PDF':'🔒','Unlock PDF':'🔓',
+    'Redact PDF':'🛡️','Remove Metadata':'🧹','OCR PDF':'🔎','Repair PDF':'🩹',
+    'PDF to PDF/A':'📚','Explore More Tools':'🧰'
+  };
+  const quickEmoji = ['📝','🖍️','🧩','🗜️','🖼️','🔒'];
+  const drawerEmoji = {
+    'Home dashboard':'🏠','Explore all tools':'🧰','PDF Maker':'✨','Edit PDF':'🖍️',
+    'Merge PDF':'🧩','Compress PDF':'🗜️','Protect PDF':'🔒','Sign a PDF':'✍️',
+    'Create & convert':'🔁','Organize pages':'🗂️','Edit & polish':'🎨',
+    'Privacy & security':'🛡️','Read, check & repair':'🔎','App settings':'⚙️',
+    'Privacy & data':'🔐','Help & tips':'💡','App information':'ℹ️',
+    'Share JNR Studio':'📤','Install as an app':'📲','Privacy policy':'📜','About JNR Studio':'🏢'
+  };
+  const filterEmoji = {all:'✨',create:'🔁',organize:'🗂️',edit:'🎨',secure:'🔒',smart:'🪄'};
+  const categoryEmoji = {create:'🌈',organize:'🧩',edit:'🖍️',secure:'🛡️',smart:'🪄'};
+
+  $$('.tool-card').forEach(card => {
+    const title = $('h4', card)?.textContent.trim();
+    const icon = $('.tool-icon', card);
+    if (icon) icon.dataset.emoji = toolEmoji[title] || '📄';
+  });
+  $$('.app-qicon').forEach((icon, index) => icon.dataset.emoji = quickEmoji[index] || '✨');
+  $$('.filter-chip').forEach(chip => chip.dataset.emoji = filterEmoji[chip.dataset.filter] || '✨');
+  $$('.category-block').forEach(block => {
+    const symbol = $('.category-symbol', block);
+    if (symbol) symbol.dataset.emoji = categoryEmoji[block.dataset.category] || '✨';
+  });
+  $$('.app-drawer-link').forEach(link => {
+    const label = $('span:nth-of-type(1)', link)?.textContent.trim() || link.textContent.trim();
+    link.dataset.emoji = drawerEmoji[label] || '📌';
+  });
+
+  // Friendly tiny mascot sticker, kept decorative and away from mobile text.
+  const hero = $('.hero-content');
+  if (hero && !$('.jnr-hero-mascot', hero)) {
+    const mascot = document.createElement('div');
+    mascot.className = 'jnr-hero-mascot';
+    mascot.setAttribute('aria-hidden', 'true');
+    mascot.innerHTML = '<span class="jnr-hero-mascot-face">🦊</span><span class="jnr-hero-mascot-note">Ready when you are!</span>';
+    hero.append(mascot);
+  }
+
+  // Desktop sidebar: persistent navigation with independent expand/collapse control.
+  const drawer = $('#app-drawer');
+  const scrim = $('#app-drawer-scrim');
+  const menuToggle = $('#app-menu-toggle');
+  const desktopMode = window.matchMedia('(min-width: 1180px)');
+  const sidebarKey = 'jnr_sidebar_collapsed_v1';
+  const readCollapsed = () => { try { return localStorage.getItem(sidebarKey) === 'true'; } catch (_) { return false; } };
+  const saveCollapsed = value => { try { localStorage.setItem(sidebarKey, String(value)); } catch (_) {} };
+
+  function syncSidebarMode() {
+    const desktop = desktopMode.matches;
+    document.body.classList.toggle('jnr-desktop-sidebar', desktop);
+    if (!drawer) return;
+    if (desktop) {
+      document.body.classList.remove('app-drawer-open');
+      document.body.classList.toggle('app-sidebar-collapsed', readCollapsed());
+      document.documentElement.classList.remove('jnr-overlay-scroll-lock');
+      drawer.setAttribute('role', 'complementary');
+      drawer.removeAttribute('aria-modal');
+      drawer.setAttribute('aria-hidden', 'false');
+      scrim?.setAttribute('aria-hidden', 'true');
+      menuToggle?.setAttribute('aria-expanded', String(!readCollapsed()));
+      menuToggle?.setAttribute('aria-label', readCollapsed() ? 'Expand sidebar' : 'Collapse sidebar');
+      menuToggle?.setAttribute('title', readCollapsed() ? 'Expand sidebar' : 'Collapse sidebar');
+    } else {
+      document.body.classList.remove('app-sidebar-collapsed');
+      drawer.setAttribute('role', 'dialog');
+      drawer.setAttribute('aria-modal', 'true');
+      drawer.setAttribute('aria-hidden', String(!document.body.classList.contains('app-drawer-open')));
+      menuToggle?.setAttribute('aria-label', 'Open navigation menu');
+      menuToggle?.setAttribute('title', 'Open navigation menu');
+    }
+  }
+  syncSidebarMode();
+  desktopMode.addEventListener?.('change', syncSidebarMode);
+  window.addEventListener('resize', syncSidebarMode, { passive: true });
+
+  menuToggle?.addEventListener('click', event => {
+    if (!desktopMode.matches) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const collapsed = !document.body.classList.contains('app-sidebar-collapsed');
+    document.body.classList.toggle('app-sidebar-collapsed', collapsed);
+    saveCollapsed(collapsed);
+    menuToggle.setAttribute('aria-expanded', String(!collapsed));
+    menuToggle.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+    menuToggle.setAttribute('title', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+  }, true);
+
+  document.addEventListener('keydown', event => {
+    if (desktopMode.matches && event.altKey && event.key.toLowerCase() === 'm') {
+      event.preventDefault();
+      menuToggle?.click();
+    }
+  });
+
+  // Keep the sidebar's current section highlighted as the page scrolls.
+  const sectionIds = ['home','maker','tools','create','organize','edit','secure','smart','about'];
+  const observedSections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+  if ('IntersectionObserver' in window && observedSections.length) {
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting).sort((a,b) => b.intersectionRatio-a.intersectionRatio)[0];
+      if (!visible) return;
+      const id = visible.target.id;
+      $$('.app-drawer-link[href^="#"]').forEach(link => {
+        const active = link.getAttribute('href') === '#' + id || (id === 'maker' && link.getAttribute('href') === '#home');
+        link.classList.toggle('jnr-current', active);
+        if (active) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-18% 0px -68% 0px', threshold: [0,.15,.35,.6] });
+    observedSections.forEach(section => observer.observe(section));
+  }
+
+  // Tap feedback is deliberately subtle and only runs on touch-capable devices.
+  document.addEventListener('pointerup', event => {
+    if (event.pointerType !== 'touch') return;
+    if (event.target.closest('.tool-card,.app-quick-item,.filter-chip,.mobile-bottom button,.jnr-share-tile,.app-drawer-link')) {
+      try { navigator.vibrate?.(7); } catch (_) {}
+    }
+  }, { passive: true });
+
+  // Native-like quick search shortcut for desktop keyboards.
+  document.addEventListener('keydown', event => {
+    const target = event.target;
+    const typing = target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
+    if (typing || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.key === '/' && !event.shiftKey) {
+      const search = $('#toolSearch');
+      if (search) {
+        event.preventDefault();
+        $('#tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.setTimeout(() => search.focus({ preventScroll: true }), 160);
+      }
+    }
+  });
+
+  // Ensure dynamic status follows actual online/offline state for the drawer.
+  const networkLabel = $('#jnr-network-label');
+  const networkDot = $('#jnr-net-indicator');
+  const updateNetwork = () => {
+    const online = navigator.onLine;
+    if (networkLabel) networkLabel.textContent = online ? 'Connected to network' : 'Offline mode';
+    networkDot?.classList.toggle('online', online);
+  };
+  window.addEventListener('online', updateNetwork);
+  window.addEventListener('offline', updateNetwork);
+  updateNetwork();
+})();
+</script>
+
 </body>
 </html>
