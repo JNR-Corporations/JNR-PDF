@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b0b12">
+  <title>JNR PDF Studio - Official Release & Update Center</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --red: #e83a54;
+      --red-bright: #ff4d6d;
+      --bg-dark: #12090e;
+      --card-bg: linear-gradient(150deg, rgba(40, 20, 30, 0.85), rgba(20, 10, 15, 0.95));
+      --text-main: #ffffff;
+      --text-muted: #c9b5be;
+      --accent-green: #20c997;
+      --border-light: rgba(255, 255, 255, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 20px;
+      background: radial-gradient(circle at 15% 15%, #4a1528 0%, transparent 45%),
+                  radial-gradient(circle at 85% 85%, #2d0b1a 0%, transparent 50%), var(--bg-dark);
+      color: var(--text-main); font: 15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    main {
+      width: min(100%, 680px); padding: clamp(20px, 5vw, 36px); border: 1px solid var(--border-light);
+      border-radius: 28px; background: var(--card-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+    }
+    .header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .logo {
+      width: 60px; height: 60px; display: grid; place-items: center; border-radius: 18px;
+      background: linear-gradient(135deg, #ff526c, #b6193a); font-size: 28px; font-weight: 900;
+      box-shadow: 0 10px 25px rgba(232, 58, 84, 0.4);
+    }
+    h1 { margin: 0; font-size: clamp(24px, 5vw, 34px); font-weight: 900; letter-spacing: -0.5px; }
+    .sub { color: var(--text-muted); font-size: 13.5px; font-weight: 500; }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 8px; margin: 14px 0 20px; padding: 6px 14px;
+      border-radius: 999px; background: rgba(32, 201, 151, 0.15); border: 1px solid rgba(32, 201, 151, 0.4);
+      color: var(--accent-green); font-size: 12.5px; font-weight: 800;
+    }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .card {
+      margin: 16px 0; padding: 20px; border-radius: 20px; background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-light);
+    }
+    .row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .row:last-child { border-bottom: none; }
+    .row span:first-child { color: var(--text-muted); font-size: 13px; }
+    .row strong { font-weight: 800; font-size: 14px; word-break: break-all; }
+    .changelog-box {
+      margin-top: 14px; padding: 14px; border-radius: 14px; background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.06); color: #e4d8de; font-size: 13px; line-height: 1.5; white-space: pre-wrap;
+    }
+    a.button {
+      display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 22px; padding: 16px 24px;
+      border-radius: 16px; text-decoration: none; background: linear-gradient(100deg, var(--red), #ad1836);
+      color: #fff; font-weight: 900; font-size: 16px; box-shadow: 0 12px 30px rgba(232, 58, 84, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    a.button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(232, 58, 84, 0.5); }
+    .security-note {
+      margin-top: 22px; padding: 14px 16px; border-radius: 14px; background: rgba(232, 58, 84, 0.08);
+      border: 1px solid rgba(232, 58, 84, 0.2); font-size: 12.5px; color: var(--text-muted); line-height: 1.45;
+    }
+    details { margin-top: 24px; border-top: 1px dashed var(--border-light); padding-top: 16px; }
+    summary { cursor: pointer; color: var(--red-bright); font-weight: 800; font-size: 13.5px; }
+    .builder-form { display: grid; gap: 12px; margin-top: 14px; text-align: left; }
+    .builder-form label { font-size: 12px; color: var(--text-muted); font-weight: 700; }
+    .builder-form input, .builder-form textarea {
+      width: 100%; padding: 10px 12px; border-radius: 10px; background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border-light); color: #fff; font-size: 13px; font-family: inherit;
+    }
+    .builder-form button {
+      padding: 12px; border: none; border-radius: 10px; background: var(--accent-green);
+      color: #000; font-weight: 900; cursor: pointer; font-size: 13px; margin-top: 6px;
+    }
+    pre { margin: 10px 0 0; padding: 12px; border-radius: 10px; background: #080406; overflow-x: auto; font-size: 11px; color: #a5f3fc; }
+  </style>
+
+  <!-- MACHINE-READABLE RELEASE MANIFEST (Parsed by JNR PDF Studio App) -->
+  <script id="jnr-release-manifest" type="application/json">
+{
+  "packageName": "com.example.jnr_pdf_studio",
+  "versionName": "1.0.6",
+  "versionCode": 7,
+  "apkUrl": "https://jnr-pdfs.vercel.app/downloads/jnr-pdf-studio-1.0.6.apk",
+  "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "publishedAt": "2026-11-27",
+  "changelog": "🚀 Release Channel Update:\n• Direct in-app web update check via jnr-pdfs.vercel.app\n• High performance PDF processing & UI speed\n• Automated status bar release notifications\n• Cryptographic SHA-256 integrity verification"
+}
+  </script>
+</head>
+<body>
+  <main>
+    <div class="header">
+      <div class="logo">P</div>
+      <div>
+        <h1>JNR PDF Studio</h1>
+        <div class="sub">Official Android Release & Update Center</div>
+      </div>
+    </div>
+
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      <span id="status-text">Official Release Channel Active</span>
+    </div>
+
+    <section class="card" aria-label="Release Information">
+      <div class="row"><span>Latest Version</span><strong id="version">v1.0.6</strong></div>
+      <div class="row"><span>Build Code</span><strong id="build">7</strong></div>
+      <div class="row"><span>Release Date</span><strong id="date">2026-11-27</strong></div>
+      <div class="row"><span>Package ID</span><strong id="package">com.example.jnr_pdf_studio</strong></div>
+      <div class="row"><span>SHA-256 Digest</span><strong id="sha256" style="font-family:monospace;font-size:11px;">00000...00000</strong></div>
+      <div style="margin-top: 14px;">
+        <span style="font-size: 12.5px; color: var(--text-muted); font-weight: 700;">Release Notes & What's New:</span>
+        <div id="notes" class="changelog-box">—</div>
+      </div>
+    </section>
+
+    <a id="download" class="button" href="#">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Download Official APK (v<span id="btn-version">1.0.6</span>)</span>
+    </a>
+
+    <div class="security-note">
+      <strong>🔒 Verified Security Channel:</strong> The JNR PDF Studio app connects directly to this webpage to verify updates. All updates are cryptographically checked against SHA-256 digests and matching signing certificates before installation.
+    </div>
+
+    <!-- Developer Admin Manifest Tool -->
+    <details>
+      <summary>🛠 Admin / Manifest Generator Tool for New Release</summary>
+      <div class="builder-form">
+        <p style="font-size: 12px; color: var(--text-muted); margin: 4px 0;">Use this form when publishing a new APK to Vercel to generate the exact HTML script tag for <code>filename.html</code>:</p>
+        <div>
+          <label>Version Name (e.g., 1.0.6)</label>
+          <input type="text" id="in-version" value="1.0.6">
+        </div>
+        <div>
+          <label>Version Code (e.g., 7)</label>
+          <input type="number" id="in-build" value="7">
+        </div>
+        <div>
+          <label>APK Download URL</label>
+          <input type="text" id="in-url" value="https://jnr-pdfs.vercel.app/downloads/jnr-pdf-studio-1.0.6.apk">
+        </div>
+        <div>
+          <label>SHA-256 Digest (run <code>sha256sum your-app.apk</code>)</label>
+          <input type="text" id="in-sha" value="0000000000000000000000000000000000000000000000000000000000000000">
+        </div>
+        <div>
+          <label>Changelog / What's New</label>
+          <textarea id="in-notes" rows="3">🚀 Major New Features & Enhancements</textarea>
+        </div>
+        <button type="button" onclick="generateManifest()">Generate Script Tag Code</button>
+        <pre id="code-out"></pre>
+      </div>
+    </details>
+  </main>
+
+  <script>
+    try {
+      const manifestTag = document.getElementById('jnr-release-manifest');
+      const release = JSON.parse(manifestTag.textContent);
+      document.getElementById('version').textContent = 'v' + release.versionName;
+      document.getElementById('btn-version').textContent = release.versionName;
+      document.getElementById('build').textContent = release.versionCode;
+      document.getElementById('date').textContent = release.publishedAt;
+      document.getElementById('package').textContent = release.packageName;
+      document.getElementById('sha256').textContent = release.sha256;
+      document.getElementById('notes').textContent = release.changelog;
+      const download = document.getElementById('download');
+      download.href = release.apkUrl;
+    } catch (err) {
+      document.getElementById('status-text').textContent = 'Parse Error';
+    }
+
+    function generateManifest() {
+      const v = document.getElementById('in-version').value;
+      const b = parseInt(document.getElementById('in-build').value, 10);
+      const u = document.getElementById('in-url').value;
+      const s = document.getElementById('in-sha').value.trim().toLowerCase();
+      const n = document.getElementById('in-notes').value;
+      const d = new Date().toISOString().split('T')[0];
+
+      const json = {
+        packageName: "com.example.jnr_pdf_studio",
+        versionName: v,
+        versionCode: b,
+        apkUrl: u,
+        sha256: s,
+        publishedAt: d,
+        changelog: n
+      };
+
+      const snippet = '<script id="jnr-release-manifest" type="application/json">\n' + JSON.stringify(json, null, 2) + '\n<\/script>';
+      document.getElementById('code-out').textContent = snippet;
+    }
+  </script>
+</body>
+</html>
